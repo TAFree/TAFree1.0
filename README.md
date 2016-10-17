@@ -1,2 +1,2 @@
 # TAFree1.0
-The first generation of online judge system for NTU CE computer programming course.
+The first generation of online judge system for NTUCE.

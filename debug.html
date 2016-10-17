@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<title>Title</title>
+	<meta charset='utf-8'>
+	<head>
+		<link type='text/css' rel='stylesheet' href='./tafree-css/theme.css'>		
+		<link type='text/css' rel='stylesheet' href='./tafree-css/main.css'>	
+	</head>
+	<body>
+		<div id='HEADER_DIV'>
+			<header></header>
+			<nav></nav>
+		</div>
+		<content>
+		
+		<form>
+            <table id='ASS_TABLE'>
+                <tr>
+                    <th></th>
+                    <th class='TITLE_TD'>Quiz01</th>
+                    <th class='TITLE_TD'>4</th>
+                    <th class='TITLE_TD'>Judge
+                        <select>
+                            <option>Automatic</option>
+                            <option>Manual</option>
+                        </select>&nbsp;&nbsp;
+                        <input type='submit' value='Save >>'>
+                    </th>
+                </tr>
+                <tr>
+                    <td><button id='ADD_BUTTON' class='ASS_BUTTON' type='button'><b>+</b></button></td>
+                    <td class='TITLE_TD'>Class</td>
+                    <td class='TITLE_TD'>File(.java)</td>
+                    <td class='TITLE_TD'>Disription&nbsp;&nbsp;<input type='file'></td>
+                </tr>
+                <tr class='HIDDEN_TR'>
+                    <td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
+                    <td class='CONTENT_TD'><input type='text'></td>
+                    <td class='CONTENT_TD'><input type='file'></td>
+                    <td class='CONTENT_TD'>
+							<select>
+								<option>Blank</option>
+								<option>Fill-in</option>
+								<option>Lock</option>
+								<option>Invisible</option>
+							</select>
+                    </td>
+                </tr>
+               <tr>
+                    <td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
+                    <td class='CONTENT_TD'><input type='text'></td>
+                    <td class='CONTENT_TD'><input type='file'></td>
+                    <td class='CONTENT_TD'>
+							<select>
+								<option>Blank</option>
+								<option>Fill-in</option>
+								<option>Lock</option>
+								<option>Invisible</option>
+							</select>
+                    </td>
+                </tr>
+            </table>
+		</form>
+		
+		</content>
+		<footer></footer>
+		<!-- need a release schedule-->
+		<script src='./tafree-js/ns/tafree.js'></script>
+		<script src='./tafree-js/util/dom.js'></script>
+		<script src='./tafree-js/util/init.js'></script>
+		<script src='./tafree-js/asset/polygon.js'></script>
+		<script src='./tafree-js/page/data.js'></script>
+		<script src='./tafree-js/page/addon.js'></script>
+        <script src='./tafree-js/page/feature.js'></script>
+		<script src='./tafree-js/page/init.js'></script>
+		<script src='./tafree-js/page/hash.js'></script>
+		<script>
+            //TAFree.util.Init.match('debug');
+            TAFree.util.Init.match('ass');
+            console.log(document.scripts);
+            console.log(TAFree);
+		</script>
+
+	</body>
+</html>

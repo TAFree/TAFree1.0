@@ -1,0 +1,125 @@
+#LOGIN_FORM {
+	margin: 150px;
+}
+
+#KEEP_P {
+	margin: 200px;
+}
+
+#ABOUT_TABLE {
+	margin: 150px auto;
+}
+
+.TITLE_TD {
+	background-color: #2186C4;
+	text-align: center;
+}
+
+.CONTENT_TD {
+	background-color: #FFF6E5;
+	text-align: left;
+}
+
+.CIR_TABLE {
+	margin: 50px auto;
+}
+
+.BIG_CIRCLE {
+	cx: 150px;
+	cy: 150px;
+	r: 120px;
+	fill: #FFF6E5;
+}
+
+.WARN_BIG_CIRCLE {
+	cx: 150px;
+	cy: 150px;
+	r: 120px;
+	fill: #FF7F66;
+}
+
+.SMALL_CIRCLE {
+	cx: 150px;
+	cy: 150px;
+	r: 100px;
+	fill: #FFF6E5;
+	stroke-width: 5px;
+	stroke: #2186C4;
+}
+
+.WARN_SMALL_CIRCLE {
+	cx: 150px;
+	cy: 150px;
+	r: 100px;
+	fill: #FF7F66;
+	stroke-width: 5px;
+	stroke: #9C2531;
+}
+
+.CIR_SVG {
+	height: 300px;
+	width: 300px;
+}
+
+.CIR_TEXT:hover {
+	fill: #3F464C;
+}
+
+#FAC_DIV {
+	margin: 150px auto; 
+}
+
+.FAC_A {
+	width:300px;
+    height:40px;
+	background-color: #FFF6E5;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 30px;
+	color: #000000;
+}
+
+.FAC_A:hover {
+	color: #3F464C; 
+}
+
+.WARN_FAC_A {
+	width:300px;
+    height:40px;
+	background-color: #FF7F66;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 30px;
+	color: #000000;
+}
+
+.WARN_FAC_A:hover {
+	color: #3F464C; 
+}
+
+.POLYGON_SVG {
+    height: 500px;
+    width: 500px;
+}
+
+.ASS_BUTTON {
+    border-radius: 50%;
+    background-color: #2186C4;
+    color: #FFF6E5;
+}
+
+#ASS_TABLE {
+    margin: 120px auto;
+}
+
+.HIDDEN_TR {
+    display: none;
+}
+
+.SHOW_TR {
+	
+}
+
+
