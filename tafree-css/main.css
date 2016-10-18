@@ -122,4 +122,91 @@
 	
 }
 
+.ADMIN_BUTTON {
+    border-radius: 50%;
+    background-color: #2186C4;
+    color: #FFF6E5;
+}
+
+#ADMIN_TABLE {
+    margin: 120px auto;
+}
+
+.HIDDEN_PROB {
+    display: none;
+}
+
+.HIDDEN_FAC {
+    display: none;
+}
+
+.ADMIN_SHOW_TR {
+    position: relative;
+}
+
+#FAC_LEAVE_TABLE {
+    margin: 120px auto;
+    width: 1000px;
+    
+}
+
+.REASON {
+	background-color: #FFF6E5;
+	text-align: left;
+    width: 500px;
+    word-break: break-all;
+}
+
+#STU_LEAVE_TABLE {
+    margin: 120px auto;
+    width: 1000px;
+    
+}
+
+#MARK_TABLE {
+    margin: 120px auto;
+    width: 800px;
+}
+
+.CLICKABLE {
+    display: block;
+    background-color: #FFF6E5;
+    color: #000000;
+    text-decoration: none;
+    width: 100px;
+    padding: 3px;
+    border-radius: 4%;
+    border : 0.5px solid #3F464C;
+    margin: 0 auto;
+}
+
+.CLICKABLE:hover {
+    color: #3F464C;
+}
+
+#ADD_DEL_STU_TABLE {
+    margin: 120px auto;
+    width: 800px;
+}
+
+#ALL_TABLE {
+    margin: 120px auto;
+    width: 800px;
+}
+
+.FAC_SCORE_TABLE {
+    margin: 120px auto;
+    width: 800px;
+    table-layout: fixed;
+}
+
+.STU_SCORE_TABLE {
+    margin: 120px auto;
+    width: 800px;
+    table-layout: fixed;
+}
+
+
+
+
 

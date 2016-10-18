@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<title>Title</title>
-	<meta charset='utf-8'>
-	<head>
-		<link type='text/css' rel='stylesheet' href='./tafree-css/theme.css'>		
-		<link type='text/css' rel='stylesheet' href='./tafree-css/main.css'>	
-	</head>
-	<body>
-		<div id='HEADER_DIV'>
-			<header></header>
-			<nav></nav>
-		</div>
-		<content>
+<?php
 		<form>
             <table class='STU_SCORE_TABLE'>
                 <tr>
-                    <th class='TITLE_TD' colspan='4'><p>Lab01</p></P>20% off</p></td>
+                    <th class='TITLE_TD' colspan='4'><p>Lab01</p><p>20% off</p></td>
                 </tr>
                <tr>
                     <td class='TITLE_TD'>Student Name</td>
@@ -33,7 +20,7 @@
             
             <table class='STU_SCORE_TABLE'>
                 <tr>
-                    <th class='TITLE_TD' colspan='5'><p>Lab01</p></P>30% off</p></td>
+                    <th class='TITLE_TD' colspan='5'><p>Lab01</p><p>30% off</p></td>
                 </tr>
                <tr>
                     <td class='TITLE_TD'>Student Name</td>
@@ -52,24 +39,4 @@
             </table>
 		</form>
 
-		</content>
-		<footer></footer>
-		<!-- need a release schedule-->
-		<script src='./tafree-js/ns/tafree.js'></script>
-		<script src='./tafree-js/util/dom.js'></script>
-		<script src='./tafree-js/util/init.js'></script>
-		<script src='./tafree-js/asset/polygon.js'></script>
-		<script src='./tafree-js/page/data.js'></script>
-		<script src='./tafree-js/page/addon.js'></script>
-        <script src='./tafree-js/page/feature.js'></script>
-		<script src='./tafree-js/page/init.js'></script>
-		<script src='./tafree-js/page/hash.js'></script>
-		<script>
-            //TAFree.util.Init.match('debug');
-            TAFree.util.Init.match('stu_score');
-            console.log(document.scripts);
-            console.log(TAFree);
-		</script>
-
-	</body>
-</html>
+?>

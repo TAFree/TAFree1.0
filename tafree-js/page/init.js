@@ -85,11 +85,25 @@ TAFree.page.Init = {
         // Dependencies
         var dom = TAFree.util.Dom,
             feature = TAFree.page.Feature,
-            add_but, zoom_in;
+            add_but;
             
-            // Set add row
-            add_but = dom.getId('ADD_BUTTON');
-            add_but.addEventListener('click', feature.addRow);
+        // Set add row
+        add_but = dom.getId('ADD_BUTTON');
+        add_but.addEventListener('click', feature.addRow);
+            
+    },
+    
+    manSepRow: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            add_prob_but, add_fac_but;
+            
+        // Set add row
+        add_prob_but = dom.getId('ADMIN_PROB_BUTTON');
+        add_prob_but.addEventListener('click', feature.addProbRow);
+        add_fac_but = dom.getId('ADMIN_FAC_BUTTON');
+        add_fac_but.addEventListener('click', feature.addFacRow);
             
     }
     

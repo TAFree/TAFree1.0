@@ -71,7 +71,41 @@ TAFree.page.Hash = (function () {
             	'ass': function () {
                 	// Markup controlled via php
                 	init.manRow();
-            	}
+            	},
+            	
+                'admin': function () {
+                	// Markup controlled via php
+                	init.manSepRow();
+            	},
+                
+                'fac_leave': function () {
+                	// Markup controlled via php
+            	},
+                
+                'stu_leave': function () {
+                	// Markup controlled via php
+            	},
+                
+                'mark': function () {
+                	// Markup controlled via php
+            	},
+                
+                'add_del_stu': function () {
+                	// Markup controlled via php
+                    init.manRow();
+            	},
+                
+                'all': function () {
+                	// Markup controlled via php
+            	},
+                
+                'fac_score': function () {
+                	// Markup controlled via php
+            	},
+                
+                'stu_score': function () {
+                	// Markup controlled via php
+            	},
 	    },
             
 	    getContent = function(arg) {
