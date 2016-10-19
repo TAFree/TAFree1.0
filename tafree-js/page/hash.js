@@ -39,7 +39,7 @@ TAFree.page.Hash = (function () {
                 	addon.warnFac();
             	},
             
-	    	'fac_prob': function () {
+                'fac_prob': function () {
                 	// Markup controlled via php
             	},
             
@@ -106,6 +106,28 @@ TAFree.page.Hash = (function () {
                 'stu_score': function () {
                 	// Markup controlled via php
             	},
+                
+                'fill_in': function () {
+                	// Markup controlled via php
+                    addon.codeLeft();
+                    init.enableZoom();
+                    init.enableFillInAss();
+            	},
+                
+                'stu_prob': function () {
+                	// Markup controlled via php
+                    addon.codeLeft();
+                    init.enableZoom();
+            	},
+
+                'stu_res': function () {
+                	// Markup controlled via php
+            	},
+                
+                'keygen': function () {
+                	// Markup controlled via php
+                }
+                
 	    },
             
 	    getContent = function(arg) {

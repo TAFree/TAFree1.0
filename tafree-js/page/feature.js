@@ -55,6 +55,5 @@ TAFree.page.Feature = {
             };
             table.appendChild(new_row);
 	}
-    
 
 };

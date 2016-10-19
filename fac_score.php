@@ -1,8 +1,8 @@
 <?php		
     <form>
-            <table class='FAC_SCORE_TABLE'>
+            <table id='FAC_SCORE_TABLE'>
                 <tr>
-                    <th class='TITLE_TD' colspan='4'><p>Lab01</p><p>20% off</p><a class='CLICKABLE' href='down_csv.php'>Download&nbsp;CSV</a></td>
+                    <td class='TITLE_TD' colspan='4'><p>Lab01</p><p>20% off</p><a class='CLICKABLE' href='down_csv.php'>Download&nbsp;CSV</a></td>
                 </tr>
                <tr>
                     <td class='TITLE_TD'>Student Name</td>
@@ -38,7 +38,7 @@
             
             <table class='FAC_SCORE_TABLE'>
                 <tr>
-                    <th class='TITLE_TD' colspan='5'><p>Lab01</p><p>30% off</p><a class='CLICKABLE' href='down_csv.php'>Download&nbsp;CSV</a></td>
+                    <td class='TITLE_TD' colspan='5'><p>Lab01</p><p>30% off</p><a class='CLICKABLE' href='down_csv.php'>Download&nbsp;CSV</a></td>
                 </tr>
                <tr>
                     <td class='TITLE_TD'>Student Name</td>

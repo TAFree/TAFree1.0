@@ -136,6 +136,20 @@ TAFree.page.Data = (function () {
                         return polygons[i];
                 }
             }
+        },
+
+	    zoom = {
+	    	
+            in: './tafree-svg/zoom-in.svg',
+            
+	    	'out': './tafree-svg/zoom-out.svg'
+
+	    },
+
+	    getZoom = function(arg) {
+	        if (zoom.hasOwnProperty(arg)) {
+                return zoom[arg];
+            }
         };
 
 	// Reveal public API
@@ -147,7 +161,9 @@ TAFree.page.Data = (function () {
 
 		getFac_leave: getFac_leave,
         
-        getPolygon: getPolygon
+        getPolygon: getPolygon,
+        
+        getZoom: getZoom
 	};
 
 }());

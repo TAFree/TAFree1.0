@@ -3,7 +3,7 @@
             <table id='MARK_TABLE'>
                 <tr>
                     <th class='TITLE_TD'>Problem</th>
-                    <th class='TITLE_TD'><a class='CLICKABLE' href="down_pdf.php">Download PDF</a></th>
+                    <th class='TITLE_TD'><a class='CLICKABLE' href="down_pdf.php">Download PDF</a><a class='CLICKABLE' href="down_zips.php">Download All ZIPs</a></th>
                     <th class='TITLE_TD'>Manual
                         <input type='submit' value='Save >>'>
                     </th>

@@ -5,7 +5,7 @@ TAFree.page.Addon = {
 	warnStu: function () {
 		
 		// Dependencies
-        	var data = TAFree.page.Data,	
+        var data = TAFree.page.Data,	
 		    svg, big_cir, small_cir;
 		
 		svg = data.getStu_leave('ele');
@@ -21,7 +21,7 @@ TAFree.page.Addon = {
 	warnFac: function () {
 		
 		// Dependencies
-        	var data = TAFree.page.Data,	
+        var data = TAFree.page.Data,	
 		    a;
 		
 		a = data.getFac_leave('ele');
@@ -30,7 +30,18 @@ TAFree.page.Addon = {
 			a.setAttribute('class', 'WARN_FAC_A');
 		}
 
-	}
+	},
+    
+    codeLeft: function() {
+        
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            
+            content;
+        
+        content = dom.getTag('content');
+        content.style.textAlign = 'left';
+    }
 
 };
 

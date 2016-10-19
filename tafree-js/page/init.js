@@ -105,6 +105,82 @@ TAFree.page.Init = {
         add_fac_but = dom.getId('ADMIN_FAC_BUTTON');
         add_fac_but.addEventListener('click', feature.addFacRow);
             
+    },
+    
+    enableZoom: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            data = TAFree.page.Data,
+            
+            zooms, zooms_len, i, block, code, j, blocks, blocks_len;
+            
+        zooms = dom.getClass('ZOOM_IMG');
+        zooms_len = zooms.length;
+        for (i = 0; i < zooms_len; i += 1) {
+            zooms[i].src = data.getZoom('in');
+            zooms[i].onclick = function() {
+                block = this.parentNode.parentNode;
+                code = block.children[1];
+                if (this.src.toString().includes('in')) { 
+                    blocks = dom.getClass('BLOCK_DIV');
+                    blocks_len = blocks.length;
+                    for (j = 0; j < blocks_len; j += 1) {
+                        blocks[j].style.display = 'none';
+                    }
+                    block.style.display = 'block';
+                    this.src = data.getZoom('out');
+                    block.style.width='90vw';
+                    block.style.height='90vh';
+                    code.style.fontSize='30px';
+                }
+                else {
+                    blocks = dom.getClass('BLOCK_DIV');
+                    blocks_len = blocks.length;
+                    for (j = 0; j < blocks_len; j += 1) {
+                        blocks[j].style.display = 'block';
+                    }
+                    this.src = data.getZoom('in');
+                    block.style.width='350px';
+                    block.style.height='270px';
+                    code.style.fontSize='16px';
+                }
+            }
+        }
+
+    },
+    
+    enableFillInAss: function (){ 
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            codes, code, i, lines, j, text, br;
+        
+        // Split code and make it pickable for fill-in assignment
+        codes=dom.getClass('CODE_DIV');
+        for (i = 0; i < codes.length; i += 1) {
+            code = codes[i].children[0].innerHTML;
+            codes[i].removeChild(codes[i].children[0]);
+            lines = code.split('\n');
+            for (j = 0; j < lines.length; j += 1) {
+                text = document.createElement('text');
+                text.className = 'PICKABLE';
+                text.innerHTML = lines[j];
+                text.onclick = function (e) {
+                    TAFree.page.Init.cutout(e.srcElement);
+                };
+                codes[i].appendChild(text);
+                br = document.createElement('br');
+                codes[i].appendChild(br);
+            }
+        }
+    },
+
+    cutout: function (tag) { 
+        if (tag.getAttribute('class') == 'PICKABLE') {
+            tag.className='CUTOUT';
+        }
+        else if (tag.getAttribute('class') == 'CUTOUT') {
+            tag.className='PICKABLE';
+        }
     }
     
 };

@@ -1,8 +1,8 @@
 <?php
 		<form>
-            <table class='STU_SCORE_TABLE'>
+            <table id='STU_SCORE_TABLE'>
                 <tr>
-                    <th class='TITLE_TD' colspan='4'><p>Lab01</p><p>20% off</p></td>
+                    <td class='TITLE_TD' colspan='4'><p>Lab01</p></td>
                 </tr>
                <tr>
                     <td class='TITLE_TD'>Student Name</td>
@@ -20,7 +20,7 @@
             
             <table class='STU_SCORE_TABLE'>
                 <tr>
-                    <th class='TITLE_TD' colspan='5'><p>Lab01</p><p>30% off</p></td>
+                    <td class='TITLE_TD' colspan='5'><p>Lab01</p></td>
                 </tr>
                <tr>
                     <td class='TITLE_TD'>Student Name</td>
