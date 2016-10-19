@@ -8,7 +8,7 @@ include_once('ContentFactory.php');
 class Client {
 	
 	// Should be assign	
-	private $page = 'Debug';
+	private $page = 'Login';
 
 	private $contentFactory;
 

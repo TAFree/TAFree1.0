@@ -33,5 +33,8 @@ class About implements Product{
 
 }
 
+$worker = new About();
+echo $worker->getContent();
+
 ?>
 

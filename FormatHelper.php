@@ -20,6 +20,7 @@ class FormatHelper {
 <head>
 <link type='text/css' rel='stylesheet' href='./tafree-css/theme.css'>		
 <link type='text/css' rel='stylesheet' href='./tafree-css/main.css'>		
+<link type='image/x-icon' rel='shortcut icon' href='./tafree-ico/logo.ico'>		
 </head>
 <body>
 <div id='HEADER_DIV'>
@@ -42,6 +43,7 @@ EOF;
 <script src='./tafree-js/asset/polygon.js'></script>
 <script src='./tafree-js/page/data.js'></script>
 <script src='./tafree-js/page/addon.js'></script>
+<script src='./tafree-js/page/feature.js'></script>
 <script src='./tafree-js/page/init.js'></script>
 <script src='./tafree-js/page/hash.js'></script>
 <script>

@@ -8,16 +8,16 @@ TAFree.page.Data = (function () {
 		
 	    frame = { 
 	    	
-	    title: 'Here is title',            
+	    title: 'TAFree Online Judge',            
 
 	    logo: './tafree-svg/logo.svg',
 
-            home: 'www.google.com',
+            home: './Client.php',
 
             urls: {
-                About: 'www.google.com',
-                Hack: 'www.google.com',
-                Login: 'www.google.com',
+                About: './About.php',
+                Hack: './Hack.php',
+                Login: './Client.php',
             },
 		
             copyright: '&copy;2016 TAFree'
