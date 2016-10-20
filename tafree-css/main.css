@@ -8,6 +8,18 @@
 
 #ABOUT_TABLE {
 	margin: 150px auto;
+	table-layout: fixed;
+	width: 800px;
+	word-break: break-all; 
+}
+
+#TAFREE_A {
+	text-decoration: none;
+	color: #000000;
+} 
+
+#TAFREE_A:hover {
+	color: #3F464C;
 }
 
 .TITLE_TD {
@@ -151,8 +163,8 @@
 }
 
 .REASON {
-	background-color: #FFF6E5;
-	text-align: left;
+    background-color: #FFF6E5;
+    text-align: left;
     width: 500px;
     word-break: break-all;
 }

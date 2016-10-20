@@ -7,8 +7,7 @@ class About implements Product{
 	
 	// Should be assign	
 	private $msg = array (
-		'Information' => 'TAFree is an online judge system for NTU CE Computer Programming Course; it is open-source and welcome to keep hacking.<br>
-		<a href=\'http://github.com/TAFree\'>TAFree</a>',
+		'Information' => '<a id=\'TAFREE_A\' href=\'http://github.com/TAFree\'>TAFree</a> is an online judge system for NTU CE Computer Programming Course; it is open-source and welcome to keep hacking.<br>',
 		'Contributors' => '林照傑(edlin851206)，簡翰鈺(weavile182)，周琪雅(v06c)，張如嫻(JoyChal)，吳軒竹(GGJason)，吳育姿(derailment)',
 		'History' => 'TAFree緣起於台大土木系計算機程式課程，由於近年選課學生的增加，使得以往的批改作業方式及繁瑣的管理程序造成課程助教業務量增大，為了消弭人工作業的諸多不便與瑕疵，一個輔助助教的作業批改系統由此誕生。<br><br>
 		104年暑假，周琪雅，簡翰鈺，林照傑，張如嫻，吳軒竹完成前端的互動功能TAFreeUI。<br>
