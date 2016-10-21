@@ -7,7 +7,9 @@ include_once('FormatHelper.php');
 include_once('Product.php');
 include_once('SetRouter.php');
 
-class Login implements Product{	
+class Hack implements Product{
+	
+	private $content = 'Hack me <3 !';	
 
 	private $formatHelper;
 	private $contentProduct;
@@ -16,19 +18,7 @@ class Login implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->contentProduct .=<<<EOF
-<form id='LOGIN_FORM' method='POST' action='./Index.php'>
-Account&nbsp;&nbsp;&nbsp;<input type='text' name='account'><br><br>
-Password&nbsp;&nbsp;<input type='password' name='password'><br><br>
-<select name='person'>
-<option value='student'>Student</option>
-<option value='faculty'>Faculty</option>
-<option value='administer'>Administer</option>
-<option value='tester'>Tester</option>
-</select><br><br>
-<input type='submit' name='submit' value='Login'>
-</form>
-EOF;
+		$this->contentProduct .= '<p id=\'HACK_P\'>' . $this->content . '</p>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		

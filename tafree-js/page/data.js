@@ -12,12 +12,12 @@ TAFree.page.Data = (function () {
 
 	    logo: './tafree-svg/logo.svg',
 
-            home: './Client.php',
+            home: './Login.php',
 
             urls: {
                 About: './About.php',
                 Hack: './Hack.php',
-                Login: './Client.php',
+                Login: './Login.php',
             },
 		
             copyright: '&copy;2016 TAFree'

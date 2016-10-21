@@ -6,8 +6,20 @@
 	margin: 200px;
 }
 
+#HACK_P {
+	margin: 200px;
+}
+
+#SNEAKER_P {
+	margin: 200px;
+}
+
+#WRONG_PERSON_P {
+	margin: 200px;
+}
+
 #ABOUT_TABLE {
-	margin: 150px auto;
+	margin: 80px auto;
 	table-layout: fixed;
 	width: 800px;
 	word-break: break-all; 
@@ -19,6 +31,15 @@
 } 
 
 #TAFREE_A:hover {
+	color: #3F464C;
+}
+
+#LOGIN_AGAIN_A {
+	text-decoration: none;
+	color: #000000;
+} 
+
+#LOGIN_AGAIN_A:hover {
 	color: #3F464C;
 }
 
@@ -135,13 +156,14 @@
 }
 
 .ADMIN_BUTTON {
-    border-radius: 50%;
+    border-radius: 30%;
     background-color: #2186C4;
     color: #FFF6E5;
 }
 
 #ADMIN_TABLE {
-    margin: 120px auto;
+    margin: 0 auto;
+    margin-bottom: 50px;
 }
 
 .HIDDEN_PROB {

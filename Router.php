@@ -1,38 +1,31 @@
+<?php 
 /** 
-* Original work copyright (c) 2013 Bram(us) Van Damme <bramus@bram.us>
-*
-* MIT public license
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is furnished
-* to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE. 
-*
-* Modified work copyright (c) 2016 Wu, Yu-Tzu <abby8050@gmail.com>
-*
-*/
-
-
-
-<?php
-namespace Bramus\Router;
-/**
- * Class Router
- * @package Bramus\Router
+ * Original work copyright (c) 2013 Bram(us) Van Damme <bramus@bram.us>
+ *
+ * MIT public license
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is furnished
+ * to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE. 
+ *
+ * Modified work copyright (c) 2016 Wu, Yu-Tzu <abby8050@gmail.com>
+ *
  */
+
 class Router
 {
     /**
@@ -59,6 +52,14 @@ class Router
      * @var string The Server Base Path for Router Execution
      */
     private $serverBasePath;
+    /**
+     * Constructor
+     *
+     */ 
+    public function __construct() 
+    {	
+        // nothing
+    }
     /**
      * Store a before middleware route and a handling function to be executed when accessed using one of the specified methods
      *
@@ -112,7 +113,7 @@ class Router
      * @param object|callable $fn The handling function to be executed
      */
     public function get($pattern, $fn)
-    {
+    {	
         $this->match('GET', $pattern, $fn);
     }
     /**
@@ -232,7 +233,7 @@ class Router
      * @return bool
      */
     public function run($callback = null)
-    {
+    {   
         // Define which method we need to handle
         $this->requestedMethod = $this->getRequestMethod();
         // Handle all before middlewares
@@ -361,3 +362,5 @@ class Router
         return $this->serverBasePath;
     }
 }
+
+?>
