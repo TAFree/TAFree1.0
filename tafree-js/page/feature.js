@@ -30,7 +30,7 @@ TAFree.page.Feature = {
             table = e.srcElement.parentNode.parentNode.parentNode.parentNode; 
             hid_row = dom.getClassOne('HIDDEN_PROB');
             new_row = hid_row.cloneNode(true);
-            new_row.className = 'SHOW_TR';
+            new_row.className = 'ADMIN_SHOW_TR';
             sub_but = new_row.children[0].children[0];
             sub_but.onclick = function () {
                 this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
@@ -48,7 +48,7 @@ TAFree.page.Feature = {
             table = e.srcElement.parentNode.parentNode.parentNode.parentNode; 
             hid_row = dom.getClassOne('HIDDEN_FAC');
             new_row = hid_row.cloneNode(true);
-            new_row.className = 'ADDMIN_SHOW_TR';
+            new_row.className = 'ADMIN_SHOW_TR';
             sub_but = new_row.children[0].children[0];
             sub_but.onclick = function () {
                 this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);

@@ -13,11 +13,11 @@ class Admin implements Product{
 		$this->contentProduct .= $this->formatHelper->addTop();
 		$this->contentProduct .=<<<EOF
 
-<form method='POST' action='./Initial.php'>
+<form method='POST' action='./Initial.php' enctype='multipart/form-data'>
 <table id='ADMIN_TABLE'>
 <tr>
 <td colspan='2'>
-<input type='submit' value='Save >>'></td><br><br>
+<input name='submit' type='submit' value='Save >>'><br><br>
 </td>
 </tr>
 <tr>
@@ -31,31 +31,35 @@ class Admin implements Product{
 <tr class='HIDDEN_PROB'>
 <td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'>
-<select>
-<option>Lab</option>
-<option>Quiz</option>
-<option>Midterm</option>
-<option>Final</option>
+<select name='item[]'>
+<option value='Lab'>Lab</option>
+<option value='Quiz'>Quiz</option>
+<option value='Midterm'>Midterm</option>
+<option value='Final'>Final</option>
 </select>
 </td>
-<td class='CONTENT_TD'><input type='text'></td>
+<td class='CONTENT_TD'><input name='item_num[]' type='text' value='Only integer'></td>
 </tr>
 <tr>
 <td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'>
-<select>
+<select name='item[]'>
 <option>Lab</option>
 <option>Quiz</option>
 <option>Midterm</option>
 <option>Final</option>
 </select>
 </td>
-<td class='CONTENT_TD'><input type='text'></td>
+<td class='CONTENT_TD'><input name='item_num[]' type='text' value='Only integer'></td>
 </tr>
 </table>
 </td>
 <td>
-Student Account List&nbsp;&nbsp;<input type='file'>
+Student Account List&nbsp;&nbsp;<input name='stu_list' type='file'><br>
+<p style='text-align:left;'>File(.csv) format is like:<br>
+[student name], [student account], [student password]<br>
+[student name], [student account], [student password]
+</p>
 </td>
 <tr>
 <td colspan='2'>
@@ -69,17 +73,17 @@ Student Account List&nbsp;&nbsp;<input type='file'>
 </tr>
 <tr class='HIDDEN_FAC'>
 <td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><input type='password'></td>
-<td class='CONTENT_TD'><input type='text'></td>
+<td class='CONTENT_TD'><input name='fac_name[]' type='text' value=''></td>
+<td class='CONTENT_TD'><input name='fac_acc[]' type='text' value='Only alphabet or number '></td>
+<td class='CONTENT_TD'><input name='fac_pass[]' type='text' value='Only alphabet or number'></td>
+<td class='CONTENT_TD'><input name='fac_email[]' type='text' value='Email with @'></td>
 </tr>
 <tr>
 <td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><input type='password'></td>
-<td class='CONTENT_TD'><input type='text'></td>
+<td class='CONTENT_TD'><input name='fac_name[]' type='text' value=''></td>
+<td class='CONTENT_TD'><input name='fac_acc[]' type='text' value='Only alphabet or number '></td>
+<td class='CONTENT_TD'><input name='fac_pass[]' type='text' value='Only alphabet or number'></td>
+<td class='CONTENT_TD'><input name='fac_email[]' type='text' value='Email with @'></td>
 </tr>
 </table>
 </td>

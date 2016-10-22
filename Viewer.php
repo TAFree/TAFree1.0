@@ -6,9 +6,9 @@ class Viewer {
 	
 	private $contentFactory;
 
-	public function __construct($page) {		
+	public function __construct($page, $para=NULL) {		
 		$this->contentFactory = new ContentFactory();
-		echo $this->contentFactory->doFactory(new $page());
+		echo $this->contentFactory->doFactory(new $page($para));
 	}
 	
 }
