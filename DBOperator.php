@@ -6,6 +6,11 @@ class DBOperator {
 		$context = new Context(new RawDataEntry);
 		$context->algorithm();
 	}		
+
+	public function queryStudent() {
+		$context = new Context(new StudentQuery);
+		$context->algorithm();
+	}
 }
 
 ?>

@@ -8,8 +8,7 @@ class Stu_index implements Product{
 	
 	// Should be assign	
 	private $links = array (
-		'Lab' => 'http://www.google.com',
-		'Exam' => 'http://www.google.com',
+		'Problem' => 'http://www.google.com',
 		'Score' => 'http://www.google.com',
 		'Leave' => 'http://www.google.com'
 	);	

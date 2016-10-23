@@ -7,7 +7,7 @@ interface IConnectInfo {
 	const PW = 'tafreedb';
 	const DBNAME = 'TAFreeDB';
 
-	public function doConnect();
+	public static function doConnect();
 }
 
 ?>

@@ -31,24 +31,14 @@ class Admin implements Product{
 <tr class='HIDDEN_PROB'>
 <td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'>
-<select name='item[]'>
-<option value='Lab'>Lab</option>
-<option value='Quiz'>Quiz</option>
-<option value='Midterm'>Midterm</option>
-<option value='Final'>Final</option>
-</select>
+<input name='item[]' type='text'>
 </td>
 <td class='CONTENT_TD'><input name='item_num[]' type='text' value='Only integer'></td>
 </tr>
 <tr>
 <td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'>
-<select name='item[]'>
-<option>Lab</option>
-<option>Quiz</option>
-<option>Midterm</option>
-<option>Final</option>
-</select>
+<input name='item[]' type='text'>
 </td>
 <td class='CONTENT_TD'><input name='item_num[]' type='text' value='Only integer'></td>
 </tr>

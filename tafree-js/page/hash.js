@@ -43,12 +43,7 @@ TAFree.page.Hash = (function () {
                 	// Markup controlled via php
             	},
             
-            	'stu_lab': function () {
-                	// Markup controlled via php
-                	init.polygon();
-            	},
-            
-            	'stu_exam': function () {
+            	'stu_prob': function () {
                 	// Markup controlled via php
                 	init.polygon();
             	},

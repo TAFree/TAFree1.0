@@ -9,7 +9,7 @@ class UniversalConnect implements IConnectInfo {
 	private static $password = IConnectInfo::PW;
 	private static $conn;
 
-	public function doConnect() {
+	public static function doConnect() {
 		try {
 			self::$conn = new PDO('mysql::host=' . self::$servername . ';dbname=' . self::$dbname, self::$username, self::$password);
 			self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

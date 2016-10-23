@@ -14,6 +14,8 @@ class RawDataEntry implements IStrategy {
 	private $stu_accs = array();
 	private $stu_passs = array();
 	
+	private $hookup;
+	
 	public function algorithm () {
 		
 		if (isset($_POST['submit'])) {
@@ -24,7 +26,14 @@ class RawDataEntry implements IStrategy {
 			// i = 0 is hidden row
 			for ($i = 1; $i < count($items); $i += 1 ) {
 				
-				$this->items[$i - 1] = $items[$i];
+				if (Util::anFilter($items[$i])) {
+					$this->items[$i - 1] = $items[$i];
+				}
+				else {
+					new Viewer ('Msg', $items[$i] .  ' is not only alphabet or number...' . '<br>');
+					exit();
+
+				}
 				
 				if (Util::intFilter($item_nums[$i])) {
 					$this->item_nums[$i - 1] = $item_nums[$i];
@@ -76,8 +85,13 @@ class RawDataEntry implements IStrategy {
 			$tmp_name = $_FILES['stu_list']['tmp_name'];
 			$basename = basename($_FILES['stu_list']['name']);
 			$dir = './tmp';
-			if (move_uploaded_file($tmp_name, $dir . '/' . $basename)){
-				
+			if (!move_uploaded_file($tmp_name, $dir . '/' . $basename)){
+				new Viewer ('Msg', $basename . ' is not uploaded...');
+				fclose($file);
+				unlink($dir . '/' . $basename);
+				exit();
+			}
+			else{
 				$file = fopen($dir . '/' . $basename, 'r');	
 		
 				$i = 0;	
@@ -110,22 +124,188 @@ class RawDataEntry implements IStrategy {
 					
 					$i += 1;
 				}
+				fclose($file);
+				unlink($dir . '/' . $basename);
+				
+				try {
+					$this->hookup = UniversalConnect::doConnect();
+					
+					// Delete tables
+					$this->DeleteTable();
+
+					// Create tables
+					$this->createTable();
+					
+					// Insert tables
+					$this->InsertTable();
+
+					$this->hookup = null;
+				}
+				catch (PDOException $e) {
+					echo 'Error: ' . $e->getMessage() . '<br>';
+				}
+				
 				new Viewer ('Msg', 'Successful initialization !' . '<br>');
-				fclose($file);
-				unlink($dir . '/' . $basename);
-			
-			}
-			else{
-				new Viewer ('Msg', $basename . ' is not uploaded...');
-				fclose($file);
-				unlink($dir . '/' . $basename);
-				exit();
 			}
 
 		}
 		
 	}
+
+	public function createTable () {
+
+		// student, faculty, problem, apply
+		$sql = '';
+		$sql .= 'CREATE TABLE student(
+			student_name VARCHAR(30),
+			student_account VARCHAR(20),
+			student_password VARCHAR(20)	
+		);';	
+		$sql .= 'CREATE TABLE faculty(
+			faculty_name VARCHAR(30),
+			faculty_account VARCHAR(20),
+			faculty_password VARCHAR(20),
+			faculty_email VARCHAR(50)	
+		);';
+		$sql .= 'CREATE TABLE problem(
+			item VARCHAR(50),
+			number TINYINT(20) UNSIGNED DEFAULT 1,
+			showup DATETIME DEFAULT NULL,
+			backup DATETIME DEFAULT NULL	
+		);';
+		$sql .= 'CREATE TABLE apply(
+			timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			student_name VARCHAR(30),
+			student_account VARCHAR(20),
+			reason TEXT(500),
+			expected_deadline DATETIME DEFAULT NULL,
+			allowed_deadline DATETIME DEFAULT NULL,
+			reply VARCHAR(20)
+		);';
+		
+		$stmt = $this->hookup->prepare($sql);
+		$stmt->execute();
+		
+		// closeup
+		$stu_len = count($this->stu_accs);
+		$sql = 'CREATE TABLE closeup(item VARCHAR(50),';
+		for ($i = 0; $i < $stu_len; $i += 1) {
+			$sql .= $this->stu_accs[$i] . ' DATETIME DEFAULT NULL';
+			if ($i < $stu_len - 1) {
+				$sql .= ',';
+			}
+		}
+		$sql .= ');';
+		
+		$stmt = $this->hookup->prepare($sql);
+		$stmt->execute();
+
+		// items					
+		$item_len = count($this->items);
+		for ($i = 0; $i < $item_len; $i += 1) {
+			$sql = 'CREATE TABLE ' . $this->items[$i] . '(
+				subitem TINYINT(20) UNSIGNED DEFAULT 1,
+				description VARCHAR(100),
+				judgescript VARCHAR(100),';
+			for ($j = 0; $j < $stu_len; $j += 1) {
+				$sql .= $this->stu_accs[$j] . ' INT(100) UNSIGNED';
+				if ($j < $stu_len - 1) {
+					$sql .= ',';
+				}
+			}
+			$sql .= ');';
+			$stmt = $this->hookup->prepare($sql);
+			$stmt->execute();
+		}
+		
+		// subitems					
+		$item_nums_len = count($this->item_nums);
+		for ($i = 0; $i < $item_nums_len; $i += 1) {
+			for ($k = 1; $k <= $this->item_nums[$i]; $k += 1) {
+				$sql = 'CREATE TABLE ' . $this->items[$i] . '_' . $k . '(
+					classname VARCHAR(100),
+					original_source TEXT,
+					modified_source TEXT,';
+				for ($j = 0; $j < $stu_len; $j += 1) {
+					$sql .= $this->stu_accs[$j] . ' TEXT';
+					if ($j < $stu_len - 1) {
+						$sql .= ',';
+					}
+				}
+				$sql .= ');';
+				$stmt = $this->hookup->prepare($sql);
+				$stmt->execute();
+			}
+		}
+	}
+
+	public function insertTable () {
+		
+		// student
+		$stmt = $this->hookup->prepare('INSERT INTO student(student_name, student_account, student_password) VALUES(:stu_name, :stu_acc, :stu_pass)');
+		$stmt->bindParam(':stu_name', $stu_name);
+		$stmt->bindParam(':stu_acc', $stu_acc);
+		$stmt->bindParam(':stu_pass', $stu_pass);
+		for ($i = 0; $i < count($this->stu_accs); $i += 1) {
+			$stu_name = $this->stu_names[$i];
+			$stu_acc = $this->stu_accs[$i];
+			$stu_pass = $this->stu_passs[$i];
+			$stmt->execute();
+		}	
+		
+		// faculty
+		$stmt = $this->hookup->prepare('INSERT INTO faculty(faculty_name, faculty_account, faculty_password, faculty_email) VALUES(:fac_name, :fac_acc, :fac_pass, :fac_email)');
+		$stmt->bindParam(':fac_name', $fac_name);
+		$stmt->bindParam(':fac_acc', $fac_acc);
+		$stmt->bindParam(':fac_pass', $fac_pass);
+		$stmt->bindParam(':fac_email', $fac_email);
+		for ($i = 0; $i < count($this->fac_accs); $i += 1) {
+			$fac_name = $this->fac_names[$i];
+			$fac_acc = $this->fac_accs[$i];
+			$fac_pass = $this->fac_passs[$i];
+			$fac_email = $this->fac_emails[$i];
+			$stmt->execute();
+		}	
+		
+		// problem
+		$stmt = $this->hookup->prepare('INSERT INTO problem(item, number) VALUES(:item, :number)');
+		$stmt->bindParam(':item', $item);
+		$stmt->bindParam(':number', $number);
+		for ($i = 0; $i < count($this->items); $i += 1) {
+			$item = $this->items[$i];
+			$number = $this->item_nums[$i];
+			$stmt->execute();
+		}	
+		
+		// closeup
+		$stmt = $this->hookup->prepare('INSERT INTO closeup(item) VALUES(:item)');
+		$stmt->bindParam(':item', $item);
+		for ($i = 0; $i < count($this->items); $i += 1) {
+			$item = $this->items[$i];
+			$stmt->execute();
+		}	
+		
+		// items
+		for ($i = 0; $i < count($this->items); $i += 1) {
+			$stmt = $this->hookup->prepare('INSERT INTO ' . $this->items[$i] . '(subitem) VALUES(:subitem)');
+			$stmt->bindParam(':subitem', $subitem);
+			for ($j = 1; $j <= $this->item_nums[$i]; $j += 1) {
+				$subitem = $j;
+				$stmt->execute();
+			}
+		}	
+	}
+
+	public function deleteTable () {
+		
+		$tables = $this->hookup->query('SHOW TABLES');
+		while($table = $tables->fetch()){
+			$stmt = $this->hookup->prepare('DROP TABLE ' . $table[0]);
+			$stmt->execute();					
 			
+		}
+	}
+	
 }
 
 ?>
