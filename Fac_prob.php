@@ -1,7 +1,11 @@
 <?php
 
+ini_set('display_errors', '1');
+ERROR_REPORTING(E_ALL);
+
 include_once('FormatHelper.php');
 include_once('Product.php');
+include_once('SetRouter.php');
 
 class Fac_prob implements Product{
 	
@@ -30,6 +34,14 @@ class Fac_prob implements Product{
 		return $this->contentProduct;
 	}	 
 
+}
+
+if ($router) {
+	$router->run();
+}
+else {
+	include_once('SetRouter.php');
+	$router->run();
 }
 
 ?>

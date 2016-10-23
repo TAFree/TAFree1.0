@@ -2,7 +2,7 @@
 
 include_once('Util.php');
 
-class StudentQuery implements IStrategy {
+class FacultyQuery implements IStrategy {
 
 	private $account;
 	private $password;
@@ -17,8 +17,8 @@ class StudentQuery implements IStrategy {
 		
 		try {
 			$this->hookup = UniversalConnect::doConnect();
-			$stmt = $this->hookup->query('SELECT student_password FROM student WHERE student_account=\'' . $this->account . '\'');
-			$this->result = $stmt->fetchObject()->student_password;	
+			$stmt = $this->hookup->query('SELECT faculty_password FROM faculty WHERE faculty_account=\'' . $this->account . '\'');
+			$this->result = $stmt->fetchObject()->faculty_password;	
 			$this->hookup = null;
 		}
 		catch (PDOException $e) {
@@ -26,7 +26,8 @@ class StudentQuery implements IStrategy {
 		}
 	
 		if ($this->result === $this->password) {
-			new Viewer('Stu_index');
+
+			new Viewer('Fac_index');
 		}
 		else{
 			new Viewer('WrongPerson');

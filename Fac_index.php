@@ -8,7 +8,7 @@ class Fac_index implements Product{
 	
 	// Should be assign	
 	private $links = array (
-		'Problem' => 'http://www.google.com',
+		'Problem' => './Fac_prob.php',
 		'Student' => 'http://www.google.com',
 		'ShowAll' => 'http://www.google.com'
 	);	
@@ -16,7 +16,7 @@ class Fac_index implements Product{
 	private $formatHelper;
 	private $contentProduct;
 	
-	public function getContent() {
+	public function getContent() { 
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
@@ -24,7 +24,7 @@ class Fac_index implements Product{
 		foreach($this->links as $key => $value) {
 			$this->contentProduct .=<<<EOF
 <td>
-<a href="$value">
+<a href='$value' onclick='this.parantNode.submit()'>
 <svg class='CIR_SVG'>
 <circle class='BIG_CIRCLE'></circle>
 <circle class='SMALL_CIRCLE'></circle>

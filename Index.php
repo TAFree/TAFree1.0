@@ -3,7 +3,6 @@
 ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
-include_once('Util.php');
 include_once('SetRouter.php');
 
 function __autoload($class_name) {

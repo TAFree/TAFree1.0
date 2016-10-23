@@ -37,4 +37,12 @@ $router->match('GET', '/Initial.php', function() {
 	new Viewer('Sneaker');
 });
 
+$router->match('GET', '/Fac_prob.php', function() {
+	new Viewer('Fac_prob');
+});
+/*
+$router->match('GET', '/Fac_prob.php', function() {
+	new Viewer('Sneaker');
+});*/
+
 ?>
