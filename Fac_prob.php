@@ -9,11 +9,10 @@ include_once('SetRouter.php');
 
 class Fac_prob implements Product{
 	
-	// Should be assign	
 	private $links = array (
-		'Assign' => 'http://www.google.com',
-		'Mark' => 'http://www.google.com',
-		'KeyGen' => 'http://www.google.com',
+		'Assign' => './Fac_assign.php',
+		'Mark' => './Fac_mark.php',
+		'KeyGen' => './Fac_keygen.php',
 	);	
 
 	private $formatHelper;

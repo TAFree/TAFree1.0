@@ -45,4 +45,92 @@ $router->match('GET', '/Fac_prob.php', function() {
 	new Viewer('Sneaker');
 });*/
 
+$router->match('GET', '/Fac_stu.php', function() {
+	new Viewer('Fac_stu');
+});
+/*
+$router->match('GET', '/Fac_prob.php', function() {
+	new Viewer('Sneaker');
+});*/
+
+$router->match('GET', '/Fac_leave.php', function() {
+	new Viewer('Fac_leave');
+});
+/*
+$router->match('GET', '/Fac_leave.php', function() {
+	new Viewer('Sneaker');
+});*/
+
+$router->match('GET', '/Fac_all.php', function() {
+	new Viewer('Fac_all');
+});
+/*
+$router->match('GET', '/Fac_all.php', function() {
+	new Viewer('Sneaker');
+});*/
+
+$router->match('GET', '/Fac_add_del_stu.php', function() {
+	new Viewer('Fac_add_del_stu');
+});
+/*
+$router->match('GET', '/Fac_add_del_stu.php', function() {
+	new Viewer('Sneaker');
+});*/
+
+$router->match('GET', '/Fac_mark.php', function() {
+	new Viewer('Fac_mark');
+});
+/*
+$router->match('GET', '/Fac_mark.php', function() {
+	new Viewer('Sneaker');
+}*/
+
+$router->match('GET', '/Fac_assign.php', function() {
+	new Viewer('Fac_assign');
+});
+/*
+$router->match('GET', '/Fac_assign.php', function() {
+	new Viewer('Sneaker');
+}*/
+
+$router->match('GET', '/Fac_keygen.php', function() {
+	new Viewer('Fac_keygen');
+});
+/*
+$router->match('GET', '/Fac_keygen.php', function() {
+	new Viewer('Sneaker');
+}*/
+
+$router->match('GET', '/Fac_score.php', function() {
+	new Viewer('Fac_score');
+});
+/*
+$router->match('GET', '/Fac_score.php', function() {
+	new Viewer('Sneaker');
+}*/
+
+$router->match('GET', '/Stu_score.php', function() {
+	new Viewer('Stu_score');
+});
+/*	
+$router->match('GET', '/Stu_score.php', function() {
+	new Viewer('Sneaker');
+}*/
+
+$router->match('GET', '/Stu_prob.php', function() {
+	new Viewer('Stu_prob');
+});
+/*
+$router->match('GET', '/Stu_prob.php', function() {
+	new Viewer('Sneaker');
+}*/
+
+$router->match('GET', '/Stu_leave.php', function() {
+	new Viewer('Stu_leave');
+});
+/*
+$router->match('GET', '/Stu_leave.php', function() {
+	new Viewer('Sneaker');
+}*/
+
 ?>

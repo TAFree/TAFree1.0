@@ -9,8 +9,8 @@ class Fac_index implements Product{
 	// Should be assign	
 	private $links = array (
 		'Problem' => './Fac_prob.php',
-		'Student' => 'http://www.google.com',
-		'ShowAll' => 'http://www.google.com'
+		'Student' => './Fac_stu.php',
+		'ShowAll' => './Fac_score.php'
 	);	
 
 	private $formatHelper;

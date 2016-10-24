@@ -31,39 +31,22 @@ TAFree.page.Hash = (function () {
             
             	'stu_index': function () {
                 	// Markup controlled via php
-                	addon.warnStu();
             	},
  
             	'fac_stu': function () {
                 	// Markup controlled via php
-                	addon.warnFac();
             	},
             
                 'fac_prob': function () {
                 	// Markup controlled via php
             	},
             
-            	'stu_prob': function () {
+            	'choose': function () {
                 	// Markup controlled via php
                 	init.polygon();
             	},
             
-            	'fac_prob_assign': function () {
-                	// Markup controlled via php
-                	init.polygon();
-            	},
-            
-            	'fac_prob_mark': function () {
-                	// Markup controlled via php
-                	init.polygon();
-            	},
-	    
-            	'fac_prob_keygen': function () {
-                	// Markup controlled via php
-                	init.polygon();
-            	},
-                
-            	'ass': function () {
+            	'fac_assign': function () {
                 	// Markup controlled via php
                 	init.manRow();
             	},
@@ -81,16 +64,16 @@ TAFree.page.Hash = (function () {
                 	// Markup controlled via php
             	},
                 
-                'mark': function () {
+                'fac_mark': function () {
                 	// Markup controlled via php
             	},
                 
-                'add_del_stu': function () {
+                'fac_add_del_stu': function () {
                 	// Markup controlled via php
                     init.manRow();
             	},
                 
-                'all': function () {
+                'fac_all': function () {
                 	// Markup controlled via php
             	},
                 
@@ -119,7 +102,7 @@ TAFree.page.Hash = (function () {
                 	// Markup controlled via php
             	},
                 
-                'keygen': function () {
+                'fac_keygen': function () {
                 	// Markup controlled via php
                 }
                 

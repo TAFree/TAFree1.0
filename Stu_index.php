@@ -8,9 +8,9 @@ class Stu_index implements Product{
 	
 	// Should be assign	
 	private $links = array (
-		'Problem' => 'http://www.google.com',
-		'Score' => 'http://www.google.com',
-		'Leave' => 'http://www.google.com'
+		'Problem' => './Stu_prob.php',
+		'Score' => './Stu_score.php',
+		'Leave' => './Stu_leave.php'
 	);	
 
 	private $formatHelper;

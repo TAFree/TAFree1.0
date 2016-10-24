@@ -1,15 +1,19 @@
 <?php
 
+ini_set('display_errors', '1');
+ERROR_REPORTING(E_ALL);
+
 include_once('FormatHelper.php');
 include_once('Product.php');
+include_once('SetRouter.php');
 
 class Fac_stu implements Product{
 	
 	// Should be assign	
 	private $links = array (
-		'Add/Delete' => 'http://www.apple.com/hk/',
-		'All' => 'http://www.apple.com/hk/',
-		'Leave' => 'http://www.apple.com/hk/'				     
+		'Add/Delete' => 'Fac_add_del_stu.php',
+		'All' => 'Fac_all.php',
+		'Leave' => 'Fac_leave.php'				     
 	);	
 
 	private $formatHelper;
@@ -34,6 +38,14 @@ class Fac_stu implements Product{
 		return $this->contentProduct;
 	}	 
 
+}
+
+if ($router) {
+	$router->run();
+}
+else {
+	include_once('SetRouter.php');
+	$router->run();
 }
 
 ?>
