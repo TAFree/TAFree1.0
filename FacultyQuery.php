@@ -26,7 +26,8 @@ class FacultyQuery implements IStrategy {
 		}
 	
 		if ($this->result === $this->password) {
-
+			session_start();
+			$_SESSION['faculty'] = $this->account;
 			new Viewer('Fac_index');
 		}
 		else{

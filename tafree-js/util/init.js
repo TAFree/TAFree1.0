@@ -12,7 +12,9 @@ TAFree.util.Init = {
                 // Initialize frame
                 init.frame();
                 // Initialize content
-                hash.getContent(identifier)();
+                if (typeof hash.getContent(identifier) === 'function') {
+			hash.getContent(identifier)();
+		}
             };
                     
         if (document.addEventListener) { 

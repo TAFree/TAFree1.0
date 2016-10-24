@@ -5,7 +5,6 @@ include_once('Product.php');
 
 class Keep implements Product{
 	
-	// Should be assign	
 	private $content = 'Keep...';	
 
 	private $formatHelper;

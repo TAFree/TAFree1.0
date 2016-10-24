@@ -1,13 +1,16 @@
 <?php
 
+ini_set('display_errors', '1');
+ERROR_REPORTING(E_ALL);
+
 include_once('FormatHelper.php');
 include_once('Product.php');
+include_once('SetRouter.php');
 
-class Stu_lab implements Product{
+class Usage implements Product{
 	
-	// Should be assign
-	private $ids = array('LAB01', 'FINAL', 'QUIZ01', 'LAB02');
-	
+	private $content = 'This page will include migration, judge script example, etc.';	
+
 	private $formatHelper;
 	private $contentProduct;
 	
@@ -15,11 +18,7 @@ class Stu_lab implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->contentProduct .= '<table><tr>';
-		for ($i = 0; $i < count($this->ids); $i++) {
-			$this->contentProduct .= '<td><svg id=\'' . $this->ids[$i] . '\' class=\'POLYGON_SVG\'></svg></td>';
-		}
-		$this->contentProduct .= '</tr></table>';
+		$this->contentProduct .= '<p id=\'HACK_P\'>' . $this->content . '</p>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
@@ -28,4 +27,13 @@ class Stu_lab implements Product{
 
 }
 
+if (isset($router)) {
+	$router->run();
+}
+else {
+	include_once('SetRouter.php');
+	$router->run();
+}
+
 ?>
+

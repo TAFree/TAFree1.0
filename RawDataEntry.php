@@ -177,6 +177,7 @@ class RawDataEntry implements IStrategy {
 			timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			student_name VARCHAR(30),
 			student_account VARCHAR(20),
+			item VARCHAR(50),
 			reason TEXT(500),
 			expected_deadline DATETIME DEFAULT NULL,
 			allowed_deadline DATETIME DEFAULT NULL,

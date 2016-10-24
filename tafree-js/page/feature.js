@@ -28,7 +28,10 @@ TAFree.page.Feature = {
             table, hid_row, new_row, sub_but;
             
             table = e.srcElement.parentNode.parentNode.parentNode.parentNode; 
-            hid_row = dom.getClassOne('HIDDEN_PROB');
+            if (table.tagName === 'TBODY') {
+		table = table.parentNode;	
+	    }
+	    hid_row = dom.getClassOne('HIDDEN_PROB');
             new_row = hid_row.cloneNode(true);
             new_row.className = 'ADMIN_SHOW_TR';
             sub_but = new_row.children[0].children[0];
@@ -46,7 +49,10 @@ TAFree.page.Feature = {
             table, hid_row, new_row, sub_but;
             
             table = e.srcElement.parentNode.parentNode.parentNode.parentNode; 
-            hid_row = dom.getClassOne('HIDDEN_FAC');
+            if (table.tagName === 'TBODY') {
+		table = table.parentNode;	
+	    }
+	    hid_row = dom.getClassOne('HIDDEN_FAC');
             new_row = hid_row.cloneNode(true);
             new_row.className = 'ADMIN_SHOW_TR';
             sub_but = new_row.children[0].children[0];

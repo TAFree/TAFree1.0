@@ -7,15 +7,17 @@ include_once('FormatHelper.php');
 include_once('Product.php');
 include_once('SetRouter.php');
 
-class Stu_leave implements Product {	
+function __autoload ($class_name) {
+	include_once($class_name . '.php');
+}
 
+class Stu_leave implements Product {	
+	
 	private $formatHelper;
 	private $contentProduct;
-	
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
-		
 		$this->contentProduct .=<<<EOF
 <form>
 <table id='STU_LEAVE_TABLE'>
@@ -40,14 +42,14 @@ class Stu_leave implements Product {
 <td class='CONTENT_TD'>Someone</td>
 <td class='CONTENT_TD'>abcde</td>
 <td class='CONTENT_TD'>Lab01</td>
-<td class='REASON'>SickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSick</td>
+<td class='REASON'>SicickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSickSick</td>
 <td class='CONTENT_TD'>2016/10/10&nbsp;13:00</td>
 <td class='CONTENT_TD'></td>
 <td class='CONTENT_TD'></td>
 </tr>
 <tr>
 <td class='CONTENT_TD'>ABBY</td>
-<td class='CONTENT_TD'>abby8050</td>
+<td class='CONTENT_TD'>{$_SESSION['student']}</td>
 <td class='CONTENT_TD'>
 <select>
 <option>Lab01</option>
@@ -73,6 +75,7 @@ EOF;
 	}	 
 
 }
+
 
 if ($router) {
 	$router->run();

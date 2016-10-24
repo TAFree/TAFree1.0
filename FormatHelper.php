@@ -47,10 +47,7 @@ EOF;
 <script src='./tafree-js/page/init.js'></script>
 <script src='./tafree-js/page/hash.js'></script>
 <script>
-//TAFree.util.Init.match('debug');
 TAFree.util.Init.match('$this->page_identifier');
-console.log(document.scripts);
-console.log(TAFree);
 </script>
 </body>
 </html>

@@ -8,40 +8,8 @@ TAFree.page.Hash = (function () {
 	    addon = TAFree.page.Addon,
 	    
 	    content = { 
-			
-	    	'debug': function (){
-        		// Markup controlled via php
-           	},
-
-            	'login': function (){
-                	// Markup controlled via php
-            	},
-
-            	'about': function (){
-                	// Markup controlled via php
-            	},
             
-            	'keep': function (){
-                	// Markup controlled via php
-            	},
-
-            	'fac_index': function (){
-                	// Markup controlled via php
-            	},
-            
-            	'stu_index': function () {
-                	// Markup controlled via php
-            	},
- 
-            	'fac_stu': function () {
-                	// Markup controlled via php
-            	},
-            
-                'fac_prob': function () {
-                	// Markup controlled via php
-            	},
-            
-            	'choose': function () {
+            	'chooser': function () {
                 	// Markup controlled via php
                 	init.polygon();
             	},
@@ -54,58 +22,26 @@ TAFree.page.Hash = (function () {
                 'admin': function () {
                 	// Markup controlled via php
                 	init.manSepRow();
-            	},
-                
-                'fac_leave': function () {
-                	// Markup controlled via php
-            	},
-                
-                'stu_leave': function () {
-                	// Markup controlled via php
-            	},
-                
-                'fac_mark': function () {
-                	// Markup controlled via php
-            	},
+            	}, 
                 
                 'fac_add_del_stu': function () {
                 	// Markup controlled via php
-                    init.manRow();
-            	},
-                
-                'fac_all': function () {
-                	// Markup controlled via php
-            	},
-                
-                'fac_score': function () {
-                	// Markup controlled via php
-            	},
-                
-                'stu_score': function () {
-                	// Markup controlled via php
+                  	init.manRow();
             	},
                 
                 'fill_in': function () {
-                	// Markup controlled via php
-                    addon.codeLeft();
-                    init.enableZoom();
-                    init.enableFillInAss();
+                    	// Markup controlled via php
+                    	addon.codeLeft();
+                 	init.enableZoom();
+               		init.enableFillInAss();
             	},
                 
                 'stu_prob': function () {
-                	// Markup controlled via php
-                    addon.codeLeft();
-                    init.enableZoom();
-            	},
+                   	 // Markup controlled via php
+                    	addon.codeLeft();
+                    	init.enableZoom();
+            	}
 
-                'stu_res': function () {
-                	// Markup controlled via php
-            	},
-                
-                'fac_keygen': function () {
-                	// Markup controlled via php
-                }
-                
 	    },
             
 	    getContent = function(arg) {

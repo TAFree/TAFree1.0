@@ -26,6 +26,8 @@ class StudentQuery implements IStrategy {
 		}
 	
 		if ($this->result === $this->password) {
+			session_start();
+			$_SESSION['student'] = $this->account;
 			new Viewer('Stu_index');
 		}
 		else{

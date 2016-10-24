@@ -6,10 +6,22 @@ include_once('Viewer.php');
 $router = new Router();
 
 $router->match('GET', '/', function () {
+	session_start();
+	if (isset($_SESSION)) {
+		session_unset();
+		session_destroy();
+		session_start();
+	}
 	new Viewer('Login');
 });
 
 $router->match('GET', '/Login.php', function () {
+	session_start();
+	if (isset($_SESSION)) {
+		session_unset();
+		session_destroy();
+		session_start();
+	}
 	new Viewer('Login');
 });
 
@@ -17,8 +29,8 @@ $router->match('GET', '/About.php', function () {
 	new Viewer('About');
 });
 
-$router->match('GET', '/Hack.php', function () {
-	new Viewer('Hack');
+$router->match('GET', '/Usage.php', function () {
+	new Viewer('Usage');
 });
 
 $router->match('POST', '/Index.php', function() {
@@ -38,99 +50,111 @@ $router->match('GET', '/Initial.php', function() {
 });
 
 $router->match('GET', '/Fac_prob.php', function() {
-	new Viewer('Fac_prob');
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Chooser');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Fac_prob.php', function() {
-	new Viewer('Sneaker');
-});*/
 
 $router->match('GET', '/Fac_stu.php', function() {
-	new Viewer('Fac_stu');
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_stu');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Fac_prob.php', function() {
-	new Viewer('Sneaker');
-});*/
 
 $router->match('GET', '/Fac_leave.php', function() {
-	new Viewer('Fac_leave');
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_leave');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Fac_leave.php', function() {
-	new Viewer('Sneaker');
-});*/
 
 $router->match('GET', '/Fac_all.php', function() {
-	new Viewer('Fac_all');
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_all');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Fac_all.php', function() {
-	new Viewer('Sneaker');
-});*/
 
 $router->match('GET', '/Fac_add_del_stu.php', function() {
-	new Viewer('Fac_add_del_stu');
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_add_del_stu');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Fac_add_del_stu.php', function() {
-	new Viewer('Sneaker');
-});*/
 
 $router->match('GET', '/Fac_mark.php', function() {
-	new Viewer('Fac_mark');
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Chooser');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Fac_mark.php', function() {
-	new Viewer('Sneaker');
-}*/
 
 $router->match('GET', '/Fac_assign.php', function() {
-	new Viewer('Fac_assign');
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Chooser');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Fac_assign.php', function() {
-	new Viewer('Sneaker');
-}*/
 
 $router->match('GET', '/Fac_keygen.php', function() {
-	new Viewer('Fac_keygen');
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Chooser');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Fac_keygen.php', function() {
-	new Viewer('Sneaker');
-}*/
 
 $router->match('GET', '/Fac_score.php', function() {
-	new Viewer('Fac_score');
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_score');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Fac_score.php', function() {
-	new Viewer('Sneaker');
-}*/
 
 $router->match('GET', '/Stu_score.php', function() {
-	new Viewer('Stu_score');
+	session_start();
+	if ($_SESSION['student']) {
+		new Viewer('Stu_score');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*	
-$router->match('GET', '/Stu_score.php', function() {
-	new Viewer('Sneaker');
-}*/
 
 $router->match('GET', '/Stu_prob.php', function() {
-	new Viewer('Stu_prob');
+	session_start();
+	if ($_SESSION['student']) {
+		new Viewer('Chooser');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Stu_prob.php', function() {
-	new Viewer('Sneaker');
-}*/
 
 $router->match('GET', '/Stu_leave.php', function() {
-	new Viewer('Stu_leave');
+	session_start();
+	if ($_SESSION['student']) { 
+		new Viewer('Stu_leave');
+	} else {
+		new Viewer('Sneaker');
+	}
 });
-/*
-$router->match('GET', '/Stu_leave.php', function() {
-	new Viewer('Sneaker');
-}*/
 
 ?>
