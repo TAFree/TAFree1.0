@@ -17,23 +17,23 @@ class FacultyQuery implements IStrategy {
 		
 		try {
 			$this->hookup = UniversalConnect::doConnect();
-			$stmt = $this->hookup->query('SELECT faculty_password FROM faculty WHERE faculty_account=\'' . $this->account . '\'');
-			$this->result = $stmt->fetchObject()->faculty_password;	
+			$stmt = $this->hookup->prepare('SELECT * FROM faculty WHERE faculty_account=? AND faculty_password=?');
+			$stmt->execute(array($this->account, $this->password));
+			$this->result = $stmt->rowCount();
 			$this->hookup = null;
+			if ($this->result === 1) {
+				session_start();
+				$_SESSION['faculty'] = $this->account;
+				new Viewer('Fac_index');
+			}
+			else{
+				new Viewer('WrongPerson');
+			}
 		}
 		catch (PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
-	
-		if ($this->result === $this->password) {
-			session_start();
-			$_SESSION['faculty'] = $this->account;
-			new Viewer('Fac_index');
-		}
-		else{
-			new Viewer('WrongPerson');
-		}
-	
+		
 	}
 
 }

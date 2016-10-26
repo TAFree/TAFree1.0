@@ -12,81 +12,100 @@ function __autoload ($class_name) {
 }
 
 class Fac_leave implements Product {	
-
+	
 	private $formatHelper;
 	private $contentProduct;
-	
+
+	private $hookup;
+
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
-		
 		$this->contentProduct .=<<<EOF
-<form>
+<form method='POST' action='./Ratify.php'>
 <table id='FAC_LEAVE_TABLE'>
 <tr>
+<td colspan='8'>
+<input type='submit' name='submit' value='Ratify >>'>
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<th class='TITLE_TD'>Timestamp</th>
 <th class='TITLE_TD'>Name</th>
 <th class='TITLE_TD'>Account</th>
 <th class='TITLE_TD'>Item</th>
 <th class='TITLE_TD'>Reason</th>
-<th class='TITLE_TD'>Expected Deadline</th>
-<th class='TITLE_TD'>Allowed Deadline</th>
-<th class='TITLE_TD'>Reply<br><input type='submit' value='Send >>'></th>
+<th class='TITLE_TD'>Expected</th>
+<th class='TITLE_TD'>Allowed</th>
+<th class='TITLE_TD'>Reply</th>
 </tr>
-<tr>
-<td class='CONTENT_TD'>Someone</td>
-<td class='CONTENT_TD'>abcde</td>
-<td class='CONTENT_TD'>Lab01</td>
-<td class='REASON'>Sick</td>
-<td class='CONTENT_TD'>2016/10/10&nbsp;13:00</td>
-<td class='CONTENT_TD'>2016/10/10&nbsp;14:00</td>
-<td class='CONTENT_TD'>Approve</td>
-</tr>
-<td class='CONTENT_TD'>Someone</td>
-<td class='CONTENT_TD'>abcde</td>
-<td class='CONTENT_TD'>Lab01</td>
-<td class='REASON'>Sick</td>
-<td class='CONTENT_TD'>2016/10/10&nbsp;13:00</td>
-<td class='CONTENT_TD'>2016/10/10&nbsp;14:00</td>
-<td class='CONTENT_TD'>Approve</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>ABBY</td>
-<td class='CONTENT_TD'>abby8050</td>
-<tdclass='CONTENT_TD'>Lab01</td>
-<td class='REASON'>SickSickSickSickSickSickSickSiickSickSickSickSickSickSickSiickSickSickSickSickSickSickSiickSickSickSickSickSickSickSiickSickSickSickSickSickSickSiickSickSickSickSickSickSickSi</td>
-<td class='CONTENT_TD'>2016/10/10&nbsp;19:00</td>
-<td class='CONTENT_TD'>
-<input type='date'>
-<input type='number' name='hour' min='0' max='23' value='00'>:
-<input type='number' name='minute' min='0' max='59' value='00'>
-</td>
-<td class='CONTENT_TD'>
-<label for='approve'>Approve</label><input type='radio' name='appr' value='approve'><br>
-<label for='deny'>Deny</label><input type='radio' name='appr' value='deny'><br>
-</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>ABBY</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>Lab01</td>
-<td class='REASON'>SickSickSickSickSickSickSickSiickSickSickSickSickSickSickSiickSickSickSickSickSickSickSiickSickSickSickSickSickSickSiickSickSickSickSickSickSickSiickSickSickSickSickSickSickSi</td>
-<td class='CONTENT_TD'>2016/10/10&nbsp;21:00</td>
-<td class='CONTENT_TD'>
-<input type='date'>
-<input type='number' name='hour' min='0' max='23' value='00'>:
-<input type='number' name='minute' min='0' max='59' value='00'>
-</td>
-<td class='CONTENT_TD'>
-<label for='approve'>Approve</label><input type='radio' name='appr' value='approve'><br>
-<label for='deny'>Deny</label><input type='radio' name='appr' value='deny'><br>
-</td>
-</tr>
-</table>
-</form>
 EOF;
-		$this->contentProduct .= $this->formatHelper->closeUp();
+		try {
+			$this->hookup = UniversalConnect::doConnect();
+			$stmt = $this->hookup->prepare('SELECT * FROM apply');
+			$stmt->execute();
+			
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+				if ($row['reply'] !== 'Wait') {
+					$this->contentProduct .= '<tr>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['timestamp'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_name'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_account'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['item'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['reason'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['expected_deadline'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['allowed_deadline'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['reply'] . '</td>';
+					$this->contentProduct .= '</tr>';
+				}
+			} 
+			
+			$stmt = $this->hookup->prepare('SELECT * FROM apply');
+			$stmt->execute();
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+				if ($row['reply'] === 'Wait') {
+					$this->contentProduct .= '<tr>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['timestamp'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_name'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_account'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['item'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['reason'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['expected_deadline'] . '</td>';
+
+					$this->contentProduct .=<<<EOF
+<td class='CONTENT_TD'>
+<input type='date' name='date[]'><br> 
+<input type='number' name='hour[]' min='0' max='23' value='00'>&nbsp;:&nbsp;
+<input type='number' name='minute[]' min='0' max='59' value='00'> 
+</td>
+<td class='CONTENT_TD'>
+<select name='reply[]'>
+<option value='Approve'>Approve</option>
+<option value='Deny'>Deny</option>
+</select></td>
+<td>
+<input type='hidden' name='id[]' value='{$row['id']}'>
+<input type='hidden' name='email[]' value='{$row['student_account']}@ntu.edu.tw'>
+<input type='hidden' name='account[]' value='{$row['student_account']}'>
+<input type='hidden' name='item[]' value='{$row['item']}@nt'>
+</td>
+</tr>
+EOF;
+				}
+			} 
+			
+			$this->contentProduct .= '</table></form>';
+			
+		}
+		catch (PDOException $e) {
+			echo 'Error: ' . $e->getMessage();
+		}
 		
+		$this->contentProduct .= $this->formatHelper->closeUp();
 		return $this->contentProduct;
+	
 	}	 
 
 }

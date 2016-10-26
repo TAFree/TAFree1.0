@@ -159,21 +159,25 @@ class RawDataEntry implements IStrategy {
 		$sql .= 'CREATE TABLE student(
 			student_name VARCHAR(30),
 			student_account VARCHAR(20),
-			student_password VARCHAR(20)	
+			student_password VARCHAR(20),
+			PRIMARY KEY(student_account)	
 		);';	
 		$sql .= 'CREATE TABLE faculty(
 			faculty_name VARCHAR(30),
 			faculty_account VARCHAR(20),
 			faculty_password VARCHAR(20),
-			faculty_email VARCHAR(50)	
+			faculty_email VARCHAR(50),
+			PRIMARY KEY(faculty_account)	
 		);';
 		$sql .= 'CREATE TABLE problem(
 			item VARCHAR(50),
 			number TINYINT(20) UNSIGNED DEFAULT 1,
 			showup DATETIME DEFAULT NULL,
-			backup DATETIME DEFAULT NULL	
+			backup DATETIME DEFAULT NULL,
+			PRIMARY KEY(item)	
 		);';
 		$sql .= 'CREATE TABLE apply(
+			id INT NOT NULL AUTO_INCREMENT,
 			timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			student_name VARCHAR(30),
 			student_account VARCHAR(20),
@@ -181,8 +185,9 @@ class RawDataEntry implements IStrategy {
 			reason TEXT(500),
 			expected_deadline DATETIME DEFAULT NULL,
 			allowed_deadline DATETIME DEFAULT NULL,
-			reply VARCHAR(20)
-		);';
+			reply VARCHAR(20),
+			PRIMARY KEY(id)
+		)';
 		
 		$stmt = $this->hookup->prepare($sql);
 		$stmt->execute();
@@ -299,9 +304,9 @@ class RawDataEntry implements IStrategy {
 
 	public function deleteTable () {
 		
-		$tables = $this->hookup->query('SHOW TABLES');
-		while($table = $tables->fetch()){
-			$stmt = $this->hookup->prepare('DROP TABLE ' . $table[0]);
+		$stmt_table = $this->hookup->query('SHOW TABLES');
+		while($row = $stmt_table->fetch(PDO::FETCH_NUM)){
+			$stmt = $this->hookup->prepare('DROP TABLE ' . $row[0]);
 			$stmt->execute();					
 			
 		}

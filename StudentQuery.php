@@ -17,21 +17,22 @@ class StudentQuery implements IStrategy {
 		
 		try {
 			$this->hookup = UniversalConnect::doConnect();
-			$stmt = $this->hookup->query('SELECT student_password FROM student WHERE student_account=\'' . $this->account . '\'');
-			$this->result = $stmt->fetchObject()->student_password;	
+			$stmt = $this->hookup->prepare('SELECT * FROM student WHERE student_account=? AND student_password=?');
+			$stmt->execute(array($this->account, $this->password));
+			$this->result = $stmt->rowCount();
 			$this->hookup = null;
+			if ($this->result === 1) {
+				session_start();
+				$_SESSION['student_name'] = $stmt->fetch(PDO::FETCH_ASSOC)['student_name'];
+				$_SESSION['student'] = $this->account;
+				new Viewer('Stu_index');
+			}
+			else{
+				new Viewer('WrongPerson');
+			}
 		}
 		catch (PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
-		}
-	
-		if ($this->result === $this->password) {
-			session_start();
-			$_SESSION['student'] = $this->account;
-			new Viewer('Stu_index');
-		}
-		else{
-			new Viewer('WrongPerson');
 		}
 	
 	}

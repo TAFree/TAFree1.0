@@ -16,7 +16,7 @@ class Fac_prob implements Product{
 	private $links = array (
 		'Assign' => './Fac_assign.php',
 		'Mark' => './Fac_mark.php',
-		'KeyGen' => './Fac_keygen.php',
+		'Whitelist' => './Fac_keygen.php',
 	);	
 
 	private $formatHelper;

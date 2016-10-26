@@ -15,6 +15,8 @@ class Fac_all implements Product {
 
 	private $formatHelper;
 	private $contentProduct;
+
+	private $hookup;
 	
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
@@ -24,28 +26,31 @@ class Fac_all implements Product {
 <form>
 <table id='ALL_TABLE'>
 <tr>
-<th class='TITLE_TD'>Student Name</td>
-<th class='TITLE_TD'>Account</td>
-<th class='TITLE_TD'>Password&nbsp;&nbsp;<a class='CLICKABLE' href='down_csv.php'>Download&nbsp;CSV</a></td>
+<th class='TITLE_TD'>Student Name</th>
+<th class='TITLE_TD'>Student Account</th>
+<th class='TITLE_TD'>Student Password</th>
 </tr>
-<tr>
-<td class='CONTENT_TD'><input type='text' value='Abby'></td>
-<td class='CONTENT_TD'><input type='text' value='abby8050'></td>
-<td class='CONTENT_TD'><input type='text' value='123456'></td>
-</tr>
-<tr>
-<td class='CONTENT_TD'><input type='text' value='Abby'></td>
-<td class='CONTENT_TD'><input type='text' value='abby8050'></td>
-<td class='CONTENT_TD'><input type='text' value='123456'></td>
-</tr>
-<tr>
-<td class='CONTENT_TD'><input type='text' value='Abby'></td>
-<td class='CONTENT_TD'><input type='text' value='abby8050'></td>
-<td class='CONTENT_TD'><input type='text' value='123456'></td>
-</tr>
-</table>
-</form>
 EOF;
+		try {
+			$this->hookup = UniversalConnect::doConnect();
+			$stmt = $this->hookup->prepare('SELECT * FROM student');
+			$stmt->execute();
+			while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+				$this->contentProduct .=<<<EOF
+<tr>
+<td class='CONTENT_TD'>{$row['student_name']}</td>
+<td class='CONTENT_TD'>{$row['student_account']}</td>
+<td class='CONTENT_TD'>{$row['student_password']}</td>
+</tr>
+EOF;
+			}
+		}
+		catch (PDOException $e) {
+			echo 'Error: ' . $e->getMessage() . '<br>';
+		}		
+		
+		$this->contentProduct .= '</table></form>';
+
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
 		return $this->contentProduct;

@@ -18,6 +18,8 @@ class Admin implements Product{
 <tr>
 <td colspan='2'>
 <input name='submit' type='submit' value='Save >>'><br><br>
+<br>
+<br>
 </td>
 </tr>
 <tr>
@@ -65,7 +67,7 @@ Student Account List&nbsp;&nbsp;<input name='stu_list' type='file'><br>
 <td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input name='fac_name[]' type='text' value=''></td>
 <td class='CONTENT_TD'><input name='fac_acc[]' type='text' value='Only alphabet or number '></td>
-<td class='CONTENT_TD'><input name='fac_pass[]' type='text' value='Only alphabet or number'></td>
+<td class='CONTENT_TD'><input name='fac_pass[]' type='password' value='Only alphabet or number'></td>
 <td class='CONTENT_TD'><input name='fac_email[]' type='text' value='Email with @'></td>
 </tr>
 <tr>

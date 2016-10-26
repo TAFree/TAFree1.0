@@ -17,16 +17,35 @@ class Login implements Product{
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<form id='LOGIN_FORM' method='POST' action='./Index.php'>
-Account&nbsp;&nbsp;&nbsp;<input type='text' name='account'><br><br>
-Password&nbsp;&nbsp;<input type='password' name='password'><br><br>
+<form method='POST' action='./Index.php'>
+<table id='LOGIN_TABLE'>
+<tr>
+<td>Account</td>
+<td><input type='text' name='account'></td>
+</tr>
+<tr>
+<td>Password</td>
+<td><input type='password' name='password'></td>
+</tr>
+<tr>
+<td colspan='2'>
+<br>
 <select name='person'>
 <option value='student'>Student</option>
 <option value='faculty'>Faculty</option>
 <option value='administer'>Administer</option>
 <option value='tester'>Tester</option>
-</select><br><br>
+</select>
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<td colspan='2'>
 <input type='submit' name='submit' value='Login'>
+</td>
+</tr>
+</table>
 </form>
 EOF;
 

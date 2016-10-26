@@ -49,6 +49,30 @@ $router->match('GET', '/Initial.php', function() {
 	new Viewer('Sneaker');
 });
 
+$router->match('POST', '/Apply.php', function() {
+	new Apply();
+});
+
+$router->match('GET', '/Apply.php', function() {
+	new Viewer('Sneaker');
+});
+
+$router->match('POST', '/Ratify.php', function() {
+	new Ratify();
+});
+
+$router->match('GET', '/Ratify.php', function() {
+	new Viewer('Sneaker');
+});
+
+$router->match('POST', '/NameList.php', function() {
+	new Apply();
+});
+
+$router->match('GET', '/NameList.php', function() {
+	new Viewer('Sneaker');
+});
+
 $router->match('GET', '/Fac_prob.php', function() {
 	session_start();
 	if ($_SESSION['faculty']) {
