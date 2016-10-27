@@ -50,13 +50,12 @@ class LeaveApply implements IStrategy {
 			}
 			
 			// Send email to faculty
-			$command = 'echo \'This is a student leave apply sent from TAFree. Please reply his/her via http://140.112.12.112\' | mail -s \'Student Leave Apply\'';
 			foreach ($this->emails as $email) {
-				 $command .= ' ' . $email;
+				$command = 'echo \'This is a student leave apply sent from TAFree. Please reply him/her via http://140.112.12.112\' | mail -s \'Student Leave Apply\' ' . $email;
+				$handler = popen('at now + 1 minute', 'w');
+				fwrite($handler, $command);
+				fclose($handler);
 			}
-			$handler = popen('at now + 1 minute', 'w');
-			fwrite($handler, $command);
-			fclose($handler);
 			
 			new Viewer ('Msg', 'Already sent an email to faculty !<br>Check \'Reply\' for allowed deadline from faculty.' . '<br>');
 		

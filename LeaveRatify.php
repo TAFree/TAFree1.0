@@ -54,7 +54,7 @@ class LeaveRatify implements IStrategy {
 			
 			// Send email to students
 			foreach ($this->emails as $email) {
-				$command = 'echo \'This is a faculty leave ratification sent from TAFree. Please check your leave apply via http://140.112.12.112\' | mail -s \'Faculty Leave Ratification\'' . $email;
+				$command = 'echo \'This is a student leave ratification sent from TAFree. Please check your leave apply via http://140.112.12.112\' | mail -s \'Faculty Leave Ratification\' ' . $email;
 				$handler = popen('at now + 1 minute', 'w');
 				fwrite($handler, $command);
 				fclose($handler);
