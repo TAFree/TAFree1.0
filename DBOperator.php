@@ -26,6 +26,11 @@ class DBOperator {
 		$context = new Context(new LeaveRatify());
 		$context->algorithm();
 	}
+	
+	public function alter() {
+		$context = new Context(new StudentAlter());
+		$context->algorithm();
+	}
 }
 
 ?>

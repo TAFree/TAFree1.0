@@ -26,7 +26,9 @@ TAFree.page.Hash = (function () {
                 
                 'fac_add_del_stu': function () {
                 	// Markup controlled via php
-                  	init.manRow();
+                  	init.deleteRow();
+			init.manRow();
+			
             	},
                 
                 'fill_in': function () {

@@ -131,13 +131,13 @@ class RawDataEntry implements IStrategy {
 					$this->hookup = UniversalConnect::doConnect();
 					
 					// Delete tables
-					$this->DeleteTable();
+					$this->deleteTable();
 
 					// Create tables
 					$this->createTable();
 					
 					// Insert tables
-					$this->InsertTable();
+					$this->insertTable();
 
 					$this->hookup = null;
 				}

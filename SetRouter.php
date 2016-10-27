@@ -65,11 +65,11 @@ $router->match('GET', '/Ratify.php', function() {
 	new Viewer('Sneaker');
 });
 
-$router->match('POST', '/NameList.php', function() {
-	new Apply();
+$router->match('POST', '/Alter.php', function() {
+	new Alter();
 });
 
-$router->match('GET', '/NameList.php', function() {
+$router->match('GET', '/Alter.php', function() {
 	new Viewer('Sneaker');
 });
 

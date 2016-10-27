@@ -92,6 +92,18 @@ TAFree.page.Init = {
         add_but.addEventListener('click', feature.addRow);
             
     },
+
+    deleteRow: function () {
+	// Dependencies
+	var dom = TAFree.util.Dom,
+	    feature = TAFree.page.Feature,
+	    del_buts, i;
+	// Set delete row
+	del_buts = dom.getClass('SUB_ADD_DEL_BUTTON');
+	for (i = 0; i < del_buts.length; i += 1) {
+		del_buts[i].addEventListener('click', feature.delRow);
+	}
+    },
     
     manSepRow: function () {
         // Dependencies

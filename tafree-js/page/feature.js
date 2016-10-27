@@ -60,6 +60,23 @@ TAFree.page.Feature = {
                 this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
             };
             table.appendChild(new_row);
+	},
+
+	delRow: function (e) {
+		
+		// Dependencies
+        var dom = TAFree.util.Dom,
+			
+            but, tr, hidden;
+	    
+	    but = e.srcElement;
+	    if (but.tagName === 'B') {
+		but = but.parentNode;	
+	    }     
+            tr = but.parentNode.parentNode;
+	    hidden = tr.children[4].children[0];
+	    hidden.setAttribute('name', 'del_account[]');
+	    tr.style.display='none';
 	}
 
 };

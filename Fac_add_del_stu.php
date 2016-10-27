@@ -21,7 +21,7 @@ class Fac_add_del_stu implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<form method='POST' action='./NameList.php'>
+<form method='POST' action='./Alter.php'>
 <table id='ADD_DEL_STU_TABLE'>
 <tr>
 <td colspan='4'>
@@ -44,10 +44,13 @@ EOF;
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 				$this->contentProduct .=<<<EOF
 <tr>
-<td><button onclick='(function(but) {but.parentNode.parentNode.parentNode.removeChild(but.parentNode.parentNode);})(this)' class='ADD_DEL_BUTTON' type='button'><b>-</b></button></td>
+<td>
+<button class='SUB_ADD_DEL_BUTTON' type='button'><b>-</b></button>
+</td>
 <td class='CONTENT_TD'>{$row['student_name']}</td>
 <td class='CONTENT_TD'>{$row['student_account']}</td>
 <td class='CONTENT_TD'>{$row['student_password']}</td>
+<td><input type='hidden' value='{$row['student_account']}'></td>
 </tr>
 EOF;
 			}
@@ -60,9 +63,9 @@ EOF;
 
 <tr class='HIDDEN_TR'>
 <td><button class='ADD_DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' name='name[]'></td>
-<td class='CONTENT_TD'><input type='text' name='account[]'></td>
-<td class='CONTENT_TD'><input type='password' name='password[]'></td>
+<td class='CONTENT_TD'><input type='text' name='add_name[]'></td>
+<td class='CONTENT_TD'><input type='text' name='add_account[]'></td>
+<td class='CONTENT_TD'><input type='password' name='add_password[]'></td>
 </tr>
 </table>
 </form>
