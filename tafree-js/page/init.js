@@ -212,6 +212,21 @@ TAFree.page.Init = {
         else if (tag.getAttribute('class') == 'CUTOUT') {
             tag.className='PICKABLE';
         }
+    },
+
+    jumpItem: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            pre, next, i;
+            
+        // Set previous & next
+        nexts = dom.getClass('NEXT_IMG');
+	pres = dom.getClass('PRE_IMG');
+        for (i = 0; i < pres.length; i += 1) {
+        	pres[i].addEventListener('click', feature.pre);
+        	nexts[i].addEventListener('click', feature.next);
+        }
     }
     
 };

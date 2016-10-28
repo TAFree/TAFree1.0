@@ -32,17 +32,19 @@ class Fac_chooser implements Product {
 			while ($row_item = $stmt_items->fetch(PDO::FETCH_ASSOC)) {
 				// Setup item time	
 				$this->contentProduct .=<<<EOF
-<tr>
+<tr class='ITEM_TR'>
 <td>
-Page will show up at 
+Pages will show up at 
 <input type='date'>
 <input type='number' min='0' max='23' value='00'>&nbsp;:&nbsp;
 <input type='number' min='0' max='59' value='00'>
 <br>
-Page will close up at 
+<br>
+Pages will close up at 
 <input type='date'>
 <input type='number' min='0' max='23' value='00'>&nbsp;:&nbsp;
 <input type='number' min='0' max='59' value='00'>
+<br>
 <br>
 Score will back up at 
 <input type='date'>
@@ -53,7 +55,7 @@ Score will back up at
 <input type='button' value='Setup'>
 </td>
 EOF;
-				$this->contentProduct .= '<td><svg id=\'' . $row_item['item'] . '\' class=\'POLYGON_SVG\'></svg><input class=\'NUMBER_SUBITEM_HIDDEN\' type=\'hidden\' value=\'' . $row_item['number'] . '\'></td></tr>';
+				$this->contentProduct .= '<td><img class=\'PRE_IMG\' height=\'30\' width=\'30\' src=\'./tafree-svg/previous.svg\'><svg id=\'' . $row_item['item'] . '\' class=\'POLYGON_SVG\'></svg><input class=\'NUMBER_SUBITEM_HIDDEN\' type=\'hidden\' value=\'' . $row_item['number'] . '\'><img class=\'NEXT_IMG\' height=\'30\' width=\'30\' src=\'./tafree-svg/next.svg\'></td></tr>';
 			
 				// Load student list
 				$this->contentProduct .= '<tr><td colspan=\'2\'><table class=\'PRESENT_TABLE\'>';
@@ -68,7 +70,7 @@ EOF;
 					$stmt_closeup->execute();
 					$row_time = $stmt_closeup->fetch(PDO::FETCH_ASSOC);
 					$this->contentProduct .= '<td>' . $row_time[$row_stu['student_account']] . '</td>';
-					$this->contentProduct .= '<td><input type=\'checkbox\'></td>';
+					$this->contentProduct .= '<td><input type=\'checkbox\'><img height=\'15\' width=\'15\' src=\'./tafree-svg/unknown.svg\'></td>';
 					$this->contentProduct .= '</tr>';
 				}
 				$this->contentProduct .= '</table></td></tr>';

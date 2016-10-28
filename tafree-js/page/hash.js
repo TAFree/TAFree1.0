@@ -11,6 +11,7 @@ TAFree.page.Hash = (function () {
             
             	'fac_chooser': function () {
 			init.polygon('fac');
+			init.jumpItem();
             	},
             	
 		'stu_chooser': function () {
