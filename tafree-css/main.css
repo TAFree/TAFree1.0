@@ -328,13 +328,16 @@
     table-layout: fixed;
 }
 
-#KEYGEN_FORM {
-    margin: 150px auto;
-    width: 600px;
-    table-layout: fixed;
+.SETUP_TIME_TABLE {
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    width: 1000px;
 }
 
-
+.PRESENT_TABLE {
+    width: 1000px;
+}
 
 
 

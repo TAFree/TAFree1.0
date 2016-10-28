@@ -8,7 +8,7 @@ class Fac_index implements Product{
 	
 	// Should be assign	
 	private $links = array (
-		'Problem' => './Fac_prob.php',
+		'Problem' => './Fac_chooser.php',
 		'Student' => './Fac_stu.php',
 		'ShowAll' => './Fac_score.php'
 	);	

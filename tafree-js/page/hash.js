@@ -9,37 +9,35 @@ TAFree.page.Hash = (function () {
 	    
 	    content = { 
             
-            	'chooser': function () {
-                	// Markup controlled via php
-                	init.polygon();
+            	'fac_chooser': function () {
+			init.polygon('fac');
+            	},
+            	
+		'stu_chooser': function () {
+                	init.polygon('stu');
             	},
             
             	'fac_assign': function () {
-                	// Markup controlled via php
                 	init.manRow();
             	},
             	
                 'admin': function () {
-                	// Markup controlled via php
                 	init.manSepRow();
             	}, 
                 
                 'fac_add_del_stu': function () {
-                	// Markup controlled via php
                   	init.deleteRow();
 			init.manRow();
 			
             	},
                 
                 'fill_in': function () {
-                    	// Markup controlled via php
                     	addon.codeLeft();
                  	init.enableZoom();
                		init.enableFillInAss();
             	},
                 
                 'stu_prob': function () {
-                   	 // Markup controlled via php
                     	addon.codeLeft();
                     	init.enableZoom();
             	}

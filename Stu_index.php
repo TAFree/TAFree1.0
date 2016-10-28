@@ -8,7 +8,7 @@ class Stu_index implements Product{
 	
 	// Should be assign	
 	private $links = array (
-		'Problem' => './Stu_prob.php',
+		'Problem' => './Stu_chooser.php',
 		'Score' => './Stu_score.php',
 		'Leave' => './Stu_leave.php'
 	);	

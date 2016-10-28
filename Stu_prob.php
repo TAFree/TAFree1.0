@@ -20,6 +20,7 @@ class Stu_prob implements Product {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
+		$this->contentProduct .= '<h1>Here is ' . $_GET['item'] . '_' . $_GET['subitem']. '</h1>';
 		$this->contentProduct .=<<<EOF
 <div id='CODE_DIV'>
 <form>

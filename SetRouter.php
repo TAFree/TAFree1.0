@@ -73,10 +73,19 @@ $router->match('GET', '/Alter.php', function() {
 	new Viewer('Sneaker');
 });
 
+$router->match('GET', '/Fac_chooser.php', function() {
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_chooser');
+	} else {
+		new Viewer('Sneaker');
+	}
+});
+
 $router->match('GET', '/Fac_prob.php', function() {
 	session_start();
 	if ($_SESSION['faculty']) {
-		new Viewer('Chooser');
+		new Viewer('Fac_prob');
 	} else {
 		new Viewer('Sneaker');
 	}
@@ -121,7 +130,7 @@ $router->match('GET', '/Fac_add_del_stu.php', function() {
 $router->match('GET', '/Fac_mark.php', function() {
 	session_start();
 	if ($_SESSION['faculty']) {
-		new Viewer('Chooser');
+		new Viewer('Fac_mark');
 	} else {
 		new Viewer('Sneaker');
 	}
@@ -130,16 +139,7 @@ $router->match('GET', '/Fac_mark.php', function() {
 $router->match('GET', '/Fac_assign.php', function() {
 	session_start();
 	if ($_SESSION['faculty']) {
-		new Viewer('Chooser');
-	} else {
-		new Viewer('Sneaker');
-	}
-});
-
-$router->match('GET', '/Fac_keygen.php', function() {
-	session_start();
-	if ($_SESSION['faculty']) {
-		new Viewer('Chooser');
+		new Viewer('Fac_assign');
 	} else {
 		new Viewer('Sneaker');
 	}
@@ -163,10 +163,19 @@ $router->match('GET', '/Stu_score.php', function() {
 	}
 });
 
+$router->match('GET', '/Stu_chooser.php', function() {
+	session_start();
+	if ($_SESSION['student']) {
+		new Viewer('Stu_chooser');
+	} else {
+		new Viewer('Sneaker');
+	}
+});
+
 $router->match('GET', '/Stu_prob.php', function() {
 	session_start();
 	if ($_SESSION['student']) {
-		new Viewer('Chooser');
+		new Viewer('Stu_prob');
 	} else {
 		new Viewer('Sneaker');
 	}
