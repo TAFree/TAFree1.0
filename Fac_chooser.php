@@ -68,7 +68,7 @@ EOF;
 					$stmt_closeup->execute();
 					$row_time = $stmt_closeup->fetch(PDO::FETCH_ASSOC);
 					$this->contentProduct .= '<td>' . $row_time[$row_stu['student_account']] . '</td>';
-					$this->contentProduct .= '<td><input type=\'checkbox\'>Here!</td>';
+					$this->contentProduct .= '<td><input type=\'checkbox\'></td>';
 					$this->contentProduct .= '</tr>';
 				}
 				$this->contentProduct .= '</table></td></tr>';
