@@ -49,6 +49,22 @@ $router->match('GET', '/Initial.php', function() {
 	new Viewer('Sneaker');
 });
 
+$router->match('POST', '/Setup.php', function() {
+	new Setup();
+});
+
+$router->match('GET', '/Setup.php', function() {
+	new Viewer('Sneaker');
+});
+
+$router->match('POST', '/Present.php', function() {
+	new Present();
+});
+
+$router->match('GET', '/Present.php', function() {
+	new Viewer('Sneaker');
+});
+
 $router->match('POST', '/Apply.php', function() {
 	new Apply();
 });

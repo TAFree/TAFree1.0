@@ -22,8 +22,7 @@ class Fac_chooser implements Product {
 		
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
-				
-		$this->contentProduct .= '<table class=\'SETUP_TIME_TABLE\'>';
+		$this->contentProduct .= '<table id=\'FAC_CHOOSER_TABLE\'>';
 		try {
 			// Load items
 			$this->hookup = UniversalConnect::doConnect();
@@ -52,7 +51,7 @@ Score will back up at
 <input type='number' min='0' max='59' value='00'>
 <br>
 <br>
-<input type='button' value='Setup'>
+<input type='button' class='SETUP_BUTTON' value='Setup'>
 </td>
 EOF;
 				$this->contentProduct .= '<td><img class=\'PRE_IMG\' height=\'30\' width=\'30\' src=\'./tafree-svg/previous.svg\'><svg id=\'' . $row_item['item'] . '\' class=\'POLYGON_SVG\'></svg><input class=\'NUMBER_SUBITEM_HIDDEN\' type=\'hidden\' value=\'' . $row_item['number'] . '\'><img class=\'NEXT_IMG\' height=\'30\' width=\'30\' src=\'./tafree-svg/next.svg\'></td></tr>';
@@ -70,7 +69,11 @@ EOF;
 					$stmt_closeup->execute();
 					$row_time = $stmt_closeup->fetch(PDO::FETCH_ASSOC);
 					$this->contentProduct .= '<td>' . $row_time[$row_stu['student_account']] . '</td>';
-					$this->contentProduct .= '<td><input type=\'checkbox\'><img height=\'15\' width=\'15\' src=\'./tafree-svg/unknown.svg\'></td>';
+					if ($row_time[$row_stu['student_account']] === NULL) {
+						$this->contentProduct .= '<td><input type=\'checkbox\' class=\'HERE_CHECKBOX\'><img src=\'./tafree-svg/unknown.svg\' height=\'15\' width=\'15\'></td>';
+					}else{
+						$this->contentProduct .= '<td><input type=\'checkbox\' class=\'HERE_CHECKBOX\' checked=\'true\'><img src=\'./tafree-svg/right.svg\' height=\'15\' width=\'15\'></td>';
+					}
 					$this->contentProduct .= '</tr>';
 				}
 				$this->contentProduct .= '</table></td></tr>';

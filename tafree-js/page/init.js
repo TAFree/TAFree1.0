@@ -214,7 +214,7 @@ TAFree.page.Init = {
         }
     },
 
-    jumpItem: function () {
+    jumpThree: function () {
         // Dependencies
         var dom = TAFree.util.Dom,
             feature = TAFree.page.Feature,
@@ -227,7 +227,50 @@ TAFree.page.Init = {
         	pres[i].addEventListener('click', feature.pre);
         	nexts[i].addEventListener('click', feature.next);
         }
+    },
+
+    jumpItem: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            pre, next, i;
+            
+        // Set previous & next
+        nexts = dom.getClass('NEXT_IMG');
+	pres = dom.getClass('PRE_IMG');
+        for (i = 0; i < pres.length; i += 1) {
+        	pres[i].addEventListener('click', feature.preI);
+        	nexts[i].addEventListener('click', feature.nextI);
+        }
+    },
+
+    setup: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            buts, i;
+            
+        // Set previous & next
+        buts = dom.getClass('SETUP_BUTTON');
+
+        for (i = 0; i < buts.length; i += 1) {
+		buts[i].addEventListener('click', feature.setup);
+        }
+    },
+
+    here: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            boxs, i;
+            
+        // Set previous & next
+        boxs = dom.getClass('HERE_CHECKBOX');
+
+        for (i = 0; i < boxs.length; i += 1) {
+		boxs[i].addEventListener('click', feature.here);
+        }
     }
-    
+
 };
 

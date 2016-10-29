@@ -89,7 +89,7 @@ EOF;
 <input type='hidden' name='id[]' value='{$row['id']}'>
 <input type='hidden' name='email[]' value='{$row['student_account']}@ntu.edu.tw'>
 <input type='hidden' name='account[]' value='{$row['student_account']}'>
-<input type='hidden' name='item[]' value='{$row['item']}@nt'>
+<input type='hidden' name='item[]' value='{$row['item']}'>
 </td>
 </tr>
 EOF;

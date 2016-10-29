@@ -11,11 +11,14 @@ TAFree.page.Hash = (function () {
             
             	'fac_chooser': function () {
 			init.polygon('fac');
-			init.jumpItem();
+			init.jumpThree();
+			init.setup();
+			init.here();
             	},
             	
 		'stu_chooser': function () {
                 	init.polygon('stu');
+			init.jumpItem();
             	},
             
             	'fac_assign': function () {

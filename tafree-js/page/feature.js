@@ -84,7 +84,7 @@ TAFree.page.Feature = {
 		// Dependencies
         var dom = TAFree.util.Dom,
 			
-            but, table, len, item, i, top_tr, bot_tr, svg;
+            but, table, len, item, i, top_tr, bot_tr;
 	    
 	    but = e.srcElement;
 	    item = but.parentNode.children[1].id;
@@ -124,7 +124,7 @@ TAFree.page.Feature = {
 		// Dependencies
         var dom = TAFree.util.Dom,
 			
-            but, table, len, item, i, top_tr, bot_tr, svg;
+            but, table, len, item, i, top_tr, bot_tr;
 	    
 	    but = e.srcElement;
 	    item = but.parentNode.children[1].id;
@@ -157,6 +157,173 @@ TAFree.page.Feature = {
 		}
 	    }
 	    
-	}
+	},
 
+	preI: function (e) {
+		
+		// Dependencies
+        var dom = TAFree.util.Dom,
+			
+            but, table, len, item, i, tr;
+	    
+	    but = e.srcElement;
+	    item = but.parentNode.children[1].id;
+	    table = but.parentNode.parentNode.parentNode;
+	    len = table.children.length;
+	    // Disappear all
+	    for (i = 0; i < len; i += 1) {
+	        tr = table.children[i];
+		tr.style.display = 'none';
+	    }
+	   // Show only one 
+	   for (i = 0; i < len; i += 1) {
+	        tr = table.children[i];
+		if (tr.children[0].children[1].id === item) {
+			if (i > 0) {
+				table.children[i - 1].style.display = 'block';
+				break;
+			}
+			else {
+				i = len;
+				table.children[i - 1].style.display = 'block';
+				break;
+			}
+		}
+	    }
+	    
+	},
+
+	nextI: function (e) {
+		
+		// Dependencies
+        var dom = TAFree.util.Dom,
+			
+            but, table, len, item, i, tr;
+	    
+	    but = e.srcElement;
+	    item = but.parentNode.children[1].id;
+	    table = but.parentNode.parentNode.parentNode;
+	    len = table.children.length;
+	    // Disappear all
+	    for (i = 0; i < len; i += 1) {
+	        tr = table.children[i];
+		tr.style.display = 'none';
+	    }
+	   // Show only one 
+	   for (i = 0; i < len; i += 1) {
+	        tr = table.children[i];
+		if (tr.children[0].children[1].id === item) {
+			if (i < len - 1) {
+				table.children[i + 1].style.display = 'block';
+				break;
+			}
+			else {
+				i = 0;
+				table.children[i].style.display = 'block';
+				break;
+			}
+		}
+	    }
+	    
+	},
+
+	setup: function (e) {
+		// Dependencies
+        var dom = TAFree.util.Dom,
+			
+            but, td, showup, closeup, backup, item, xhr, i, pres_table, pres_len, pres_tr, closeup_td, present_checkbox, present_img;
+            
+            but = e.srcElement;
+	    td = but.parentNode;
+	    
+	    // Get times
+	    showup = td.children[0].value + ' ' + td.children[1].value + ':' + td.children[2].value + ':' + '59';
+	    closeup = td.children[5].value + ' ' + td.children[6].value + ':' + td.children[7].value + ':' + '59';
+	    backup = td.children[10].value + ' ' + td.children[11].value + ':' + td.children[12].value + ':' + '59';
+
+	    // Get item
+	    item = td.nextSibling.children[1].id;
+
+	    // Check empty time field
+	    if (!showup.includes('-') || !closeup.includes('-') || !backup.includes('-')) {
+		confirm('Forgot to choose date...');
+		return;
+	    }
+	    
+            // Send showup & backup time to server 
+	    xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function () {
+		// Show faked closeup time in page when server response is ready
+		if (this.readyState === 4 && this.status === 200) {
+			pres_table = td.parentNode.nextSibling.children[0].children[0];
+			pres_len = pres_table.children[0].children.length;
+			// First row is th
+			for (i = 1; i < pres_len; i += 1) {
+				pres_tr = pres_table.children[0].children[i];
+				closeup_td = pres_tr.children[2];
+				present_checkbox = closeup_td.nextSibling.children[0];
+				present_img = present_checkbox.nextSibling;
+				if (closeup_td.innerHTML === '') {
+					closeup_td.innerHTML = closeup;
+					present_checkbox.checked = false;
+					present_img.src='./tafree-svg/unknown.svg';
+				}
+			}
+		}
+	    }	
+	    xhr.open('POST', 'Setup.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send('showup=' + showup + '&backup=' + backup + '&item=' + item);
+	},
+
+	here: function (e) {
+		// Dependencies
+        var dom = TAFree.util.Dom,
+			
+            box, td, top_tr, closeup, account, item;
+            
+            box = e.srcElement;
+	    td = box.parentNode;
+		
+            // Get account
+	    account = td.previousSibling.previousSibling.innerHTML;
+	    // Get item
+	    top_tr = td.parentNode.parentNode.parentNode.parentNode.parentNode.previousSibling;
+	    item = top_tr.children[1].children[1].id;
+
+	   		
+	    if(box.checked === true) {
+		// Get closeup time
+		closeup = td.previousSibling.innerHTML;
+	  	// Check empty time field
+		if(closeup === '') {
+			confirm('Should do setup first...');
+			box.checked = false;
+			return;
+		}
+		// Send someone's closeup time to server 
+		xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+		    // Show checked image in page when server response is ready
+		    td.children[1].src = './tafree-svg/right.svg';   
+		}
+		xhr.open('POST', 'Present.php', true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.send('closeup=' + closeup + '&account=' + account + '&item=' + item);  
+            }	
+	    else {
+		// Unset closeup time
+		closeup = null;
+		
+		// Send someone's closeup time to server 
+		xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+		    // Show checked image in page when server response is ready
+		    td.children[1].src = './tafree-svg/unknown.svg';   
+		}
+		xhr.open('POST', 'Present.php', true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.send('closeup=' + closeup + '&account=' + account + '&item=' + item);  
+	    }
+	}
 };

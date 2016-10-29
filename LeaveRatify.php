@@ -17,6 +17,11 @@ class LeaveRatify implements IStrategy {
 		
 		if (isset($_POST['submit'])) {
 	
+			if (!isset($_POST['id'])) {
+				new Viewer ('Msg', 'There is no newer ratification...' . '<br>');
+				exit();
+			}
+			
 			// Get leave ratify parameters
 			$this->ids = $_POST['id'];
 			$allowed_dates = $_POST['date'];

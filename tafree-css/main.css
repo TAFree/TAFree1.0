@@ -328,7 +328,7 @@
     table-layout: fixed;
 }
 
-.SETUP_TIME_TABLE {
+#FAC_CHOOSER_TABLE {
     margin: auto;
     margin-top: 30px;
     margin-bottom: 50px;
@@ -339,7 +339,9 @@
     margin-top: 50px;
 }
 
-
+#STU_CHOOSER_TABLE {
+    margin: 50px auto;
+}
 
 
 
