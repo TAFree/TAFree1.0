@@ -29,8 +29,8 @@ $router->match('GET', '/About.php', function () {
 	new Viewer('About');
 });
 
-$router->match('GET', '/Usage.php', function () {
-	new Viewer('Usage');
+$router->match('GET', '/Instruction.php', function () {
+	new Viewer('Instruction');
 });
 
 $router->match('POST', '/Index.php', function() {

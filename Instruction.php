@@ -7,9 +7,9 @@ include_once('FormatHelper.php');
 include_once('Product.php');
 include_once('SetRouter.php');
 
-class Usage implements Product{
+class Instruction implements Product{
 	
-	private $content = 'This page will include migration, judge script example, etc.';	
+	private $content = file_get_contents('./tafree-doc/instruction');	
 
 	private $formatHelper;
 	private $contentProduct;
@@ -18,7 +18,7 @@ class Usage implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->contentProduct .= '<p id=\'HACK_P\'>' . $this->content . '</p>';
+		$this->contentProduct .= '<p id=\'INSTRUCTION_P\'>' . $this->content . '</p>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
