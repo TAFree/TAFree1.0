@@ -9,7 +9,7 @@ TAFree.page.Addon = {
             
             content;
         
-        content = dom.getTag('content');
+	content = dom.getTag('content');
         content.style.textAlign = 'left';
     }
 

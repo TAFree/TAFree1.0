@@ -44,7 +44,11 @@ TAFree.page.Hash = (function () {
                 'stu_prob': function () {
                     	addon.codeLeft();
                     	init.enableZoom();
-            	}
+            	},
+		
+		'instruction': function () {	
+                        addon.codeLeft();
+		}
 
 	    },
             

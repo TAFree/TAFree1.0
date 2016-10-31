@@ -9,7 +9,7 @@ include_once('SetRouter.php');
 
 class Instruction implements Product{
 	
-	private $content = file_get_contents('./tafree-doc/instruction');	
+	private $content; 
 
 	private $formatHelper;
 	private $contentProduct;
@@ -18,7 +18,8 @@ class Instruction implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->contentProduct .= '<p id=\'INSTRUCTION_P\'>' . $this->content . '</p>';
+		$this->content = file_get_contents('tafree-doc/instruction');	
+		$this->contentProduct .= '<div class=\'INSTRUCTION_DIV\'>' . $this->content . '</div>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
