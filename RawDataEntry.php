@@ -87,8 +87,6 @@ class RawDataEntry implements IStrategy {
 			$dir = './tmp';
 			if (!move_uploaded_file($tmp_name, $dir . '/' . $basename)){
 				new Viewer ('Msg', $basename . ' is not uploaded...');
-				fclose($file);
-				unlink($dir . '/' . $basename);
 				exit();
 			}
 			else{
