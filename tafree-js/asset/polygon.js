@@ -21,12 +21,13 @@ TAFree.asset.Polygon = {
         circle.setAttribute('stroke-width', 2);
         circle.setAttribute('stroke', '#000000');        
         circle.style.fill = '#2186C4';
-        
+       
         // Parse link hash table
-        if (typeof obj.getPolygon !== 'undefined') { // Single problem
+	if (typeof obj.getPolygon !== 'undefined') { // Single problem
             
             circle.setAttribute('r', r);
-            circle.onmouseover = function() {
+        
+	    circle.onmouseover = function() {
                 this.style.fill = '#FFF6E5';
             }
             circle.onmouseout = function() {
@@ -229,7 +230,7 @@ TAFree.asset.Polygon = {
         link1.appendChild(rect1);
         link1.appendChild(text1);
         link2 = document.createElementNS(svg_ns, 'a');
-        link2.setAttributeNS(xlink_ns, 'xlink:href', urls[0]);
+        link2.setAttributeNS(xlink_ns, 'xlink:href', urls[1]);
         link2.appendChild(rect2);
         link2.appendChild(text2);
         

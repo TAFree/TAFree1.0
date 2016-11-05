@@ -82,11 +82,11 @@ TAFree.page.Init = {
 		poly_data.urls.push('./' + who + '_prob.php?item=' + svgs[i].id + '&subitem=' + k);
 	    }
             
-            if (nums[i].value === 1) { // Single problem
-                poly = new polygon.Circle(poly_data);
+	    if (nums[i].value === '1') { // Single problem
+		poly = new polygon.Circle(poly_data);
                 svgs[i].appendChild(poly);
             }
-            else if (nums[i].value === 2){ // Two problem
+            else if (nums[i].value === '2'){ // Two problem
                 poly = new polygon.Rectangle(poly_data);
                 svgs[i].appendChild(poly);
             }

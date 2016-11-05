@@ -23,7 +23,7 @@
 }
 
 #ABOUT_TABLE {
-	margin: 80px auto;
+	margin: 30px auto;
 	table-layout: fixed;
 	width: 800px;
 	word-break: break-all; 
@@ -160,7 +160,7 @@
 }
 
 #ASS_TABLE {
-    margin: 120px auto;
+    margin: 30px auto;
 }
 
 .HIDDEN_TR {

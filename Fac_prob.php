@@ -28,7 +28,7 @@ class Fac_prob implements Product{
 		$this->contentProduct .= '<div id=\'FAC_DIV\'>';
 		$this->contentProduct .= '<h1>Here is ' . $_GET['item'] . '_' . $_GET['subitem'] . '</h1>';	
 		foreach ($this->links as $key => $value) {
-			$this->contentProduct .= '<a class=\'FAC_A\' href=\'' . $value . '\'>' . $key . '</a><br><br>';
+			$this->contentProduct .= '<a class=\'FAC_A\' href=\'' . $value . '?item=' . $_GET['item'] . '&subitem=' . $_GET['subitem'] . '\'>' . $key . '</a><br><br>';
 		}
 		$this->contentProduct .= '</div>';
 

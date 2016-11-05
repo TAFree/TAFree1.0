@@ -22,55 +22,52 @@ class Fac_assign implements Product {
 		
 		$this->contentProduct .=<<<EOF
 
-<form>
+<form method='POST' action='./Assign.php' >
 <table id='ASS_TABLE'>
 <tr>
-<th></th>
-<th class='TITLE_TD'>Quiz01</th>
-<th class='TITLE_TD'>4&nbsp;&nbsp;&nbsp;<input type='file'></th>
-<th class='TITLE_TD'>Judge
-<select>
-<option>Automatic</option>
-<option>Manual</option>
-</select>&nbsp;&nbsp;
+<td colspan='4'>
 <input type='submit' value='Save >>'>
-</th>
+<br>
+<br>
+</td>
+</tr>
+<tr>
+<th></th>
+<th class='TITLE_TD'>{$_GET['item']}_{$_GET['subitem']}</th>
+<th class='TITLE_TD'>Problem Description<br><input type='file'></th>
+<th class='TITLE_TD'>Judge Script<br><input type='file'></th>
 </tr>
 <tr>
 <td><button id='ADD_BUTTON' class='ASS_BUTTON' type='button'><b>+</b></button></td>
-<td class='TITLE_TD'>Class</td>
-<td class='TITLE_TD'>Solution(.java)</td>
-<td class='TITLE_TD'>Input(.java)</td>
+<td class='TITLE_TD'>Solution (.java, .cpp, .py)</td>
+<td class='TITLE_TD'>Pattern</td>
+<td class='TITLE_TD'>Others (Not necessary)</td>
 </tr>
 <tr class='HIDDEN_TR'>
 <td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
+<td class='CONTENT_TD'><input type='file'></td>
 <td class='CONTENT_TD'>
-<input type='file'>
 <select>
-<option>Blank</option>
-<option>Fill-in</option>
-<option>Lock</option>
-<option>Invisible</option>
+<option value='blank'>Blank</option>
+<option value='fill_in'>Fill-in</option>
+<option value='lock'>Lock</option>
+<option value='invisible'>Invisible</option>
 </select>
 </td>
-<td class='CONTENT_TD'>
-</td>
+<td class='CONTENT_TD'><input type='file'></td>
+</tr>
 <tr>
 <td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
+<td class='CONTENT_TD'><input type='file'></td>
 <td class='CONTENT_TD'>
-<input type='file'>
 <select>
-<option>Blank</option>
-<option>Fill-in</option>
-<option>Lock</option>
-<option>Invisible</option>
+<option value='blank'>Blank</option>
+<option value='fill_in'>Fill-in</option>
+<option value='lock'>Lock</option>
+<option value='invisible'>Invisible</option>
 </select>
 </td>
-<td class='CONTENT_TD'>
-<input type='file'>
-</td>
+<td class='CONTENT_TD'><input type='file'></td>
 </tr>
 </table>
 </form>
