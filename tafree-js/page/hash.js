@@ -48,6 +48,10 @@ TAFree.page.Hash = (function () {
 		
 		'instruction': function () {	
                         addon.codeLeft();
+		},
+
+		'language': function () {	
+                        addon.codeLeft();
 		}
 
 	    },

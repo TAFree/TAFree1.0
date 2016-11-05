@@ -19,7 +19,7 @@ class Language implements Product{
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->content = file_get_contents('tafree-doc/language');	
-		$this->contentProduct .= '<div class=\'INSTRUCTION_DIV\'>' . $this->content . '</div>';
+		$this->contentProduct .= '<div class=\'DOC_DIV\'>' . $this->content . '</div>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		

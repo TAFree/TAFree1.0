@@ -1,7 +1,3 @@
-<html>
-<head></head>
-<body>
-
 <h1>TAFree有支援的程式語言</h1>
 <p>TAFree可以作為批改任何程式作業的平台，只要你知道如何<strong>安裝程式語言套件</strong>以及<strong>撰寫相對應的批改腳本</strong>。</p>
 <p>如果你是需要負起維護TAFree責任的教職人員，那麼這份文件非常重要。</p>
@@ -35,5 +31,3 @@ g++ --version
 <pre>
 sudo apt-get install make
 </pre>
-</body>
-</html>
