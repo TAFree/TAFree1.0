@@ -17,6 +17,7 @@ TAFree.page.Data = (function () {
             	urls: {
                 	About: './About.php',
                 	Instruction: './Instruction.php',
+			Language: './Language.php'
             	},
 		
             	copyright: '&copy;2016 TAFree'

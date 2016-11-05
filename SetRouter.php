@@ -33,6 +33,10 @@ $router->match('GET', '/Instruction.php', function () {
 	new Viewer('Instruction');
 });
 
+$router->match('GET', '/Language.php', function () {
+	new Viewer('Language');
+});
+
 $router->match('POST', '/Index.php', function() {
 	new Index();
 });
