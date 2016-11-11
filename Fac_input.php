@@ -11,7 +11,7 @@ function __autoload($class_name) {
 	include_once($class_name . '.php');
 }
 
-class Fac_assign implements Product {	
+class Fac_input implements Product {	
 
 	private $formatHelper;
 	private $contentProduct;
@@ -22,7 +22,6 @@ class Fac_assign implements Product {
 		
 		$this->contentProduct .=<<<EOF
 
-<form method='POST' action='./Assign.php' >
 <table id='ASS_TABLE'>
 <tr>
 <td colspan='4'>
@@ -33,26 +32,25 @@ class Fac_assign implements Product {
 </tr>
 <tr>
 <th></th>
-<th class='TITLE_TD'>{$_GET['item']}_{$_GET['subitem']}</th>
-<th class='TITLE_TD'>Problem Description<br><input type='file'></th>
+<th class='TITLE_TD' colspan='2'>Test Data</th>
 </tr>
 <tr>
 <td><button id='ADD_BUTTON' class='ASS_BUTTON' type='button'><b>+</b></button></td>
-<td class='TITLE_TD'>Filename (.java, .cpp, .py)</td>
-<td class='TITLE_TD'>Solution</td>
+<td class='TITLE_TD'>Filename (.in)</td>
+<td class='TITLE_TD'>Data Separated by Space</td>
 </tr>
 <tr class='HIDDEN_TR'>
 <td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><input type='file'></td>
+<td class='CONTENT_TD'><textarea></textarea></td>
 </tr>
 <tr>
 <td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><input type='file'></td>
+<td class='CONTENT_TD'><textarea></textarea></td>
 </tr>
 </table>
-</form>
+
 
 EOF;
 		$this->contentProduct .= $this->formatHelper->closeUp();

@@ -68,13 +68,6 @@
 	fill: #FFF6E5;
 }
 
-.WARN_BIG_CIRCLE {
-	cx: 150px;
-	cy: 150px;
-	r: 120px;
-	fill: #FF7F66;
-}
-
 .SMALL_CIRCLE {
 	cx: 150px;
 	cy: 150px;
@@ -82,15 +75,6 @@
 	fill: #FFF6E5;
 	stroke-width: 5px;
 	stroke: #2186C4;
-}
-
-.WARN_SMALL_CIRCLE {
-	cx: 150px;
-	cy: 150px;
-	r: 100px;
-	fill: #FF7F66;
-	stroke-width: 5px;
-	stroke: #9C2531;
 }
 
 .CIR_SVG {
@@ -118,21 +102,6 @@
 }
 
 .FAC_A:hover {
-	color: #3F464C; 
-}
-
-.WARN_FAC_A {
-	width:300px;
-    	height:40px;
-	background-color: #FF7F66;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 30px;
-	color: #000000;
-}
-
-.WARN_FAC_A:hover {
 	color: #3F464C; 
 }
 
@@ -255,8 +224,6 @@
     height: 270px;
     border: 1px solid black;
     background-color: #FFFFFF;
-    overflow: hidden;
-    float: left;
     margin: 20px;
 }
 
@@ -264,8 +231,8 @@
 	width: 100%;
 	min-height: 1em;
 	border: none;
-    padding: 4px;
-    box-sizing: border-box;
+  	padding: 4px;
+	box-sizing: border-box;
 	border-bottom: 1px solid #000000;
 	background-color: #2186C4;
 	color: #FFF6E5;
@@ -276,15 +243,25 @@
 	height: 17px;
 	padding: 3px;
 	padding-left: 4px;
-    margin-top: -2.5px;
-    margin-right: 0;
+    	margin-top: -2.5px;
+    	margin-right: 0;
 	background-color: #FFF6E5;
 	border: 1px solid #000000;
 }
 
+.CODES_TABLE { 
+    	margin: 30px auto;
+	margin-bottom: 50px;
+}
+
+.PREV_NEXT_DIV{
+	margin: 30px auto;
+	text-align: center;
+}
+
 .CODE_DIV {
-    width:100%;
-    height:90%;
+    width: 100%;
+    height: 90%;
     padding-left: 3px;
     box-sizing: border-box;
     overflow: auto;
@@ -306,11 +283,6 @@
     background-color: #D3D3D3;
     color: #A9A9A9;
     cursor: pointer;
-}
-
-#CODE_DIV {
-    margin-left: 5%;
-    
 }
 
 .BLANK {
@@ -342,6 +314,11 @@
 #STU_CHOOSER_TABLE {
     margin: 50px auto;
 }
+
+
+
+
+
 
 
 

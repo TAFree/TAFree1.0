@@ -165,6 +165,33 @@ $router->match('GET', '/Fac_assign.php', function() {
 	}
 });
 
+$router->match('GET', '/Fac_input.php', function() {
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_input');
+	} else {
+		new Viewer('Sneaker');
+	}
+});
+
+$router->match('GET', '/Fac_modify.php', function() {
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_modify');
+	} else {
+		new Viewer('Sneaker');
+	}
+});
+
+$router->match('GET', '/Fac_judge.php', function() {
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_judge');
+	} else {
+		new Viewer('Sneaker');
+	}
+});
+
 $router->match('GET', '/Fac_score.php', function() {
 	session_start();
 	if ($_SESSION['faculty']) {
