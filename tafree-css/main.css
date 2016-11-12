@@ -239,10 +239,11 @@
 
 .TITLE_DIV {
 	width: 100%;
-	height:10%;
+	height: 10%;
   	padding: 4px;
 	box-sizing: border-box;
 	color: #FFF6E5;
+	font-size: 14px;
 }
 
 .CODE_DIV {
@@ -254,7 +255,7 @@
     box-sizing: border-box;
     overflow: auto;
     white-space: pre-wrap;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .MODIFY_BAR_DIV {
@@ -267,27 +268,29 @@
 
 .ZOOM_IMG {
 	float: right;
-	height: 15px;
-	width: 15px;
+	height: 14px;
+	width: 14px;
 	border: 1px outset #D8D8D8;
 	background-color: #FFF6E5;
 }
 
 .MODIFY_BUTTON_IMG {
-	width: 15px;
-	height: 15px;
+	width: 14px;
+	height: 14px;
 	border: 1px outset #D8D8D8;
 	background-color: #FFF6E5;
 }
 
 .MODIFY_TABLE {
-	
+	table-layout: fixed;
+	width: 100%;
+	text-align: center;
 }
 
 .MODIFY_TR {
 	color: #FFF6E5;
-	text-align: center;
 	border: 1px dotted #D8D8D8;
+	font-size: 14px;
 }
 
 .PICKABLE:hover {

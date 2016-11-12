@@ -143,7 +143,7 @@ TAFree.page.Init = {
         var dom = TAFree.util.Dom,
             data = TAFree.page.Data,
             
-            zooms, zooms_len, i, block, code, j, blocks, blocks_len;
+            zooms, zooms_len, i, block, j, blocks, blocks_len, k, sub_blocks, sub_blocks_len, imgs, imgs_len, l;
             
         zooms = dom.getClass('ZOOM_IMG');
         zooms_len = zooms.length;
@@ -151,29 +151,62 @@ TAFree.page.Init = {
             zooms[i].src = data.getZoom('in');
             zooms[i].onclick = function() {
                 block = this.parentNode.parentNode;
-                code = block.children[1];
                 if (this.src.toString().includes('in')) { 
-                    blocks = dom.getClass('BLOCK_DIV');
+		    // Enlarge all modify button images 
+		    imgs = dom.getClass('MODIFY_BUTTON_IMG');
+		    imgs_len = imgs.length;
+		    for(l = 0; l < imgs_len; l += 1) {
+			imgs[l].style.height = '4vh';
+			imgs[l].style.width = '4vh';
+		    }
+		    // Hide other blocks
+		    blocks = dom.getClass('BLOCK_DIV');
                     blocks_len = blocks.length;
                     for (j = 0; j < blocks_len; j += 1) {
                         blocks[j].style.display = 'none';
                     }
                     block.style.display = 'block';
-                    this.src = data.getZoom('out');
-                    block.style.width='90vw';
-                    block.style.height='90vh';
-                    code.style.fontSize='30px';
+                    // Change zoom image into zoom-out.svg
+		    this.src = data.getZoom('out');
+		    this.style.height = '4vh';
+		    this.style.width = '4vh';
+		    // Enlarge current block
+                    block.style.width='80vw';
+                    block.style.height='80vh';
+		    // Enlarge font size
+		    sub_blocks = block.children;
+		    sub_blocks_len = sub_blocks.length;
+		    for(k = 0; k < sub_blocks_len; k += 1) {
+			sub_blocks[k].style.fontSize='3vh';
+		    }	            	
                 }
                 else {
+		    // Shrink all modify button images 
+		    imgs = dom.getClass('MODIFY_BUTTON_IMG');
+		    imgs_len = imgs.length;
+		    for(l = 0; l < imgs_len; l += 1) {
+			imgs[l].style.height = '14px';
+			imgs[l].style.width = '14px';
+		    }
+                    // Show all blocks
                     blocks = dom.getClass('BLOCK_DIV');
                     blocks_len = blocks.length;
                     for (j = 0; j < blocks_len; j += 1) {
                         blocks[j].style.display = 'block';
                     }
+                    // Change zoom image into zoom-in.svg
                     this.src = data.getZoom('in');
-                    block.style.width='350px';
+                    this.style.height = '14px';
+		    this.style.width = '14px';
+		    // Shrink current block
+		    block.style.width='350px';
                     block.style.height='270px';
-                    code.style.fontSize='16px';
+		    // Shrink font size
+                    sub_blocks = block.children;
+		    sub_blocks_len = sub_blocks.length;
+		    for(k = 0; k < sub_blocks_len; k += 1) {
+			sub_blocks[k].style.fontSize='14px';
+		    }
                 }
             }
         }
