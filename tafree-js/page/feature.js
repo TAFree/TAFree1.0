@@ -331,18 +331,44 @@ TAFree.page.Feature = {
 		// Dependencies
         var dom = TAFree.util.Dom,
 			
-            img, code, modify;
+            img, press, code, modify;
             
+	    // Press img effect
             img = e.srcElement;
+	    img.style.backgroundColor='#D8D8D8';
+	    press = setInterval(function (){
+		if (img.style.backgroundColor === '#FFF6E5') {
+			clearInterval(press);
+		}
+		else{
+			img.style.backgroundColor = '#FFF6E5';
+		}
+	    }, 800);
+	    // Change cursor
 	    code = img.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[1];	 
 	    modify = img.src;
 	    modify = modify.substring(modify.lastIndexOf('/') + 1);
-
 	    switch(modify) {
 	    case 'line.svg':
+		code.style.cursor='url(\'./tafree-cur/scissors.cur\'), auto';
+		break;
+	    case 'char.svg':
+		code.style.cursor='url(\'./tafree-cur/scissors.cur\'), auto';
+		break;
+	    case 'group.svg':
+		code.style.cursor='url(\'./tafree-cur/open.cur\'), auto';
+		break;
+	    case 'scissors.svg':
+		code.style.cursor='url(\'./tafree-cur/scissors.cur\'), auto';
+		break;
+	    case 'undo.svg':
 		code.style.cursor='url(\'./tafree-cur/eraser.cur\'), auto';
 		break;
+	    case 'comment.svg':
+		code.style.cursor='url(\'./tafree-cur/pen.cur\'), auto';
+		break;
+	    default:
+		code.style.cursor='auto';
 	    }
-		
 	}
 };
