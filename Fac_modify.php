@@ -43,7 +43,25 @@ class Fac_modify implements Product {
     }
     </pre>
                     </div>
-                </div></td><td>
+		    <div class='MODIFY_BAR_DIV'>
+			
+			<table class='MODIFY_TABLE'>
+				<tr><td class='MODIFY_TR' colspan='3'>Select</td></tr>
+				<tr>
+					<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/ghost.svg'></td>
+					<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/ghost.svg'></td>
+					<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/ghost.svg'></td>
+				</tr>
+				<tr><td class='MODIFY_TR' colspan='3'>Action</td></tr>
+				<tr>
+					<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/ghost.svg'></td>
+					<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/ghost.svg'></td>
+					<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/ghost.svg'></td>
+				</tr>
+			</table>
+		    </div>
+		</div>
+		</td><td>
                 <div class='BLOCK_DIV'>
                     <div class='TITLE_DIV'>Circle1.java<img class='ZOOM_IMG'></div>
                     <div class='CODE_DIV'>
