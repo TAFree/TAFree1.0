@@ -177,7 +177,12 @@ TAFree.page.Init = {
 		    sub_blocks = block.children;
 		    sub_blocks_len = sub_blocks.length;
 		    for(k = 0; k < sub_blocks_len; k += 1) {
-			sub_blocks[k].style.fontSize='3vh';
+			if(sub_blocks[k].className === 'TITLE_DIV') {
+				sub_blocks[k].style.fontSize = '5vh';
+			}
+			else {
+				sub_blocks[k].style.fontSize = '3vh';
+			}
 		    }	            	
                 }
                 else {
@@ -205,7 +210,7 @@ TAFree.page.Init = {
                     sub_blocks = block.children;
 		    sub_blocks_len = sub_blocks.length;
 		    for(k = 0; k < sub_blocks_len; k += 1) {
-			sub_blocks[k].style.fontSize='14px';
+			sub_blocks[k].style.fontSize = '14px';
 		    }
                 }
             }

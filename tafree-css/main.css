@@ -222,10 +222,11 @@
 .PREV_NEXT_DIV{
 	margin: 30px auto;
 	text-align: center;
+	margin-bottom: 0;
 }
 
 .CODES_TABLE { 
-    	margin: 30px auto;
+    	margin: 0 auto;
 	margin-bottom: 50px;
 }
 
@@ -239,17 +240,18 @@
 
 .TITLE_DIV {
 	width: 100%;
-	height: 10%;
+	height: 8%;
   	padding: 4px;
 	box-sizing: border-box;
 	color: #FFF6E5;
 	font-size: 14px;
+	line-height: 100%;
 }
 
 .CODE_DIV {
     float: left;
     width: 80%;
-    height: 90%;
+    height: 92%;
     padding: 10px;
     background-color: #FFF6E5;
     box-sizing: border-box;
@@ -260,7 +262,7 @@
 
 .MODIFY_BAR_DIV {
 	width: 20%;
-	height: 90%;
+	height: 92%;
 	padding: 10px;
 	box-sizing: border-box;
 	overflow: auto;
