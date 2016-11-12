@@ -218,6 +218,19 @@ TAFree.page.Init = {
 
     },
     
+    enableModify: function (){
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            imgs, i;
+            
+        // Set modify button
+        imgs = dom.getClass('MODIFY_BUTTON_IMG');
+        for (i = 0; i < imgs.length; i += 1) {
+        	imgs[i].addEventListener('click', feature.modify);
+        }
+    },
+/*
     enableFillInAss: function (){ 
         // Dependencies
         var dom = TAFree.util.Dom,
@@ -251,7 +264,7 @@ TAFree.page.Init = {
             tag.className='PICKABLE';
         }
     },
-
+*/
     jumpThree: function () {
         // Dependencies
         var dom = TAFree.util.Dom,

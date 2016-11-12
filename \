@@ -334,13 +334,14 @@ TAFree.page.Feature = {
             img, code, modify;
             
             img = e.srcElement;
-	    code = img.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[1];	 
+	    code = img.parentNode.parentNode.parentNode.parentNode.parentNode.previousSibling;
+	    console.log(code);
 	    modify = img.src;
-	    modify = modify.substring(modify.lastIndexOf('/') + 1);
-
+		modify = modify.subString(modify.lastIndexOf('/') + 1);
+console.log(modify);
 	    switch(modify) {
 	    case 'line.svg':
-		code.style.cursor='url("./tafree-ico/logo.ico"), auto';
+		code.style.cursor=url('tafree-svg/scissors.svg');
 		break;
 	    }
 		
