@@ -340,7 +340,7 @@ TAFree.page.Feature = {
 
 	    switch(modify) {
 	    case 'line.svg':
-		code.style.cursor='url("./tafree-ico/logo.ico"), auto';
+		code.style.cursor='url(\'./tafree-cur/eraser.cur\'), auto';
 		break;
 	    }
 		
