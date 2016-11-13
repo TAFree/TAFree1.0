@@ -34,7 +34,7 @@ EOF;
 <div class='BLOCK_DIV'>
 <div class='TITLE_DIV'>Circle1.java<img class='ZOOM_IMG'></div>
 <div class='CODE_DIV'>
-<pre>
+<pre class='MODIFY_ORIGIN_PRE'>
 import  java.util.Scanner;
 public class ScannerAndKeyboard
 {
@@ -61,7 +61,7 @@ public class ScannerAndKeyboard
 <tr>
 <td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/scissors.svg'></td>
 <td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/comment.svg'></td>
+<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/mock.svg'></td>
 <td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td>
 </tr>
 </table>
@@ -99,7 +99,7 @@ public class ScannerAndKeyboard
 <tr>
 <td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/scissors.svg'></td>
 <td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/comment.svg'></td>
+<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/mock.svg'></td>
 <td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td>
 </tr>
 </table>
@@ -137,7 +137,7 @@ public class ScannerAndKeyboard
 <tr>
 <td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/scissors.svg'></td>
 <td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/comment.svg'></td>
+<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/mock.svg'></td>
 <td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td>
 </tr>
 </table>

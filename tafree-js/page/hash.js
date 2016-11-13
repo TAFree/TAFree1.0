@@ -38,7 +38,6 @@ TAFree.page.Hash = (function () {
                 'fac_modify': function () {
                     	addon.codeLeft();
                  	init.enableZoom();
-               		//init.enableFillInAss();
 			init.enableModify();
             	},
                 

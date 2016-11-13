@@ -218,7 +218,7 @@ TAFree.page.Init = {
 
     },
     
-    enableModify: function (){
+    enableModify: function () {
         // Dependencies
         var dom = TAFree.util.Dom,
             feature = TAFree.page.Feature,
@@ -230,41 +230,7 @@ TAFree.page.Init = {
         	imgs[i].addEventListener('click', feature.modify);
         }
     },
-/*
-    enableFillInAss: function (){ 
-        // Dependencies
-        var dom = TAFree.util.Dom,
-            codes, code, i, lines, j, text, br;
-        
-        // Split code and make it pickable for fill-in assignment
-        codes=dom.getClass('CODE_DIV');
-        for (i = 0; i < codes.length; i += 1) {
-            code = codes[i].children[0].innerHTML;
-            codes[i].removeChild(codes[i].children[0]);
-            lines = code.split('\n');
-            for (j = 0; j < lines.length; j += 1) {
-                text = document.createElement('text');
-                text.className = 'PICKABLE';
-                text.innerHTML = lines[j];
-                text.onclick = function (e) {
-                    TAFree.page.Init.cutout(e.srcElement);
-                };
-                codes[i].appendChild(text);
-                br = document.createElement('br');
-                codes[i].appendChild(br);
-            }
-        }
-    },
-
-    cutout: function (tag) { 
-        if (tag.getAttribute('class') == 'PICKABLE') {
-            tag.className='CUTOUT';
-        }
-        else if (tag.getAttribute('class') == 'CUTOUT') {
-            tag.className='PICKABLE';
-        }
-    },
-*/
+    
     jumpThree: function () {
         // Dependencies
         var dom = TAFree.util.Dom,

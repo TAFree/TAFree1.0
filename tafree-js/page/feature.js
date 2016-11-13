@@ -330,6 +330,7 @@ TAFree.page.Feature = {
 	modify: function(e) { 
 		// Dependencies
         var dom = TAFree.util.Dom,
+	    addon = TAFree.page.Addon,
 			
             img, press, code, modify;
             
@@ -351,12 +352,15 @@ TAFree.page.Feature = {
 	    switch(modify) {
 	    case 'line.svg':
 		code.style.cursor='url(\'./tafree-cur/scissors.cur\'), auto';
+		addon.linePattern(code);
 		break;
 	    case 'char.svg':
 		code.style.cursor='url(\'./tafree-cur/scissors.cur\'), auto';
+		addon.charPattern(code);
 		break;
 	    case 'group.svg':
 		code.style.cursor='url(\'./tafree-cur/open.cur\'), auto';
+		addon.groupPattern(code);
 		break;
 	    case 'scissors.svg':
 		code.style.cursor='url(\'./tafree-cur/scissors.cur\'), auto';
@@ -364,9 +368,17 @@ TAFree.page.Feature = {
 	    case 'undo.svg':
 		code.style.cursor='url(\'./tafree-cur/eraser.cur\'), auto';
 		break;
-	    case 'comment.svg':
+	    case 'mock.svg':
 		code.style.cursor='url(\'./tafree-cur/pen.cur\'), auto';
 		break;
+	    case 'lock.svg':
+		code.innerHTML = '<div class=\'MODIFY_LOCK_DIV\'><img height=\'50\' width=\'50\' src=\'tafree-svg/lock.svg\'>We already prepared for you.</div>';
+		code.style.cursor='auto';
+	    	break;
+	    case 'all.svg':
+		code.innerHTML = '<textarea class=\'MODIFY_ALL_TEXTAREA\'></textarea>';
+		code.style.cursor='auto';
+	        break;
 	    default:
 		code.style.cursor='auto';
 	    }
