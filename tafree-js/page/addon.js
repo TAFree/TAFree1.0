@@ -56,7 +56,7 @@ TAFree.page.Addon = {
 
     },
     
-    groupPattern: function (code) {
+    groupPattern: function (code) {/*
         // Dependencies
         var dom = TAFree.util.Dom,
 	    addon = TAFree.page.Addon,
@@ -75,24 +75,27 @@ TAFree.page.Addon = {
     	
 	// Add onclick event listener on each line
 	groupSwitch = function (e) {
-		var ele, numLine, groupeds, k, parentEle;
+		var ele, 
+                    numLine, 
+                    groupeds, 
+                    k, 
+                    parentEle;
 		
 		// Check group state: open or close
 		if (code.style.cursor.includes('close')) {
 			// Collect grouped lines 
 			groupeds = dom.getClass('MODIFY_GROUP_PRE');
-			parentEle = groupeds[0].parentNode;
 			for (k = 0; k < groupeds.length; k += 1) {
 				if (groupeds[k].style.backgroundColor === 'red') {
 					console.log(groupeds[k].title);
 					parentEle.removeChild(groupeds[k]);
+					
 				}
 			}
 			// Change cursor
 			code.style.cursor = 'url(\'tafree-cur/open.cur\'), auto';
-			// Remove onmouseover event listener on the other lines
-			addon.groupable(0, false);
-			return;
+
+			
 		}
 		else {
 			// Change cursor
@@ -101,31 +104,38 @@ TAFree.page.Addon = {
 			ele = e.srcElement;
 			numLine = ele.title;
 			// Change color of current line
-			ele.style.backgroundColor = 'pink';
+			ele.className = 'MODIFY_GROUP_TRUE_PRE';
 			// Add onmouseover event listener on the other lines
-			addon.groupable(numLine, true);
+			addon.groupable(numLine);
 		}
 	}
 	
-	addon.diggable('groupPattern', groupSwitch);
+	addon.diggable('groupPattern', groupSwitch);*/
 
     },
-    
-    groupable: function (numStart, on) {
+    /*
+    groupable: function (numStart) {
         // Dependencies
         var dom = TAFree.util.Dom,
 
-            lines, i, groupMock, j, numLine, k;
-	
-	lines = dom.getClass('MODIFY_GROUP_PRE');
+            lines, i, groupMock;
 	
 	// Compare numbers of start line and end line for grouping mock
 	groupMock = function (e) {
-		var ele, numEnd, min, max;
+		var ele, 
+                    numEnd, 
+                    min, 
+                    max, 
+                    groupeds, k,
+		    groupings, j, numLine;
 		
+		groupeds = dom.getClass('MODIFY_GROUP_PRE');
+
 		// Clear color on previous grouping mock 
-		for (k = 0; k < lines.length; k += 1) {
-			lines[k].style.backgroundColor = 'transparent';
+		for (k = 0; k < groupeds.length; k += 1) {
+			if (groupeds.style.backgroundColor === 'pink') {
+			groupeds[k].backgroundColor = 'trans';
+			console.log(groupeds[k].title);
 		}
 		
 		// Draw color on current grouping mock
@@ -140,29 +150,23 @@ TAFree.page.Addon = {
 			max = numEnd;
 			min = numStart;
 		}
-		for (j = 0; j < lines.length; j += 1) {
-			numLine = lines[j].title;
+		groupings = dom.getClass('MODIFY_GROUP_PRE');
+		for (j = 0; j < groupings.length; j += 1) {
+			numLine = groupings[j].title;
 			if (numLine >= min && numLine <= max) {
 				console.log(min+':'+ numLine+':'+ max);
-				lines[j].style.backgroundColor = 'red';
+				lines[j].className = 'MODIFY_GROUP_TRUE_PRE';
 			}
 		}
 	};
 	
-	// Check if lines can be grouped or not
-	if (!on) {
-		for (i = 0; i < lines.length; i += 1) {
-        		lines[i].removeEventListener('mouseover', groupMock);
-		}
-		return;
-	}
-
-	for (i = 0; i < lines.length; i += 1) {
+	lines = dom.getClass('MODIFY_GROUP_PRE');
+        for (i = 0; i < lines.length; i += 1) {
         	lines[i].addEventListener('mouseover', groupMock);
 	}
 
     },
-    
+    */
     diggable: function (pattern, callback) {
         // Dependencies
         var dom = TAFree.util.Dom,

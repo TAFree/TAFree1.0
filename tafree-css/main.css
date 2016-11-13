@@ -250,7 +250,7 @@
 
 .CODE_DIV {
     float: left;
-    width: 80%;
+    width: 90%;
     height: 92%;
     padding: 10px;
     background-color: #FFF6E5;
@@ -261,7 +261,7 @@
 }
 
 .MODIFY_BAR_DIV {
-	width: 20%;
+	width: 10%;
 	height: 92%;
 	padding: 10px;
 	box-sizing: border-box;
@@ -332,6 +332,10 @@
 
 .MODIFY_GROUP_PRE:hover {
     background-color: #7ECEFC;
+}
+
+.MODIFY_GROUP_TRUE_PRE {
+    background-color: #FF69B4;
 }
 
 .MODIFY_ALL_TEXTAREA {

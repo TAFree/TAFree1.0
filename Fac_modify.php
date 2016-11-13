@@ -50,20 +50,12 @@ public class ScannerAndKeyboard
 </div>
 <div class='MODIFY_BAR_DIV'>
 <table class='MODIFY_TABLE'>
-<tr><td class='MODIFY_TR' colspan='4'>Select</td></tr>
-<tr>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/char.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/group.svg'></td>
-</tr>
-<tr><td class='MODIFY_TR' colspan='4'>Action</td></tr>
-<tr>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/scissors.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/mock.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td>
-</tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/char.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/group.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td></tr>
 </table>
 </div>
 </div>
@@ -88,20 +80,12 @@ public class ScannerAndKeyboard
 </div>
 <div class='MODIFY_BAR_DIV'>
 <table class='MODIFY_TABLE'>
-<tr><td class='MODIFY_TR' colspan='4'>Select</td></tr>
-<tr>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/char.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/group.svg'></td>
-</tr>
-<tr><td class='MODIFY_TR' colspan='4'>Action</td></tr>
-<tr>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/scissors.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/mock.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td>
-</tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/char.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/group.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td></tr>
 </table>
 </div>
 </div>
@@ -126,20 +110,12 @@ public class ScannerAndKeyboard
 </div>
 <div class='MODIFY_BAR_DIV'>
 <table class='MODIFY_TABLE'>
-<tr><td class='MODIFY_TR' colspan='4'>Select</td></tr>
-<tr>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/char.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/group.svg'></td>
-</tr>
-<tr><td class='MODIFY_TR' colspan='4'>Action</td></tr>
-<tr>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/scissors.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/mock.svg'></td>
-<td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td>
-</tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/char.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/group.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td></tr>
 </table>
 </div>
 </div>
