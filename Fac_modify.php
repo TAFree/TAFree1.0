@@ -21,10 +21,9 @@ class Fac_modify implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<div class='PREV_NEXT_DIV'>
-<img width=30 height=30 src='tafree-svg/previous.svg'>
-<strong>Step 1. Modify</strong>
-<img width=30 height=30 src='tafree-svg/next.svg'>
+<form method='POST'>
+<div class='FAC_MODIFY_DIV'>
+<input type='submit' value='Save >>'>
 </div>
 EOF;
 		$this->contentProduct .=<<<EOF
@@ -91,6 +90,8 @@ public class ScannerAndKeyboard
 </tr>
 </table>
 EOF;
+		
+		$this->contentProduct .= '</div>';
 		
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
