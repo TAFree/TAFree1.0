@@ -222,13 +222,36 @@ TAFree.page.Init = {
         // Dependencies
         var dom = TAFree.util.Dom,
             feature = TAFree.page.Feature,
-            imgs, i;
+            data = TAFree.page.Data,
+	    addon = TAFree.page.Addon,
+
+	    imgs, i, pre, j, code, lines, k, titles, codes;
             
         // Set modify button
         imgs = dom.getClass('MODIFY_BUTTON_IMG');
         for (i = 0; i < imgs.length; i += 1) {
         	imgs[i].addEventListener('click', feature.modify);
         }
+	// Make original source code diggable and store them
+	titles = dom.getClass('TITLE_DIV'); 
+	codes = dom.getClass('CODE_DIV');
+	for (j = 0; j < codes.length; j += 1) {
+		code = codes[j].children[0].innerHTML;
+		codes[j].innerHTML = '';
+		title = titles[j].children[0].innerHTML;
+		lines = code.split('\n');
+    		for (k = 0; k < lines.length; k += 1) {
+			lines[k] = '<pre class=\'MODIFY_LINE_PRE\'>' + lines[k] + '</pre>';
+			codes[j].innerHTML += lines[k];
+		}	
+		// Add onclick event listener on each line
+		for (l = 0; l < codes[j].children.length; l += 1) {
+			codes[j].children[l].addEventListener('click', addon.diggable);
+		}
+		// Store original source
+		data.storeSource(title, codes[j].innerHTML);
+	} 
+	 
     },
     
     jumpThree: function () {

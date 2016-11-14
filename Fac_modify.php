@@ -32,7 +32,7 @@ EOF;
 <tr>
 <td>
 <div class='BLOCK_DIV'>
-<div class='TITLE_DIV'>Circle1.java<img class='ZOOM_IMG'></div>
+<div class='TITLE_DIV'><p class='TITLE_P'>Circle1.java</p><img class='ZOOM_IMG'></div>
 <div class='CODE_DIV'>
 <pre class='MODIFY_ORIGIN_PRE'>
 import  java.util.Scanner;
@@ -45,26 +45,25 @@ public class ScannerAndKeyboard
             String name = s.nextLine();
             System.out.println( "Hello " + name + "!" );
         }
-}
-</pre>
+}</pre>
 </div>
 <div class='MODIFY_BAR_DIV'>
 <table class='MODIFY_TABLE'>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/char.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/group.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg' title='Cut out line'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/block.svg' title='Cut out block'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg' title='Cut out all'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/rubber.svg' title='Remove line'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg' title='Restore'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg' title='Lock all'></td></tr>
 </table>
 </div>
 </div>
 </td>
 <td>
 <div class='BLOCK_DIV'>
-<div class='TITLE_DIV'>Circle1.java<img class='ZOOM_IMG'></div>
+<div class='TITLE_DIV'><p class='TITLE_P'>Circle2.java</p><img class='ZOOM_IMG'></div>
 <div class='CODE_DIV'>
-<pre>
+<pre class='MODIFY_ORIGIN_PRE'>
 import  java.util.Scanner;
 public class ScannerAndKeyboard
 {
@@ -75,47 +74,16 @@ public class ScannerAndKeyboard
             String name = s.nextLine();
             System.out.println( "Hello " + name + "!" );
         }
-}
-</pre>
+}</pre>
 </div>
 <div class='MODIFY_BAR_DIV'>
 <table class='MODIFY_TABLE'>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/char.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/group.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td></tr>
-</table>
-</div>
-</div>
-</td>
-<td>
-<div class='BLOCK_DIV'>
-<div class='TITLE_DIV'>Circle1.java<img class='ZOOM_IMG'></div>
-<div class='CODE_DIV'>
-<pre>
-import  java.util.Scanner;
-public class ScannerAndKeyboard
-{
-	public static void main(String[] args)
-	{	
-            Scanner s = new Scanner(System.in);
-            System.out.print( "Enter your name: "  );
-            String name = s.nextLine();
-            System.out.println( "Hello " + name + "!" );
-        }
-}
-</pre>
-</div>
-<div class='MODIFY_BAR_DIV'>
-<table class='MODIFY_TABLE'>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/char.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/group.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg' title='Cut out line'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/block.svg' title='Cut out block'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg' title='Cut out all'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/rubber.svg' title='Remove line'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg' title='Restore'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg' title='Lock all'></td></tr>
 </table>
 </div>
 </div>

@@ -331,8 +331,9 @@ TAFree.page.Feature = {
 		// Dependencies
         var dom = TAFree.util.Dom,
 	    addon = TAFree.page.Addon,
+	    data = TAFree.page.Data,
 			
-            img, press, code, modify;
+            img, press, code, modify, title, k;
             
 	    // Press img effect
             img = e.srcElement;
@@ -345,33 +346,44 @@ TAFree.page.Feature = {
 			img.style.backgroundColor = '#FFF6E5';
 		}
 	    }, 800);
-	    // Change cursor
-	    code = img.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[1];	 
+	    
+	    // Change pattern
+	    code = img.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[1];
+	    title = code.parentNode.children[0].children[0].innerHTML;
 	    modify = img.src;
 	    modify = modify.substring(modify.lastIndexOf('/') + 1);
 	    switch(modify) {
 	    case 'line.svg':
 		code.style.cursor='pointer';
-		addon.linePattern(code);
+		addon.pattern = 'linePattern';
 		break;
-	    case 'char.svg':
+	    case 'block.svg':
 		code.style.cursor='pointer';
-		addon.charPattern(code);
+		addon.pattern = 'blockPattern';
 		break;
-	    case 'group.svg':
+	    case 'rubber.svg':
 		code.style.cursor='pointer';
-		addon.groupPattern(code);
+		addon.pattern = 'removePattern';
 		break;
 	    case 'undo.svg':
 		code.style.cursor='auto';
+		// Restore source as original one
+		code.innerHTML = data.getSource(title);
+		// Add onclick event listener on each line
+		for (k = 0; k < code.children.length; k += 1) {
+			code.children[k].addEventListener('click', addon.diggable);
+		}
+		addon.pattern = null;
 		break;
 	    case 'lock.svg':
-		code.innerHTML = '<div class=\'MODIFY_LOCK_DIV\'><img height=\'50\' width=\'50\' src=\'tafree-svg/lock.svg\'>We already prepared for you.</div>';
 		code.style.cursor='auto';
+		code.innerHTML = '<div class=\'MODIFY_LOCK_DIV\'><img height=\'50\' width=\'50\' src=\'tafree-svg/lock.svg\'>We already prepared for you.</div>';
+		addon.pattern = null;
 	    	break;
 	    case 'all.svg':
-		code.innerHTML = '<textarea class=\'MODIFY_ALL_TEXTAREA\'></textarea>';
 		code.style.cursor='auto';
+		code.innerHTML = '<textarea class=\'MODIFY_ALL_TEXTAREA\'></textarea>';
+		addon.pattern = null;
 	        break;
 	    default:
 		code.style.cursor='auto';

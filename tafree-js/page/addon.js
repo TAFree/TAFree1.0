@@ -13,195 +13,41 @@ TAFree.page.Addon = {
         content.style.textAlign = 'left';
     },
 
-    linePattern: function (code) { 
-        // Dependencies
-        var dom = TAFree.util.Dom,
-            addon = TAFree.page.Addon,
+    diggable: function (e) {
 
-	    content, lines, j;
-        
-        // Split content and make it pickable on line pattern
-        content = code.innerHTML;
-	code.removeChild(code.children[0]);
-	code.innerHTML = '';
-	lines = content.split('\n');
-    	for (j = 0; j < lines.length; j += 1) {
-		lines[j] = '<pre class=\'MODIFY_LINE_PRE\'>' + lines[j] + '</pre>';
-		code.innerHTML += lines[j];
-    	}   
-    	
-	// Add onclick event listener on each line
-	addon.diggable('linePattern');
+        // Dependencies
+        var addon = TAFree.page.Addon,
+
+	pattern, ele, parentEle, newEle;
+
+	pattern = addon.pattern;
+	ele = e.srcElement;
+
+	switch (pattern) {
+	case 'linePattern':
+		newEle = document.createElement('input');
+		newEle.setAttribute('type', 'text');
+		newEle.className = 'MODIFY_LINE_INPUT';
+		parentEle = ele.parentNode;
+		parentEle.replaceChild(newEle, ele);
+		return;
+	case 'blockPattern':	
+		newEle = document.createElement('textarea');
+		newEle.className = 'MODIFY_BLOCK_TEXTAREA';
+		parentEle = ele.parentNode;
+		parentEle.replaceChild(newEle, ele);
+		return;	
+	case 'removePattern':
+		parentEle = ele.parentNode;
+		parentEle.removeChild(ele);
+		return;
+	default:
+		return;
+	}
+
+    },
+   
+    pattern: null
     
-     },
-
-    charPattern: function (code) {
-        // Dependencies
-        var dom = TAFree.util.Dom,
-	    addon = TAFree.page.Addon,
-
-            content, chars, j;
-        
-        // Split content and make it pickable on char pattern
-        content = code.innerHTML;
-	code.removeChild(code.children[0]);
-	code.innerHTML = '';
-	chars = content;
-	for (j = 0; j < chars.length; j += 1) {
-		code.innerHTML += '<p class=\'MODIFY_CHAR_P\'>' + chars.charAt(j) + '</p>';
-    	}   
-    	
-	// Add onclick event listener on each char
-	addon.diggable('charPattern');
-
-    },
-    
-    groupPattern: function (code) {/*
-        // Dependencies
-        var dom = TAFree.util.Dom,
-	    addon = TAFree.page.Addon,
-
-            content, lines, j, groupSwitch;
-        
-        // Split content and make it pickable on line pattern
-        content = code.innerHTML;
-	code.removeChild(code.children[0]);
-	code.innerHTML = '';
-	lines = content.split('\n');
-    	for (j = 0; j < lines.length; j += 1) {
-		lines[j] = '<pre class=\'MODIFY_GROUP_PRE\' title=\'' + j + '\'>' + lines[j] + '</pre>';
-		code.innerHTML += lines[j];
-    	}   
-    	
-	// Add onclick event listener on each line
-	groupSwitch = function (e) {
-		var ele, 
-                    numLine, 
-                    groupeds, 
-                    k, 
-                    parentEle;
-		
-		// Check group state: open or close
-		if (code.style.cursor.includes('close')) {
-			// Collect grouped lines 
-			groupeds = dom.getClass('MODIFY_GROUP_PRE');
-			for (k = 0; k < groupeds.length; k += 1) {
-				if (groupeds[k].style.backgroundColor === 'red') {
-					console.log(groupeds[k].title);
-					parentEle.removeChild(groupeds[k]);
-					
-				}
-			}
-			// Change cursor
-			code.style.cursor = 'url(\'tafree-cur/open.cur\'), auto';
-
-			
-		}
-		else {
-			// Change cursor
-			code.style.cursor = 'url(\'tafree-cur/close.cur\'), auto';
-			// Get line number
-			ele = e.srcElement;
-			numLine = ele.title;
-			// Change color of current line
-			ele.className = 'MODIFY_GROUP_TRUE_PRE';
-			// Add onmouseover event listener on the other lines
-			addon.groupable(numLine);
-		}
-	}
-	
-	addon.diggable('groupPattern', groupSwitch);*/
-
-    },
-    /*
-    groupable: function (numStart) {
-        // Dependencies
-        var dom = TAFree.util.Dom,
-
-            lines, i, groupMock;
-	
-	// Compare numbers of start line and end line for grouping mock
-	groupMock = function (e) {
-		var ele, 
-                    numEnd, 
-                    min, 
-                    max, 
-                    groupeds, k,
-		    groupings, j, numLine;
-		
-		groupeds = dom.getClass('MODIFY_GROUP_PRE');
-
-		// Clear color on previous grouping mock 
-		for (k = 0; k < groupeds.length; k += 1) {
-			if (groupeds.style.backgroundColor === 'pink') {
-			groupeds[k].backgroundColor = 'trans';
-			console.log(groupeds[k].title);
-		}
-		
-		// Draw color on current grouping mock
-		ele = e.srcElement;
-		numStart = Number(numStart);
-		numEnd = Number(ele.title);
-		if (numStart > numEnd) {
-			max = numStart;
-			min = numEnd;
-		}
-		else{
-			max = numEnd;
-			min = numStart;
-		}
-		groupings = dom.getClass('MODIFY_GROUP_PRE');
-		for (j = 0; j < groupings.length; j += 1) {
-			numLine = groupings[j].title;
-			if (numLine >= min && numLine <= max) {
-				console.log(min+':'+ numLine+':'+ max);
-				lines[j].className = 'MODIFY_GROUP_TRUE_PRE';
-			}
-		}
-	};
-	
-	lines = dom.getClass('MODIFY_GROUP_PRE');
-        for (i = 0; i < lines.length; i += 1) {
-        	lines[i].addEventListener('mouseover', groupMock);
-	}
-
-    },
-    */
-    diggable: function (pattern, callback) {
-        // Dependencies
-        var dom = TAFree.util.Dom,
-	    data = TAFree.page.Data,
-
-            units, i, plainClass, diggedClass, maxlength;
-        
-        plainClass = data.matchUnit(pattern).plain;
-        diggedClass = data.matchUnit(pattern).digged;	
-	maxlength = data.matchUnit(pattern).max;
-	units = dom.getClass(plainClass);
-	
-	// Set default callback that replace unit with input
-	if (typeof callback !== 'function') {
-		callback = function(e){
-			var ele, 
-			    parentEle,
-			    newEle;
- 			
-			newEle = document.createElement('input');
-			newEle.setAttribute('type', 'text');
-			newEle.setAttribute('maxlength', maxlength);
-			newEle.className = diggedClass;
-			ele = e.srcElement;
-			parentEle = ele.parentNode;
-			parentEle.replaceChild(newEle, ele);
-
-		}
-	}
-	
-	// Add onclick event listener on each unit
-	for (i = 0; i < units.length; i += 1) {
-		units[i].addEventListener('click', callback);
-        }
-
-    }
 };
 

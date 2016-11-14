@@ -70,33 +70,18 @@ TAFree.page.Data = (function () {
             	}
             },
 	    
-	    unit = {
-	    	
-            	linePattern: {
-			plain: 'MODIFY_LINE_PRE',
-			digged: 'MODIFY_LINE_INPUT',
-			max: 100
-		},
-            
-            	charPattern: {
-			plain: 'MODIFY_CHAR_P',
-			digged: 'MODIFY_CHAR_INPUT',
-			max: 1
-		},
-
-            	groupPattern: {
-			plain: 'MODIFY_GROUP_PRE',
-			digged: 'MODIFY_GROUP_TEXTAREA',
-			max: 10000
-		}
-
+	    source = {
+		
 	    },
 
-	    matchUnit = function(arg) {
-	        if (unit.hasOwnProperty(arg)) {
-                	return unit[arg];
-            	}
-            }; 
+	    storeSource = function(title, code) {
+		source[title] = code;
+	    },
+
+	    getSource = function(title) {
+		return source[title];
+	    }; 
+	    
 
 	// Reveal public API
 	return {
@@ -108,8 +93,10 @@ TAFree.page.Data = (function () {
 		getFac_leave: getFac_leave,
         
 	        getZoom: getZoom,
-
-		matchUnit: matchUnit
+		
+		storeSource: storeSource,
+		
+		getSource: getSource
 	};
 
 }());
