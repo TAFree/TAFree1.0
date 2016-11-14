@@ -23,6 +23,7 @@ TAFree.page.Hash = (function () {
             
             	'fac_assign': function () {
                 	init.manRow();
+			init.otherJudge();
             	},
             	
                 'admin': function () {

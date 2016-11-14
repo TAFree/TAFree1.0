@@ -310,6 +310,25 @@ TAFree.page.Init = {
         for (i = 0; i < boxs.length; i += 1) {
 		boxs[i].addEventListener('click', feature.here);
         }
+    },
+
+    otherJudge: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+		
+	    select, file;
+            
+            select = dom.getId('JUDGE_SELECT');
+	    file = dom.getId('OTHER_INPUT');
+	
+	select.addEventListener('change',function () {
+		if (select.value === 'other') {
+			file.style.display = 'inline';
+		}
+		else{
+			file.style.display = 'none';
+		}
+	});
     }
 
 };

@@ -21,72 +21,78 @@ class Fac_assign implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-
 <form method='POST' action='./Fac_modify.php' >
-<table id='ASS_TABLE'>
+<div class='FAC_ASSIGN_DIV'>
+<input type='submit' value='Upload >>'>
+</div>
+<table id='PROBLEM_TABLE'>
 <tr>
-<td colspan='4'>
-<input type='submit' value='Save >>'>
-<br>
-<br>
+<th class='TITLE_TD'>Problem</th>
+<th class='TITLE_TD'>{$_GET['item']}_{$_GET['subitem']}</th>
+</tr>
+<tr>
+<td class='CONTENT_TD'>Description</td>
+<td class='CONTENT_TD'><input type='file'></td>
+</tr>
+<tr>
+<td class='CONTENT_TD'>Hint</td>
+<td class='CONTENT_TD'><textarea></textarea></td>
+</tr>
+<tr>
+<td class='CONTENT_TD'>Judge</td>
+<td class='CONTENT_TD'>
+<select id='JUDGE_SELECT'>
+<option value='201602_Java_CP.php'>201602_Java_CP.php</option>
+<option value='201602_C++_OOP.php'>201601_C++_OOP.php</option>
+<option value='other'>other</option>
+<input id='OTHER_INPUT' type='file'>
+</select>
 </td>
 </tr>
+</table>
+<table id='SOLUTION_TABLE'>
 <tr>
 <th></th>
-<th class='TITLE_TD'>{$_GET['item']}_{$_GET['subitem']}</th>
-<th class='TITLE_TD'>Problem Description<br><input type='file'></th>
+<th colspan='2' class='TITLE_TD'>Solution</th>
 </tr>
 <tr>
-<td><button id='ADD_BUTTON' class='ASS_BUTTON' type='button'><b>+</b></button></td>
+<td><button id='ADD_BUTTON' class='ASSIGN_BUTTON' type='button'><b>+</b></button></td>
 <td class='TITLE_TD'>Filename (.java, .cpp, .py)</td>
-<td class='TITLE_TD'>Solution</td>
+<td class='TITLE_TD'>Upload</td>
 </tr>
 <tr class='HIDDEN_TR'>
-<td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
+<td><button class='ASSIGN_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input type='text'></td>
 <td class='CONTENT_TD'><input type='file'></td>
 </tr>
 <tr>
-<td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
+<td><button class='ASSIGN_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input type='text'></td>
 <td class='CONTENT_TD'><input type='file'></td>
+</tr>
+</table>
+<table id='TESTDATA_TABLE'>
+<tr>
+<th></th>
+<th colspan='2' class='TITLE_TD'>Test Data</th>
+</tr>
+<tr>
+<td><button id='ADD_BUTTON' class='ASSIGN_BUTTON' type='button'><b>+</b></button></td>
+<td class='TITLE_TD'>Filename (.in)</td>
+<td class='TITLE_TD'>Separate by Space</td>
+</tr>
+<tr class='HIDDEN_TR'>
+<td><button class='ASSIGN_BUTTON' type='button'><b>-</b></button></td>
+<td class='CONTENT_TD'><input type='text'></td>
+<td class='CONTENT_TD'><textarea></textarea></td>
+</tr>
+<tr>
+<td><button class='ASSIGN_BUTTON' type='button'><b>-</b></button></td>
+<td class='CONTENT_TD'><input type='text'></td>
+<td class='CONTENT_TD'><textarea></textarea></td>
 </tr>
 </table>
 </form>
-
-
-<table id='ASS_TABLE'>
-<tr>
-<td colspan='4'>
-<input type='submit' value='Save >>'>
-<br>
-<br>
-</td>
-</tr>
-<tr>
-<th></th>
-<th class='TITLE_TD' colspan='2'>Test Data</th>
-</tr>
-<tr>
-<td><button id='ADD_BUTTON' class='ASS_BUTTON' type='button'><b>+</b></button></td>
-<td class='TITLE_TD'>Filename (.in)</td>
-<td class='TITLE_TD'>Data Separated by Space</td>
-</tr>
-<tr class='HIDDEN_TR'>
-<td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><textarea></textarea></td>
-</tr>
-<tr>
-<td><button class='ASS_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><textarea></textarea></td>
-</tr>
-</table>
-<div class='BLOCK_DIV'>
-<div class='TITLE_DIV'>Judge Script</div>
-<textarea rows='30' cols='30'></textarea>
-</div>
 EOF;
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		

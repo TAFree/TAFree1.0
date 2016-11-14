@@ -23,10 +23,8 @@ class Fac_modify implements Product {
 		$this->contentProduct .=<<<EOF
 <form method='POST'>
 <div class='FAC_MODIFY_DIV'>
-<input type='submit' value='Save >>'>
+<input type='submit' value='Modify >>'>
 </div>
-EOF;
-		$this->contentProduct .=<<<EOF
 <table class='CODES_TABLE'>
 <tr>
 <td>

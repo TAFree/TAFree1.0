@@ -10,7 +10,7 @@ class Fac_index implements Product{
 	private $links = array (
 		'Problem' => './Fac_chooser.php',
 		'Student' => './Fac_stu.php',
-		'ShowAll' => './Fac_score.php'
+		'Score' => './Fac_score.php'
 	);	
 
 	private $formatHelper;

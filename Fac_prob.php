@@ -15,7 +15,7 @@ class Fac_prob implements Product{
 	
 	private $links = array (
 		'Assign' => './Fac_assign.php',
-		'Mark' => './Fac_mark.php',
+		'Status' => './Fac_status.php',
 	);	
 
 	private $formatHelper;
