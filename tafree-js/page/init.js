@@ -138,6 +138,19 @@ TAFree.page.Init = {
             
     },
     
+    manGenRow: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            add_buts, del_buts, i;
+            
+        // Set add row
+        add_buts = dom.getClass('ADD_BUTTON');
+        for (i = 0; i < add_buts.length; i += 1) {
+		add_buts[i].addEventListener('click', feature.addGenRow);
+	}
+    },
+    
     enableZoom: function () {
         // Dependencies
         var dom = TAFree.util.Dom,

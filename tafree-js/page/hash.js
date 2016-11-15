@@ -22,7 +22,7 @@ TAFree.page.Hash = (function () {
             	},
             
             	'fac_assign': function () {
-                	init.manRow();
+                	init.manGenRow();
 			init.otherJudge();
             	},
             	

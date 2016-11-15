@@ -210,9 +210,10 @@ class RawDataEntry implements IStrategy {
 			$sql = 'CREATE TABLE ' . $this->items[$i] . '(
 				subitem TINYINT(20) UNSIGNED DEFAULT 1,
 				description VARCHAR(100),
-				judgescript VARCHAR(100),';
+				judgescript VARCHAR(100),
+				hint TEXT';
 			for ($j = 0; $j < $stu_len; $j += 1) {
-				$sql .= $this->stu_accs[$j] . ' INT(100) UNSIGNED';
+				$sql .= $this->stu_accs[$j] . ' TINYTEXT';
 				if ($j < $stu_len - 1) {
 					$sql .= ',';
 				}

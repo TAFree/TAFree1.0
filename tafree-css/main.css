@@ -111,19 +111,25 @@
 }
 
 .ADD_DEL_BUTTON {
-    border-radius: 50%;
+    border-radius: 30%;
     background-color: #2186C4;
     color: #FFF6E5;
 }
 
 .SUB_ADD_DEL_BUTTON {
-    border-radius: 50%;
+    border-radius: 30%;
     background-color: #2186C4;
     color: #FFF6E5;
 }
 
-.ASSIGN_BUTTON {
-    border-radius: 50%;
+.ADD_BUTTON {
+    border-radius: 30%;
+    background-color: #2186C4;
+    color: #FFF6E5;
+}
+
+.DEL_BUTTON {
+    border-radius: 30%;
     background-color: #2186C4;
     color: #FFF6E5;
 }
@@ -211,7 +217,8 @@
 .STATUS_TABLE  {
 	position: fixed;
 	left: 25px;
-	top: 180px;
+	top: 180px;    
+	border: 2px outset #D8D8D8;
 }
 
 .STATUS_P {

@@ -15,8 +15,7 @@ class Index {
 	
 	public function __construct() {
 		
-		if (isset($_POST['submit'])) {
-			
+		if (isset($_POST['submit'])) {			
 			$this->person = Util::fixInput($_POST['person']);
 			
 			$student = new Student();
@@ -30,7 +29,6 @@ class Index {
 
 			$loadup = new Request($this->person);
 			$student->handleRequest($loadup);
-
 		}
 	}
 	

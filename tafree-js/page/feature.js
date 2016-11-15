@@ -62,6 +62,35 @@ TAFree.page.Feature = {
             table.appendChild(new_row);
 	},
 
+	addGenRow: function (e) {
+		
+		// Dependencies
+        var dom = TAFree.util.Dom,
+			
+            table, hid_row, new_row, del_but;
+            
+            table = e.srcElement.parentNode.parentNode.parentNode.parentNode; 
+	    if (table.tagName === 'TABLE') {
+		table = table.children[0];
+	    }
+	    hid_row = table.children[2];
+	    new_row = hid_row.cloneNode(true);
+            new_row.className = 'SHOW_TR';
+	    del_but = new_row.children[0].children[0];
+	    del_but.addEventListener('click', function(sub_event){
+                var sub_but, sub_table, sub_tr;
+	        sub_but = sub_event.srcElement;
+		if (sub_but.tagName === 'B') {
+			sub_but = sub_but.parentNode;
+		}
+	        sub_tr = sub_but.parentNode.parentNode;    
+	        sub_table = sub_tr.parentNode; 
+	        sub_table.removeChild(sub_tr);
+
+            });
+            table.appendChild(new_row);
+	},
+
 	delRow: function (e) {
 		
 		// Dependencies

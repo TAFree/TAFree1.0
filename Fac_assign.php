@@ -56,17 +56,17 @@ class Fac_assign implements Product {
 <th colspan='2' class='TITLE_TD'>Solution</th>
 </tr>
 <tr>
-<td><button id='ADD_BUTTON' class='ASSIGN_BUTTON' type='button'><b>+</b></button></td>
+<td><button class='ADD_BUTTON' type='button'><b>+</b></button></td>
 <td class='TITLE_TD'>Filename (.java, .cpp, .py)</td>
 <td class='TITLE_TD'>Upload</td>
 </tr>
 <tr class='HIDDEN_TR'>
-<td><button class='ASSIGN_BUTTON' type='button'><b>-</b></button></td>
+<td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input type='text'></td>
 <td class='CONTENT_TD'><input type='file'></td>
 </tr>
-<tr>
-<td><button class='ASSIGN_BUTTON' type='button'><b>-</b></button></td>
+<tr class='SHOW_TR'>
+<td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input type='text'></td>
 <td class='CONTENT_TD'><input type='file'></td>
 </tr>
@@ -77,17 +77,17 @@ class Fac_assign implements Product {
 <th colspan='2' class='TITLE_TD'>Test Data</th>
 </tr>
 <tr>
-<td><button id='ADD_BUTTON' class='ASSIGN_BUTTON' type='button'><b>+</b></button></td>
+<td><button class='ADD_BUTTON' type='button'><b>+</b></button></td>
 <td class='TITLE_TD'>Filename (.in)</td>
 <td class='TITLE_TD'>Separate by Space</td>
 </tr>
 <tr class='HIDDEN_TR'>
-<td><button class='ASSIGN_BUTTON' type='button'><b>-</b></button></td>
+<td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input type='text'></td>
 <td class='CONTENT_TD'><textarea></textarea></td>
 </tr>
-<tr>
-<td><button class='ASSIGN_BUTTON' type='button'><b>-</b></button></td>
+<tr class='SHOW_TR'>
+<td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input type='text'></td>
 <td class='CONTENT_TD'><textarea></textarea></td>
 </tr>
