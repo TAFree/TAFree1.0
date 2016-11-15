@@ -130,10 +130,10 @@ class RawDataEntry implements IStrategy {
 					
 					// Delete tables
 					$this->deleteTable();
-
+					
 					// Create tables
 					$this->createTable();
-					
+
 					// Insert tables
 					$this->insertTable();
 
@@ -142,8 +142,34 @@ class RawDataEntry implements IStrategy {
 				catch (PDOException $e) {
 					echo 'Error: ' . $e->getMessage() . '<br>';
 				}
-				
+					
+				try {
+					// Delete problem directories	
+					$delete_dir_msg = system('rm -rf ./problem/description/* ./problem/judge/* ./problem/solution/* ./problem/testdata/*', $retval);
+					if ($retval !== 0) {
+						new Viewer ('Msg', $delete_dir_msg);
+						exit();
+					}
+					// Create problem directories
+					for ($i = 0; $i < count($this->items); $i += 1) {
+						mkdir('./problem/description/' . $this->items[$i]);
+						mkdir('./problem/judge/' . $this->items[$i]);
+						mkdir('./problem/solution/' . $this->items[$i]);
+						mkdir('./problem/testdata/' . $this->items[$i]);
+						for ($j = 1; $j <= $this->item_nums[$i]; $j += 1) {
+							mkdir('./problem/description/' . $this->items[$i] . '/' . $j);
+							mkdir('./problem/judge/' . $this->items[$i] . '/' . $j);
+							mkdir('./problem/solution/' . $this->items[$i] . '/' . $j);
+							mkdir('./problem/testdata/' . $this->items[$i] . '/' . $j);
+						}
+					}
+				}
+				catch (Exception $e) {
+					echo 'Error: ' . $e->getMessage() . '<br>'; 
+				}
+	
 				new Viewer ('Msg', 'Successful initialization !' . '<br>');
+			
 			}
 
 		}
@@ -211,7 +237,7 @@ class RawDataEntry implements IStrategy {
 				subitem TINYINT(20) UNSIGNED DEFAULT 1,
 				description VARCHAR(100),
 				judgescript VARCHAR(100),
-				hint TEXT';
+				hint TEXT,';
 			for ($j = 0; $j < $stu_len; $j += 1) {
 				$sql .= $this->stu_accs[$j] . ' TINYTEXT';
 				if ($j < $stu_len - 1) {
