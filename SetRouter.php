@@ -165,9 +165,22 @@ $router->match('GET', '/Fac_assign.php', function() {
 	}
 });
 
-$router->match('POST', '/Fac_modify.php', function() {
-	new Viewer('Fac_modify');
+$router->match('POST', '/Upload.php', function() {
+	new Upload();
 });
+
+$router->match('GET', '/Upload.php', function() {
+	new Viewer('Sneaker');
+});
+
+$router->match('POST', '/Handout.php', function() {
+	new Handout();
+});
+
+$router->match('GET', '/Handout.php', function() {
+	new Viewer('Sneaker');
+});
+
 
 $router->match('GET', '/Fac_score.php', function() {
 	session_start();

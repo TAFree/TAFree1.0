@@ -15,37 +15,55 @@ class Fac_assign implements Product {
 
 	private $formatHelper;
 	private $contentProduct;
-	
+	private $generalJudges;
+
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<form method='POST' action='./Fac_modify.php' >
+<h1>{$_GET['item']}_{$_GET['subitem']}</h1>
+<form method='POST' action='./Upload.php' enctype='multipart/form-data'>
 <div class='FAC_ASSIGN_DIV'>
 <input type='submit' value='Upload >>'>
+<input type='hidden' name='item' value='{$_GET['item']}'>
+<input type='hidden' name='subitem' value='{$_GET['subitem']}'>
 </div>
 <table id='PROBLEM_TABLE'>
 <tr>
-<th class='TITLE_TD'>Problem</th>
-<th class='TITLE_TD'>{$_GET['item']}_{$_GET['subitem']}</th>
+<th colspan='2' class='TITLE_TD'>Problem</th>
 </tr>
 <tr>
 <td class='CONTENT_TD'>Description</td>
-<td class='CONTENT_TD'><input type='file'></td>
+<td class='CONTENT_TD'><input type='file' name='description'></td>
 </tr>
 <tr>
 <td class='CONTENT_TD'>Hint</td>
-<td class='CONTENT_TD'><textarea></textarea></td>
+<td class='CONTENT_TD'><textarea name='hint'></textarea></td>
 </tr>
 <tr>
 <td class='CONTENT_TD'>Judge</td>
 <td class='CONTENT_TD'>
-<select id='JUDGE_SELECT'>
-<option value='201602_Java_CP.php'>201602_Java_CP.php</option>
-<option value='201602_C++_OOP.php'>201601_C++_OOP.php</option>
-<option value='other'>other</option>
-<input id='OTHER_INPUT' type='file'>
+<select id='JUDGE_SELECT' name='judge'>
+EOF;
+		
+		$generalJudges = glob('judge/*');
+		foreach ($generalJudges as $file) {
+			$file = (string)$file;
+			$filename = substr($file, strripos($file, '/') + 1);
+			$this->contentProduct .= '<option value=\'' . $filename . '\'>' . $filename . '</option>';
+		}
+		
+		$this->contentProduct .= '<option value=\'other\'>other</option>';
+
+		if (!isset($generalJudges)) {
+			$this->contentProduct .= '<input type=\'file\' name=\'judge_file\'>';
+		}
+		else {
+			$this->contentProduct .= '<input id=\'OTHER_INPUT\' type=\'file\' name=\'judge_file\'>';
+		}
+		
+		$this->contentProduct .=<<<EOF
 </select>
 </td>
 </tr>
@@ -62,13 +80,13 @@ class Fac_assign implements Product {
 </tr>
 <tr class='HIDDEN_TR'>
 <td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><input type='file'></td>
+<td class='CONTENT_TD'><input type='text' name='solution_filename[]'></td>
+<td class='CONTENT_TD'><textarea name='solution_content[]'></textarea></td>
 </tr>
 <tr class='SHOW_TR'>
 <td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><input type='file'></td>
+<td class='CONTENT_TD'><input type='text' name='solution_filename[]'></td>
+<td class='CONTENT_TD'><textarea name='solution_content[]'></textarea></td>
 </tr>
 </table>
 <table id='TESTDATA_TABLE'>
@@ -83,13 +101,13 @@ class Fac_assign implements Product {
 </tr>
 <tr class='HIDDEN_TR'>
 <td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><textarea></textarea></td>
+<td class='CONTENT_TD'><input type='text' name='testdata_filename[]'></td>
+<td class='CONTENT_TD'><textarea name='testdata_content[]'></textarea></td>
 </tr>
 <tr class='SHOW_TR'>
 <td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text'></td>
-<td class='CONTENT_TD'><textarea></textarea></td>
+<td class='CONTENT_TD'><input type='text' name='testdata_filename[]'></td>
+<td class='CONTENT_TD'><textarea name='testdata_content[]'></textarea></td>
 </tr>
 </table>
 </form>

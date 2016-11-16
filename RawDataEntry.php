@@ -145,7 +145,7 @@ class RawDataEntry implements IStrategy {
 					
 				try {
 					// Delete problem directories	
-					$delete_dir_msg = system('rm -rf ./problem/description/* ./problem/judge/* ./problem/solution/* ./problem/testdata/*', $retval);
+					$delete_dir_msg = system('rm -rf ./problem/description/* ./problem/judge/* ./problem/testdata/*', $retval);
 					if ($retval !== 0) {
 						new Viewer ('Msg', $delete_dir_msg);
 						exit();
@@ -154,12 +154,10 @@ class RawDataEntry implements IStrategy {
 					for ($i = 0; $i < count($this->items); $i += 1) {
 						mkdir('./problem/description/' . $this->items[$i]);
 						mkdir('./problem/judge/' . $this->items[$i]);
-						mkdir('./problem/solution/' . $this->items[$i]);
 						mkdir('./problem/testdata/' . $this->items[$i]);
 						for ($j = 1; $j <= $this->item_nums[$i]; $j += 1) {
 							mkdir('./problem/description/' . $this->items[$i] . '/' . $j);
 							mkdir('./problem/judge/' . $this->items[$i] . '/' . $j);
-							mkdir('./problem/solution/' . $this->items[$i] . '/' . $j);
 							mkdir('./problem/testdata/' . $this->items[$i] . '/' . $j);
 						}
 					}
@@ -263,7 +261,7 @@ class RawDataEntry implements IStrategy {
 						$sql .= ',';
 					}
 				}
-				$sql .= ');';
+				$sql .= ', PRIMARY KEY(classname));';
 				$stmt = $this->hookup->prepare($sql);
 				$stmt->execute();
 			}

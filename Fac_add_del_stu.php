@@ -15,6 +15,7 @@ class Fac_add_del_stu implements Product {
 
 	private $formatHelper;
 	private $contentProduct;
+	private $hookup;
 	
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));

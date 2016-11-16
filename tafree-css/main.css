@@ -149,7 +149,6 @@
 }
 
 #OTHER_INPUT {
-	display: none;
 }
 
 #SOLUTION_TABLE {
@@ -268,6 +267,10 @@
 .FAC_MODIFY_DIV{
 	margin: 30px auto;
 	text-align: center;
+}
+
+.HIDDEN_DIV {
+	display: none;
 }
 
 .CODES_TABLE { 

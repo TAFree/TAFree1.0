@@ -36,10 +36,11 @@ TAFree.page.Hash = (function () {
 			
             	},
                 
-                'fac_modify': function () {
+                'modify': function () {
                     	addon.codeLeft();
                  	init.enableZoom();
 			init.enableModify();
+			init.handout();
             	},
                 
                 'stu_prob': function () {

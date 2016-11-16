@@ -44,6 +44,7 @@ EOF;
 <script src='./tafree-js/page/data.js'></script>
 <script src='./tafree-js/page/addon.js'></script>
 <script src='./tafree-js/page/feature.js'></script>
+<script src='./tafree-js/page/process.js'></script>
 <script src='./tafree-js/page/init.js'></script>
 <script src='./tafree-js/page/hash.js'></script>
 <script>

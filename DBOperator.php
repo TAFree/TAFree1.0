@@ -41,6 +41,17 @@ class DBOperator {
 		$context = new Context(new StudentEntry());
 		$context->algorithm();
 	}
+	
+	public function upload() {
+		$context = new Context(new ProblemEntry());
+		$context->algorithm();
+	}
+	
+	public function handout() {
+		$context = new Context(new ProblemAlter());
+		$context->algorithm();
+	}
 
 }
+
 ?>

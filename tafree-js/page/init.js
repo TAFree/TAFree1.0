@@ -267,6 +267,17 @@ TAFree.page.Init = {
 	 
     },
     
+    handout: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            process = TAFree.page.Process,
+
+	    but;
+	
+	but = dom.getId('HANDOUT_INPUT');
+        but.addEventListener('click', function() {console.log(123);}); 
+    },
+
     jumpThree: function () {
         // Dependencies
         var dom = TAFree.util.Dom,
@@ -329,17 +340,20 @@ TAFree.page.Init = {
         // Dependencies
         var dom = TAFree.util.Dom,
 		
-	    select, file;
+	    select, input;
             
             select = dom.getId('JUDGE_SELECT');
-	    file = dom.getId('OTHER_INPUT');
-	
+	    input = dom.getId('OTHER_INPUT');
+
+	if (select.value !== 'other') {
+		input.style.display = 'none';
+	}
 	select.addEventListener('change',function () {
-		if (select.value === 'other') {
-			file.style.display = 'inline';
+		if (select.value !== 'other') {
+			input.style.display = 'none';
 		}
-		else{
-			file.style.display = 'none';
+		else {
+			input.style.display = 'inline';
 		}
 	});
     }
