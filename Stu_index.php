@@ -10,7 +10,8 @@ class Stu_index implements Product{
 	private $links = array (
 		'Problem' => './Stu_chooser.php',
 		'Score' => './Stu_score.php',
-		'Leave' => './Stu_leave.php'
+		'Leave' => './Stu_leave.php',
+		'Permission' => '/Stu_permission.php'
 	);	
 
 	private $formatHelper;

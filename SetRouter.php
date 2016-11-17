@@ -155,10 +155,10 @@ $router->match('GET', '/Fac_add_del_stu.php', function() {
 	}
 });
 
-$router->match('GET', '/Fac_status.php', function() {
+$router->match('GET', '/Fac_coder.php', function() {
 	session_start();
 	if ($_SESSION['faculty']) {
-		new Viewer('Fac_status');
+		new Viewer('Fac_coder');
 	} else {
 		new Viewer('Sneaker');
 	}

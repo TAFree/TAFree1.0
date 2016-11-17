@@ -259,31 +259,25 @@ TAFree.page.Feature = {
 	setup: function (e) {
 		// Dependencies
         var dom = TAFree.util.Dom,
-			
-            but, td, handout, showup, closeup, backup, item, xhr, i, pres_table, pres_len, pres_tr, closeup_td, present_checkbox, present_img;
+	    feature = TAFree.page.Feature,
+	
+            but, td, showup, closeup, backup, item, handout, xhr, i, pres_table, pres_len, pres_tr, closeup_td, present_checkbox, present_img;
             
             but = e.srcElement;
-	    td = but.parentNode;
-	    
+	    td = but.parentNode; 
+
 	    // Get item
 	    item = td.nextSibling.children[1].id;
 	   
             // Check if problem is handed out or not
-	    xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function () {
-		// Get hand out status when server response is ready
-		if (this.readyState === 4 && this.status === 200) {
-			handout = (boolean) xhr.response;
-		}
-	    }	
-	    xhr.open('POST', 'ProblemSearch.php', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send('item=' + item);
-	    if (handout === false) {
-		confirm('Forgot to hand out problem first...');
-	    	return;
+	    handout = feature.checkHandout(item); 
+	    console.log(handout);
+console.log(handout == new String('YET'));
+		if(String(handout) == 'YET') {
+	        confirm('Forgot to hand out problem first...');
+	  	return;
 	    }
-
+	
 	    // Get times
 	    showup = td.children[0].value + ' ' + td.children[1].value + ':' + td.children[2].value + ':' + '59';
 	    closeup = td.children[5].value + ' ' + td.children[6].value + ':' + td.children[7].value + ':' + '59';
@@ -323,10 +317,23 @@ TAFree.page.Feature = {
 				}
 			}
 		}
-	    }	
+	    };	
 	    xhr.open('POST', 'Setup.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('showup=' + showup + '&backup=' + backup + '&item=' + item);
+	},
+
+	checkHandout: function (item) {
+	
+	var xhr;
+
+	    xhr = new XMLHttpRequest();
+	    xhr.open('POST', 'ProblemSearch.php', false);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send('item=' + item);
+	    
+	    return xhr.responseText;
+	    
 	},
 
 	here: function (e) {
@@ -386,20 +393,8 @@ TAFree.page.Feature = {
 	    addon = TAFree.page.Addon,
 	    data = TAFree.page.Data,
 			
-            img, press, code, modify, title, k;
+            img, code, modify, title, k;
             
-	    // Press img effect
-            img = e.srcElement;
-	    img.style.backgroundColor='#D8D8D8';
-	    press = setInterval(function (){
-		if (img.style.backgroundColor === '#FFF6E5') {
-			clearInterval(press);
-		}
-		else{
-			img.style.backgroundColor = '#FFF6E5';
-		}
-	    }, 800);
-	    
 	    // Change pattern
 	    code = img.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[1];
 	    title = code.parentNode.children[0].children[0].innerHTML;

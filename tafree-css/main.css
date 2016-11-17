@@ -339,6 +339,10 @@
 	background-color: #FFF6E5;
 }
 
+.MODIFY_BUTTON_IMG:hover {
+	background-color: #D8D8D8;
+}
+
 .MODIFY_TABLE {
 	table-layout: fixed;
 	width: 100%;
