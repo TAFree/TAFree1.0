@@ -16,7 +16,7 @@ class Msg implements Product{
 	
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
-//		$this->contentProduct .= $this->formatHelper->addTop();
+		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .= '<p id=\'MSG_P\'>' . $this->content . '</p>';
 

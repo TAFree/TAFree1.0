@@ -273,6 +273,10 @@
 	display: none;
 }
 
+#HANDOUT_INPUT {
+	display: none;
+}
+
 .CODES_TABLE { 
     	margin: 30px auto;
 	margin-bottom: 50px;
@@ -383,12 +387,6 @@
 .MODIFY_LOCK_DIV {
 }
 
-#STU_RES_TABLE {
-    margin: 120px auto;
-    width: 800px;
-    table-layout: fixed;
-}
-
 #FAC_CHOOSER_TABLE {
     margin: auto;
     margin-top: 30px;
@@ -404,6 +402,25 @@
     margin: 50px auto;
 }
 
+.STU_WRITE_DIV{
+	margin: 30px auto;
+	text-align: center;
+}
+
+#APPLY_A {
+	text-decoration: none;
+	color: #000000;
+} 
+
+#APPLY_A:hover {
+	color: #3F464C;
+}
+
+#STU_RES_TABLE {
+    margin: 120px auto;
+    width: 800px;
+    table-layout: fixed;
+}
 
 
 

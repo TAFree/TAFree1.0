@@ -14,22 +14,21 @@ class Index {
 	private $person;
 	
 	public function __construct() {
+			
+		$this->person = Util::fixInput($_POST['person']);
 		
-		if (isset($_POST['submit'])) {			
-			$this->person = Util::fixInput($_POST['person']);
-			
-			$student = new Student();
-			$faculty = new Faculty();
-			$administer = new Administer();
-			$tester = new Tester();
-			
-			$student->setSuccessor($faculty);
-			$faculty->setSuccessor($administer);
-			$administer->setSuccessor($tester);
+		$student = new Student();
+		$faculty = new Faculty();
+		$administer = new Administer();
+		$tester = new Tester();
+		
+		$student->setSuccessor($faculty);
+		$faculty->setSuccessor($administer);
+		$administer->setSuccessor($tester);
 
-			$loadup = new Request($this->person);
-			$student->handleRequest($loadup);
-		}
+		$loadup = new Request($this->person);
+		$student->handleRequest($loadup);
+		
 	}
 	
 }

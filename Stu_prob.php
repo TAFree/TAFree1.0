@@ -12,84 +12,81 @@ function __autoload($class_name) {
 }
 
 class Stu_prob implements Product {	
-
+	
 	private $formatHelper;
 	private $contentProduct;
+
+	private $item;
+	private $subitem;
+
+	private $hookup;
 	
 	public function getContent() {
+		
+		$this->item = $_GET['item'];
+		$this->subitem = $_GET['subitem'];
+
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->contentProduct .= '<h1>Here is ' . $_GET['item'] . '_' . $_GET['subitem']. '</h1>';
 		$this->contentProduct .=<<<EOF
-<div id='CODE_DIV'>
-<form>
-<input type='submit' value='Submit >>'><a class='CLICKABLE' href="down_pdf.php">Download PDF</a>
-<div class='BLOCK_DIV'>
-<div class='TITLE_DIV'>Circle1.java<img class='ZOOM_IMG'></div>
-<div class='CODE_DIV'>
-<textarea class='BLANK'> 
-import  java.util.Scanner;
-public class ScannerAndKeyboard
-{
-    public static void main(String[] args)
-    {	
-        Scanner s = new Scanner(System.in);
-        System.out.print( "Enter your name: "  );
-        String name = s.nextLine();
-        System.out.println( "Hello " + name + "!" );
-    }
-}
-</textarea>
+<h1>{$this->item}_{$this->subitem}</h1>
+<form method='POST' action='./Handin.php'>
+<div class='HIDDEN_DIV'>
+<input type='hidden' value='{$this->item}' name='item'>
+<input type='hidden' value='{$this->subitem}' name='subitem'>
 </div>
+<div class='STU_WRITE_DIV'>
+<input type='submit' id='HANDIN_INPUT' class='CLICKABLE' value='Handin >>' name='submit'>
 </div>
-<div class='BLOCK_DIV'>
-<div class='TITLE_DIV'>Circle2.java<img class='ZOOM_IMG'></div>
-<div class='CODE_DIV'>
-<pre>
-                    
-import  java.util.Scanner;
-public class ScannerAndKeyboard
-{
-    public static void main(String[] args)
-    {	
-        Scanner s = new Scanner(System.in);
-        System.out.print( "Enter your name: "  );
-        String name = s.nextLine();
-        System.out.println( "Hello " + name + "!" );
-    }
-}
-</pre>
-</div>
-</div>
-<div class='BLOCK_DIV'>
-<div class='TITLE_DIV'>Circle3.java<img class='ZOOM_IMG'></div>
-<div class='CODE_DIV'>
-<img src='./tafree-svg/ghost.svg'>
-</div>
-</div>
-<div class='BLOCK_DIV'>
-<div class='TITLE_DIV'>Circle4.java<img class='ZOOM_IMG'></div>
-<div class='CODE_DIV'>
-<pre>
-
-import  java.util.Scanner;
-<input type='text' size='100'>
-{
-    public static void main(String[] args)
-    {	
-        Scanner s = new Scanner(System.in);
-<input type='text' size='100'>
-        String name = s.nextLine();
-        System.out.println( "Hello " + name + "!" );
-    }
-}
-</pre>
-</div>
-</div>
-</form>
-</div>
+<table class='CODES_TABLE'>
+<tr>
 EOF;
+		try {
+			$this->hookup = UniversalConnect::doConnect();
+			$stmt = $this->hookup->prepare('SELECT classname, modified_source FROM ' . $this->item . '_' . $this->subitem);
+			$stmt->execute();
+			$i = 0;
+			while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+				
+				if ($i % 3 === 0 && $i !== 0)  {
+					$this->contentProduct .= '</tr><tr>';
+				}
+				$i += 1;
+
+				$this->contentProduct .=<<<EOF
+<td>
+<div class='BLOCK_DIV'>
+<div class='TITLE_DIV'><p class='TITLE_P'>{$row['classname']}</p><img class='ZOOM_IMG'></div>
+<div class='CODE_DIV'>
+<pre class='MODIFY_ORIGIN_PRE'>{$row['modified_source']}</pre>
+</div>
+<div class='MODIFY_BAR_DIV'>
+<table class='MODIFY_TABLE'>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg' title='Cut out line'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/block.svg' title='Cut out block'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg' title='Cut out all'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/rubber.svg' title='Remove line'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg' title='Restore'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg' title='Lock all'></td></tr>
+</table>
+</div>
+</div>
+</td>
+EOF;
+			}
+		}
+		catch (PDOException $e) {
+			echo 'Error: ' . $e->getMessage() . '<br>';
+		}		
+		
+
+		$this->contentProduct .=<<<EOF
+</tr>
+</table>
+</form>
+EOF;
+		
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
 		return $this->contentProduct;

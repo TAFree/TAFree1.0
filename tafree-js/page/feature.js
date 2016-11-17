@@ -260,25 +260,49 @@ TAFree.page.Feature = {
 		// Dependencies
         var dom = TAFree.util.Dom,
 			
-            but, td, showup, closeup, backup, item, xhr, i, pres_table, pres_len, pres_tr, closeup_td, present_checkbox, present_img;
+            but, td, handout, showup, closeup, backup, item, xhr, i, pres_table, pres_len, pres_tr, closeup_td, present_checkbox, present_img;
             
             but = e.srcElement;
 	    td = but.parentNode;
 	    
+	    // Get item
+	    item = td.nextSibling.children[1].id;
+	   
+            // Check if problem is handed out or not
+	    xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function () {
+		// Get hand out status when server response is ready
+		if (this.readyState === 4 && this.status === 200) {
+			handout = (boolean) xhr.response;
+		}
+	    }	
+	    xhr.open('POST', 'ProblemSearch.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send('item=' + item);
+	    if (handout === false) {
+		confirm('Forgot to hand out problem first...');
+	    	return;
+	    }
+
 	    // Get times
 	    showup = td.children[0].value + ' ' + td.children[1].value + ':' + td.children[2].value + ':' + '59';
 	    closeup = td.children[5].value + ' ' + td.children[6].value + ':' + td.children[7].value + ':' + '59';
 	    backup = td.children[10].value + ' ' + td.children[11].value + ':' + td.children[12].value + ':' + '59';
-
-	    // Get item
-	    item = td.nextSibling.children[1].id;
-
+		
 	    // Check empty time field
 	    if (!showup.includes('-') || !closeup.includes('-') || !backup.includes('-')) {
 		confirm('Forgot to choose date...');
 		return;
 	    }
 	    
+	    // Check time order
+	    if (Date.parse(showup.replace('-', '/')) < Date.parse(closeup.replace('-', '/')) && Date.parse(closeup.replace('-', '/')) < Date.parse(backup.replace('-', '/'))) {
+	    }  
+	    else {
+		confirm('Make sure showup < closeup < backup...');
+		return;
+	    }
+	 
             // Send showup & backup time to server 
 	    xhr = new XMLHttpRequest();
 	    xhr.onreadystatechange = function () {

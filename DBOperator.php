@@ -36,6 +36,11 @@ class DBOperator {
 		$context = new Context(new TimeSetup());
 		$context->algorithm();
 	}
+	
+	public function searchProblem() {
+		$context = new Context(new ProblemQuery());
+		$context->algorithm();
+	}
 
 	public function present() {
 		$context = new Context(new StudentEntry());

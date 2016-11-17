@@ -274,8 +274,18 @@ TAFree.page.Init = {
 
 	    but;
 	
-	but = dom.getId('HANDOUT_INPUT');
-        but.addEventListener('click', function() {console.log(123);}); 
+	but = dom.getId('FINISH_INPUT');
+        but.addEventListener('click', function(e) {
+	        var dom = TAFree.util.Dom,
+		    finish_but, handout_but;
+
+		handout_but = dom.getId('HANDOUT_INPUT');
+		finish_but = e.srcElement;
+		process.hideData();
+		finish_but.style.display = 'none';
+		handout_but.style.display = 'block';
+		
+	}); 
     },
 
     jumpThree: function () {

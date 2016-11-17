@@ -24,7 +24,7 @@ class Fac_index implements Product{
 		foreach($this->links as $key => $value) {
 			$this->contentProduct .=<<<EOF
 <td>
-<a href='$value' onclick='this.parantNode.submit()'>
+<a href='$value'>
 <svg class='CIR_SVG'>
 <circle class='BIG_CIRCLE'></circle>
 <circle class='SMALL_CIRCLE'></circle>

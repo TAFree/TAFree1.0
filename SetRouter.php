@@ -53,6 +53,14 @@ $router->match('GET', '/Initial.php', function() {
 	new Viewer('Sneaker');
 });
 
+$router->match('POST', '/ProblemSearch.php', function() {
+	new ProblemSearch();
+});
+
+$router->match('GET', '/ProblemSearch.php', function() {
+	new Viewer('Sneaker');
+});
+
 $router->match('POST', '/Setup.php', function() {
 	new Setup();
 });
@@ -210,12 +218,31 @@ $router->match('GET', '/Stu_chooser.php', function() {
 });
 
 $router->match('GET', '/Stu_prob.php', function() {
+	
 	session_start();
+	
 	if ($_SESSION['student']) {
-		new Viewer('Stu_prob');
+	
+		$registry = array();
+		$registry['guest'] = 'student';
+		$registry['account'] = (string)$_SESSION['student'];
+		$registry['destination'] = 'Stu_prob';
+		$registry['time'] = date('Y-m-d H:m:s');
+		$registry['item'] = $_GET['item'];
+
+		$watchman = new Janitor($registry);
+		
+		if ($watchman->openDoor()) {
+			new Viewer('Stu_prob');
+		}
+		else {
+			new Viewer('Msg', $watchman->dialogue());
+		}
+
 	} else {
 		new Viewer('Sneaker');
 	}
+
 });
 
 $router->match('GET', '/Stu_leave.php', function() {

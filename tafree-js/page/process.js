@@ -5,6 +5,7 @@ TAFree.page.Process = {
 	hideData: function () {
 		// Dependencies
 		var dom = TAFree.util.Dom,
+		    process = TAFree.util.Process,
 	
 		    titles, codes, i, classname, modified_source, hidden_div;
 
@@ -28,7 +29,7 @@ TAFree.page.Process = {
 			hidden_div.appendChild(modified_source);
 
 		}
-	
+		
 	}
 
 };
