@@ -3,7 +3,7 @@ TAFree.namespace('TAFree.page.Addon');
 TAFree.page.Addon = {
 	
     codeLeft: function() {
-        
+      
         // Dependencies
         var dom = TAFree.util.Dom,
             

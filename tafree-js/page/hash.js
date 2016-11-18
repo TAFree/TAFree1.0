@@ -49,6 +49,11 @@ TAFree.page.Hash = (function () {
                     	init.enableZoom();
             	},
                 
+		'fac_look': function () {
+			addon.codeLeft();
+                    	init.enableZoom();
+            	},
+                
 		'fac_prob': function () {
                     	init.beInUsed();
             	},

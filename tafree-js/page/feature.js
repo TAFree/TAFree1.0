@@ -267,22 +267,22 @@ TAFree.page.Feature = {
 	    td = but.parentNode; 
 
 	    // Get item status
-	    item_status = td.children[0].children[0];
+	    item_status = td.children[0];
 	    
 	    // Get item
 	    item = td.nextSibling.children[1].id;
 	
 	    // Get times
-	    showup = td.children[1].value + ' ' + td.children[2].value + ':' + td.children[3].value + ':' + '59';
-	    closeup = td.children[6].value + ' ' + td.children[7].value + ':' + td.children[8].value + ':' + '59';
-	    backup = td.children[11].value + ' ' + td.children[12].value + ':' + td.children[13].value + ':' + '59';
-		
+	    showup = td.children[3].value + ' ' + td.children[4].value + ':' + td.children[5].value + ':' + '59';
+	    closeup = td.children[8].value + ' ' + td.children[9].value + ':' + td.children[10].value + ':' + '59';
+	    backup = td.children[13].value + ' ' + td.children[14].value + ':' + td.children[15].value + ':' + '59';
+	    
 	    // Check if problem is handed out or not
-	    if(item_status.style.backgroundColor === 'yellow') {
+	    if(item_status.title === 'Uninitialized') {
 	        confirm('This problem is uninitialized. Please assign first ! ');
 	  	return;
 	    }
-	    if(item_status.style.backgroundColor === 'red') {
+	    if(item_status.title === 'In used') {
 	        confirm('This problem is being assigned by peer now. Please wait ! ');
 	  	return;
 	    }
@@ -384,10 +384,15 @@ TAFree.page.Feature = {
 	    addon = TAFree.page.Addon,
 	    data = TAFree.page.Data,
 			
-            img, code, modify, title, k;
+            img, code, modify, title, k, modi_table;
             
 	    // Change pattern
-	    code = img.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.children[1];
+	    img = e.srcElement;
+	    modi_table = img.parentNode.parentNode.parentNode;
+	    if (modi_table.tagName === 'TBODY') {
+  	        modi_table = modi_table.parentNode;
+            }
+	    code = modi_table.parentNode.parentNode.children[1];
 	    title = code.parentNode.children[0].children[0].innerHTML;
 	    modify = img.src;
 	    modify = modify.substring(modify.lastIndexOf('/') + 1);
@@ -430,22 +435,20 @@ TAFree.page.Feature = {
 	},
 
 	beInUsed: function () {
+        
+	var dom = TAFree.util.Dom,
 	
-	var xhr, item, item_status;
+	    xhr, item, item_status;
            
 	    // Get item
-	    item = dom.getName('item');
+	    item = dom.getNameOne('item').value;
 	    item_status = 'In used';
 
 	    // Change item status into red on server 
 	    xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function () {
-		if (this.readyState === 4 && this.status === 200) {
-			confirm(item + ' status has become in used. You should finish assignment or other one could not reassign this problem.');
-		}
-	    };	
 	    xhr.open('POST', 'ProblemStatus.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('&item=' + item + '&item_status=' + item_status);
+	    confirm(item + ' status has become in used. You should finish all assigning work or other one could not reassign whole ' + item + '.');
 	}
 };

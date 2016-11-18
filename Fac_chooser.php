@@ -33,7 +33,9 @@ class Fac_chooser implements Product {
 				$this->contentProduct .=<<<EOF
 <tr class='ITEM_TR'>
 <td>
-<div>Status<img class='ITEM_STATUS_IMG' title='{$row_item['status']}' height='20' width='20'></div>	
+<img class='ITEM_STATUS_IMG' title='{$row_item['status']}' height='30' width='30'>
+<br>
+<br>
 Pages will show up at 
 <input type='date'>
 <input type='number' min='0' max='23' value='00'>&nbsp;:&nbsp;

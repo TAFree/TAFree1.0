@@ -42,7 +42,7 @@ class Stu_prob implements Product {
 </div>
 EOF;
 		$this->writeblock = new Look($this->item, $this->subitem);
-		$this->contentProduct .= $this->writeblock;
+		$this->contentProduct .= $this->writeblock->getContent();
 		
 		$this->contentProduct .=<<<EOF
 </form>

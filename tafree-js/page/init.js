@@ -280,8 +280,8 @@ TAFree.page.Init = {
 		    modify_form, item_status, item;
 		
 		// Collect data as hidden input and form submission
-		modify_form = dom.getId('MODIFY_FROM');
-		process.hideData();		
+		modify_form = dom.getId('MODIFY_FORM');
+		process.hideData();	
 		modify_form.submit();
 		
             	// Change item status into green on server side
@@ -402,12 +402,12 @@ TAFree.page.Init = {
     beInUsed: function () {
         // Dependencies
         var dom = TAFree.util.Dom,
-      	    feature = TAFree.util.Feature,
+      	    feature = TAFree.page.Feature,
 		
 	    buts, i;
 
 	buts = dom.getClass('FAC_A');
-	for (i = 0; i < buts.lengthl i += 1) {
+	for (i = 0; i < buts.length; i += 1) {
 		if (buts[i].href.includes('assign')) {
 			buts[i].addEventListener('click', feature.beInUsed);
 		}

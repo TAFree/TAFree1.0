@@ -32,7 +32,7 @@ class Fac_look implements Product {
 		
 		$this->contentProduct .= '<h1>' . $this->item . '_' . $this->subitem . '</h1>';
 		$this->writeblock = new Look($this->item, $this->subitem);
-		$this->contentProduct .= $this->writeblock;
+		$this->contentProduct .= $this->writeblock->getContent();
 			
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		

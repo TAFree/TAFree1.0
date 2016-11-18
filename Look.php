@@ -37,7 +37,7 @@ EOF;
 <td>
 <div class='BLOCK_DIV'>
 <div class='TITLE_DIV'><p class='TITLE_P'>{$row['classname']}</p><img class='ZOOM_IMG'></div>
-<div class='CODE_DIV'>{$row['modified_source']}</div>
+<div class='WRITE_DIV'>{$row['modified_source']}</div>
 </div>
 </td>
 EOF;

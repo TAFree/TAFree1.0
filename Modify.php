@@ -29,7 +29,7 @@ class Modify implements Product {
 <input type='hidden' value='{$this->subitem}' name='subitem'>
 </div>
 <div class='FAC_MODIFY'>
-<input type='button' id='HANDOUT_INPUT' class='CLICKABLE' value='Finish'>
+<input type='button' id='HANDOUT_INPUT' class='CLICKABLE' value='Handout >>'>
 </div>
 <table class='CODES_TABLE'>
 <tr>
