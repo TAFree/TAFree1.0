@@ -7,21 +7,15 @@ class ProblemColoring implements IStrategy {
 	
 	private $hookup;
 	
+	public function __construct($item, $item_status) {
+		$this->item = $item;
+		$this->item_status = $item_status;
+	}
+	
 	public function algorithm () {
 		
-		// Get item, item_status
-		$this->item = $_POST['item'];
-		$this->item_status = $_POST['item_status'];	
-
 		try {
-			$this->hookup = UniversalConnect::doConnect();						
-
-			// Check if all subitems has been finished assigning work when item_status is 'Available'
-			if ($this->item_status === 'Available') {
-				if (!$this->areSubitemsFinished()) {
-					return;
-				}
-			}
+			$this->hookup = UniversalConnect::doConnect();							
 
 			// Update problem table
 			$this->updateProblem();
@@ -39,16 +33,6 @@ class ProblemColoring implements IStrategy {
 		$stmt->execute(array(':status' => $this->item_status));	
 	}
 
-	public function areSubitemsFinished() {
-		$stmt = $this->hookup->prepare('Select modified_source FROM ' . $this->item . '_' . $this->subitem);
-		$stmt->execute();
-		while ($row = $this->stmt->fetch(PDO::FETCH_ASSOC)) {
-			if(empty($row['modified_source'])) {
-				return false;
-			}
-		}
-		return true;
-	}
 }
 
 ?>

@@ -52,8 +52,8 @@ class DBOperator {
 		$context->algorithm();
 	}
 	
-	public function colorProblem() {
-		$context = new Context(new ProblemColoring());
+	public function colorProblem($item, $item_status) {
+		$context = new Context(new ProblemColoring($item, $item_status));
 		$context->algorithm();
 	}
 }

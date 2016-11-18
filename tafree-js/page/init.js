@@ -283,14 +283,6 @@ TAFree.page.Init = {
 		modify_form = dom.getId('MODIFY_FORM');
 		process.hideData();	
 		modify_form.submit();
-		
-            	// Change item status into green on server side
-		item = dom.getNameOne('item').value;
-		item_status = 'Available';
-	    	xhr = new XMLHttpRequest();
-		xhr.open('POST', 'ProblemStatus.php', true);
-		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		xhr.send('item=' + item + '&item_status=' + item_status);
 	}); 
     },
 

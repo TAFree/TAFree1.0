@@ -3,6 +3,7 @@
 class ProblemAlter implements IStrategy {
 	
 	private $item;
+	private $item_num;
 	private $subitem;
 	private $classnames = array();
 	private $modified_sources = array();
@@ -22,7 +23,13 @@ class ProblemAlter implements IStrategy {
 			
 			// Update subitem table
 			$this->updateSubitem();
-
+			
+			// Check other subitem tables for changing problem status into 'Available'
+			if ($this->areAllFinished()) {
+				$trigger = new DBOperator();
+				$trigger->colorProblem($this->item, 'Available');
+			}
+			
 			$this->hookup = null;
 		}
 		catch (PDOException $e) {
@@ -40,6 +47,20 @@ class ProblemAlter implements IStrategy {
 		}
 	}
 
+	public function areAllFinished () {
+		$stmt_num = $this->hookup->prepare('SELECT number FROM problem WHERE item=\'' . $this->item . '\'');
+		$stmt_num->execute();
+		$this->item_num = $stmt_num->fetch(PDO::FETCH_ASSOC)['number'];
+			
+		for ($i = 1; $i <= $this->item_num; $i += 1) {
+			$stmt_subitem = $this->hookup->prepare('SELECT modified_source FROM ' . $this->item . '_' . $i);
+			$stmt_subitem->execute();
+			if ($stmt_subitem->rowCount() === 0) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
 
 ?>

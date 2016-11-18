@@ -448,7 +448,8 @@ TAFree.page.Feature = {
 	    xhr = new XMLHttpRequest();
 	    xhr.open('POST', 'ProblemStatus.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send('&item=' + item + '&item_status=' + item_status);
-	    confirm(item + ' status has become in used. You should finish all assigning work or other one could not reassign whole ' + item + '.');
+	    xhr.send('item=' + item + '&item_status=' + item_status);
+	    console.log(xhr.respoense);
+		confirm(item + ' status has become in used. You should finish all assigning work or other one could not reassign whole ' + item + '.');
 	}
 };
