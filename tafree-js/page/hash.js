@@ -12,6 +12,7 @@ TAFree.page.Hash = (function () {
             	'fac_chooser': function () {
 			init.polygon('fac');
 			init.jumpThree();
+			init.colorItem();
 			init.setup();
 			init.here();
             	},
@@ -46,6 +47,10 @@ TAFree.page.Hash = (function () {
                 'stu_prob': function () {
                     	addon.codeLeft();
                     	init.enableZoom();
+            	},
+                
+		'fac_prob': function () {
+                    	init.beInUsed();
             	},
 		
 		'instruction': function () {	

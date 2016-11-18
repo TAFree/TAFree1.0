@@ -37,11 +37,6 @@ class DBOperator {
 		$context->algorithm();
 	}
 	
-	public function searchProblem() {
-		$context = new Context(new ProblemQuery());
-		$context->algorithm();
-	}
-
 	public function present() {
 		$context = new Context(new StudentEntry());
 		$context->algorithm();
@@ -56,7 +51,11 @@ class DBOperator {
 		$context = new Context(new ProblemAlter());
 		$context->algorithm();
 	}
-
+	
+	public function colorProblem() {
+		$context = new Context(new ProblemColoring());
+		$context->algorithm();
+	}
 }
 
 ?>

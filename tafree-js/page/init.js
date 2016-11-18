@@ -274,17 +274,23 @@ TAFree.page.Init = {
 
 	    but;
 	
-	but = dom.getId('FINISH_INPUT');
+	but = dom.getId('HANDOUT_INPUT');
         but.addEventListener('click', function(e) {
 	        var dom = TAFree.util.Dom,
-		    finish_but, handout_but;
-
-		handout_but = dom.getId('HANDOUT_INPUT');
-		finish_but = e.srcElement;
-		process.hideData();
-		finish_but.style.display = 'none';
-		handout_but.style.display = 'block';
+		    modify_form, item_status, item;
 		
+		// Collect data as hidden input and form submission
+		modify_form = dom.getId('MODIFY_FROM');
+		process.hideData();		
+		modify_form.submit();
+		
+            	// Change item status into green on server side
+		item = dom.getNameOne('item').value;
+		item_status = 'Available';
+	    	xhr = new XMLHttpRequest();
+		xhr.open('POST', 'ProblemStatus.php', true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.send('item=' + item + '&item_status=' + item_status);
 	}); 
     },
 
@@ -316,6 +322,31 @@ TAFree.page.Init = {
         	pres[i].addEventListener('click', feature.preI);
         	nexts[i].addEventListener('click', feature.nextI);
         }
+    },
+    
+    colorItem () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+
+	imgs, i;
+
+	imgs = dom.getClass('ITEM_STATUS_IMG');
+
+	for (i = 0; i < imgs.length; i += 1) {
+		switch(imgs[i].title) {
+		case 'Uninitialized':
+			imgs[i].src = './tafree-svg/status_yellow.svg';
+		break;
+		case 'In used':
+			imgs[i].src = './tafree-svg/status_red.svg';
+		break;
+		case 'Available':
+			imgs[i].src = './tafree-svg/status_green.svg';
+		break;
+		default:
+			imgs[i].src = './tafree-svg/wrong.svg';
+		}
+	}
     },
 
     setup: function () {
@@ -366,6 +397,21 @@ TAFree.page.Init = {
 			input.style.display = 'inline';
 		}
 	});
+    },
+
+    beInUsed: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+      	    feature = TAFree.util.Feature,
+		
+	    buts, i;
+
+	buts = dom.getClass('FAC_A');
+	for (i = 0; i < buts.lengthl i += 1) {
+		if (buts[i].href.includes('assign')) {
+			buts[i].addEventListener('click', feature.beInUsed);
+		}
+	}
     }
 
 };

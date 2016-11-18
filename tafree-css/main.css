@@ -397,6 +397,11 @@
     margin-bottom: 50px;
 }
 
+.ITEM_STATUS_IMG {
+	float: left;
+	background-color: yellow;
+}
+
 .PRESENT_TABLE {
     width: 1000px;
     margin-top: 50px;
@@ -419,13 +424,6 @@
 #APPLY_A:hover {
 	color: #3F464C;
 }
-
-#STU_RES_TABLE {
-    margin: 120px auto;
-    width: 800px;
-    table-layout: fixed;
-}
-
 
 
 

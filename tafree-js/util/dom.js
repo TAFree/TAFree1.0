@@ -11,11 +11,15 @@ TAFree.util.Dom = {
 	},
 	
 	getClass: function(classname) {
-        return document.getElementsByClassName(classname);
-    },
+        	return document.getElementsByClassName(classname);
+	},
     
-    getClassOne: function(classname) {
-        return document.getElementsByClassName(classname)[0];
-    }
+    	getClassOne: function(classname) {
+        	return document.getElementsByClassName(classname)[0];
+    	},
+
+	getNameOne: function(name) {
+		return document.getElementsByName(name)[0];
+	}
 	
 };

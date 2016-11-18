@@ -11,7 +11,7 @@ function __autoload ($class_name) {
 	include_once($class_name . '.php');
 }
 
-class Fac_coder implements Product {	
+class Fac_coders implements Product {	
 
 	private $formatHelper;
 	private $contentProduct;

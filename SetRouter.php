@@ -53,11 +53,11 @@ $router->match('GET', '/Initial.php', function() {
 	new Viewer('Sneaker');
 });
 
-$router->match('POST', '/ProblemSearch.php', function() {
-	new ProblemSearch();
+$router->match('POST', '/ProblemStatus.php', function() {
+	new ProblemStatus();
 });
 
-$router->match('GET', '/ProblemSearch.php', function() {
+$router->match('GET', '/ProblemStatus.php', function() {
 	new Viewer('Sneaker');
 });
 
@@ -155,10 +155,19 @@ $router->match('GET', '/Fac_add_del_stu.php', function() {
 	}
 });
 
-$router->match('GET', '/Fac_coder.php', function() {
+$router->match('GET', '/Fac_look.php', function() {
 	session_start();
 	if ($_SESSION['faculty']) {
-		new Viewer('Fac_coder');
+		new Viewer('Fac_look');
+	} else {
+		new Viewer('Sneaker');
+	}
+});
+
+$router->match('GET', '/Fac_coders.php', function() {
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_coders');
 	} else {
 		new Viewer('Sneaker');
 	}

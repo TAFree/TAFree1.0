@@ -9,12 +9,12 @@ function __autoload($class_name) {
 	include_once($class_name . '.php');
 }
 
-class ProblemSearch {
+class ProblemStatus {
 	
 	public function __construct() {
 			
 		$trigger = new DBOperator();
-		$trigger->searchProblem();
+		$trigger->colorProblem();
 	}
 
 }

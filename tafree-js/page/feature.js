@@ -261,28 +261,32 @@ TAFree.page.Feature = {
         var dom = TAFree.util.Dom,
 	    feature = TAFree.page.Feature,
 	
-            but, td, showup, closeup, backup, item, handout, xhr, i, pres_table, pres_len, pres_tr, closeup_td, present_checkbox, present_img;
+            but, td, showup, closeup, backup, item, item_status, xhr, i, pres_table, pres_len, pres_tr, closeup_td, present_checkbox, present_img;
             
             but = e.srcElement;
 	    td = but.parentNode; 
 
+	    // Get item status
+	    item_status = td.children[0].children[0];
+	    
 	    // Get item
 	    item = td.nextSibling.children[1].id;
-	   
-            // Check if problem is handed out or not
-	    handout = feature.checkHandout(item); 
-	    console.log(handout);
-console.log(handout == new String('YET'));
-		if(String(handout) == 'YET') {
-	        confirm('Forgot to hand out problem first...');
-	  	return;
-	    }
 	
 	    // Get times
-	    showup = td.children[0].value + ' ' + td.children[1].value + ':' + td.children[2].value + ':' + '59';
-	    closeup = td.children[5].value + ' ' + td.children[6].value + ':' + td.children[7].value + ':' + '59';
-	    backup = td.children[10].value + ' ' + td.children[11].value + ':' + td.children[12].value + ':' + '59';
+	    showup = td.children[1].value + ' ' + td.children[2].value + ':' + td.children[3].value + ':' + '59';
+	    closeup = td.children[6].value + ' ' + td.children[7].value + ':' + td.children[8].value + ':' + '59';
+	    backup = td.children[11].value + ' ' + td.children[12].value + ':' + td.children[13].value + ':' + '59';
 		
+	    // Check if problem is handed out or not
+	    if(item_status.style.backgroundColor === 'yellow') {
+	        confirm('This problem is uninitialized. Please assign first ! ');
+	  	return;
+	    }
+	    if(item_status.style.backgroundColor === 'red') {
+	        confirm('This problem is being assigned by peer now. Please wait ! ');
+	  	return;
+	    }
+	    	
 	    // Check empty time field
 	    if (!showup.includes('-') || !closeup.includes('-') || !backup.includes('-')) {
 		confirm('Forgot to choose date...');
@@ -321,19 +325,6 @@ console.log(handout == new String('YET'));
 	    xhr.open('POST', 'Setup.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('showup=' + showup + '&backup=' + backup + '&item=' + item);
-	},
-
-	checkHandout: function (item) {
-	
-	var xhr;
-
-	    xhr = new XMLHttpRequest();
-	    xhr.open('POST', 'ProblemSearch.php', false);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send('item=' + item);
-	    
-	    return xhr.responseText;
-	    
 	},
 
 	here: function (e) {
@@ -436,5 +427,25 @@ console.log(handout == new String('YET'));
 	    default:
 		code.style.cursor='auto';
 	    }
+	},
+
+	beInUsed: function () {
+	
+	var xhr, item, item_status;
+           
+	    // Get item
+	    item = dom.getName('item');
+	    item_status = 'In used';
+
+	    // Change item status into red on server 
+	    xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			confirm(item + ' status has become in used. You should finish assignment or other one could not reassign this problem.');
+		}
+	    };	
+	    xhr.open('POST', 'ProblemStatus.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send('&item=' + item + '&item_status=' + item_status);
 	}
 };

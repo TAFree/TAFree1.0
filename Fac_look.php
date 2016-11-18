@@ -11,7 +11,7 @@ function __autoload($class_name) {
 	include_once($class_name . '.php');
 }
 
-class Stu_prob implements Product {	
+class Fac_look implements Product {	
 	
 	private $formatHelper;
 	private $contentProduct;
@@ -30,24 +30,10 @@ class Stu_prob implements Product {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->contentProduct .=<<<EOF
-<h1>{$this->item}_{$this->subitem}</h1>
-<form method='POST' action='./Handin.php'>
-<div class='HIDDEN_DIV'>
-<input type='hidden' value='{$this->item}' name='item'>
-<input type='hidden' value='{$this->subitem}' name='subitem'>
-</div>
-<div class='STU_WRITE_DIV'>
-<input type='submit' id='HANDIN_INPUT' class='CLICKABLE' value='Handin >>' name='submit'>
-</div>
-EOF;
+		$this->contentProduct .= '<h1>' . $this->item . '_' . $this->subitem . '</h1>';
 		$this->writeblock = new Look($this->item, $this->subitem);
 		$this->contentProduct .= $this->writeblock;
-		
-		$this->contentProduct .=<<<EOF
-</form>
-EOF;
-		
+			
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
 		return $this->contentProduct;

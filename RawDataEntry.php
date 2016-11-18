@@ -196,6 +196,7 @@ class RawDataEntry implements IStrategy {
 			number TINYINT(20) UNSIGNED DEFAULT 1,
 			showup DATETIME DEFAULT NULL,
 			backup DATETIME DEFAULT NULL,
+			status TINYTEXT DEFAULT \'Uninitialized\',
 			PRIMARY KEY(item)	
 		);';
 		$sql .= 'CREATE TABLE apply(

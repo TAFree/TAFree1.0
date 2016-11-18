@@ -26,13 +26,14 @@ class Fac_chooser implements Product {
 		try {
 			// Load items
 			$this->hookup = UniversalConnect::doConnect();
-			$stmt_items = $this->hookup->prepare('SELECT item, number FROM problem');	
+			$stmt_items = $this->hookup->prepare('SELECT item, number, status FROM problem');	
 			$stmt_items->execute();
 			while ($row_item = $stmt_items->fetch(PDO::FETCH_ASSOC)) {
 				// Setup item time	
 				$this->contentProduct .=<<<EOF
 <tr class='ITEM_TR'>
 <td>
+<div>Status<img class='ITEM_STATUS_IMG' title='{$row_item['status']}' height='20' width='20'></div>	
 Pages will show up at 
 <input type='date'>
 <input type='number' min='0' max='23' value='00'>&nbsp;:&nbsp;
