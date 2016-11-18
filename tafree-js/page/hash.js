@@ -23,10 +23,10 @@ TAFree.page.Hash = (function () {
             	},
             
             	'fac_assign': function () {
-                	init.manGenRow();
+			init.manGenRow();
 			init.otherJudge();
             	},
-            	
+		
                 'admin': function () {
                 	init.manSepRow();
             	}, 
@@ -38,12 +38,12 @@ TAFree.page.Hash = (function () {
             	},
                 
                 'modify': function () {
-                    	addon.codeLeft();
+			addon.codeLeft();
                  	init.enableZoom();
 			init.enableModify();
 			init.handout();
-            	},
-                
+            	},	
+
                 'stu_prob': function () {
                     	addon.codeLeft();
                     	init.enableZoom();

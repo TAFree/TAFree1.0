@@ -443,13 +443,17 @@ TAFree.page.Feature = {
 	    // Get item
 	    item = dom.getNameOne('item').value;
 	    item_status = 'In used';
-
-	    // Change item status into red on server 
+	    
+	    // Create $_SESSION['key_to_assign'] on server side
+	    xhr = new XMLHttpRequest();
+	    xhr.open('POST', 'AssignControl.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send();
+	    // Change item status into red on server side
 	    xhr = new XMLHttpRequest();
 	    xhr.open('POST', 'ProblemStatus.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('item=' + item + '&item_status=' + item_status);
-	    console.log(xhr.respoense);
-		confirm(item + ' status has become in used. You should finish all assigning work or other one could not reassign whole ' + item + '.');
+	    confirm(item + ' status has become in used. You should finish all assigning work or other one could not reassign whole ' + item + '.');
 	}
 };

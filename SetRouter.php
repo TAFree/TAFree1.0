@@ -37,6 +37,10 @@ $router->match('GET', '/Language.php', function () {
 	new Viewer('Language');
 });
 
+$router->match('GET', '/Discussion.php', function () {
+	new Viewer('Discussion');
+});
+
 $router->match('POST', '/Index.php', function() {
 	new Index();
 });
@@ -166,16 +170,18 @@ $router->match('GET', '/Fac_look.php', function() {
 
 $router->match('GET', '/Fac_coders.php', function() {
 	session_start();
-	if ($_SESSION['faculty']) {
-		new Viewer('Fac_coders');
-	} else {
-		new Viewer('Sneaker');
+	if ($_SESSION['FACULTY']) {
+		NEW VIEWER('FAC_CODERS');
+	} ELSE {
+		NEW VIEWER('SNEAKER');
 	}
 });
 
 $router->match('GET', '/Fac_assign.php', function() {
 	session_start();
-	if ($_SESSION['faculty']) {
+	if ($_SESSION['faculty'] && $_SESSION['key_to_assign']) {
+		unset($_SESSION['key_to_assign']);
+		$_SESSION['key_to_upload'] = true;
 		new Viewer('Fac_assign');
 	} else {
 		new Viewer('Sneaker');
@@ -183,7 +189,14 @@ $router->match('GET', '/Fac_assign.php', function() {
 });
 
 $router->match('POST', '/Upload.php', function() {
-	new Upload();
+	session_start();
+	if ($_SESSION['key_to_upload']) {
+		unset($_SESSION['key_to_upload']); 
+		$_SESSION['key_to_handout'] = true;
+		new Upload();
+	} else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('GET', '/Upload.php', function() {
@@ -191,7 +204,13 @@ $router->match('GET', '/Upload.php', function() {
 });
 
 $router->match('POST', '/Handout.php', function() {
-	new Handout();
+	session_start();
+	if ($_SESSION['key_to_handout']) {
+		unset($_SESSION['key_to_handout']); 
+		new Handout();
+	} else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('GET', '/Handout.php', function() {
