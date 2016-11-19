@@ -404,7 +404,26 @@ TAFree.page.Init = {
 			buts[i].addEventListener('click', feature.beInUsed);
 		}
 	}
-    }
+    },
+
+    handin: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            process = TAFree.page.Process,
+
+	    but;
+	
+	but = dom.getId('HANDIN_INPUT');
+        but.addEventListener('click', function(e) {
+	        var dom = TAFree.util.Dom,
+		    handin_form, item_status, item;
+		
+		// Refactor data as hidden input and form submission
+		handin_form = dom.getId('HANDIN_FORM');
+		process.refactorData();	
+		handin_form.submit();
+	}); 
+    },
 
 };
 

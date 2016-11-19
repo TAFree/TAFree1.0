@@ -56,6 +56,12 @@ class DBOperator {
 		$context = new Context(new ProblemColoring($item, $item_status));
 		$context->algorithm();
 	}
+
+	public function handin() {
+		$context = new Context(new AnswerEntry());
+		$context->algorithm();
+	}
+
 }
 
 ?>

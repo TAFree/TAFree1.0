@@ -18,27 +18,31 @@ class Stu_prob implements Product {
 
 	private $item;
 	private $subitem;
+	private $stu_account;
 	private $writeblock;
 
 	private $hookup;
 	
 	public function getContent() {
-		
+		// Get item, subitem, stu_account
 		$this->item = $_GET['item'];
 		$this->subitem = $_GET['subitem'];
+		session_start();
+		$this->stu_account = $_SESSION['student'];
 
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
 <h1>{$this->item}_{$this->subitem}</h1>
-<form method='POST' action='./Handin.php'>
+<form id='HANDIN_FORM' method='POST' action='./Handin.php'>
 <div class='HIDDEN_DIV'>
 <input type='hidden' value='{$this->item}' name='item'>
 <input type='hidden' value='{$this->subitem}' name='subitem'>
+<input type='hidden' value='{$this->stu_account}'>
 </div>
 <div class='STU_WRITE_DIV'>
-<input type='submit' id='HANDIN_INPUT' class='CLICKABLE' value='Handin >>' name='submit'>
+<input type='button' id='HANDIN_INPUT' class='CLICKABLE' value='Handin >>'>
 </div>
 EOF;
 		$this->writeblock = new Look($this->item, $this->subitem);

@@ -456,4 +456,5 @@ TAFree.page.Feature = {
 	    xhr.send('item=' + item + '&item_status=' + item_status);
 	    confirm(item + ' status has become in used. You should finish all assigning work or other one could not reassign whole ' + item + '.');
 	}
+
 };

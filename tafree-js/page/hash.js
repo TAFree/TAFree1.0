@@ -47,15 +47,18 @@ TAFree.page.Hash = (function () {
                 'stu_prob': function () {
                     	addon.codeLeft();
                     	init.enableZoom();
+			addon.clearModify();
+			init.handin();
             	},
                 
 		'fac_look': function () {
 			addon.codeLeft();
                     	init.enableZoom();
+			init.clearModify();
             	},
                 
 		'fac_prob': function () {
-                    	init.beInUsed();
+                    	addon.beInUsed();
             	},
 		
 		'instruction': function () {	

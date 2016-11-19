@@ -282,4 +282,13 @@ $router->match('GET', '/Stu_leave.php', function() {
 	}
 });
 
+$router->match('POST', '/Handin.php', function() {
+	new Viewer('Handin');
+});
+
+$router->match('GET', '/Handin.php', function() {
+	new Viewer('Sneaker');
+
+});
+
 ?>

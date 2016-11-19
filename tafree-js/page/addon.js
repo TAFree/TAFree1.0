@@ -47,7 +47,29 @@ TAFree.page.Addon = {
 
     },
    
-    pattern: null
-    
+    pattern: null,
+	    
+    clearModify: function() {
+
+	var dom = TAFree.util.Dom,
+
+	    lines, i, content, new_line, code_block;
+
+	    code_blocks = dom.getClass('WRITE_DIV');
+	    
+	    for (i = 0; i < code_blocks.length; i += 1) {
+		lines = code_blocks[i].children;
+		for (j = 0; j < code_blocks[i].children.length; j += 1) {
+			if (lines[j].className === 'MODIFY_LINE_PRE') {
+				content = lines[j].innerHTML;
+				new_line = document.createElement('pre');
+				new_line.innerHTML = content;
+				new_line.className = 'LOOK_LINE_PRE';
+				code_blocks[i].replaceChild(new_line, lines[j]);
+			}
+		}
+	    }
+		
+    }
 };
 
