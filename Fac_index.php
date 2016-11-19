@@ -11,6 +11,7 @@ class Fac_index implements Product{
 		'Problem' => './Fac_chooser.php',
 		'Student' => './Fac_stu.php',
 		'Score' => './Fac_score.php'
+		'Support' => './Fac_support.php'
 	);	
 
 	private $formatHelper;

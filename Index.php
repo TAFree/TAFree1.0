@@ -20,11 +20,9 @@ class Index {
 		$student = new Student();
 		$faculty = new Faculty();
 		$administer = new Administer();
-		$tester = new Tester();
 		
 		$student->setSuccessor($faculty);
 		$faculty->setSuccessor($administer);
-		$administer->setSuccessor($tester);
 
 		$loadup = new Request($this->person);
 		$student->handleRequest($loadup);
