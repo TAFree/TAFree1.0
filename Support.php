@@ -7,7 +7,7 @@ include_once('FormatHelper.php');
 include_once('Product.php');
 include_once('SetRouter.php');
 
-class Language implements Product{
+class Support implements Product{
 	
 	private $content; 
 
@@ -18,7 +18,7 @@ class Language implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->content = file_get_contents('tafree-doc/language');	
+		$this->content = file_get_contents('tafree-doc/support');	
 		$this->contentProduct .= '<div class=\'DOC_DIV\'>' . $this->content . '</div>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();

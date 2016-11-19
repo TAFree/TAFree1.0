@@ -6,7 +6,8 @@ ERROR_REPORTING(E_ALL);
 class Janitor {
 		
 	private $controlArea = array (
-		'Stu_prob' => 'TimeChecker'
+		'Stu_prob' => 'TimeChecker',
+		'Handin' => 'TimeChecker'
 	);
 	private $destination;
 	private $identification;

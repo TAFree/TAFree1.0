@@ -33,8 +33,8 @@ $router->match('GET', '/Instruction.php', function () {
 	new Viewer('Instruction');
 });
 
-$router->match('GET', '/Language.php', function () {
-	new Viewer('Language');
+$router->match('GET', '/Support.php', function () {
+	new Viewer('Support');
 });
 
 $router->match('GET', '/Discussion.php', function () {
@@ -62,6 +62,14 @@ $router->match('POST', '/ProblemStatus.php', function() {
 });
 
 $router->match('GET', '/ProblemStatus.php', function() {
+	new Viewer('Sneaker');
+});
+
+$router->match('POST', '/AssignControl.php', function() {
+	new AssignControl();
+});
+
+$router->match('GET', '/AssignControl.php', function() {
 	new Viewer('Sneaker');
 });
 
@@ -178,10 +186,14 @@ $router->match('GET', '/Fac_coders.php', function() {
 });
 
 $router->match('GET', '/Fac_assign.php', function() {
+
+	$looker = new KeyQuery($_GET['item']);
+	
 	session_start();
-	if ($_SESSION['faculty'] && $_SESSION['key_to_assign']) {
+
+	if ($_SESSION['faculty'] && $_SESSION['key_to_assign'] === $looker->findKey()) {
 		unset($_SESSION['key_to_assign']);
-		$_SESSION['key_to_upload'] = true;
+		$_SESSION['key_to_upload'] = $looker->findKey();
 		new Viewer('Fac_assign');
 	} else {
 		new Viewer('Sneaker');
@@ -189,10 +201,14 @@ $router->match('GET', '/Fac_assign.php', function() {
 });
 
 $router->match('POST', '/Upload.php', function() {
+	
+	$looker = new KeyQuery($_POST['item']);
+	
 	session_start();
-	if ($_SESSION['key_to_upload']) {
+
+	if ($_SESSION['key_to_upload'] === $looker->findKey()) {
 		unset($_SESSION['key_to_upload']); 
-		$_SESSION['key_to_handout'] = true;
+		$_SESSION['key_to_handout'] = $looker->findKey();
 		new Upload();
 	} else {
 		new Viewer('Sneaker');
@@ -204,8 +220,12 @@ $router->match('GET', '/Upload.php', function() {
 });
 
 $router->match('POST', '/Handout.php', function() {
+	
+	$looker = new KeyQuery($_POST['item']);
+	
 	session_start();
-	if ($_SESSION['key_to_handout']) {
+
+	if ($_SESSION['key_to_handout'] === $looker->findKey()) {
 		unset($_SESSION['key_to_handout']); 
 		new Handout();
 	} else {
@@ -283,7 +303,31 @@ $router->match('GET', '/Stu_leave.php', function() {
 });
 
 $router->match('POST', '/Handin.php', function() {
-	new Viewer('Handin');
+
+	session_start();
+	
+	if ($_SESSION['student']) {
+	
+		$registry = array();
+		$registry['guest'] = 'student';
+		$registry['account'] = (string)$_SESSION['student'];
+		$registry['destination'] = 'Handin';
+		$registry['time'] = date('Y-m-d H:m:s');
+		$registry['item'] = $_POST['item'];
+
+		$watchman = new Janitor($registry);
+		
+		if ($watchman->openDoor()) {
+			new Viewer('Handin');
+		}
+		else {
+			new Viewer('Msg', $watchman->dialogue());
+		}
+
+	} else {
+		new Viewer('Sneaker');
+	}
+
 });
 
 $router->match('GET', '/Handin.php', function() {

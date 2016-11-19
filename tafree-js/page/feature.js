@@ -444,7 +444,7 @@ TAFree.page.Feature = {
 	    item = dom.getNameOne('item').value;
 	    item_status = 'In used';
 	    
-	    // Create $_SESSION['key_to_assign'] on server side
+	    // Update unique_key in problem table and create $_SESSION['key_to_assign'] = [unique_key] on server side
 	    xhr = new XMLHttpRequest();
 	    xhr.open('POST', 'AssignControl.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

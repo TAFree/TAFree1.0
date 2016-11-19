@@ -58,14 +58,14 @@ TAFree.page.Hash = (function () {
             	},
                 
 		'fac_prob': function () {
-                    	addon.beInUsed();
+                    	init.beInUsed();
             	},
 		
 		'instruction': function () {	
                         addon.codeLeft();
 		},
 
-		'language': function () {	
+		'support': function () {	
                         addon.codeLeft();
 		}
 

@@ -41,7 +41,12 @@ class DBOperator {
 		$context = new Context(new StudentEntry());
 		$context->algorithm();
 	}
-	
+
+	public function assignRegistry($unique_key) {
+		$context = new Context(new ProblemLock($unique_key));
+		$context->algorithm();
+	}
+
 	public function upload() {
 		$context = new Context(new ProblemEntry());
 		$context->algorithm();

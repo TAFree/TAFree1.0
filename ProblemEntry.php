@@ -60,15 +60,27 @@ class ProblemEntry implements IStrategy {
 			}
 		}
 	
-		// Manipulate files
-		try {	
-			// Clear and upload description files
-			$this->uploadDescription();
+		try {
+			// Connect to database
+			
+			$this->hookup = UniversalConnect::doConnect();	
+		
+			// Manipulate files
 			
 			// Upload judge file if it does not exist on machine
 			if ($this->judge === 'other') {
+				
+				if (!$this->isSupport()) {
+					new Viewer ('Msg', 'Not support uploaded judge script file. <a class=\'SUPPORT_A\' href=\'./Fac_support.php\'>You can add support it</a>.' . '<br>');
+					exit();
+				}
+				
 				$this-> uploadJudge();
+			
 			}
+			
+			// Clear and upload description files
+			$this->uploadDescription();
 			
 			// Clear and clone selected judge file from general judge directory 
 			$this->cloneJudge();
@@ -76,14 +88,7 @@ class ProblemEntry implements IStrategy {
 			// Clear and upload testdata files
 			$this->uploadTestdata();
 			
-		}
-		catch (Exception $e) {
-			echo 'Error: ' . $e->getMessage() . '<br>';
-		}	
-
-		// Manipulate tables
-		try {
-			$this->hookup = UniversalConnect::doConnect();						
+			// Manipulate tables					
 			
 			// Update item table
 			$this->updateItem();
@@ -138,6 +143,19 @@ class ProblemEntry implements IStrategy {
 	
 		// Update judge 
 		$this->judge = $basename;
+	}
+	
+	public function isSupport () {
+		$filename = basename($_FILES['judge_file']['name']);
+		$ext = substr($filename, strrpos($filename, '.') + 1);
+		$stmt = $this->hookup->prepare('SELECT cmd FROM support WHERE ext=\'' . $ext . '\'');
+		$stmt->execute();
+		if ($stmt->rowCount() === 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	public function cloneJudge () {

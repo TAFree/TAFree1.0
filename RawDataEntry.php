@@ -176,7 +176,7 @@ class RawDataEntry implements IStrategy {
 
 	public function createTable () {
 
-		// student, faculty, problem, apply
+		// student, faculty, problem, apply, support, discussion
 		$sql = '';
 		$sql .= 'CREATE TABLE student(
 			student_name VARCHAR(30),
@@ -197,8 +197,19 @@ class RawDataEntry implements IStrategy {
 			showup DATETIME DEFAULT NULL,
 			backup DATETIME DEFAULT NULL,
 			status VARCHAR(30) NOT NULL DEFAULT "Uninitialized",
+			unique_key VARCHAR(50),
 			PRIMARY KEY(item)	
 		);';
+		$sql .= 'CREATE TABLE discussion(
+			timestamp DATETIME DEFAULT NULL,
+			subject VARCHAR(50),
+			message TEXT(500)	
+		);';		
+		$sql .= 'CREATE TABLE support(
+			ext VARCHAR(50),
+			cmd VARCHAR(100),
+			PRIMARY KEY(ext)	
+		);';		
 		$sql .= 'CREATE TABLE apply(
 			id INT NOT NULL AUTO_INCREMENT,
 			timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -324,6 +335,19 @@ class RawDataEntry implements IStrategy {
 				$stmt->execute();
 			}
 		}	
+		
+		// support: PHP, Python3, bash shell script
+		$stmt = $this->hookup->prepare('INSERT INTO support(ext, cmd) VALUES(:ext, :cmd)');
+		$stmt->bindParam(':ext', '.php');
+		$stmt->bindParam(':cmd', 'php');
+		$stmt->execute();
+		$stmt->bindParam(':ext', '.py');
+		$stmt->bindParam(':cmd', 'python3');
+		$stmt->execute();
+		$stmt->bindParam(':ext', '.sh');
+		$stmt->bindParam(':cmd', 'sh');
+		$stmt->execute();
+		
 	}
 
 	public function deleteTable () {

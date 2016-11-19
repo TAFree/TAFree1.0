@@ -433,6 +433,15 @@
 	color: #3F464C;
 }
 
+#SUPPORT_A {
+	text-decoration: none;
+	color: #000000;
+} 
+
+#SUPPORT_A:hover {
+	color: #3F464C;
+}
+
 .LOOK_LINE_PRE {
 	
 }
