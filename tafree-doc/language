@@ -1,11 +1,16 @@
-<h1>TAFree有支援的程式語言</h1>
-<p>TAFree可以作為批改任何程式作業的平台，只要你知道如何<strong>安裝程式語言套件</strong>以及<strong>撰寫相對應的批改腳本</strong>。</p>
-<p>如果你是需要負起維護TAFree責任的教職人員，那麼這份文件非常重要。</p>
-<p>這份文件和TAFree無關，但是和作業系統相關，這是一份教你如何在Ubuntu 16.04.1 LTS安裝程式語言套件的指南。</p>
+<h1>擴充TAFree的支援</h1>
+<p>TAFree可以作為批改任何程式作業的平台，只要你知道如何<strong>安裝相關的程式語言套件</strong>。</p>
+<p>同時，TAFree也可被擴充為能夠接受任何批改腳本(不限腳本語言)的平台，只要你知道如何<strong>擴充你習慣的批改腳本支援</strong>。</p>
+<p>當然，我們已先準備好有/無測資的批改Java程式腳本(以Python3實做)。</p>
+<p>最後，一支批改腳本必要執行的基本任務，會<strong>以Python3腳本當作範例說明</strong>。</p>
+<p>你不需要看得懂Python3。你只要會以你習慣的腳本語言撰寫那些任務，就可以了。</p>
+<br>
+<h2>安裝相關的程式語言套件</h2>
+<p>請根據作業內容安裝需要的程式語言套件。</p>
+<p>這段內容是在Ubuntu 16.04.1 LTS安裝程式語言套件的方法。</p>
 <p>換句話說，其他作業系統的使用者必須自行查詢如何在你們的作業系統安裝需要的程式語言套件。</p>
 <p>安裝完成後，請務必確認套件版本是否支援作業會用到的功能。</p>
-<br>
-<h2>安裝Oracle JDK 9</h2>
+<h3>安裝Oracle JDK 9</h3>
 <pre>
 sudo apt-get install python-software-properties
 sudo add-apt-repository ppa:webupd8team/java
@@ -14,20 +19,39 @@ sudo apt-get install oracle-java9-installer
 sudo java -version
 </pre>
 <p><a href='http://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get'>其他JDK</a></p>
-<br>
-<h2>安裝Python 3</h2>
+<h3>安裝Python 3</h3>
 <pre>
 sudo apt-get install idle-python3.5
 python3 -V
 </pre>
-<br>
-<h2>安裝g++ 5</h2>
+<h3>安裝g++ 5</h3>
 <pre>
 sudo apt-get install g++-5
 g++ --version
 </pre>
-<br>
-<h2>安裝make</h2>
+<h3>安裝make</h3>
 <pre>
 sudo apt-get install make
 </pre>
+<br>
+<h2>擴充你習慣的批改腳本支援</h2>
+<p>這個部份已經納入Faculty的功能了。</p>
+<br>
+<h2>Python3腳本範例</h2>
+<p>TAFree執行你上傳的批改腳本時，預設跟隨1個字串參數：<strong>學生帳號</strong>。</p>
+<p>所有的測資檔案存在<strong>/home/tafree/TAFree1.0/problem/testdata/[作業項目]/[第幾題]</strong>目錄下。</p>
+<p>你自製的批改腳本尚須連接MySQL得到2種字串參數：<strong>標準程式源碼</strong>和<strong>學生程式源碼</strong>。</p>
+<p>以下是你要知道的表格<strong>[作業項目]_[第幾題]</strong>的結構：</p>
+<table>
+<tr>
+<th class='TITLE_TD'>classname</th><th class='TITLE_TD'>original_source</th><th class='TITLE_TD'>b12345678</th><th class='TITLE_TD'>b22345678</th><th>...</th>
+</tr>
+<tr>
+<td class='CONTENT_TD'>Box.java</td><td class='CONTENT_TD'>solution source...</td><td class='CONTENT_TD'>student source...</td><td class='CONTENT_TD'>student source...</td><td>...</td>
+</tr>
+<td class='CONTENT_TD'>Rectangle.java</td><td class='CONTENT_TD'>solution source...</td><td class='CONTENT_TD'>student source...</td><td class='CONTENT_TD'>student source...</td><td>...</td>
+</tr>
+</table>
+<p>仿照此範例：</p>
+<pre id='PYTHON3_EXAMPLE_PRE'></pre>
+<p>Student將會看見這支批改腳本回傳的純文字結果，因此TAFree是一個能夠依據不同課程目的而由助教設計輔助內容的平台。</p>
