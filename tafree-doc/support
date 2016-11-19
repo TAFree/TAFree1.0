@@ -76,8 +76,10 @@ sudo apt-get install make
 <tr><td class='CONTENT_TD'>CE</td><td class='CONTENT_TD'>Compiler Error</td></tr>
 <tr><td class='CONTENT_TD'>SE</td><td class='CONTENT_TD'>System Error</td></tr>
 </table>
-<br>
-<h2>參考範例</h2>
+<h3>其他要點</h3>
+<p>TAFree不負責處理記憶體用量，腳本執行時間，執行序的安全性議題等等，請撰寫批改腳本的教職人員視需求斟酌考慮這些要點。</p>
+<p>講個八卦，曾經有人以繳交病毒為樂...</p>
+<h3>參考範例</h3>
 <p>由於不同的批改腳本可以回傳不同的內容，因此TAFree是一個能夠依據不同課程目的而由教職人員設計輔助內容的平台。</p>
 <div id='JUDGE_EXAMPLE_DIV'></div>
 
