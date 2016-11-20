@@ -1,8 +1,15 @@
+<html>
+<head>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/ir-black.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+</body>
 <h1>擴充TAFree的支援</h1>
 <p>TAFree可以作為批改任何程式作業的平台，只要你知道如何<strong>安裝相關的程式語言套件</strong>。</p>
 <p>同時，TAFree也可被擴充為能夠接受任何批改腳本(不限腳本語言)的平台，只要你知道如何<strong>擴充你習慣的批改腳本支援</strong>。</p>
 <p>稍後會說明<strong>批改腳本必要執行的基本任務</strong>，以及提供已經存在的那些腳本當作參考範例。</p>
-<p>你不需要看得懂Python3。你只要會以你習慣的腳本語言撰寫那些任務，就可以了。</p>
+<p>你只要會以你習慣的腳本語言撰寫那些任務，就可以了。</p>
 <br>
 <h2>安裝相關的程式語言套件</h2>
 <p>請根據作業內容安裝需要的程式語言套件。</p>
@@ -10,37 +17,37 @@
 <p>換句話說，其他作業系統的使用者必須自行查詢如何在你們的作業系統安裝需要的程式語言套件。</p>
 <p>安裝完成後，請務必確認套件版本是否支援作業會用到的功能。</p>
 <h3>安裝Oracle JDK 9</h3>
-<pre>
+<pre class='bash'><code>
 sudo apt-get install python-software-properties
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java9-installer
 sudo java -version
-</pre>
+</code></pre>
 <p><a href='http://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get'>其他JDK</a></p>
 <h3>安裝Python 3</h3>
-<pre>
+<pre class='bash'><code>
 sudo apt-get install idle-python3.5
 python3 -V
-</pre>
+</code></pre>
 <h3>安裝g++ 5</h3>
-<pre>
+<pre class='bash'><code>
 sudo apt-get install g++-5
 g++ --version
-</pre>
+</code></pre>
 <h3>安裝make</h3>
-<pre>
+<pre class='bash'><code>
 sudo apt-get install make
-</pre>
+</code></pre>
 <br>
 <h2>擴充你習慣的批改腳本支援</h2>
 <p>這個部份已經納入Faculty的功能了。</p>
 <br>
 <h2>批改腳本必要執行的基本任務</h2>
 <h3>認識環境</h3>
-<h4>1. TAFree執行你上傳的批改腳本時，預設跟隨1個字串參數：<strong>某個學生的帳號</strong>。</h4>
+<h4>1. TAFree執行上傳的批改腳本時，預設跟隨1個字串參數：<strong>某個學生的帳號</strong>。</h4>
 <h4>2. 所有的測資檔案存在<strong>/home/tafree/TAFree1.0/problem/testdata/[作業項目]/[第幾題]</strong>目錄下。</h4>
-<h4>3. 你自製的批改腳本需要連接MySQL</h4>
+<h4>3. 自製的批改腳本需要連接MySQL</h4>
 <p>為了得到2種字串參數：<strong>標準程式源碼</strong>和<strong>學生程式源碼</strong>，以下是你要知道的資料庫表格<strong>[作業項目]_[第幾題]</strong>的結構：</p>
 <table>
 <tr>
@@ -85,4 +92,6 @@ sudo apt-get install make
 <h3>參考範例</h3>
 <p>由於不同的批改腳本可以回傳不同的內容，因此TAFree是一個能夠依據不同課程目的而由教職人員設計輔助內容的平台。</p>
 <div id='JUDGE_EXAMPLE_DIV'></div>
+</body>
+</html>
 

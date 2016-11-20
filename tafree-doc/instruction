@@ -1,3 +1,10 @@
+<html>
+<head>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/ir-black.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+</body>
 <h1>給完全新手但是想要拷貝、修改、擴充、裝飾、砍掉重練TAFree的一份指南</h1>
 <p>這並不會很難。</p>
 <br>
@@ -7,9 +14,9 @@
 <p>TAFree是架在<a href='http://magiclen.org/ubuntu-server-16-04'>Ubuntu Server 16.04.1 LTS</a>，你可以學它。</p>
 <h3>確認網路是否已連通</h3>
 <p>建議新手暫時把機器接上網路線</p>
-<pre>abby@CP:~$ ifconfig</pre>
-<br>
-<pre>
+<pre class='bash'><code>
+abby@CP:~$ ifconfig
+
 docker0   Link encap:Ethernet  HWaddr 02:42:96:7d:89:b0  
           inet addr:172.17.0.1  Bcast:0.0.0.0  Mask:255.255.0.0
           UP BROADCAST MULTICAST  MTU:1500  Metric:1
@@ -35,32 +42,41 @@ lo        Link encap:Local Loopback
           TX packets:2420 errors:0 dropped:0 overruns:0 carrier:0
           colh3sions:0 txqueuelen:1 
           RX bytes:234332 (234.3 KB)  TX bytes:234332 (234.3 KB)
-
-</pre>
+</code></pre>
 <p>於是你應該要有<strong>e</strong>開頭的有線網路介面卡，像我們的是<strong>ens32</strong>, 而IP是<strong>140.112.12.112</strong>, 所以可以上網。
 <br>
 如果你想要用無線網路的方式，那你必須要額外閱讀<a href='http://b8807053.pixnet.net/blog/post/265722439-ubuntu-%E4%B8%8A%E8%A8%AD%E5%AE%9A%E7%84%A1%E7%B7%9A%E7%B6%B2%E8%B7%AF'>Ubuntu 上設定無線網路</a>。</p>
 <h3>安裝剩下的東西</h3>
-<pre>sudo apt-get install update</pre>
-<pre>sudo apt-get install apache2</pre>
-<pre>sudo apt-get install mysql-server</pre>
-<pre>sudo apt-get install php7.0-mysql</pre>
-<pre>sudo apt-get install php7.0 h3bapache2-mod-php7.0 php7.0-mcrypt</pre>
+<pre class='bash'><code>
+sudo apt-get install update
+sudo apt-get install apache2
+sudo apt-get install mysql-server
+sudo apt-get install php7.0-mysql
+sudo apt-get install php7.0 h3bapache2-mod-php7.0 php7.0-mcrypt
+</code></pre>
 <p>記得把資料庫最高權限者root的密碼記下來。</p>
 <br>
 <h2>設定MySQL</h2>
 <p>建立一個TAFree專用的資料庫及使用者。</p>
 <h3>建立一個TAFree專用的資料庫TAFreeDB</h3>
-<pre>mysql -u root -p</pre>
-<pre>mysql > CREATE DATABASE TAFreeDB;</pre>
+<pre class='bash'><code>
+mysql -u root -p
+mysql > CREATE DATABASE TAFreeDB;
+</code></pre>
 <h3>建立一個有充分權限的資料庫使用者</h3>
 <p>這個使用者的帳密將作為TAFree的Administer的帳密，如果你覺得這樣做不夠安全，後面的內容會提到哪裡可以修改。</p>
-<pre>mysql > SELECT Host, User FROM mysql.user;</pre>
+<pre class='bash'><code>
+mysql > SELECT Host, User FROM mysql.user;
+</code></pre>
 <p>確定裡面沒有已存在的同名稱使用者後，建立一個新的使用者</p>
-<pre>mysql > create user '帳號'@'localhost' identified by '密碼';</pre>
+<pre class='bash'><code>
+mysql > create user '帳號'@'localhost' identified by '密碼';
+</code></pre>
 <p>給他TAFreeDB的所有操作權限</p>
-<pre>mysql > GRANT ALL ON TAFreeDB.* TO '帳號'@'localhost';</pre>
-<pre>mysql > EXIT;</pre>
+<pre class='bash'><code>
+mysql > GRANT ALL ON TAFreeDB.* TO '帳號'@'localhost';
+mysql > EXIT;
+</code></pre>
 <p>TAFree之後的資料庫操作就完全仰賴PDO，而不需要再從命令列進入MySQL。</p>
 <br>
 <h2>架設郵件傳送代理者(MTA)</h2>
@@ -69,65 +85,95 @@ lo        Link encap:Local Loopback
 <h3>安裝MTA: Exim</h3>
 <p><a href='http://www.arthurtoday.com/2010/10/ubuntu-send-only-smtp-server.html'>Ubuntu 如何安裝和設定只寄不收 ( Send Only ) 的郵件伺服器 ( SMTP Server )</a></p>
 <h3>安裝寄信工具: Mailutils</h3>
-<pre>sudo apt-get install mailutils</pre>
+<pre class='bash'><code>
+sudo apt-get install mailutils
+</code></pre>
 <h3>設定排程工具： at</h3>
 <p>把www-data(和其他代表TAFree的伺服器使用者)從at的黑名單裡刪掉</p>
-<pre>sudo vi /etc/at.deny</pre>
+<pre class='bash'><code>
+sudo vi /etc/at.deny
+</code></pre>
 <p>如果你不使用Apache2預設的使用者www-data作為TAFree的伺服器代理人，那麼在新增客製的TAFree伺服器代理人後，記得回來這個步驟確認使用者是否在黑名單內。</p>
 <br>
 <h2>客製化TAFree伺服器代理人</h2>
 <p>Apache2預設使用者為www-data，預設目錄在/var/www/html，我們要修改它。</p>
 <h3>新增代理人</h3>
-<pre>sudo adduser [tafree代理人帳號]</pre>
+<pre class='bash'><code>
+sudo adduser [tafree代理人帳號]
+</code></pre>
 <h3>取得TAFree1.0</h3>
-<pre>sudo cd /home/tafree</pre>
-<pre>sudo git clone http://github.com/TAFree/TAFree1.0.git</pre>
+<pre class='bash'><code>
+sudo cd /home/tafree
+sudo git clone http://github.com/TAFree/TAFree1.0.git
+</code></pre>
 <h3>修改TAFree1.0權限</h3>
-<pre>sudo chown -R tafree:tafree /home/tafree/TAFree1.0</pre>
+<pre class='bash'><code>
+sudo chown -R tafree:tafree /home/tafree/TAFree1.0
+</code></pre>
 <h3>修改TAFree的Administer的帳號密碼</h3>
-<pre>sudo cd /home/tafree/TAFree1.0</pre>
+<pre class='bash'><code>
+sudo cd /home/tafree/TAFree1.0
+</code></pre>
 <p>找到IConnectInfo.php，修改成設定MySQL時新增的使用者的帳密</p>
-<pre>
+<pre class='bash'><code>
 const UNAME = '[帳號]';
 const PW = '[密碼]';
-</pre>
+</code></pre>
 <p>如果你不滿意Administer的帳密必須跟這個使用者相同這樣的設計，那麼請找到Administer.php然後修改它。</p>
 <h3>設定Apache2</h3>
 <p>這個過程比較繁瑣，請不要打錯字。</p>
 <br>
 <h4>1. 客製化網站代理人</h4>
-<pre>sudo vi /etc/apache2/envvars</pre>
+<pre class='bash'><code>
+sudo vi /etc/apache2/envvars
+</code></pre>
 <p>修改環境變數</p>
-<pre>
+<pre class='apache'><code>
 #export APACHE_RUN_USER=www-data
 export APACHE_RUN_USER=[tafree代理人帳號]
 #export APACHE_RUN_GROUP=www-data
 export APACHE_RUN_GROUP=[tafree代理人帳號]
-</pre>
+</code></pre>
 <p>更新環境變數</p>
-<pre>source /etc/apache2/envvars</pre>
+<pre class='bash'><code>
+source /etc/apache2/envvars
+</code></pre>
 <br>
 <h4>2. 客製化網站首頁順位</h4>
-<pre>sudo vi /etc/apache2/mods-available/dir.conf</pre>
+<pre class='bash'><code>
+sudo vi /etc/apache2/mods-available/dir.conf
+</code></pre>
 <p>將Login.php放在第一順位</p>
-<pre>DirectoryIndex Login.php index.html ...</pre>
+<pre class='apache'><code>
+DirectoryIndex Login.php index.html ...
+</code></pre>
 <br>
 <h4>3. 客製化網站目錄</h4>
-<pre>cd /etc/apache2/sites-available</pre>
-<pre>sudo mv 000-default.conf 001-default.conf</pre>
-<pre>sudo cp 001-default.conf 000-tafree.conf</pre>
-<pre>sudo vi 000-tafree.conf</pre>
+<pre class='bash'><code>
+cd /etc/apache2/sites-available
+sudo mv 000-default.conf 001-default.conf
+sudo cp 001-default.conf 000-tafree.conf
+sudo vi 000-tafree.conf
+</code></pre>
 <p>修改根目錄</p>
-<pre>DocumentRoot /home/tafree/TAFree1.0</pre>
+<pre class='apache'><code>
+DocumentRoot /home/tafree/TAFree1.0
+</code></pre>
 <p>取消/採用虛擬主機設定檔</p>
-<pre>sudo a2dissite 000-default.conf</pre>
-<pre>sudo a2ensite 000-tafree.conf</pre>
+<pre class='bash'><code>
+sudo a2dissite 000-default.conf
+sudo a2ensite 000-tafree.conf
+</code></pre>
 <p>修改Apache2設定檔</p>
-<pre>sudo vi /etc/apache2/apache2.conf</pre>
+<pre class='bash'><code>
+sudo vi /etc/apache2/apache2.conf
+</code></pre>
 <p>找到Directory標籤，把/var/www/html/換成/home/tafree/TAFree1.0/就可以了。</p>
 <br>
 <h4>4. 重啟Apache2</h4>
-<pre>sudo /etc/init.d/apache2 restart</pre>
+<pre class='bash'><code>
+sudo /etc/init.d/apache2 restart
+</code></pre>
 <br>
 <h2>完成安裝TAFree</h2>
 <p>在瀏覽器送出伺服器的IP，進入你自己的TAFree網站。</p>
@@ -145,19 +191,20 @@ export APACHE_RUN_GROUP=[tafree代理人帳號]
 <p>後續的內容為可選擇閱讀的，針對不同身份的人會有不同的重要性。</p>
 <br>
 <h4>1. 你是需要負責同意學生使用權限的教職人員</h4>
-<p>你只要擁有Administer的帳密，以管理員身份登入TAFree初始化本學期作業總次數及題數、學生名單、所有Faculty的帳號密碼，就無後顧之憂了。</p>
+<p>你需要擁有Administer的帳密，以管理員身份登入TAFree初始化本學期作業總次數及題數、學生名單、所有Faculty的帳號密碼。</p>
 <p>初始化是很危險的動作，它會洗掉從前的所有資料，建議Administer在學期的最剛開始登入一次就好。</p>
 <p>不用擔心，作業內容及學生名單可以透過Faculty身份之後再修改。</p>
-<p>但是請注意，作業總次數及題數和Faculty的帳密在初始化結束後就無法再修改，所以建議你們牢記Faculty帳密以及盡量把所有作業的題數設到最大(過多的作業項目不要同意學生作答即可)。</p>
+<p>但是請注意，作業總次數及題數和Faculty的帳密在初始化結束後就無法再修改，所以建議你們牢記Faculty帳密以及盡量把所有作業的題數設到最大(過多的作業項目不要給學生作答權限即可)。</p>
 <p>我們並不希望任何使用者透過命令列進去MySQL改資料，因為那可能破壞TAFree的結構。</p>
 <br>
 <h4>2. 你是需要撰寫批改腳本的教職人員</h4>
-<p>那麼你需要留意<strong>如何安裝相關的程式語言套件</strong>及<strong>如何擴充你習慣的批改腳本支援</strong>。</p>
+<p>那麼你需要留意如何<a class='DOC_A' href='./Support.php'><strong>安裝相關的程式語言套件及擴充你習慣的批改腳本支援</strong></a>。</p>
 <br>
 <h4>3. 你也想貢獻TAFree</h4>
-<p>你可以申請GitHub帳號，加入<a href='http://github.com/TAFree'>TAFree</a>組織(從<a href='./About.php'>About</a>找到任何一個貢獻者，請他把你加進去)。</p>
+<p>你可以申請GitHub帳號，加入<a class='DOC_A' href='http://github.com/TAFree'>TAFree</a>組織(從<a class='DOC_A' href='./About.php'>About</a>找到任何一個貢獻者，請他把你加進去)。</p>
 <p>我們歡迎你以任何方式創作在新的Repository，也可以延續現有的Repository。</p>
-<p>若你想延續TAFree1.0, 必備的知識是<a href='http://www.w3schools.com/php/'>PHP</a>，暑假是從無到有還不錯的時間點。</p>
-
+<p>若你想延續TAFree1.0, 必備的知識是<a class='DOC_A' href='http://www.w3schools.com/php/'>PHP</a>，暑假是從無到有還不錯的時間點。</p>
+</body>
+</html>
 
 
