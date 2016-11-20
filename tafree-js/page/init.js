@@ -462,7 +462,7 @@ TAFree.page.Init = {
         // Dependencies
         var feature = TAFree.page.Feature;
 
-	    setInterval(feature.sendBackward, 3000);
+	    setInterval(feature.sendBackward, 1000);
 	    
     },
 

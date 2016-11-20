@@ -19,9 +19,9 @@ class Discussion implements Product{
 		$this->contentProduct .=<<<EOF
 <select id='SUBJECT_SELECT'>
 <option value='Comment'>Comment</option>
-<option value='Bug'>Bug</option>
 <option value='Question'>Question</option>
 <option value='News'>News</option>
+<option value='Bug'>Bug</option>
 </select>
 <input type='text' id='TALK_INPUT'>
 EOF;

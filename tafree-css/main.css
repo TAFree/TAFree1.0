@@ -456,6 +456,7 @@
 #RECORD_DIV {
 	width: 100%;
 	height: 95%;
+	overflow: scroll;
 }
 
 #TALK_DIV {
@@ -470,13 +471,13 @@
 
 #TALK_INPUT {
 	height: 60%;
-	width: 60%;
+	width: 80%;
 	display: inline;
 }
 
 #TALK_BUTTON {
 	border-radius: 10%;
-	display: inline;
+	float: right;
     	background-color: #FFF6E5;
 	color: #000000;
 	height: 100%;
@@ -489,7 +490,7 @@
 
 .DISCUSSION_SUBJECT_IMG {
 	display: inline;
-	height: 15px;
+	height: 20px;
 }
 
 

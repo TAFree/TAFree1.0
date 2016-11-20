@@ -10,7 +10,7 @@ class MessageQuery implements IStrategy {
 	public function algorithm() {
 			
 		$this->starttime = $_POST['starttime'];
-		$this->now = date('Y-m-d H:m:s');
+		$this->now = date('Y-m-d H:i:s');
 
 		try {
 			$this->hookup = UniversalConnect::doConnect();

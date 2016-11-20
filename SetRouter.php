@@ -299,7 +299,7 @@ $router->match('GET', '/Stu_prob.php', function() {
 		$registry['guest'] = 'student';
 		$registry['account'] = (string)$_SESSION['student'];
 		$registry['destination'] = 'Stu_prob';
-		$registry['time'] = date('Y-m-d H:m:s');
+		$registry['time'] = date('Y-m-d H:i:s');
 		$registry['item'] = $_GET['item'];
 
 		$watchman = new Janitor($registry);
@@ -336,7 +336,7 @@ $router->match('POST', '/Handin.php', function() {
 		$registry['guest'] = 'student';
 		$registry['account'] = (string)$_SESSION['student'];
 		$registry['destination'] = 'Handin';
-		$registry['time'] = date('Y-m-d H:m:s');
+		$registry['time'] = date('Y-m-d H:i:s');
 		$registry['item'] = $_POST['item'];
 
 		$watchman = new Janitor($registry);

@@ -16,7 +16,8 @@ TAFree.page.Data = (function () {
 
             	urls: {
                 	About: './About.php',
-                	Instruction: './Instruction.php',
+			Home: './Login.php',
+			Instruction: './Instruction.php',
 			Support: './Support.php',
 			Discussion: './Discussion.php'
             	},
