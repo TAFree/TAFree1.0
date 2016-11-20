@@ -141,6 +141,7 @@ class RawDataEntry implements IStrategy {
 				}
 				catch (PDOException $e) {
 					echo 'Error: ' . $e->getMessage() . '<br>';
+					exit();
 				}
 					
 				try {
@@ -161,13 +162,15 @@ class RawDataEntry implements IStrategy {
 							mkdir('./problem/testdata/' . $this->items[$i] . '/' . $j);
 						}
 					}
+					
 				}
 				catch (Exception $e) {
 					echo 'Error: ' . $e->getMessage() . '<br>'; 
+					exit();
 				}
-	
+					
 				new Viewer ('Msg', 'Successful initialization !' . '<br>');
-			
+	
 			}
 
 		}
@@ -201,9 +204,11 @@ class RawDataEntry implements IStrategy {
 			PRIMARY KEY(item)	
 		);';
 		$sql .= 'CREATE TABLE discussion(
-			timestamp DATETIME DEFAULT NULL,
+			id INT NOT NULL AUTO_INCREMENT,
+			timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			subject VARCHAR(50),
-			message TEXT(500)	
+			message TEXT(500),	
+			PRIMARY KEY(id)
 		);';		
 		$sql .= 'CREATE TABLE support(
 			ext VARCHAR(50),
@@ -221,7 +226,8 @@ class RawDataEntry implements IStrategy {
 			allowed_deadline DATETIME DEFAULT NULL,
 			reply VARCHAR(20),
 			PRIMARY KEY(id)
-		)';
+		);';
+
 		
 		$stmt = $this->hookup->prepare($sql);
 		$stmt->execute();
@@ -338,14 +344,16 @@ class RawDataEntry implements IStrategy {
 		
 		// support: PHP, Python3, bash shell script
 		$stmt = $this->hookup->prepare('INSERT INTO support(ext, cmd) VALUES(:ext, :cmd)');
-		$stmt->bindParam(':ext', '.php');
-		$stmt->bindParam(':cmd', 'php');
+		$stmt->bindParam(':ext', $ext);
+		$stmt->bindParam(':cmd', $cmd);
+		$ext = '.php'; 
+		$cmd = 'php';
 		$stmt->execute();
-		$stmt->bindParam(':ext', '.py');
-		$stmt->bindParam(':cmd', 'python3');
+		$ext = '.py'; 
+		$cmd = 'python3';
 		$stmt->execute();
-		$stmt->bindParam(':ext', '.sh');
-		$stmt->bindParam(':cmd', 'sh');
+		$ext = '.sh'; 
+		$cmd = 'sh';
 		$stmt->execute();
 		
 	}

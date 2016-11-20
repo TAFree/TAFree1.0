@@ -425,5 +425,46 @@ TAFree.page.Init = {
 	}); 
     },
 
+    putExample: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            
+	    xhr;
+
+	    block = dom.getId('JUDGE_EXAMPLE_DIV');
+
+	    xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function () {
+		// Show judge example in page when server response is ready
+		if (this.readyState === 4 && this.status === 200) {
+			block.innerHTML = xhr.responseText;
+		}
+	    };	
+	    xhr.open('POST', 'ExampleFetch.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send();
+    },
+
+    talk: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+           
+	    talk;
+
+	    talk = dom.getId('TALK_BUTTON');
+	   
+	    talk.addEventListener('click', feature.sendForward);
+
+    },
+
+    pullMsg: function () {
+        // Dependencies
+        var feature = TAFree.page.Feature;
+            
+	    setInterval(feature.sendBackward, 3000);
+	    
+    }
+
 };
 

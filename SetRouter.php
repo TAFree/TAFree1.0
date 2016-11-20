@@ -41,6 +41,30 @@ $router->match('GET', '/Discussion.php', function () {
 	new Viewer('Discussion');
 });
 
+$router->match('POST', '/MessagePull.php', function () {
+	new MessagePull();
+});
+
+$router->match('GET', '/MessagePull.php', function () {
+	new Viewer('Sneaker');
+});
+
+$router->match('POST', '/MessagePush.php', function () {
+	new MessagePush();
+});
+
+$router->match('GET', '/MessagePush.php', function () {
+	new Viewer('Sneaker');
+});
+
+$router->match('POST', '/ExampleFetch.php', function() {
+	new ExampleFetch();
+});
+
+$router->match('GET', '/ExampleFetch.php', function() {
+	new Viewer('Sneaker');
+});
+
 $router->match('POST', '/Index.php', function() {
 	new Index();
 });

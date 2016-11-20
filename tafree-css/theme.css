@@ -21,8 +21,8 @@ nav {
 }
 
 footer {
-	background-color: #2186C4;	
-	text-align: center;
+	background-color: transparent;	
+	text-align: right;
 	position: fixed;
 	bottom: 0;
 	right: 0;

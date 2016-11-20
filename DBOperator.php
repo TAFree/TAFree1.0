@@ -66,7 +66,16 @@ class DBOperator {
 		$context = new Context(new AnswerEntry());
 		$context->algorithm();
 	}
+	
+	public function pullMessage() {
+		$context = new Context(new MessageQuery());
+		$context->algorithm();
+	}
 
+	public function pushMessage($subject, $message) {
+		$context = new Context(new MessageEntry($subject, $message));
+		$context->algorithm();
+	}
 }
 
 ?>

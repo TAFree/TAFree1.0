@@ -455,6 +455,46 @@ TAFree.page.Feature = {
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('item=' + item + '&item_status=' + item_status);
 	    confirm(item + ' status has become in used. You should finish all assigning work or other one could not reassign whole ' + item + '.');
+	},
+
+	sendBackward: function () {
+        
+	var xhr;
+
+	    // Query message on server side
+	    xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+		// Print message when server response is ready
+		if (this.readyState === 4 && this.status === 200) {
+			var dom = TAFree.util.Dom,
+			    block;
+			    block = dom.getId('RECORD_DIV');
+			    block.innerHTML += this.responseText;
+		}
+	    };
+	    xhr.open('POST', 'MessagePull.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send();
+
+	},
+
+	sendForward: function () {
+        
+	var dom = TAFree.util.Dom,
+	
+	    xhr, subject, message, select;
+           
+	    // Get subject, talk
+	    select = dom.getId('SUBJECT_SELECT');
+	    subject = select.options[select.selectedIndex].value;
+	    message = dom.getId('TALK_INPUT').value;
+	    
+	    // Send message on server side
+	    xhr = new XMLHttpRequest();
+	    xhr.open('POST', 'MessagePush.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send('subject=' + subject + '&message=' + message);
+
 	}
 
 };

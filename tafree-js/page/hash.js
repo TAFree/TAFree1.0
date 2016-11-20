@@ -67,6 +67,13 @@ TAFree.page.Hash = (function () {
 
 		'support': function () {	
                         addon.codeLeft();
+			init.putExample();
+		},
+		
+		'discussion': function () {	
+			addon.codeLeft();
+			init.talk();
+                        init.pullMsg();
 		}
 
 	    },

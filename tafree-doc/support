@@ -44,38 +44,41 @@ sudo apt-get install make
 <p>為了得到2種字串參數：<strong>標準程式源碼</strong>和<strong>學生程式源碼</strong>，以下是你要知道的資料庫表格<strong>[作業項目]_[第幾題]</strong>的結構：</p>
 <table>
 <tr>
-<th class='TITLE_TD'>classname</th><th class='TITLE_TD'>original_source</th><th class='TITLE_TD'>b12345678</th><th class='TITLE_TD'>b22345678</th><th>...</th>
+<th class='TITLE_TD'>classname</th><th class='TITLE_TD'>original_source</th><th class='TITLE_TD'>b12345678</th><th class='TITLE_TD'>b22345678</th><th class='TITLE_TD'>...</th>
 </tr>
 <tr>
-<td class='CONTENT_TD'>Box.java</td><td class='CONTENT_TD'>solution source...</td><td class='CONTENT_TD'>student source...</td><td class='CONTENT_TD'>student source...</td><td>...</td>
+<td class='CONTENT_TD'>Box.java</td><td class='CONTENT_TD'>solution source...</td><td class='CONTENT_TD'>student source...</td><td class='CONTENT_TD'>student source...</td><td class='CONTENT_TD'>...</td>
 </tr>
-<td class='CONTENT_TD'>Rectangle.java</td><td class='CONTENT_TD'>solution source...</td><td class='CONTENT_TD'>student source...</td><td class='CONTENT_TD'>student source...</td><td>...</td>
+<td class='CONTENT_TD'>Rectangle.java</td><td class='CONTENT_TD'>solution source...</td><td class='CONTENT_TD'>student source...</td><td class='CONTENT_TD'>student source...</td><td class='CONTENT_TD'>...</td>
 </tr>
 </table>
+<br>
 <p>為了更新1個字串參數：<strong>批改狀態</strong>，以下是你要知道的資料庫表格<strong>[作業項目]</strong>的結構：</p>
 <table>
 <tr>
-<th class='TITLE_TD'>subitem</th><th>b12345678</th><th class='TITLE_TD'>b22345678</th><th>...</th>
+<th class='TITLE_TD'>subitem</th><th class='TITLE_TD'>b12345678</th><th class='TITLE_TD'>b22345678</th><th class='TITLE_TD'>...</th>
 </tr>
 <tr>
-<td class='CONTENT_TD'>1</td><td class='CONTENT_TD'>AC</td><td class='CONTENT_TD'>RE</td><td>...</td>
+<td class='CONTENT_TD'>1</td><td class='CONTENT_TD'>AC</td><td class='CONTENT_TD'>RE</td><td class='CONTENT_TD'>...</td>
 </tr>
-<td class='CONTENT_TD'>2</td><td class='CONTENT_TD'>CE</td><td class='CONTENT_TD'>WA</td><td>...</td>
+<td class='CONTENT_TD'>2</td><td class='CONTENT_TD'>CE</td><td class='CONTENT_TD'>WA</td><td class='CONTENT_TD'>...</td>
 </tr>
 </table>
+<br>
 <p>所有<strong>批改狀態</strong>：</p>
 <table>
-<tr><td class='CONTENT_TD'>AC</td><td class='CONTENT_TD'>Accept</td></tr>
-<tr><td class='CONTENT_TD'>NA</td><td class='CONTENT_TD'>Not Accept</td></tr>
-<tr><td class='CONTENT_TD'>WA</td><td class='CONTENT_TD'>Wrong Answer</td></tr>
-<tr><td class='CONTENT_TD'>TLE</td><td class='CONTENT_TD'>Time Limit Exceed</td></tr>
-<tr><td class='CONTENT_TD'>MLE</td><td class='CONTENT_TD'>Memory Limit Exceed</td></tr>
-<tr><td class='CONTENT_TD'>OLE</td><td class='CONTENT_TD'>Output Limit Exceed</td></tr>
-<tr><td class='CONTENT_TD'>RE</td><td class='CONTENT_TD'>Runtime Error</td></tr>
-<tr><td class='CONTENT_TD'>RF</td><td class='CONTENT_TD'>Restricted Function</td></tr>
-<tr><td class='CONTENT_TD'>CE</td><td class='CONTENT_TD'>Compiler Error</td></tr>
-<tr><td class='CONTENT_TD'>SE</td><td class='CONTENT_TD'>System Error</td></tr>
+<tr><td class='TITLE_TD'>AC</td><td class='CONTENT_TD'>Accept</td></tr>
+<tr><td class='TITLE_TD'>NA</td><td class='CONTENT_TD'>Not Accept</td></tr>
+<tr><td class='TITLE_TD'>WA</td><td class='CONTENT_TD'>Wrong Answer</td></tr>
+<tr><td class='TITLE_TD'>TLE</td><td class='CONTENT_TD'>Time Limit Exceed</td></tr>
+<tr><td class='TITLE_TD'>MLE</td><td class='CONTENT_TD'>Memory Limit Exceed</td></tr>
+<tr><td class='TITLE_TD'>OLE</td><td class='CONTENT_TD'>Output Limit Exceed</td></tr>
+<tr><td class='TITLE_TD'>RE</td><td class='CONTENT_TD'>Runtime Error</td></tr>
+<tr><td class='TITLE_TD'>RF</td><td class='CONTENT_TD'>Restricted Function</td></tr>
+<tr><td class='TITLE_TD'>CE</td><td class='CONTENT_TD'>Compiler Error</td></tr>
+<tr><td class='TITLE_TD'>SE</td><td class='CONTENT_TD'>System Error</td></tr>
 </table>
+<br>
 <h3>其他要點</h3>
 <p>TAFree不負責處理記憶體用量，腳本執行時間，執行序的安全性議題等等，請撰寫批改腳本的教職人員視需求斟酌考慮這些要點。</p>
 <p>講個八卦，曾經有人以繳交病毒為樂...</p>
