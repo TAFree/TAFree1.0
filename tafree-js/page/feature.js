@@ -459,7 +459,10 @@ TAFree.page.Feature = {
 
 	sendBackward: function () {
         
-	var xhr;
+	var init = TAFree.page.Init,
+	    feature = TAFree.page.Feature,
+    
+	    xhr, starttime, yyyy, mm, dd, hh, MM, ss;
 
 	    // Query message on server side
 	    xhr = new XMLHttpRequest();
@@ -467,15 +470,40 @@ TAFree.page.Feature = {
 		// Print message when server response is ready
 		if (this.readyState === 4 && this.status === 200) {
 			var dom = TAFree.util.Dom,
-			    block;
+			    init = TAFree.page.Init,
+			    
+			    response, block, del_pos;
+
+			    response = this.responseText;
+			    del_pos = response.indexOf('#');
+			    init.start = new Date(response.substring(0, del_pos));
 			    block = dom.getId('RECORD_DIV');
-			    block.innerHTML += this.responseText;
+			    block.innerHTML += response.substring(del_pos + 1);
 		}
 	    };
+
 	    xhr.open('POST', 'MessagePull.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send();
+	    
+	    starttime = init.start;
+	    yyyy = starttime.getFullYear();
+	    mm = starttime.getMonth() + 1;
+	    mm = feature.leftPad(mm);
+            dd = starttime.getDate();
+	    dd = feature.leftPad(dd);	  
+ 	    hh = starttime.getHours();
+	    hh = feature.leftPad(hh);
+ 	    MM = starttime.getMinutes();
+	    MM = feature.leftPad(MM);
+ 	    ss = starttime.getSeconds();
+	    ss = feature.leftPad(ss);
 
+	    xhr.send('starttime=' + yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + MM + ':' + ss);
+
+	},
+
+	leftPad: function (num) {
+		return (num < 10 ? '0': '') + num;
 	},
 
 	sendForward: function () {

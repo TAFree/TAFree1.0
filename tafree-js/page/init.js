@@ -461,10 +461,12 @@ TAFree.page.Init = {
     pullMsg: function () {
         // Dependencies
         var feature = TAFree.page.Feature;
-            
+
 	    setInterval(feature.sendBackward, 3000);
 	    
-    }
+    },
+
+    start: new Date('1990-01-01 00:00:00')
 
 };
 
