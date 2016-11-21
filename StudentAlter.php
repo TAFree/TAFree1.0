@@ -60,12 +60,14 @@ class StudentAlter implements IStrategy {
 				$this->addStudent();
 				
 				$this->hookup = null;
+				
+				new Viewer ('Msg', 'Successfully altered tables !' . '<br>');
+			
 			}
 			catch (PDOException $e) {
 				echo 'Error: ' . $e->getMessage() . '<br>';
 			}
 				
-			new Viewer ('Msg', 'Successfully altered tables !' . '<br>');
 		}
 
 		
@@ -100,8 +102,7 @@ class StudentAlter implements IStrategy {
 	}
 
 	public function addStudent() {
-		
-		// column of closeup & row of student
+		// column of closeup & row of student	
 		for ($i = 0; $i < count($this->add_accs); $i += 1) {
 			$stmt_add_closeup = $this->hookup->prepare('ALTER TABLE closeup ADD ' . $this->add_accs[$i] . ' DATETIME DEFAULT NULL');
 			$stmt_add_closeup->execute();
@@ -114,23 +115,23 @@ class StudentAlter implements IStrategy {
 			$account = $this->add_accs[$i];
 			$password = $this->add_passs[$i];
 			$stmt_add_student->execute();
-		}
 		
+		}
 		// column of items & subitems
-		$stmt_item = $this->hookup->prepare('SELECT item FROM problem');
-		while($row_item = $stmt_item->fetch(PDO::FETCH_ASSOC)){
-			$item = $row_item['item'];
-			$stmt_add_item = $this->hookup->prepare('ALTER TABLE ' . $item . ' ADD COLUMN ' . $this->add_accs[$i]);
-			$stmt_add_item->execute();
-			$stmt_subitem = $this->hookup->prepare('SELECT subitem FROM ' . $item);
-			while ($row_subitem = $stmt_subitem->fetch(PDO::FETCH_ASSOC)) {
-				$subitem = $row_subitem['subitem'];	
-				for ($i = 0; $i < count($this->add_accs); $i += 1) {
-					$stmt_add_subitem = $this->hookup->prepare('ALTER TABLE ' . $item . '_' . $subitem . ' ADD COLUMN ' . $this->add_accs[$i]);
+		for ($j = 0; $j < count($this->add_accs); $j += 1) {	
+			$stmt_item = $this->hookup->prepare('SELECT item, number FROM problem');
+			$stmt_item->execute();
+			while($row_item = $stmt_item->fetch(PDO::FETCH_ASSOC)){
+				$item = $row_item['item'];
+				$stmt_add_item = $this->hookup->prepare('ALTER TABLE ' . $item . ' ADD ' . $this->add_accs[$j] . ' VARCHAR(30) NOT NULL DEFAULT "NULL"');
+				$stmt_add_item->execute();
+				for ($k = 1; $k <= $row_item['number']; $k += 1) {
+					$stmt_add_subitem = $this->hookup->prepare('ALTER TABLE ' . $item . '_' . $k . ' ADD ' . $this->add_accs[$j] . ' TEXT');
 					$stmt_add_subitem->execute();
 				}
 			}
 		}
+		
 	}
 	
 }

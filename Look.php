@@ -7,6 +7,7 @@ class Look implements Product {
 
 	private $item;
 	private $subitem;
+	private $hint;
 
 	private $hookup;
 
@@ -16,13 +17,19 @@ class Look implements Product {
 	}	
 
 	public function getContent() {
+		try {
+			$this->hookup = UniversalConnect::doConnect();
 			
-		$this->contentProduct .=<<<EOF
+			$stmt = $this->hookup->prepare('SELECT hint FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$this->hint = $row['hint'];	
+			$this->contentProduct .=<<<EOF
+<div class='HINT_DIV'>{$this->hint}</div>
 <table class='CODES_TABLE'>
 <tr>
 EOF;
-		try {
-			$this->hookup = UniversalConnect::doConnect();
+			
 			$stmt = $this->hookup->prepare('SELECT classname, modified_source FROM ' . $this->item . '_' . $this->subitem);
 			$stmt->execute();
 			$i = 0;

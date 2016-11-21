@@ -91,11 +91,13 @@ TAFree.page.Process = {
 		
 		category = data.getStatus_codes();
 
+		map = {};
+
 		for (i = 0; i < category.length; i += 1) {
 			map[category[i]] = 0;
 		}
 
-		statuss = dom.getClass('STATUS_P');
+		statuss = dom.getClass('STATUS_CODE_P');
 		
 		sum = 0;
 		
@@ -107,8 +109,9 @@ TAFree.page.Process = {
 		status_table = dom.getId('STATUS_TABLE');
 
 		for (i = 0; i < category.length; i += 1) {
-			per = map[category[j]] / sum;
-			status_table.innerHTML += '<tr><td class=\'CONTENT_TD\'>' + category[j] + '</td><td class=\'CONTENT_TD\'>' + per + '</td></tr>';			
+			per = (map[category[i]] / sum) * 100;
+			per = per.toFixed(2);
+			status_table.innerHTML += '<tr><td class=\'CONTENT_TD\'>' + category[i] + '</td><td class=\'CONTENT_TD\'>' + per + '</td></tr>';			
 		}
 	}
 };

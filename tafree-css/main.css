@@ -213,16 +213,9 @@
     width: 800px;
 }
 
-.STATUS_TABLE  {
-	position: fixed;
-	left: 25px;
-	top: 180px;    
-	border: 2px outset #D8D8D8;
-}
-
-.STATUS_P {
-    display: inline;
-    font-weight: bold;
+#STATUS_TABLE  {
+	margin: 10px auto;
+	width: 800px;
 }
 
 .CLICKABLE {
@@ -253,13 +246,13 @@
 }
 
 .FAC_SCORE_TABLE {
-    margin: 120px auto;
+    margin: 10px auto;
     width: 800px;
     table-layout: fixed;
 }
 
-#STU_SCORE_TABLE {
-    margin: 120px auto;
+.STU_SCORE_TABLE {
+    margin: 10px auto;
     width: 800px;
     table-layout: fixed;
 }

@@ -6,6 +6,7 @@ TAFree.page.Hash = (function () {
 	// Dependencies
 	var init = TAFree.page.Init,
 	    addon = TAFree.page.Addon,
+	    process = TAFree.page.Process,
 	    
 	    content = { 
             
@@ -54,12 +55,20 @@ TAFree.page.Hash = (function () {
 		'fac_look': function () {
 			addon.codeLeft();
                     	init.enableZoom();
-			init.clearModify();
+			addon.clearModify();
             	},
                 
 		'fac_prob': function () {
                     	init.beInUsed();
             	},
+		
+		'fac_coders': function () {
+			process.countStatus();
+		},
+
+		'fac_score': function () {
+			init.downloadScore();
+		},
 		
 		'instruction': function () {	
                         addon.codeLeft();

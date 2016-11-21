@@ -30,7 +30,7 @@ class Fac_coders implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 	
 		$this->contentProduct .=<<<EOF
-<table class='STATUS_TABLE'>
+<table id='STATUS_TABLE'>
 <tr><th class='TITLE_TD'>Status</th><th class='TITLE_TD'>%</th></tr>
 </table>
 <table class='STATUS_DOWNLOAD_TABLE'>
@@ -59,7 +59,7 @@ EOF;
 				$stmt_item = $this->hookup->prepare('SELECT ' . $row_stu['student_account'] . ' FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
 				$stmt_item->execute();
 				$row_item = $stmt_item->fetch(PDO::FETCH_ASSOC);
-				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . '<p class=\'STATUS_P\'>' . $row_item[$row_stu['student_account']] . '</p>' . '</td>';
+				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . '<p class=\'STATUS_CODE_P\'>' . $row_item[$row_stu['student_account']] . '</p>' . '</td>';
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'><input type=\'button\' class=\'CLICKABLE\' value=\'Download\'></td></tr>';
 			}
 	
