@@ -255,7 +255,7 @@ class RawDataEntry implements IStrategy {
 				judgescript VARCHAR(100),
 				hint TEXT,';
 			for ($j = 0; $j < $stu_len; $j += 1) {
-				$sql .= $this->stu_accs[$j] . ' TINYTEXT';
+				$sql .= $this->stu_accs[$j] . ' VARCHAR(30) NOT NULL DEFAULT "NULL"';
 				if ($j < $stu_len - 1) {
 					$sql .= ',';
 				}

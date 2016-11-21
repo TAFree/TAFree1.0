@@ -3,39 +3,25 @@
 ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
-include_once('FormatHelper.php');
-include_once('Product.php');
-include_once('SetRouter.php');
-
-function __autoload($class_name) {
-	include_once($class_name . '.php');	
-}
-
-class ExampleFetch {
+class ExampleFetch implements Product {
 	
 	private $examples;
 
-	public function __construct() {
+	public function getContent() {
 		
 		$this->examples = '';
 
 		foreach (glob('./judge/*') as $filename) {
+			$ext = substr($filename, strrpos($filename, '.') + 1);
 			$handle = fopen($filename, 'r');
 			$contents = fread($handle, filesize($filename));
-			$this->examples .= '<pre>' . htmlspecialchars($contents) . '</pre><br>';
+			$this->examples .= '<pre><code class=\'' . $ext . '\'>' . '//' . $filename . '<br><br>' . htmlspecialchars($contents) . '</code></pre>';
 			fclose($handle);
 		}
-		echo $this->examples;
+		
+		return $this->examples;
 	}
 
-}
-
-if ($router) {
-	$router->run();
-}
-else {
-	include_once('SetRouter.php');
-	$router->run();
 }
 
 ?>

@@ -252,7 +252,7 @@
     width: 800px;
 }
 
-#FAC_SCORE_TABLE {
+.FAC_SCORE_TABLE {
     margin: 120px auto;
     width: 800px;
     table-layout: fixed;
@@ -493,7 +493,14 @@
 	height: 20px;
 }
 
+.DOC_A {
+	text-decoration: none;
+	color: #000000;
+} 
 
+.DOC_A:hover {
+	color: #3F464C;
+}
 
 
 

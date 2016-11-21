@@ -82,7 +82,24 @@ TAFree.page.Data = (function () {
 
 	    getSource = function(title) {
 		return source[title];
-	    }; 
+	    },
+
+ 	    status_code = [
+		'AC',
+		'NA',
+		'WA', 
+		'TLE',
+		'MLE',
+		'OLE',
+		'RE',
+		'RF',
+		'CE',
+		'SE'
+	    ],
+			
+ 	    getStatus_codes = function() {
+		return status_code;
+	    };
 	    
 
 	// Reveal public API
@@ -98,7 +115,9 @@ TAFree.page.Data = (function () {
 		
 		storeSource: storeSource,
 		
-		getSource: getSource
+		getSource: getSource,
+
+		getStatus_codes
 	};
 
 }());

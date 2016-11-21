@@ -57,14 +57,6 @@ $router->match('GET', '/MessagePush.php', function () {
 	new Viewer('Sneaker');
 });
 
-$router->match('POST', '/ExampleFetch.php', function() {
-	new ExampleFetch();
-});
-
-$router->match('GET', '/ExampleFetch.php', function() {
-	new Viewer('Sneaker');
-});
-
 $router->match('POST', '/Index.php', function() {
 	new Index();
 });
@@ -202,10 +194,10 @@ $router->match('GET', '/Fac_look.php', function() {
 
 $router->match('GET', '/Fac_coders.php', function() {
 	session_start();
-	if ($_SESSION['FACULTY']) {
-		NEW VIEWER('FAC_CODERS');
-	} ELSE {
-		NEW VIEWER('SNEAKER');
+	if ($_SESSION['faculty']) { 
+		new viewer('Fac_coders');
+	} else {
+		new viewer('sneaker');
 	}
 });
 

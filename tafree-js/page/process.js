@@ -70,6 +70,45 @@ TAFree.page.Process = {
 
 		}
 		
-	}
+	},
 
+	tar: function (e) {
+		var item, xhr;
+		item = e.srcElement.previousSibling;
+		
+		xhr = new XMLHttpRequest();
+		xhr.open('POST', 'Tar.php', true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.send('item=' + item);  
+	},
+	
+	countStatus: function () {
+		// Dependencies
+		var dom = TAFree.util.Dom,
+		    data = TAFree.page.Data,
+
+		    statuss, category, map, i, status_table, sum, per;
+		
+		category = data.getStatus_codes();
+
+		for (i = 0; i < category.length; i += 1) {
+			map[category[i]] = 0;
+		}
+
+		statuss = dom.getClass('STATUS_P');
+		
+		sum = 0;
+		
+		for (i = 0; i < statuss.length; i += 1) {
+			map[statuss[i].innerHTML] += 1;
+			sum += 1;
+		}
+
+		status_table = dom.getId('STATUS_TABLE');
+
+		for (i = 0; i < category.length; i += 1) {
+			per = map[category[j]] / sum;
+			status_table.innerHTML += '<tr><td class=\'CONTENT_TD\'>' + category[j] + '</td><td class=\'CONTENT_TD\'>' + per + '</td></tr>';			
+		}
+	}
 };

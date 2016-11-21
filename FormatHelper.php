@@ -21,6 +21,9 @@ class FormatHelper {
 <link type='text/css' rel='stylesheet' href='./tafree-css/theme.css'>		
 <link type='text/css' rel='stylesheet' href='./tafree-css/main.css'>		
 <link type='image/x-icon' rel='shortcut icon' href='./tafree-ico/logo.ico'>		
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/ir-black.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
 <div id='HEADER_DIV'>
@@ -47,9 +50,7 @@ EOF;
 <script src='./tafree-js/page/process.js'></script>
 <script src='./tafree-js/page/init.js'></script>
 <script src='./tafree-js/page/hash.js'></script>
-<script>
-TAFree.util.Init.match('$this->page_identifier');
-</script>
+<script>TAFree.util.Init.match('$this->page_identifier');</script>
 </body>
 </html>
 EOF;

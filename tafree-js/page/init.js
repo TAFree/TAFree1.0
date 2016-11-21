@@ -425,26 +425,6 @@ TAFree.page.Init = {
 	}); 
     },
 
-    putExample: function () {
-        // Dependencies
-        var dom = TAFree.util.Dom,
-            
-	    xhr;
-
-	    block = dom.getId('JUDGE_EXAMPLE_DIV');
-
-	    xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function () {
-		// Show judge example in page when server response is ready
-		if (this.readyState === 4 && this.status === 200) {
-			block.innerHTML = xhr.responseText;
-		}
-	    };	
-	    xhr.open('POST', 'ExampleFetch.php', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send();
-    },
-
     talk: function () {
         // Dependencies
         var dom = TAFree.util.Dom,
@@ -466,7 +446,22 @@ TAFree.page.Init = {
 	    
     },
 
-    start: new Date('1990-01-01 00:00:00')
+    start: new Date('1990-01-01 00:00:00'),
+
+    downloadScore: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+	    process = TAFree.page.Process,
+
+	    buts, i;
+
+	    buts = dom.getClass('CLICKABLE');
+
+	    for (i = 0; i < buts.length; i += 1) {
+		buts[i].addEventListener('click', process.tar);
+	    }
+	
+    }
 
 };
 

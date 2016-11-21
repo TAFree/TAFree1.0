@@ -15,97 +15,57 @@ class Fac_score implements Product {
 
 	private $formatHelper;
 	private $contentProduct;
-	
+
+	private $hookup;
+
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
-		
-		$this->contentProduct .=<<<EOF
-<form>
-<table id='FAC_SCORE_TABLE'>
-<tr>
-<td class='TITLE_TD' colspan='4'><p>Lab01</p><p>20% off</p><a class='CLICKABLE' href='down_csv.php'>Download&nbsp;CSV</a></td>
-</tr>
-<tr>
-<td class='TITLE_TD'>Student Name</td>
-<td class='TITLE_TD'>Account</td>
-<td class='TITLE_TD'>1</td>
-<td class='TITLE_TD'>2</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Abby</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>1</td>
-<td class='CONTENT_TD'>0.8</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Guy1</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>2</td>
-<td class='CONTENT_TD'>0.8</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Guy2</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>2</td>
-<td class='CONTENT_TD'>0.8</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Guy3</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>2</td>
-<td class='CONTENT_TD'>0.8</td>
-</tr>
-</table>
+
+		try {
+			$this->hookup = UniversalConnect::doConnect();
+			
+			$stmt_prob = $this->hookup->prepare('SELECT item, number FROM problem');
+			$stmt_prob->execute();
+			while($row_prob = $stmt_prob->fetch(PDO::FETCH_ASSOC)) {
+				$colspan = $row_prob['number'] + 2;
+				$this->contentProduct .=<<<EOF
 <table class='FAC_SCORE_TABLE'>
-<tr>
-<td class='TITLE_TD' colspan='5'><p>Lab01</p><p>30% off</p><a class='CLICKABLE' href='down_csv.php'>Download&nbsp;CSV</a></td>
-</tr>
+<tr><th class='TITLE_TD' colspan='$colspan'><p class='FAC_SCORE_P'>{$row_prob['item']}</p><input type='button' class='CLICKABLE' value='Download'></th></tr>
 <tr>
 <td class='TITLE_TD'>Student Name</td>
 <td class='TITLE_TD'>Account</td>
-<td class='TITLE_TD'>1</td>
-<td class='TITLE_TD'>2</td>
-<td class='TITLE_TD'>3</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Abby</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>1</td>
-<td class='CONTENT_TD'>0</td>
-<td class='CONTENT_TD'>0.7</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Guy</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>1</td>
-<td class='CONTENT_TD'>0</td>
-<td class='CONTENT_TD'>0.7</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Guy1</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>1</td>
-<td class='CONTENT_TD'>0</td>
-<td class='CONTENT_TD'>0.7</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Guy2</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>1</td>
-<td class='CONTENT_TD'>0</td>
-<td class='CONTENT_TD'>0.7</td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Guy3</td>
-<td class='CONTENT_TD'>abby8050</td>
-<td class='CONTENT_TD'>1</td>
-<td class='CONTENT_TD'>0</td>
-<td class='CONTENT_TD'>0.7</td>
-</tr>
-</table>
-</form>
 EOF;
+				for ($i = 1; $i <= $row_prob['number']; $i += 1){
+					$this->contentProduct .= '<td class=\'TITLE_TD\'>' . $i . '</td>';
+				}
+
+				$this->contentProduct .= '</tr>';
+				
+				$stmt_stu = $this->hookup->prepare('SELECT student_name, student_account FROM student');
+				$stmt_stu->execute();
+				while($row_stu = $stmt_stu->fetch(PDO::FETCH_ASSOC)) {
+					$this->contentProduct .= '<tr><td class=\'CONTENT_TD\'>' . $row_stu['student_name'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row_stu['student_account'] . '</td>';
+					for ($i = 1; $i <= $row_prob['number']; $i += 1){			
+						
+						$stmt_item = $this->hookup->prepare('SELECT ' . $row_stu['student_account'] . ' FROM ' . $row_prob['item'] . ' WHERE subitem=\'' . $i . '\'');
+						$stmt_item->execute();
+						$row_item = $stmt_item->fetch(PDO::FETCH_ASSOC);
+						$score = ($row_item[$row_stu['student_account']] === 'AC') ? 1 : 0;
+						$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $score . '</td>';
+					}
+					$this->contentProduct .= '</tr>';
+				}	
+				$this->contentProduct .= '</table>';
+			}
+	
+			$this->hookup = null;
+		}
+		catch (PDOException $e) {
+			echo 'Error: ' . $e->getMessage() . '<br>';
+		}		
+		
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
 		return $this->contentProduct;
