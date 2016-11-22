@@ -26,6 +26,7 @@ class Look implements Product {
 			$this->hint = $row['hint'];	
 			$this->contentProduct .=<<<EOF
 <div class='HINT_DIV'>{$this->hint}</div>
+<input type='button' class='CLICKABLE' value='Download'>
 <table class='CODES_TABLE'>
 <tr>
 EOF;

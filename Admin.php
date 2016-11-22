@@ -14,17 +14,20 @@ class Admin implements Product{
 		$this->contentProduct .=<<<EOF
 
 <form method='POST' action='./Initial.php' enctype='multipart/form-data'>
-<table id='ADMIN_TABLE'>
-<tr>
-<td colspan='2'>
 <input name='submit' type='submit' value='Save >>'><br><br>
-<br>
-<br>
-</td>
-</tr>
+<table class='ADMIN_TABLE'>
+<tr><th class='TITLE_TD'>Student Account List</th></tr>
 <tr>
-<td>
-<table>
+<td class='CONTENT_TD'>
+<pre>
+File(.csv) format is like:
+[student name], [student account], [student password]
+[student name], [student account], [student password]
+</pre>
+</td>
+<tr><td class='CONTENT_TD'><input name='stu_list' type='file'></td></tr>
+</table>
+<table class='ADMIN_TABLE'>
 <tr>
 <td><button id='ADMIN_PROB_BUTTON' class='ADMIN_BUTTON' type='button'><b>+</b></button></td>
 <th class='TITLE_TD'>Item</th>
@@ -45,17 +48,7 @@ class Admin implements Product{
 <td class='CONTENT_TD'><input name='item_num[]' type='text' value='Only integer'></td>
 </tr>
 </table>
-</td>
-<td>
-Student Account List&nbsp;&nbsp;<input name='stu_list' type='file'><br>
-<p style='text-align:left;'>File(.csv) format is like:<br>
-[student name], [student account], [student password]<br>
-[student name], [student account], [student password]
-</p>
-</td>
-<tr>
-<td colspan='2'>
-<table>
+<table class='ADMIN_TABLE'>
 <tr>
 <td><button id='ADMIN_FAC_BUTTON' class='ADMIN_BUTTON' type='button'><b>+</b></button></td>
 <th class='TITLE_TD'>Faculty Name</th>
@@ -76,9 +69,6 @@ Student Account List&nbsp;&nbsp;<input name='stu_list' type='file'><br>
 <td class='CONTENT_TD'><input name='fac_acc[]' type='text' value='Only alphabet or number '></td>
 <td class='CONTENT_TD'><input name='fac_pass[]' type='text' value='Only alphabet or number'></td>
 <td class='CONTENT_TD'><input name='fac_email[]' type='text' value='Email with @'></td>
-</tr>
-</table>
-</td>
 </tr>
 </table>
 </form>

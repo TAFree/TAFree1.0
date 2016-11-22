@@ -80,22 +80,25 @@ class StudentAlter implements IStrategy {
 		for ($i = 0; $i < count($this->del_accs); $i += 1) {
 			$stmt_del_closeup = $this->hookup->prepare('ALTER TABLE closeup DROP COLUMN ' . $this->del_accs[$i]);
 			$stmt_del_closeup->execute();
-			$stmt_del_student = $this->hookup->prepare('DELETE FROM student WHERE student_account=\'' . $this->del_accs[$i] . '\'');
-			$stmt_del_student->execute();
+			$this->hookup->exec('DELETE FROM student WHERE student_account=\'' . $this->del_accs[$i] . '\'');
 		}
 		
 		// column of items & subitems
-		$stmt_item = $this->hookup->prepare('SELECT item FROM problem');
-		while($row_item = $stmt_item->fetch(PDO::FETCH_ASSOC)){
-			$item = $row_item['item'];
-			$stmt_del_item = $this->hookup->prepare('ALTER TABLE ' . $item . ' DROP COLUMN ' . $this->del_accs[$i]);
-			$stmt_del_item->execute();
-			$stmt_subitem = $this->hookup->prepare('SELECT subitem FROM ' . $item);
-			while ($row_subitem = $stmt_subitem->fetch(PDO::FETCH_ASSOC)) {
-				$subitem = $row_subitem['subitem'];	
-				for ($i = 0; $i < count($this->del_accs); $i += 1) {
-					$stmt_del_subitem = $this->hookup->prepare('ALTER TABLE ' . $item . '_' . $subitem . ' DROP COLUMN ' . $this->del_accs[$i]);
-					$stmt_del_subitem->execute();
+		for ($i = 0; $i < count($this->del_accs); $i += 1) {
+			$stmt_item = $this->hookup->prepare('SELECT item FROM problem');
+			$stmt_item->execute();
+			while($row_item = $stmt_item->fetch(PDO::FETCH_ASSOC)){
+				$item = $row_item['item'];
+				$stmt_del_item = $this->hookup->prepare('ALTER TABLE ' . $item . ' DROP COLUMN ' . $this->del_accs[$i]);
+				$stmt_del_item->execute();
+				$stmt_subitem = $this->hookup->prepare('SELECT subitem FROM ' . $item);
+				$stmt_subitem->execute();
+				while ($row_subitem = $stmt_subitem->fetch(PDO::FETCH_ASSOC)) {
+					$subitem = $row_subitem['subitem'];	
+					for ($i = 0; $i < count($this->del_accs); $i += 1) {
+						$stmt_del_subitem = $this->hookup->prepare('ALTER TABLE ' . $item . '_' . $subitem . ' DROP COLUMN ' . $this->del_accs[$i]);
+						$stmt_del_subitem->execute();
+					}
 				}
 			}
 		}

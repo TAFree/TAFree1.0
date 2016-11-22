@@ -11,7 +11,7 @@ class Stu_index implements Product{
 		'Problem' => './Stu_chooser.php',
 		'Score' => './Stu_score.php',
 		'Leave' => './Stu_leave.php',
-		'Permission' => '/Stu_permission.php'
+		'Record' => '/Stu_record.php'
 	);	
 
 	private $formatHelper;

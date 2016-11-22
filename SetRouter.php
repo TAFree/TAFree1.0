@@ -165,6 +165,16 @@ $router->match('GET', '/Fac_leave.php', function() {
 	}
 });
 
+$router->match('GET', '/Fac_expansion.php', function() {
+	session_start();
+	if ($_SESSION['faculty']) {
+		new Viewer('Fac_expansion');
+	} else {
+		new Viewer('Sneaker');
+	}
+});
+
+
 $router->match('GET', '/Fac_all.php', function() {
 	session_start();
 	if ($_SESSION['faculty']) {
@@ -267,6 +277,15 @@ $router->match('GET', '/Stu_score.php', function() {
 	session_start();
 	if ($_SESSION['student']) {
 		new Viewer('Stu_score');
+	} else {
+		new Viewer('Sneaker');
+	}
+});
+
+$router->match('GET', '/Stu_record.php', function() {
+	session_start();
+	if ($_SESSION['student']) {
+		new Viewer('Stu_record');
 	} else {
 		new Viewer('Sneaker');
 	}

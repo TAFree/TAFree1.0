@@ -179,9 +179,8 @@
     color: #FFF6E5;
 }
 
-#ADMIN_TABLE {
+.ADMIN_TABLE {
     margin: 30px auto;
-    margin-bottom: 50px;
 }
 
 .HIDDEN_PROB {
@@ -206,6 +205,20 @@
     margin: 30px auto;
     width: 1000px;
     
+}
+
+#FAC_EXPANSION_DIV{
+	margin: 30px auto;
+	text-align: center;
+	margin-bottom: 0;
+}
+
+#EXPANSION_TABLE {
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 50%;
+    height: 50%;
 }
 
 .STATUS_DOWNLOAD_TABLE {
@@ -252,6 +265,12 @@
 }
 
 .STU_SCORE_TABLE {
+    margin: 10px auto;
+    width: 800px;
+    table-layout: fixed;
+}
+
+.STU_RECORD_TABLE {
     margin: 10px auto;
     width: 800px;
     table-layout: fixed;
