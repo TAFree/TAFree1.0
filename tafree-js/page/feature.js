@@ -523,6 +523,83 @@ TAFree.page.Feature = {
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('subject=' + subject + '&message=' + message);
 
+	},
+
+	downloadSource: function (e) {
+
+	var xhr, full_subitem, stu_account, but, table;
+
+	    but = e.srcElement;
+            stu_account = but.parentNode.previousSibling.previousSibling.innerHTML;
+	    table = but.parentNode.parentNode.parentNode;
+	    if (table.tagName === 'TBODY'){
+	        full_subitem = table.parentNode.children[0].children[0].children[0].innerHTML;
+ 	    }
+	    else {
+		full_subitem = table.children[0].children[0].innerHTML;
+	    }
+
+	    // Send download request on server side
+	    xhr = new XMLHttpRequest();
+	    xhr.open('POST', 'SourceTar.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send('full_subitem=' + full_subitem + '&stu_account=' + stu_account);
+	},
+
+	downloadAll: function (e) {
+	
+	var xhr, full_subitem, but, table;
+
+	    but = e.srcElement;
+	    
+	    table = but.parentNode.parentNode.parentNode;
+	    if (table.tagName === 'TBODY'){
+	        full_subitem = table.parentNode.children[0].children[0].children[0].innerHTML;
+ 	    }
+	    else {
+		full_subitem = table.children[0].children[0].innerHTML;
+	    }
+	   		
+	    // Send download request on server side
+	    xhr = new XMLHttpRequest();
+	    xhr.open('POST', 'AllTar.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send('full_subitem=' + full_subitem);
+
+	},
+	
+	downloadRecord: function (e) {
+
+	var xhr, stu_account, full_subitem, but, table;
+
+	    but = e.srcElement;
+            stu_account = but.previousSibling.value;
+	    table = but.parentNode.parentNode.parentNode;
+	    if (table.tagName === 'TBODY'){
+	        full_subitem = table.parentNode.children[0].children[0].children[0].innerHTML;
+ 	    }
+	    else {
+		full_subitem = table.children[0].children[0].innerHTML;
+	    }
+
+	    // Send download request on server side
+	    xhr = new XMLHttpRequest();
+	    xhr.open('POST', 'SourceTar.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send('full_subitem=' + full_subitem + '&stu_account=' + stu_account);
+	},
+
+	downloadProblem: function (e) {
+
+	var xhr, full_subitem;
+
+	    full_subitem = e.srcElement.parentNode.children[0].innerHTML;
+
+	    // Send download request on server side
+	    xhr = new XMLHttpRequest();
+	    xhr.open('POST', 'DescriptionTar.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send('full_subitem=' + full_subitem);
 	}
 
 };

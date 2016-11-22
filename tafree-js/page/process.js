@@ -72,16 +72,6 @@ TAFree.page.Process = {
 		
 	},
 
-	tar: function (e) {
-		var item, xhr;
-		item = e.srcElement.previousSibling;
-		
-		xhr = new XMLHttpRequest();
-		xhr.open('POST', 'Tar.php', true);
-		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	        xhr.send('item=' + item);  
-	},
-	
 	countStatus: function () {
 		// Dependencies
 		var dom = TAFree.util.Dom,

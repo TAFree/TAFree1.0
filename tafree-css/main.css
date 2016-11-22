@@ -247,6 +247,22 @@
     color: #3F464C;
 }
 
+#ALL_INPUT {
+    display: block;
+    background-color: #FFF6E5;
+    color: #000000;
+    text-decoration: none;
+    width: 100px;
+    padding: 3px;
+    border-radius: 4%;
+    border : 0.5px solid #3F464C;
+    margin: 0 auto;
+}
+
+#ALL_INPUT:hover {
+    color: #3F464C;
+}
+
 #ADD_DEL_STU_TABLE {
     margin: 30px auto;
     width: 800px;
@@ -256,6 +272,22 @@
 #ALL_TABLE {
     margin: 50px auto;
     width: 800px;
+}
+
+.ALL_INPUT {
+    display: block;
+    background-color: #FFF6E5;
+    color: #000000;
+    text-decoration: none;
+    width: 100px;
+    padding: 3px;
+    border-radius: 4%;
+    border : 0.5px solid #3F464C;
+    margin: 0 auto;
+}
+
+.ALL_INPUT:hover {
+    color: #3F464C;
 }
 
 .FAC_SCORE_TABLE {

@@ -36,7 +36,7 @@ class Fac_coders implements Product {
 <table class='STATUS_DOWNLOAD_TABLE'>
 <tr>
 <th colspan='3' class='TITLE_TD'>{$this->item}_{$this->subitem}</th>
-<th class='TITLE_TD'><input type='button' class='CLICKABLE' value='All'></th>
+<th class='TITLE_TD'><input type='button' id='ALL_INPUT' value='All'></th>
 </tr>
 <tr>
 <td class='TITLE_TD'>Student Name</td>

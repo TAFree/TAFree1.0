@@ -34,7 +34,6 @@ class Stu_prob implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<h1>{$this->item}_{$this->subitem}</h1>
 <form id='HANDIN_FORM' method='POST' action='./Handin.php'>
 <div class='HIDDEN_DIV'>
 <input type='hidden' value='{$this->item}' name='item'>

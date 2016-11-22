@@ -448,19 +448,41 @@ TAFree.page.Init = {
 
     start: new Date('1990-01-01 00:00:00'),
 
-    downloadScore: function () {
-        // Dependencies
+    downloadSource: function () {
         var dom = TAFree.util.Dom,
-	    process = TAFree.page.Process,
-
-	    buts, i;
-
-	    buts = dom.getClass('CLICKABLE');
-
-	    for (i = 0; i < buts.length; i += 1) {
-		buts[i].addEventListener('click', process.tar);
+            feature = TAFree.page.Feature,
+            sources, i;
+	    sources = dom.getClass('CLICKABLE');
+	    for (i = 0; i < sources.length; i += 1) {
+		sources[i].addEventListener('click', feature.downloadSource);
 	    }
-	
+    },
+
+    downloadAll: function () {
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            all;
+	    all = dom.getId('ALL_INPUT');
+	    all.addEventListener('click', feature.downloadAll);
+    },
+
+    downloadProblem: function () {
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            description;
+	    description = dom.getId('DESCRIPTION_INPUT');
+	    description.addEventListener('click', feature.downloadProblem);
+    },
+
+
+    downloadRecord: function () {
+        var dom = TAFree.util.Dom,
+            feature = TAFree.page.Feature,
+            records, i;
+	    records = dom.getClass('CLICKABLE');
+	    for (i = 0; i < records.length; i += 1) {
+		records[i].addEventListener('click', feature.downloadRecord);
+	    }
     }
 
 };

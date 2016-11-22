@@ -50,12 +50,14 @@ TAFree.page.Hash = (function () {
                     	init.enableZoom();
 			addon.clearModify();
 			init.handin();
+			init.downloadProblem();
             	},
                 
 		'fac_look': function () {
 			addon.codeLeft();
                     	init.enableZoom();
 			addon.clearModify();
+			init.downloadProblem();
             	},
                 
 		'fac_prob': function () {
@@ -63,11 +65,9 @@ TAFree.page.Hash = (function () {
             	},
 		
 		'fac_coders': function () {
+			init.downloadSource();
+			init.downloadAll();
 			process.countStatus();
-		},
-
-		'fac_score': function () {
-			init.downloadScore();
 		},
 		
 		'instruction': function () {	
@@ -83,6 +83,10 @@ TAFree.page.Hash = (function () {
 			addon.codeLeft();
 			init.talk();
                         init.pullMsg();
+		},
+		
+		'stu_record': function () {
+			init.downloadRecord();
 		}
 
 	    },

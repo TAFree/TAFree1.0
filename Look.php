@@ -25,8 +25,11 @@ class Look implements Product {
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			$this->hint = $row['hint'];	
 			$this->contentProduct .=<<<EOF
+<div>
+<h1>{$this->item}_{$this->subitem}</h1>
 <div class='HINT_DIV'>{$this->hint}</div>
-<input type='button' class='CLICKABLE' value='Download'>
+<input type='button' id='DESCRIPTION_INPUT' class='CLICKABLE' value='Download'>
+</div>
 <table class='CODES_TABLE'>
 <tr>
 EOF;

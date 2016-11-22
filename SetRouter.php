@@ -270,7 +270,6 @@ $router->match('GET', '/Handout.php', function() {
 	new Viewer('Sneaker');
 });
 
-
 $router->match('GET', '/Fac_score.php', function() {
 	session_start();
 	if ($_SESSION['faculty']) {
@@ -278,6 +277,14 @@ $router->match('GET', '/Fac_score.php', function() {
 	} else {
 		new Viewer('Sneaker');
 	}
+});
+
+$router->match('GET', '/ScoreTar.php', function() {
+	new Viewer('Sneaker');
+});
+
+$router->match('POST', '/ScoreTar.php', function() {
+	new ScoreTar();
 });
 
 $router->match('GET', '/Stu_score.php', function() {
