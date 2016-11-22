@@ -126,6 +126,7 @@ class RawDataEntry implements IStrategy {
 				unlink($dir . '/' . $basename);
 				
 				try {
+					// Manipulate tables
 					$this->hookup = UniversalConnect::doConnect();
 					
 					// Delete tables
@@ -138,13 +139,7 @@ class RawDataEntry implements IStrategy {
 					$this->insertTable();
 
 					$this->hookup = null;
-				}
-				catch (PDOException $e) {
-					echo 'Error: ' . $e->getMessage() . '<br>';
-					exit();
-				}
-					
-				try {
+
 					// Delete problem directories	
 					$delete_dir_msg = system('rm -rf ./problem/description/* ./problem/judge/* ./problem/testdata/*', $retval);
 					if ($retval !== 0) {
@@ -162,15 +157,16 @@ class RawDataEntry implements IStrategy {
 							mkdir('./problem/testdata/' . $this->items[$i] . '/' . $j);
 						}
 					}
+
+					new Viewer ('Msg', 'Successful initialization !' . '<br>');
+
 					
 				}
-				catch (Exception $e) {
-					echo 'Error: ' . $e->getMessage() . '<br>'; 
+				catch (PDOException $e) {
+					echo 'Error: ' . $e->getMessage() . '<br>';
 					exit();
 				}
-					
-				new Viewer ('Msg', 'Successful initialization !' . '<br>');
-	
+									
 			}
 
 		}
@@ -346,13 +342,13 @@ class RawDataEntry implements IStrategy {
 		$stmt = $this->hookup->prepare('INSERT INTO support(ext, cmd) VALUES(:ext, :cmd)');
 		$stmt->bindParam(':ext', $ext);
 		$stmt->bindParam(':cmd', $cmd);
-		$ext = '.php'; 
+		$ext = 'php'; 
 		$cmd = 'php';
 		$stmt->execute();
-		$ext = '.py'; 
+		$ext = 'py'; 
 		$cmd = 'python3';
 		$stmt->execute();
-		$ext = '.sh'; 
+		$ext = 'sh'; 
 		$cmd = 'sh';
 		$stmt->execute();
 		

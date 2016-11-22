@@ -174,6 +174,13 @@ $router->match('GET', '/Fac_expansion.php', function() {
 	}
 });
 
+$router->match('POST', '/Expand.php', function() {
+	new Expand();
+});
+
+$router->match('GET', '/Expand.php', function() {
+	new Viewer('Sneaker');
+});
 
 $router->match('GET', '/Fac_all.php', function() {
 	session_start();

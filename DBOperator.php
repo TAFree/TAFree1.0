@@ -76,6 +76,12 @@ class DBOperator {
 		$context = new Context(new MessageEntry($subject, $message));
 		$context->algorithm();
 	}
+
+	public function expand() {
+		$context = new Context(new JudgeExpansion());
+		$context->algorithm();
+	}
+
 }
 
 ?>

@@ -56,7 +56,7 @@ Executing Command: python3
 <td class='CONTENT_TD'>Deletion</td>
 <td class='CONTENT_TD'>
 <select id='JUDGE_SELECT' name='judge'>
-<option value='No'>No</option>
+<option value='no'>No</option>
 EOF;
 		
 		$generalJudges = glob('judge/*');

@@ -100,13 +100,14 @@ class ProblemEntry implements IStrategy {
 			$this->insertSubitem();
 
 			$this->hookup = null;
+			
+			// Modify solution for student writing
+			new Viewer('Modify', array('item' => $this->item, 'subitem' => $this->subitem));
+	
 		}
 		catch (PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
-		}
-		
-		// Modify solution for student writing
-		new Viewer('Modify', array('item' => $this->item, 'subitem' => $this->subitem));
+		}	
 	
 	}
 
