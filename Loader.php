@@ -7,7 +7,7 @@ class Loader {
 	public function __construct($filename) {		
 		
 		if (file_exists($filename)) {
-			$this->filename = $filename;
+			$this->filename = $filename; 
 		}
 		else {
 			new Viewer ('Msg', 'The file does not exist...');
@@ -24,6 +24,7 @@ class Loader {
 		header ('Pragma: public');		
 		header ('Content-Length: ' . filesize($this->filename));		
 		readfile($this->filename);
+		unlink($this->filename);
 		exit();
 	}
 	

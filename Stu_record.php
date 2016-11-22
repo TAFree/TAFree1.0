@@ -48,7 +48,12 @@ EOF;
 					$row_item = $stmt_item->fetch(PDO::FETCH_ASSOC);
 					$status = $row_item[$this->stu_account];
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $status . '</td>';
-					$this->contentProduct .= '<td class=\'CONTENT_TD\'><input type=\'hidden\' value=\'' . $this->stu_account . '\'><input type=\'button\' class=\'CLICKABLE\' value=\'Download\'></td>';
+					if ($status !== 'NULL') {
+						$this->contentProduct .= '<td class=\'CONTENT_TD\'><input type=\'hidden\' value=\'' . $this->stu_account . '\'><input type=\'button\' class=\'CLICKABLE\' value=\'Download\'></td>';
+					}
+					else {
+						$this->contentProduct .='<td class=\'CONTENT_TD\'></td>';
+					}
 					$this->contentProduct .= '</tr>';
 				
 				}

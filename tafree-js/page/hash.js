@@ -57,7 +57,6 @@ TAFree.page.Hash = (function () {
 			addon.codeLeft();
                     	init.enableZoom();
 			addon.clearModify();
-			init.downloadProblem();
             	},
                 
 		'fac_prob': function () {

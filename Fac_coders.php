@@ -45,8 +45,6 @@ class Fac_coders implements Product {
 <td class='TITLE_TD'>Source Code</td>
 </tr>
 EOF;
-
-
 		try {
 			$this->hookup = UniversalConnect::doConnect();
 			
@@ -59,8 +57,14 @@ EOF;
 				$stmt_item = $this->hookup->prepare('SELECT ' . $row_stu['student_account'] . ' FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
 				$stmt_item->execute();
 				$row_item = $stmt_item->fetch(PDO::FETCH_ASSOC);
-				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . '<p class=\'STATUS_CODE_P\'>' . $row_item[$row_stu['student_account']] . '</p>' . '</td>';
-				$this->contentProduct .= '<td class=\'CONTENT_TD\'><input type=\'button\' class=\'CLICKABLE\' value=\'Download\'></td></tr>';
+				$status = $row_item[$row_stu['student_account']];
+				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . '<p class=\'STATUS_CODE_P\'>' . $status . '</p>' . '</td>';
+				if ($status !== 'NULL') {
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'><input type=\'button\' class=\'CLICKABLE\' value=\'Download\'></td></tr>';
+				}
+				else {
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'></td>';
+				}
 			}
 	
 			$this->hookup = null;

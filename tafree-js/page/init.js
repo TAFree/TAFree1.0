@@ -442,7 +442,7 @@ TAFree.page.Init = {
         // Dependencies
         var feature = TAFree.page.Feature;
 
-	    setInterval(feature.sendBackward, 1000);
+	    setInterval(feature.sendBackward, 5000);
 	    
     },
 
@@ -465,15 +465,6 @@ TAFree.page.Init = {
 	    all = dom.getId('ALL_INPUT');
 	    all.addEventListener('click', feature.downloadAll);
     },
-
-    downloadProblem: function () {
-        var dom = TAFree.util.Dom,
-            feature = TAFree.page.Feature,
-            description;
-	    description = dom.getId('DESCRIPTION_INPUT');
-	    description.addEventListener('click', feature.downloadProblem);
-    },
-
 
     downloadRecord: function () {
         var dom = TAFree.util.Dom,
