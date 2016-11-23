@@ -361,6 +361,15 @@ $router->match('GET', '/Stu_leave.php', function() {
 	}
 });
 
+$router->match('GET', '/JudgeAdapter.php', function() {
+	session_start();
+	if ($_SESSION['student']) { 
+		new JudgeAdapter();
+	} else {
+		new Viewer('Sneaker');
+	}
+});
+
 $router->match('POST', '/Handin.php', function() {
 
 	session_start();
