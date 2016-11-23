@@ -37,14 +37,16 @@ TAFree.page.Process = {
 		var dom = TAFree.util.Dom,
 		    process = TAFree.util.Process,
 	
-		    titles, code_blocks, i, classname, stu_source, pure_source, hidden_div, lines, j;
+		    titles, code_blocks, i, classname, stu_source, pure_source, hidden_div, lines, j, item, subitem;
 
+		item = dom.getNameOne('item').value;
+		subitem = dom.getNameOne('subitem').value;
 		titles = dom.getClass('TITLE_P');
 		code_blocks = dom.getClass('WRITE_DIV');
 		hidden_div = dom.getClass('HIDDEN_DIV')[0];
-		pure_source += '';
 
 		for (i = 0; i < titles.length; i += 1) {
+		
 			// Collect hidden input for classname
 			classname = document.createElement('input');
 			classname.setAttribute('type', 'hidden');
@@ -53,21 +55,51 @@ TAFree.page.Process = {
 			hidden_div.appendChild(classname);
 
 			// Refactor look_source into pure_source 
-			lines = code_blocks.children;
-			for (j = 0; j < lines.length; j += 1) {	
-				if (lines[j].tagName === 'TEXTAREA' || lines[j].tagName === 'INPUT') {
-					pure_source += lines[j].value;	
-				}
-				else {
-					pure_source += lines[j].innerHTML;
-				}
-			}
-			stu_source = document.createElement('input');
-			stu_source.setAttribute('type', 'hidden');
-			stu_source.setAttribute('name', 'stu_source[]');
-			stu_source.setAttribute('value', pure_source);
-			hidden_div.appendChild(stu_source);
+			if (code_blocks[i].children[0].tagName === 'DIV') {
+				xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function () {
+				    var dom = TAFree.util.Dom,
+					pure_source,
+					hidden_div,
+					stu_source;
+					hidden_div = dom.getClass('HIDDEN_DIV')[0];
 
+				    // Fetch lock source when server response is ready
+				    if (this.readyState === 4 && this.status === 200) {
+					pure_source = this.responseText;
+					stu_source = document.createElement('input');
+					stu_source.setAttribute('type', 'hidden');
+					stu_source.setAttribute('name', 'stu_source[]');
+					stu_source.setAttribute('value', pure_source);
+					hidden_div.appendChild(stu_source);	
+				    }
+				};	
+				xhr.open('POST', 'LockedSource.php', true);
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.send('classname=' + titles[i].innerHTML + '&item=' + item + '&subitem=' + subitem);
+			} 
+			else {
+				pure_source = '';
+				lines = code_blocks[i].children;
+				for (j = 0; j < lines.length; j += 1) {	
+					switch (lines[j].tagName) {
+						case 'TEXTAREA':
+							pure_source += lines[j].value;	
+						break;
+						case 'INPUT':
+							pure_source += lines[j].value;	
+						break;
+						case 'PRE':
+							pure_source += lines[j].innerHTML;
+						break;
+					}
+				}
+				stu_source = document.createElement('input');
+				stu_source.setAttribute('type', 'hidden');
+				stu_source.setAttribute('name', 'stu_source[]');
+				stu_source.setAttribute('value', pure_source);
+				hidden_div.appendChild(stu_source);
+			}
 		}
 		
 	},

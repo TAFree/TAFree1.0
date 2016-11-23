@@ -14,15 +14,16 @@ function __autoload($class_name) {
 class AssignControl {
 	
 	private $unique_key;
+	private $item;
 
 	public function __construct() {
 		
-		$this->unique_key = uniqid($time(), true);
-
+		$this->unique_key = uniqid(time(), true);
+		$this->item = $_POST['item'];
 		$trigger = new DBOperator();
-		$trigger->assignRegistry($this->unique_key);;
-
+		$trigger->assignRegistry($this->unique_key, $this->item);
 		echo $this->unique_key;
+		exit();
 	}
 
 }

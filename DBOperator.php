@@ -42,8 +42,8 @@ class DBOperator {
 		$context->algorithm();
 	}
 
-	public function assignRegistry($unique_key) {
-		$context = new Context(new ProblemLock($unique_key));
+	public function assignRegistry($unique_key, $item) {
+		$context = new Context(new ProblemLock($unique_key, $item));
 		$context->algorithm();
 	}
 

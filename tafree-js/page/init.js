@@ -396,14 +396,10 @@ TAFree.page.Init = {
         var dom = TAFree.util.Dom,
       	    feature = TAFree.page.Feature,
 		
-	    buts, i;
+	    but, i;
 
-	buts = dom.getClass('FAC_A');
-	for (i = 0; i < buts.length; i += 1) {
-		if (buts[i].href.includes('assign')) {
-			buts[i].addEventListener('click', feature.beInUsed);
-		}
-	}
+	but = dom.getId('ASSIGN_INPUT');
+	but.addEventListener('click', feature.beInUsed);
     },
 
     handin: function () {
@@ -421,7 +417,7 @@ TAFree.page.Init = {
 		// Refactor data as hidden input and form submission
 		handin_form = dom.getId('HANDIN_FORM');
 		process.refactorData();	
-		handin_form.submit();
+//		handin_form.submit();
 	}); 
     },
 

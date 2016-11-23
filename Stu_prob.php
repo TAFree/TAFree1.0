@@ -27,7 +27,7 @@ class Stu_prob implements Product {
 		// Get item, subitem, stu_account
 		$this->item = $_GET['item'];
 		$this->subitem = $_GET['subitem'];
-		session_start();
+	
 		$this->stu_account = $_SESSION['student'];
 
 		$this->formatHelper = new FormatHelper(get_class($this));
@@ -38,7 +38,7 @@ class Stu_prob implements Product {
 <div class='HIDDEN_DIV'>
 <input type='hidden' value='{$this->item}' name='item'>
 <input type='hidden' value='{$this->subitem}' name='subitem'>
-<input type='hidden' value='{$this->stu_account}'>
+<input type='hidden' value='{$this->stu_account}' name='stu_account'>
 </div>
 <div class='STU_WRITE_DIV'>
 <input type='button' id='HANDIN_INPUT' class='CLICKABLE' value='Handin >>'>

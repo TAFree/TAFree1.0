@@ -14,7 +14,6 @@ function __autoload($class_name) {
 class Fac_prob implements Product{
 	
 	private $links = array (
-		'Assign' => './Wait.php',
 		'Coders' => './Fac_coders.php',
 		'Look' => 'Fac_look.php'
 	);	
@@ -37,6 +36,7 @@ class Fac_prob implements Product{
 		$this->contentProduct .= '<input type=\'hidden\' name=\'item\' value=\'' . $this->item . '\'>';
 		$this->contentProduct .= '<input type=\'hidden\' name=\'subitem\' value=\'' . $this->subitem . '\'>';
 		$this->contentProduct .= '<h1>Here is ' . $this->item . '_' . $this->subitem . '</h1>';	
+		$this->contentProduct .= '<input type=\'button\' id=\'ASSIGN_INPUT\' class=\'CLICKABLE\' value=\'Assign\'>';
 		foreach ($this->links as $key => $value) {
 			$this->contentProduct .= '<a class=\'FAC_A\' href=\'' . $value . '?item=' . $this->item . '&subitem=' . $this->subitem. '\'>' . $key . '</a><br><br>';
 		}

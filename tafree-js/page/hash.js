@@ -50,7 +50,6 @@ TAFree.page.Hash = (function () {
                     	init.enableZoom();
 			addon.clearModify();
 			init.handin();
-			init.downloadProblem();
             	},
 
                 'sourcewatch': function () {
@@ -77,7 +76,6 @@ TAFree.page.Hash = (function () {
 
 		'support': function () {	
                         addon.codeLeft();
-			init.putExample();
 		},
 		
 		'discussion': function () {	

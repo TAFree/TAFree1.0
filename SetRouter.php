@@ -224,8 +224,7 @@ $router->match('GET', '/Fac_assign.php', function() {
 	
 	session_start();
 
-	if ($_SESSION['faculty'] && $_SESSION['key_to_assign'] === $looker->findKey()) {
-		unset($_SESSION['key_to_assign']);
+	if ($_SESSION['faculty'] && $_GET['key_to_assign'] === $looker->findKey()) {
 		$_SESSION['key_to_upload'] = $looker->findKey();
 		new Viewer('Fac_assign');
 	} else {
@@ -395,14 +394,11 @@ $router->match('GET', '/Handin.php', function() {
 
 });
 
-$router->match('GET', '/Wait.php', function() {
-	session_start();
-	foreach ($_SESSION as $key => $value) {
-		if ($key === 'student' || $key === 'faculty') {
-			new Viewer('Wait');
-			return;
-		}
-	}
+$router->match('POST', '/LockedSource.php', function() {
+	new LockedSource();
+});
+
+$router->match('GET', '/LockedSource.php', function() {
 	new Viewer('Sneaker');
 });
 

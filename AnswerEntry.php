@@ -22,8 +22,8 @@ class AnswerEntry implements IStrategy {
 		$this->stu_account = $_POST['stu_account'];
 
 		// Get classnames, stu_sources
-		$this->classnames = $_POST['classnames'];
-		$this->stu_sources = $_POST['stu_sources'];
+		$this->classnames = $_POST['classname'];
+		$this->stu_sources = $_POST['stu_source'];
 		
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
@@ -57,7 +57,7 @@ class AnswerEntry implements IStrategy {
 		}
 		
 		// Start judge process and get its return view
-		$this->result = system($this->judge_cmd . $this->stu_account, $retval);
+		$this->result = system($this->judge_cmd . ' ' . './problem/judge/' . $this->item . '/' . $this->subitem . '/' . $this->judge_script . ' ' . $this->stu_account, $retval);
 		if ($retval !== 0) {
 			new Viewer('Msg', 'Judge process error... (status: ' . $retval . ')');
 			exit();
