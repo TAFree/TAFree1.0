@@ -367,12 +367,16 @@ $router->match('POST', '/Handin.php', function() {
 	
 	if ($_SESSION['student']) {
 	
+		$data = file_get_contents('php://input'); 
+		$obj = json_decode($data); 
+		
+		// Configure registry array
 		$registry = array();
 		$registry['guest'] = 'student';
 		$registry['account'] = (string)$_SESSION['student'];
 		$registry['destination'] = 'Handin';
 		$registry['time'] = date('Y-m-d H:i:s');
-		$registry['item'] = $_POST['item'];
+		$registry['item'] = $obj->item;
 
 		$watchman = new Janitor($registry);
 		

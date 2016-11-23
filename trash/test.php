@@ -1,6 +1,8 @@
 <?php
-$data = file_get_contents( "php://input" ); //$data is now the string '[1,2,3]';
+$data = file_get_contents( "php://input" ); 
 
-$data = json_decode( $data ); 
-echo $data;
+$obj = json_decode($data); 
+foreach($obj as $key => $value) {
+	echo $value[0];
+}
 ?>

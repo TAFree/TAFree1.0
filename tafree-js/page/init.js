@@ -411,13 +411,9 @@ TAFree.page.Init = {
 	
 	but = dom.getId('HANDIN_INPUT');
         but.addEventListener('click', function(e) {
-	        var dom = TAFree.util.Dom,
-		    handin_form, item_status, item;
-		
-		// Refactor data as hidden input and form submission
-		handin_form = dom.getId('HANDIN_FORM');
+	        var process = TAFree.page.Process;	
+		// Refactor data and send to server side
 		process.refactorData();	
-//		handin_form.submit();
 	}); 
     },
 

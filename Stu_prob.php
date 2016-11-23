@@ -34,7 +34,6 @@ class Stu_prob implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<form id='HANDIN_FORM' method='POST' action='./Handin.php'>
 <div class='HIDDEN_DIV'>
 <input type='hidden' value='{$this->item}' name='item'>
 <input type='hidden' value='{$this->subitem}' name='subitem'>
@@ -46,11 +45,7 @@ class Stu_prob implements Product {
 EOF;
 		$this->writeblock = new Look($this->item, $this->subitem);
 		$this->contentProduct .= $this->writeblock->getContent();
-		
-		$this->contentProduct .=<<<EOF
-</form>
-EOF;
-		
+			
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
 		return $this->contentProduct;

@@ -9,29 +9,46 @@ class AnswerEntry implements IStrategy {
 	private $judge_ext;
 	private $judge_cmd;
 	private $result;
-	private $classnames = array();
-	private $stu_sources = array();
+	private $stu_source;
 
 	private $hookup;
 	
 	public function algorithm () {
 		
-		// Get item, subitem, stu_account
-		$this->item = $_POST['item'];
-		$this->subitem = $_POST['subitem'];
-		$this->stu_account = $_POST['stu_account'];
-
-		// Get classnames, stu_sources
-		$this->classnames = $_POST['classname'];
-		$this->stu_sources = $_POST['stu_source'];
+		$data = file_get_contents('php://input'); 
+		$obj = json_decode($data); 
 		
+		// Get item, subitem, stu_account, stu_source
+		$this->item = $obj->item;
+		$this->subitem = $obj->subitem;
+		$this->stu_account = $obj->stu_account;
+		$this->stu_source = $obj->stu_source;
+	
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
 		
-			// Insert item_subitem
-			for ($i = 0; $i < count($this->classnames); $i += 1) {
-				$stmt = $this->hookup->prepare('UPDATE ' . $this->item . '_' . $this->subitem . ' SET ' . $this->stu_account . '=\'' . $this->stu_sources[$i] . '\' WHERE classname=\'' . $this->classnames[$i] . '\'');
+			// Update item_subitem
+			foreach ($this->stu_source as $id => $pkg) {
+				
+				$classname = $pkg->classname;
+				$content = $pkg->source;
+				$source;
+				
+				if (is_array($content)) {
+					$source = $this->mergeSource($content);
+				}
+				else if ($content === 'Locked'){
+					
+					$stmt = $this->hookup->prepare('SELECT original_source FROM ' . $this->item . '_' . $this->subitem . ' WHERE classname=\'' . $classname . '\'');
+					$stmt->execute();	
+					$row = $stmt->fetch(PDO::FETCH_ASSOC);
+					$source = $row['original_source'];
+			
+				}
+
+				$stmt = $this->hookup->prepare('UPDATE ' . $this->item . '_' . $this->subitem . ' SET ' . $this->stu_account . '=\'' . $source . '\' WHERE classname=\'' . $classname . '\'');
 				$stmt->execute();	
+			
 			}
 			
 			// Get judge_script
@@ -66,6 +83,24 @@ class AnswerEntry implements IStrategy {
 			exit();
 		}
 
+	}
+
+	public function mergeSource ($content) {
+		$source;
+		$filename = './tar/' . uniqid(time(), true) . '-source.tmp';
+		$handle = fopen($filename, 'w');
+		foreach ($content as $key => $value) {
+			fwrite($handle, $value . '\n');
+		}
+		fclose($handle);
+		if (file_exists($filename)) {
+			$source = file_get_contents($filename);
+			unlink($filename);
+		}
+		else {
+			new Viewer('Msg', 'Temporaey file is missing...');
+		}
+		return $source;
 	}
 	
 }

@@ -37,71 +37,67 @@ TAFree.page.Process = {
 		var dom = TAFree.util.Dom,
 		    process = TAFree.util.Process,
 	
-		    titles, code_blocks, i, classname, stu_source, pure_source, hidden_div, lines, j, item, subitem;
+		    titles, code_blocks, i, classname, lines, j, item, subitem, obj, xhr, stu_account, pkg;
 
 		item = dom.getNameOne('item').value;
 		subitem = dom.getNameOne('subitem').value;
+		stu_account = dom.getNameOne('stu_account').value;
 		titles = dom.getClass('TITLE_P');
 		code_blocks = dom.getClass('WRITE_DIV');
-		hidden_div = dom.getClass('HIDDEN_DIV')[0];
+
+		// Configure object 
+		obj = {
+			'item': item,
+			'subitem': subitem,
+			'stu_account': stu_account,
+			'stu_source': []
+		}
 
 		for (i = 0; i < titles.length; i += 1) {
+			
+			pkg = {};
 		
-			// Collect hidden input for classname
-			classname = document.createElement('input');
-			classname.setAttribute('type', 'hidden');
-			classname.setAttribute('name', 'classname[]');
-			classname.setAttribute('value', titles[i].innerHTML);
-			hidden_div.appendChild(classname);
-
-			// Refactor look_source into pure_source 
+			// Add classname
+			classname = titles[i].innerHTML;
+			pkg.classname = classname;
+			
+			// Package source 
 			if (code_blocks[i].children[0].tagName === 'DIV') {
-				xhr = new XMLHttpRequest();
-				xhr.onreadystatechange = function () {
-				    var dom = TAFree.util.Dom,
-					pure_source,
-					hidden_div,
-					stu_source;
-					hidden_div = dom.getClass('HIDDEN_DIV')[0];
-
-				    // Fetch lock source when server response is ready
-				    if (this.readyState === 4 && this.status === 200) {
-					pure_source = this.responseText;
-					stu_source = document.createElement('input');
-					stu_source.setAttribute('type', 'hidden');
-					stu_source.setAttribute('name', 'stu_source[]');
-					stu_source.setAttribute('value', pure_source);
-					hidden_div.appendChild(stu_source);	
-				    }
-				};	
-				xhr.open('POST', 'LockedSource.php', true);
-				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-				xhr.send('classname=' + titles[i].innerHTML + '&item=' + item + '&subitem=' + subitem);
+				pkg.source = 'Locked';
 			} 
 			else {
-				pure_source = '';
+				// Refactor look_source into array 
+				container = [];
 				lines = code_blocks[i].children;
 				for (j = 0; j < lines.length; j += 1) {	
 					switch (lines[j].tagName) {
 						case 'TEXTAREA':
-							pure_source += lines[j].value;	
+							container.push(lines[j].value);	
 						break;
 						case 'INPUT':
-							pure_source += lines[j].value;	
+							container.push(lines[j].value);	
 						break;
 						case 'PRE':
-							pure_source += lines[j].innerHTML;
+							container.push(lines[j].innerHTML);
 						break;
 					}
 				}
-				stu_source = document.createElement('input');
-				stu_source.setAttribute('type', 'hidden');
-				stu_source.setAttribute('name', 'stu_source[]');
-				stu_source.setAttribute('value', pure_source);
-				hidden_div.appendChild(stu_source);
+				pkg.source = container;
 			}
+			
+			obj.stu_source.push(pkg);
 		}
-		
+
+		// Send to server
+    		xhr = new XMLHttpRequest;
+		xhr.onreadystatechange = function () {
+			if (this.readyState === 4 && this.status === 200) {
+				console.log(this.response);
+			}
+	    	};	
+		xhr.open('POST', 'Handin.php');
+		xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+		xhr.send(JSON.stringify(obj)); 
 	},
 
 	countStatus: function () {
