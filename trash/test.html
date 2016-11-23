@@ -1,0 +1,14 @@
+<html>
+<head>
+<script>
+var a = [1,2,3],
+    xmlhttp = new XMLHttpRequest;
+
+xmlhttp.open( "POST", "test.php" );
+xmlhttp.setRequestHeader( "Content-Type", "application/json" );
+xmlhttp.send( '[1,2,3]' ); 
+</script>
+</head>
+<body>
+</body>
+</html>
