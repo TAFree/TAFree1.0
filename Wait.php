@@ -1,0 +1,35 @@
+<?php
+
+include_once('FormatHelper.php');
+include_once('Product.php');
+
+class Wait implements Product{
+	
+	private $content = 'Wait...';
+
+	private $formatHelper;
+	private $contentProduct;
+	
+	public function getContent() {
+		$this->formatHelper = new FormatHelper(get_class($this));
+		$this->contentProduct .= $this->formatHelper->addTop();
+		
+		$this->contentProduct .= '<p id=\'MSG_P\'>' . $this->content . '</p>';
+
+		$this->contentProduct .= $this->formatHelper->closeUp();
+		
+		return $this->contentProduct;
+	}	 
+
+}
+
+if ($router) {
+	$router->run();
+}
+else {
+	include_once('SetRouter.php');
+	$router->run();
+}
+
+?>
+

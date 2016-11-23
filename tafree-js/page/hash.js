@@ -52,7 +52,11 @@ TAFree.page.Hash = (function () {
 			init.handin();
 			init.downloadProblem();
             	},
-                
+
+                'sourcewatch': function () {
+                    	addon.codeLeft();
+		},
+
 		'fac_look': function () {
 			addon.codeLeft();
                     	init.enableZoom();
@@ -64,8 +68,6 @@ TAFree.page.Hash = (function () {
             	},
 		
 		'fac_coders': function () {
-			init.downloadSource();
-			init.downloadAll();
 			process.countStatus();
 		},
 		
@@ -82,10 +84,6 @@ TAFree.page.Hash = (function () {
 			addon.codeLeft();
 			init.talk();
                         init.pullMsg();
-		},
-		
-		'stu_record': function () {
-			init.downloadRecord();
 		}
 
 	    },

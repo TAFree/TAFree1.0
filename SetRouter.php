@@ -305,6 +305,17 @@ $router->match('GET', '/Stu_record.php', function() {
 	}
 });
 
+$router->match('GET', '/SourceWatch.php', function() {
+	session_start();
+	foreach ($_SESSION as $key => $value) {
+		if ($key === 'student' || $key === 'faculty') {
+			new Viewer('SourceWatch');
+			return;
+		}
+	}
+	new Viewer('Sneaker');
+});
+
 $router->match('GET', '/Stu_chooser.php', function() {
 	session_start();
 	if ($_SESSION['student']) {
@@ -382,6 +393,17 @@ $router->match('POST', '/Handin.php', function() {
 $router->match('GET', '/Handin.php', function() {
 	new Viewer('Sneaker');
 
+});
+
+$router->match('GET', '/Wait.php', function() {
+	session_start();
+	foreach ($_SESSION as $key => $value) {
+		if ($key === 'student' || $key === 'faculty') {
+			new Viewer('Wait');
+			return;
+		}
+	}
+	new Viewer('Sneaker');
 });
 
 ?>

@@ -14,7 +14,7 @@ function __autoload($class_name) {
 class Fac_prob implements Product{
 	
 	private $links = array (
-		'Assign' => './Fac_assign.php',
+		'Assign' => './Wait.php',
 		'Coders' => './Fac_coders.php',
 		'Look' => 'Fac_look.php'
 	);	

@@ -19,11 +19,10 @@ class AssignControl {
 		
 		$this->unique_key = uniqid($time(), true);
 
-		session_start();
-		$_SESSION['key_to_assign'] = $this->unique_key;
-
 		$trigger = new DBOperator();
 		$trigger->assignRegistry($this->unique_key);;
+
+		echo $this->unique_key;
 	}
 
 }

@@ -34,10 +34,7 @@ class Fac_coders implements Product {
 <tr><th class='TITLE_TD'>Status</th><th class='TITLE_TD'>%</th></tr>
 </table>
 <table class='STATUS_DOWNLOAD_TABLE'>
-<tr>
-<th colspan='3' class='TITLE_TD'>{$this->item}_{$this->subitem}</th>
-<th class='TITLE_TD'><input type='button' id='ALL_INPUT' value='All'></th>
-</tr>
+<tr><th colspan='4' class='TITLE_TD'>{$this->item}_{$this->subitem}</th></tr>
 <tr>
 <td class='TITLE_TD'>Student Name</td>
 <td class='TITLE_TD'>Student Account</td>
@@ -60,10 +57,10 @@ EOF;
 				$status = $row_item[$row_stu['student_account']];
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . '<p class=\'STATUS_CODE_P\'>' . $status . '</p>' . '</td>';
 				if ($status !== 'NULL') {
-					$this->contentProduct .= '<td class=\'CONTENT_TD\'><input type=\'button\' class=\'CLICKABLE\' value=\'Download\'></td></tr>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'><a class=\'CLICKABLE\' href=\'./SourceWatch.php?stu_account=' . $row_stu['student_account'] . '&fullitem=' . $this->item . '_' . $this->subitem . '\'>Watch</a></td></tr>';
 				}
 				else {
-					$this->contentProduct .= '<td class=\'CONTENT_TD\'></td>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'></td></tr>';
 				}
 			}
 	

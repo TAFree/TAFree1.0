@@ -49,7 +49,7 @@ EOF;
 					$status = $row_item[$this->stu_account];
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $status . '</td>';
 					if ($status !== 'NULL') {
-						$this->contentProduct .= '<td class=\'CONTENT_TD\'><input type=\'hidden\' value=\'' . $this->stu_account . '\'><input type=\'button\' class=\'CLICKABLE\' value=\'Download\'></td>';
+						$this->contentProduct .= '<td class=\'CONTENT_TD\'><a href=\'./SourceWatch.php?stu_account=' . $this->stu_account . '&fullitem=' . $row_prob['item'] . '_' . $i . '\' class=\'CLICKABLE\'>Watch</a></td>';
 					}
 					else {
 						$this->contentProduct .='<td class=\'CONTENT_TD\'></td>';

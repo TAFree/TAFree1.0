@@ -444,8 +444,17 @@ TAFree.page.Feature = {
 	    item = dom.getNameOne('item').value;
 	    item_status = 'In used';
 	    
-	    // Update unique_key in problem table and create $_SESSION['key_to_assign'] = [unique_key] on server side
+	    // Update unique_key in problem table on server side and send a request with that key
 	    xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+		// Get unique_key when server response is ready
+		if (this.readyState === 4 && this.status === 200) {
+			var key;
+			key = this.responseText;
+			console.log(key);
+			window.location = './Fac_assign.php?key_to_assign='+ key;
+		}
+	    };
 	    xhr.open('POST', 'AssignControl.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send();
@@ -523,97 +532,6 @@ TAFree.page.Feature = {
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('subject=' + subject + '&message=' + message);
 
-	},
-
-	downloadSource: function (e) {
-
-	var xhr, full_subitem, stu_account, but, table;
-
-	    but = e.srcElement;
-            stu_account = but.parentNode.previousSibling.previousSibling.innerHTML;
-	    table = but.parentNode.parentNode.parentNode;
-	    if (table.tagName === 'TBODY'){
-	        full_subitem = table.parentNode.children[0].children[0].children[0].innerHTML;
- 	    }
-	    else {
-		full_subitem = table.children[0].children[0].innerHTML;
-	    }
-
-	    // Send download request on server side
-	    xhr = new XMLHttpRequest();
-	    xhr.open('POST', 'SourceTar.php', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send('full_subitem=' + full_subitem + '&stu_account=' + stu_account);
-	},
-
-	downloadAll: function (e) {
-	
-	var xhr, full_subitem, but, table;
-
-	    but = e.srcElement;
-	    
-	    table = but.parentNode.parentNode.parentNode;
-	    if (table.tagName === 'TBODY'){
-	        full_subitem = table.parentNode.children[0].children[0].children[0].innerHTML;
- 	    }
-	    else {
-		full_subitem = table.children[0].children[0].innerHTML;
-	    }
-	   		
-	    // Send download request on server side
-	    xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function () {
-		// Show faked closeup time in page when server response is ready
-		if (this.readyState === 4 && this.status === 200) {
-			pres_table = td.parentNode.nextSibling.children[0].children[0];
-			pres_len = pres_table.children[0].children.length;
-			// First row is th
-			for (i = 1; i < pres_len; i += 1) {
-				pres_tr = pres_table.children[0].children[i];
-				closeup_td = pres_tr.children[2];
-				present_checkbox = closeup_td.nextSibling.children[0];
-				present_img = present_checkbox.nextSibling;
-				if (closeup_td.innerHTML === '') {
-					closeup_td.innerHTML = closeup;
-					present_checkbox.checked = false;
-					present_img.src='./tafree-svg/unknown.svg';
-				}
-			}
-		}
-	    };	
-	    xhr.open('POST', 'AllTar.php', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send('full_subitem=' + full_subitem);
-
-	},
-	
-	downloadRecord: function (e) {
-
-	var xhr, stu_account, full_subitem, but, table;
-
-	    but = e.srcElement;
-            stu_account = but.previousSibling.value;
-	    table = but.parentNode.parentNode.parentNode;
-	    if (table.tagName === 'TBODY'){
-	        full_subitem = table.parentNode.children[0].children[0].children[0].innerHTML;
- 	    }
-	    else {
-		full_subitem = table.children[0].children[0].innerHTML;
-	    }
-
-	    // Send download request on server side
-	    xhr = new XMLHttpRequest();
-	    xhr.onreadystatechange = function () {
-		// Download file when source is tarred
-		if (this.readyState === 4 && this.status === 200) {
-			var filename;
-			filename = this.responseText;
-			window.location = './FileFetch.php?filename=' + filename;
-		}
-	    };	
-	    xhr.open('POST', 'SourceTar.php', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send('full_subitem=' + full_subitem + '&stu_account=' + stu_account);
 	}
 
 };
