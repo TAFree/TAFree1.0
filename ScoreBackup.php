@@ -74,12 +74,10 @@ class ScoreBackup {
 		
 		// Send email to faculty
 		foreach ($this->emails as $email) {
-			$command = 'echo \'This is a score backup sent from TAFree.\' | mail -s \'Score Backup\' -A ' . $this->filename . ' ' . $email;
-			$handler = popen('at now + 1 minute', 'w');
-			fwrite($handler, $command);
-			fclose($handler);
+			system('echo \'This is a score backup sent from TAFree.\' | mail -s \'Score Backup\' -A ' . $this->filename . ' ' . $email, $retval);
 		}
-		sleep(10);
+		
+		sleep(30);
 	
 		// Remove backup file
 		unlink($this->filename);
