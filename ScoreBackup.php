@@ -3,34 +3,39 @@
 ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
-include_once('FormatHelper.php');
-include_once('Product.php');
-include_once('SetRouter.php');
-
 function __autoload($class_name) {
 	include_once($class_name . '.php');	
 }
 
-class ScoreTar {
+class ScoreBackup {
 	
 	private $item;
 	private $handle;
 	private $filename;
 	private $fields = array();
+	private $emails = array();
 
 	public function __construct() {
 		
 		// Get item
-		$this->item = $_POST['item'];	
-		
-		// Configure csv file content		
-		
-		$this->filename = './tar/' . uniqid(time(), true) . '-score-' . $this->item . '.csv';
+		$this->item = $_SERVER['argv'][1];	  	
+					
+		$this->filename = './tar/' . uniqid(time(), true) . '-backup-' . $this->item . '.csv';
 		$this->handle = fopen($this->filename, 'w');
 		
 		try {
 			$this->hookup = UniversalConnect::doConnect();
 			
+			// Get faculty emails
+			$stmt = $this->hookup->prepare('SELECT faculty_email FROM faculty');
+			$stmt->execute();
+			$i = 0;
+			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+				$this->emails[$i] = $row['faculty_email'];
+				$i += 1;
+			}
+
+			// Configure csv file content		
 			$stmt_prob = $this->hookup->prepare('SELECT item, number FROM problem WHERE item=\'' . $this->item . '\'');
 			$stmt_prob->execute();
 			while($row_prob = $stmt_prob->fetch(PDO::FETCH_ASSOC)) {
@@ -67,20 +72,22 @@ class ScoreTar {
 		
 		fclose($this->handle);
 		
-		// Download file
-		$loader = new Loader($this->filename);
-		$loader->download();
+		// Send email to faculty
+		foreach ($this->emails as $email) {
+			$command = 'echo \'This is a score backup sent from TAFree.\' | mail -s \'Score Backup\' -A ' . $this->filename . ' ' . $email;
+			$handler = popen('at now + 1 minute', 'w');
+			fwrite($handler, $command);
+			fclose($handler);
+		}
+		sleep(10);
+	
+		// Remove backup file
+		unlink($this->filename);
 	}
 
 }
 
-if ($router) {
-	$router->run();
-}
-else {
-	include_once('SetRouter.php');
-	$router->run();
-}
+$worker = new ScoreBackup();
 
 ?>
 
