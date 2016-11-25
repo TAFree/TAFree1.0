@@ -52,9 +52,11 @@ class Java_No_Input {
 			// Fetch student and solution source from table [item]_[subitem]
 			$this->fetchSource();
 			
-			// Start judge
-			$this->startJudge();
+			// Start judge and return judge status
+			$this->status = $this->startJudge();
 			/*
+			// Update judge status
+			$this->updateStatus();
 
 			// Remove directory
 			$this->removeDir();
@@ -105,24 +107,29 @@ class Java_No_Input {
 	
 	public function startJudge () {
 	
-		// Solution and student directory that source is inside
+		// Solution and student directory whose source is in
+	
 		$solution_dir = './process/' . $this->dir_name . '/solution';
 		$student_dir = './process/' . $this->dir_name . '/student';
 
-		// Compile source of both solution and student
+		// Compile source code from both solution and student
+	
 		$solution_CE = $this->compile($solution_dir);
 		if (!empty($solution_CE)) {
-			new Viewer('Msg', 'Solution has compiler error: ' . '<br>' . $solution_CE);
-			exit();
+			new Viewer('Result', '<h1>Solution has compiler error</h1>' . '<pre><code>' . $solution_CE . '</code></pre>');
+			// System error
+			return 'SE';
 		}
+		
 		$student_CE = $this->compile($student_dir);
 		if (!empty($student_CE)) {
-			new Viewer('Msg', 'Your source code has compiler error: ' . '<br>' . $student_CE);
-		//	$this->status = 'CE';
-			// Update judge status as 'CE'
-		//	$this->updateStatus();
+			new Viewer('Result', '<h1>Your source code has compiler error</h1>' . '<pre><code>' . $student_CE . '</code></pre>');
+			// Compiler error
+			return 'CE';
 		}
 
+		// Execute source code from both solution and student
+		
 	}
 
 	public function compile ($dir) {
@@ -134,7 +141,7 @@ class Java_No_Input {
 		);
 
 		// Configure compilation command
-		$cmd = 'exec javac -d ' . $dir . ' ';
+		$cmd = 'javac -d ' . $dir . ' ';
 		$source = glob($dir . '/*');
 		foreach ($source as $key => $value) {
 			$cmd .= $value . ' ';
@@ -161,7 +168,9 @@ class Java_No_Input {
 
 	public function updateStatus () {
 		$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'' . $this->status . '\' WHERE subitem=\'' . $this->subitem . '\'');
+		$stmt->execute();
 	}
+
 
 }
 

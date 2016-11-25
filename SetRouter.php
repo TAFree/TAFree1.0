@@ -390,7 +390,7 @@ $router->match('POST', '/Handin.php', function() {
 		$watchman = new Janitor($registry);
 		
 		if ($watchman->openDoor()) {
-			new Viewer('Handin');
+			new Handin();
 		}
 		else {
 			new Viewer('Msg', $watchman->dialogue());

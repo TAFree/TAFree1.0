@@ -51,6 +51,10 @@ TAFree.page.Hash = (function () {
 			addon.clearModify();
 			init.handin();
             	},
+		
+		'result': function () {
+			addon.codeLeft();
+		},
 
                 'sourcewatch': function () {
                     	addon.codeLeft();

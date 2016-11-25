@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', '1');
+ERROR_REPORTING(E_ALL);
+
 class AnswerEntry implements IStrategy {
 	
 	private $item;
@@ -54,6 +57,26 @@ class AnswerEntry implements IStrategy {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 		
+	}
+
+	public function mergeSource ($content) {
+
+		$filename = './tar/' . uniqid(time(), true) . '-source.tmp';
+		$tmp_res = fopen($filename, 'w');
+		fclose($tmp_res);
+
+		foreach ($content as $key => $value) {
+			$line = $value . PHP_EOL;
+			file_put_contents($filename, $line, FILE_APPEND);
+		}
+		
+		$resource = fopen($filename, 'r');
+		$source = fread($resource, filesize($filename));
+		fclose($resource);
+
+		unlink($filename);
+
+		return $source;
 	}
 
 }
