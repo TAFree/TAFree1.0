@@ -452,15 +452,13 @@ TAFree.page.Init = {
 			ele = e.srcElement;
 			stu = ele.parentNode.children[1].children[1];
 			sol = ele.parentNode.children[1].children[0];
-			if (ele.src.includes('up')) {
-				ele.src = './tafree-svg/down.svg';
-				stu.style.zIndex = '-1';
-				sol.style.zIndex = '1';
+			if (ele.src.includes('down')) {
+				ele.src = './tafree-svg/up.svg';
+				sol.style.display = 'block';
 			}
 			else{
-				ele.src = './tafree-svg/up.svg';
-				stu.style.zIndex = '1';
-				sol.style.zIndex = '-1';
+				ele.src = './tafree-svg/down.svg';
+				sol.style.display = 'none';
 
 			}
 		});

@@ -79,7 +79,7 @@ class Java_No_Input {
 	public function removeDir () {
 		system('rm -rf ' . $this->dir_name, $retval);
 		if ($retval !== 0 ) {
-			echo 'Directory can not be removed...';
+			new Viewer('Msg', 'Directory can not be removed...');
 			exit();
 		}
 	}
@@ -161,22 +161,22 @@ class Java_No_Input {
 		// Compare output from both solution and student
 		$this->solution_output = $this->execute($solution_dir, 1);
 		$this->student_output = $this->execute($student_dir, 1);
-		$retval = strcmp($this->solution_output, $this->student_output);
-		if ($retval === 0) {
-			// Accept
-			$this->status = 'AC';
-		}
-		else {
-			// Wrong Answer
-			$this->status = 'WA';
-		}
 
 		// Configure result that will response to client side
 		$error_msg = null;
 		$this->configureView($error_msg);
 		
-		return;
-		
+		$retval = strcmp($this->solution_output, $this->student_output);
+		if ($retval === 0) {
+			// Accept
+			$this->status = 'AC';
+			return;
+		}
+		else {
+			// Wrong Answer
+			$this->status = 'WA';
+			return;
+		}
 	}
 
 	public function compile ($dir) {
@@ -265,29 +265,11 @@ class Java_No_Input {
 
 	public function configureView ($error_msg) {
 		if (!is_null($error_msg)) {
-			echo $error_msg;
+			new Viewer('Result', $error_msg . '<br><a href=\'Stu_chooser.php\' class=\'DOC_A\'>Back</a>');
 		}
 		else {
-			$result = '';
-			if ($this->status === 'WA') {
-				$result = 'Wrong Answer';
-			}
-			if ($this->status === 'AC') {
-				$result = 'Accept';
-			}
-			echo<<<EOF
-<h1>$result</h1>
-<div class='WHOSE_DIV'>
-<img class='UP_DOWN_IMG' src='./tafree-svg/down.svg'>
-<div class='RES_DIV'>
-<div class='SOL_DIV'>{$this->solution_output}</div>
-<div class='STU_DIV'>{$this->student_output}</div>
-</div>
-</div>
-EOF;
-
+			new Viewer('Result', $this->student_output . '<br>' . $this->solution_output . '<br>' . '<a href=\'./Stu_chooser.php\' class=\'DOC_A\'>Back</a>');
 		}
-		return;
 	}
 
 }

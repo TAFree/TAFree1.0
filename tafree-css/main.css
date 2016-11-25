@@ -514,39 +514,49 @@
 }
 
 .RES_DIV {
+	width: 80vw;
+	height: 60vh;
+	background-color: #FFF6E5;
 	position: relative;
 }
 
 .SOL_DIV {
-	background-color: #FFF6E5;
-	width: 80vw;
 	height: 60vh;
+	width: 80vw;
 	color: red;
-	font-size: 150%;
+	font-size: 5vh;
+	background-color: transparent;
 	overflow: scroll;
-	z-index: -1;
+	display: none;
 }
 
 .STU_DIV {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: transparent;
 	width: 80vw;
 	height: 60vh;
-	font-size: 149%;
+	font-size: 5vh;
+	background-color: transparent;
 	overflow: scroll;
-	z-index: 1;
 }
 
 .WHOSE_DIV {
-
+	width: 83vw;
+	background-color: #3196C4;
 }
 
 .UP_DOWN_IMG {
-	height: 30px;
-	width: 30px;
-	display: inline;
+	margin: 4px;
+	background-color: #FFF6E5;
+	height: 2vw;
+	width: 2vw;
+	float: right;
+}
+
+.UP_DOWN_IMG:hover {
+	background-color: #D8D8D8;
+
 }
 
 
