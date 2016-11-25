@@ -5,7 +5,7 @@ include_once('Product.php');
 
 class WrongPerson implements Product{
 	
-	private $content = 'Either password or account is wrongly typed... <a id=\'LOGIN_AGAIN_A\' href=\'./Login.php\'>Login Again</a>';	
+	private $content = 'Either password or account is wrongly typed... <a class=\'DOC_A\' href=\'./Login.php\'>Login Again</a>';	
 
 	private $formatHelper;
 	private $contentProduct;

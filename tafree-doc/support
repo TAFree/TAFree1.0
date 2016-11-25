@@ -17,7 +17,7 @@ sudo apt-get update
 sudo apt-get install oracle-java9-installer
 sudo java -version
 </code></pre>
-<p><a href='http://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get'>其他JDK</a></p>
+<p><a class='DOC_A' href='http://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get'>其他JDK</a></p>
 <h3>安裝Python 3</h3>
 <pre class='bash'><code>
 sudo apt-get install idle-python3.5

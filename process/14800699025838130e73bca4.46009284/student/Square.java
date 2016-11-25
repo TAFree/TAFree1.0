@@ -1,3 +1,0 @@
-class Square extends GeometricObject{
-
-}

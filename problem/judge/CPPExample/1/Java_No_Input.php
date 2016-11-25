@@ -28,10 +28,8 @@ class Java_No_Input {
 	private $subitem;
 	private $dir_name;
 	private $status;
-	private $standard_run_pid;
-	private $student_run_pid;
-	private $student_sources = array();
-	private $solution_sources = array();
+	private $solution_output;
+	private $student_output;
 
 	private $hookup;
 
@@ -52,22 +50,18 @@ class Java_No_Input {
 			// Fetch student and solution source from table [item]_[subitem]
 			$this->fetchSource();
 			
-			// Start judge and return judge status
-			$this->status = $this->startJudge();
-			/*
+			// Start judge 
+			$this->startJudge();
+			
 			// Update judge status
 			$this->updateStatus();
 
 			// Remove directory
 			$this->removeDir();
 
-			// Configure result that will response to client side
-			$this->configureView();
-
-			// Show result
-			echo $this->result;
-*/
 			$this->hookup = null;
+			
+			exit();
 		}
 		catch (PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
@@ -76,16 +70,17 @@ class Java_No_Input {
 	}
 
 	public function createDir () {
-		$this->dir_name = uniqid(time(), true);
-		mkdir('./process/' . $this->dir_name);
-		mkdir('./process/' . $this->dir_name . '/student');
-		mkdir('./process/' . $this->dir_name . '/solution');
+		$this->dir_name = './process/' . uniqid(time(), true);
+		mkdir($this->dir_name);
+		mkdir($this->dir_name . '/student');
+		mkdir($this->dir_name . '/solution');
 	}
 
 	public function removeDir () {
 		system('rm -rf ' . $this->dir_name, $retval);
 		if ($retval !== 0 ) {
 			new Viewer('Msg', 'Directory can not be removed...');
+			exit();
 		}
 	}
 	
@@ -94,11 +89,11 @@ class Java_No_Input {
 		$stmt->execute();
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			
-			$student = fopen('./process/' . $this->dir_name . '/student/' . $row['classname'], 'w');
+			$student = fopen($this->dir_name . '/student/' . $row['classname'], 'w');
 			fwrite($student, $row[$this->stu_account]);
 			fclose($student);
 			
-			$solution = fopen('./process/' . $this->dir_name . '/solution/' . $row['classname'], 'w');
+			$solution = fopen($this->dir_name . '/solution/' . $row['classname'], 'w');
 			fwrite($solution, $row['original_source']);
 			fclose($solution);
 
@@ -108,28 +103,80 @@ class Java_No_Input {
 	public function startJudge () {
 	
 		// Solution and student directory whose source is in
-	
-		$solution_dir = './process/' . $this->dir_name . '/solution';
-		$student_dir = './process/' . $this->dir_name . '/student';
+		$solution_dir = $this->dir_name . '/solution';
+		$student_dir = $this->dir_name . '/student';
 
 		// Compile source code from both solution and student
-	
 		$solution_CE = $this->compile($solution_dir);
 		if (!empty($solution_CE)) {
-			new Viewer('Result', '<h1>Solution has compiler error</h1>' . '<pre><code>' . $solution_CE . '</code></pre>');
-			// System error
-			return 'SE';
-		}
+			
+			// Configure result that will response to client side
+			$error_msg = '<h1>Solution has compiler error</h1>' . '<pre><code>' . $solution_CE . '</code></pre>';
+			$this->configureView($error_msg);
 		
+			// System error
+			$this->status = 'SE';
+			return;
+	
+		}
 		$student_CE = $this->compile($student_dir);
 		if (!empty($student_CE)) {
-			new Viewer('Result', '<h1>Your source code has compiler error</h1>' . '<pre><code>' . $student_CE . '</code></pre>');
-			// Compiler error
-			return 'CE';
-		}
-
-		// Execute source code from both solution and student
+			
+			// Configure result that will response to client side
+			$error_msg = '<h1>Your source code has compiler error</h1>' . '<pre><code>' . $student_CE . '</code></pre>';
+			$this->configureView($error_msg);
 		
+			// Compiler error
+			$this->status = 'CE';
+			return;
+	
+		}
+	
+		// Execute source code from both solution and student	
+		$solution_RE = $this->execute($solution_dir, 2);
+		if (!empty($solution_RE)) {
+			
+			// Configure result that will response to client side
+			$error_msg = '<h1>Solution has runtime error</h1>' . '<pre><code>' . $solution_RE . '</code></pre>';
+			$this->configureView($error_msg);
+		
+			// System error
+			$this->status = 'SE';
+			return;
+	
+		}
+		$student_RE = $this->execute($student_dir, 2);
+		if (!empty($student_RE)) {
+
+			// Configure result that will response to client side
+			$error_msg = '<h1>Your source code has runtime error</h1>' . '<pre><code>' . $student_RE . '</code></pre>';
+			$this->configureView($error_msg);
+
+			// Runtime error
+			$this->status = 'RE';
+			return;
+	
+		}
+		
+		// Compare output from both solution and student
+		$this->solution_output = $this->execute($solution_dir, 1);
+		$this->student_output = $this->execute($student_dir, 1);
+
+		// Configure result that will response to client side
+		$error_msg = null;
+		$this->configureView($error_msg);
+		
+		$retval = strcmp($this->solution_output, $this->student_output);
+		if ($retval === 0) {
+			// Accept
+			$this->status = 'AC';
+			return;
+		}
+		else {
+			// Wrong Answer
+			$this->status = 'WA';
+			return;
+		}
 	}
 
 	public function compile ($dir) {
@@ -165,12 +212,65 @@ class Java_No_Input {
 		
 		return $error;
 	}
+	
+	public function execute ($dir, $pipe_id) {
+		// Configure descriptor array
+		$desc = array (
+				0 => array ('pipe', 'r'), // STDIN for process
+				1 => array ('pipe', 'w'), // STDOUT for process
+				2 => array ('pipe', 'w') // STDERR for process
+		);
+
+		// Configure execution command
+		$cmd = 'exec java -classpath ' . $dir . ' ';
+		$source = glob($dir . '/*.class');
+		foreach ($source as $key => $value) {
+			$first_pos = strrpos($value, '/') + 1;
+			$last_pos = strrpos($value, '.class');
+			$length = $last_pos - $first_pos;
+			$classname = substr($value, strrpos($value, '/') + 1, $length);		
+			$cmd .= $classname . ' ';
+		}
+		
+		// Create execution process
+		$process = proc_open($cmd, $desc, $pipes);
+		
+		// Get pid of execution process
+		$process_status = proc_get_status($process);
+		$pid = $process_status['pid'];	
+
+		// Close STDIN pipe
+		fclose($pipes[0]);
+		
+		// Wait seconds
+		sleep(1);
+		
+		// Kill execution process
+		posix_kill($pid, SIGTERM);
+		
+		// Get output of STDOUT or STDERR pipe
+		$output = stream_get_contents($pipes[$pipe_id]);
+	
+		// Close STDOUT and STDERR pipe
+		fclose($pipes[1]);
+		fclose($pipes[2]);
+	
+		return $output;
+	}
 
 	public function updateStatus () {
 		$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'' . $this->status . '\' WHERE subitem=\'' . $this->subitem . '\'');
 		$stmt->execute();
 	}
 
+	public function configureView ($error_msg) {
+		if (!is_null($error_msg)) {
+			new Viewer('Result', $error_msg . '<br><a href=\'Stu_chooser.php\' class=\'DOC_A\'>Back</a>');
+		}
+		else {
+			new Viewer('Result', $this->student_output . '<br>' . $this->solution_output . '<br>' . '<a href=\'./Stu_chooser.php\' class=\'DOC_A\'>Back</a>');
+		}
+	}
 
 }
 

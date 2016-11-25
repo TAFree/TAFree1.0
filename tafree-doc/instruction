@@ -4,7 +4,7 @@
 <h2>伺服器環境LAMP： Linux(作業系統) + Apache2(伺服器) + MySQL(資料庫) + PHP7.0(伺服器腳本)</h2>
 <p>如果你已經會用別種方式安裝LAMP請跳過這段...</p>
 <h3>安裝有支援apt-get命令的Linux分支版本</h3>
-<p>TAFree是架在<a href='http://magiclen.org/ubuntu-server-16-04'>Ubuntu Server 16.04.1 LTS</a>，你可以學它。</p>
+<p>TAFree是架在<a class='DOC_A' href='http://magiclen.org/ubuntu-server-16-04'>Ubuntu Server 16.04.1 LTS</a>，你可以學它。</p>
 <h3>確認網路是否已連通</h3>
 <p>建議新手暫時把機器接上網路線</p>
 <pre class='bash'><code>
@@ -38,7 +38,7 @@ lo        Link encap:Local Loopback
 </code></pre>
 <p>於是你應該要有<strong>e</strong>開頭的有線網路介面卡，像我們的是<strong>ens32</strong>, 而IP是<strong>140.112.12.112</strong>, 所以可以上網。
 <br>
-如果你想要用無線網路的方式，那你必須要額外閱讀<a href='http://b8807053.pixnet.net/blog/post/265722439-ubuntu-%E4%B8%8A%E8%A8%AD%E5%AE%9A%E7%84%A1%E7%B7%9A%E7%B6%B2%E8%B7%AF'>Ubuntu 上設定無線網路</a>。</p>
+如果你想要用無線網路的方式，那你必須要額外閱讀<a class='DOC_A' href='http://b8807053.pixnet.net/blog/post/265722439-ubuntu-%E4%B8%8A%E8%A8%AD%E5%AE%9A%E7%84%A1%E7%B7%9A%E7%B6%B2%E8%B7%AF'>Ubuntu 上設定無線網路</a>。</p>
 <h3>安裝剩下的東西</h3>
 <pre class='bash'><code>
 sudo apt-get install update
@@ -76,7 +76,7 @@ mysql > EXIT;
 <p>TAFree有申請延長繳交作業時間的寄信通知功能。</p>
 <p>若沒有公開IP者，當然你的TAFree不會有對外寄信的功能，但是因為排程工具其他功能會用到，所以請不要跳過這段。</p>
 <h3>安裝MTA: Exim</h3>
-<p><a href='http://www.arthurtoday.com/2010/10/ubuntu-send-only-smtp-server.html'>Ubuntu 如何安裝和設定只寄不收 ( Send Only ) 的郵件伺服器 ( SMTP Server )</a></p>
+<p><a class='DOC_A' href='http://www.arthurtoday.com/2010/10/ubuntu-send-only-smtp-server.html'>Ubuntu 如何安裝和設定只寄不收 ( Send Only ) 的郵件伺服器 ( SMTP Server )</a></p>
 <h3>安裝寄信工具: Mailutils</h3>
 <pre class='bash'><code>
 sudo apt-get install mailutils

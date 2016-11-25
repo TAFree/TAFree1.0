@@ -316,7 +316,11 @@ $router->match('GET', '/SourceWatch.php', function() {
 });
 
 $router->match('GET', '/Stu_chooser.php', function() {
+
 	session_start();
+
+	$_SESSION['key_to_write'] = true;
+
 	if ($_SESSION['student']) {
 		new Viewer('Stu_chooser');
 	} else {
@@ -328,8 +332,8 @@ $router->match('GET', '/Stu_prob.php', function() {
 	
 	session_start();
 	
-	if ($_SESSION['student']) {
-	
+	if ($_SESSION['student'] && $_SESSION['key_to_write']) {
+		unset($_SESSION['key_to_write']);
 		$registry = array();
 		$registry['guest'] = 'student';
 		$registry['account'] = (string)$_SESSION['student'];

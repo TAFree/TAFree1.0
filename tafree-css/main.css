@@ -29,24 +29,6 @@
 	word-break: break-all; 
 }
 
-#TAFREE_A {
-	text-decoration: none;
-	color: #000000;
-} 
-
-#TAFREE_A:hover {
-	color: #3F464C;
-}
-
-#LOGIN_AGAIN_A {
-	text-decoration: none;
-	color: #000000;
-} 
-
-#LOGIN_AGAIN_A:hover {
-	color: #3F464C;
-}
-
 .TITLE_TD {
 	background-color: #2186C4;
 	text-align: center;
@@ -524,6 +506,7 @@
 .DOC_A {
 	text-decoration: none;
 	color: #000000;
+	text-shadow: 1px 1px #808080;
 } 
 
 .DOC_A:hover {
