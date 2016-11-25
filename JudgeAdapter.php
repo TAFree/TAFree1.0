@@ -19,7 +19,7 @@ class JudgeAdapter {
 	private $judge_script;
 	private $judge_ext;
 	private $judge_cmd;
-	private $retval;
+	private $result;
 
 	private $hookup;
 	
@@ -51,20 +51,36 @@ class JudgeAdapter {
 			
 			$this->hookup = null;
 
+			// Start external judge process and get its standard output as view
+			$desc = array (
+				0 => array ('pipe', 'r'),
+				1 => array ('pipe', 'w'),
+				2 => array ('pipe', 'w')
+			);
+			$cmd = $this->judge_cmd . ' ' . './problem/judge/' . $this->item . '/' . $this->subitem . '/' . $this->judge_script . ' ' . $this->stu_account . ' ' . $this->item . ' ' . $this->subitem;
+
+			$process = proc_open($cmd, $desc, $pipes);
+			fclose($pipes[0]);
+			$this->result = stream_get_contents($pipes[1]);	
+			$error_output = stream_get_contents($pipes[2]);	
+			fclose($pipes[1]);
+			fclose($pipes[2]);
+			proc_close($process);
+			
+			if (!empty($error_output)) {
+				new Viewer('Msg', 'Judge process error...' . '<br>' . $error_output);
+				exit();
+			}
+			else {
+				echo $this->result;
+				exit();
+			}
+
 		}
 		catch (PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 		
-		// Start external judge process and get its standard output as view
-		system($this->judge_cmd . ' ' . './problem/judge/' . $this->item . '/' . $this->subitem . '/' . $this->judge_script . ' ' . $this->stu_account, $this->retval);
-		
-		if ($this->retval !== 0) {
-			new Viewer('Msg', 'Judge process error... (status: ' . $retval . ')');
-			exit();
-		}
-		exit();
-
 	}
 
 }
