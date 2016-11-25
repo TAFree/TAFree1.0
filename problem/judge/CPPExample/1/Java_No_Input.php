@@ -276,12 +276,13 @@ class Java_No_Input {
 				$result = 'Accept';
 			}
 			echo<<<EOF
+<h1>$result</h1>
 <div class='WHOSE_DIV'>
-<h1>$result <img class='UP_DOWN_IMG' src='./tafree-svg/up.svg'></h1>
-</div>
+<img class='UP_DOWN_IMG' src='./tafree-svg/up.svg'>
 <div class='RES_DIV'>
 <div class='SOL_DIV'>{$this->solution_output}</div>
 <div class='STU_DIV'>{$this->student_output}</div>
+</div>
 </div>
 EOF;
 

@@ -54,6 +54,7 @@ TAFree.page.Hash = (function () {
 		
 		'result': function () {
 			addon.codeLeft();
+			init.switchLayer();
 		},
 
                 'sourcewatch': function () {
