@@ -72,7 +72,7 @@ class JudgeAdapter {
 				exit();
 			}
 			else {
-				echo $this->result;
+				new Viewer('Result', $this->result);
 				exit();
 			}
 

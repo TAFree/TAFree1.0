@@ -513,17 +513,41 @@
 	color: #3F464C;
 }
 
+.RES_DIV {
+	position: relative;
+}
 
+.SOL_DIV {
+	background-color: #FFF6E5;
+	width: 80vw;
+	height: 60vh;
+	color: red;
+	font-size: 150%;
+	overflow: scroll;
+	z-index: -1;
+}
 
+.STU_DIV {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: transparent;
+	width: 80vw;
+	height: 60vh;
+	font-size: 149%;
+	overflow: scroll;
+	z-index: 1;
+}
 
+.WHOSE_DIV {
 
+}
 
-
-
-
-
-
-
+.UP_DOWN_IMG {
+	height: 30px;
+	width: 30px;
+	display: inline;
+}
 
 
 
