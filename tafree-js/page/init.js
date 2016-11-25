@@ -452,12 +452,12 @@ TAFree.page.Init = {
 			ele = e.srcElement;
 			stu = ele.parentNode.children[1].children[1];
 			sol = ele.parentNode.children[1].children[0];
-			if (ele.src.includes('down')) {
-				ele.src = './tafree-svg/up.svg';
+			if (ele.src.includes('attention')) {
+				ele.src = './tafree-svg/undo.svg';
 				sol.style.display = 'block';
 			}
 			else{
-				ele.src = './tafree-svg/down.svg';
+				ele.src = './tafree-svg/attention.svg';
 				sol.style.display = 'none';
 
 			}

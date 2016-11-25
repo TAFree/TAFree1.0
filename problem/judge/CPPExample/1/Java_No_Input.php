@@ -278,7 +278,7 @@ class Java_No_Input {
 			echo<<<EOF
 <h1>$result</h1>
 <div class='WHOSE_DIV'>
-<img class='UP_DOWN_IMG' src='./tafree-svg/down.svg'>
+<img class='UP_DOWN_IMG' src='./tafree-svg/attention.svg'>
 <div class='RES_DIV'>
 <div class='SOL_DIV'>{$this->solution_output}</div>
 <div class='STU_DIV'>{$this->student_output}</div>
