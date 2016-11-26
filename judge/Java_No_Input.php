@@ -26,6 +26,7 @@ class Java_No_Input {
 	private $stu_account;
 	private $item;
 	private $subitem;
+    private $main;
 	private $dir_name;
 	private $status;
 	private $solution_output;
@@ -79,16 +80,18 @@ class Java_No_Input {
 	public function removeDir () {
 		system('rm -rf ' . $this->dir_name, $retval);
 		if ($retval !== 0 ) {
-			new Viewer('Msg', 'Directory can not be removed...');
+			echo 'Directory can not be removed...';
 			exit();
 		}
 	}
 	
 	public function fetchSource () {
-		$stmt = $this->hookup->prepare('SELECT classname, original_source, ' . $this->stu_account . ' FROM ' . $this->item . '_' . $this->subitem);
+		$stmt = $this->hookup->prepare('SELECT main, classname, original_source, ' . $this->stu_account . ' FROM ' . $this->item . '_' . $this->subitem);
 		$stmt->execute();
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-			
+            if ($row['main'] === 'V') {
+                $this->main = $row['classname'];
+            }
 			$student = fopen($this->dir_name . '/student/' . $row['classname'], 'w');
 			fwrite($student, $row[$this->stu_account]);
 			fclose($student);
@@ -161,22 +164,22 @@ class Java_No_Input {
 		// Compare output from both solution and student
 		$this->solution_output = $this->execute($solution_dir, 1);
 		$this->student_output = $this->execute($student_dir, 1);
+		$retval = strcmp($this->solution_output, $this->student_output);
+		if ($retval === 0) {
+			// Accept
+			$this->status = 'AC';
+		}
+		else {
+			// Wrong Answer
+			$this->status = 'WA';
+		}
 
 		// Configure result that will response to client side
 		$error_msg = null;
 		$this->configureView($error_msg);
 		
-		$retval = strcmp($this->solution_output, $this->student_output);
-		if ($retval === 0) {
-			// Accept
-			$this->status = 'AC';
-			return;
-		}
-		else {
-			// Wrong Answer
-			$this->status = 'WA';
-			return;
-		}
+		return;
+		
 	}
 
 	public function compile ($dir) {
@@ -223,14 +226,9 @@ class Java_No_Input {
 
 		// Configure execution command
 		$cmd = 'exec java -classpath ' . $dir . ' ';
-		$source = glob($dir . '/*.class');
-		foreach ($source as $key => $value) {
-			$first_pos = strrpos($value, '/') + 1;
-			$last_pos = strrpos($value, '.class');
-			$length = $last_pos - $first_pos;
-			$classname = substr($value, strrpos($value, '/') + 1, $length);		
-			$cmd .= $classname . ' ';
-		}
+        $last_pos = strrpos($this->main, '.class');
+        $classname = substr($this->main, 0, $last_pos);
+        $cmd .= $classname;
 		
 		// Create execution process
 		$process = proc_open($cmd, $desc, $pipes);
@@ -265,11 +263,29 @@ class Java_No_Input {
 
 	public function configureView ($error_msg) {
 		if (!is_null($error_msg)) {
-			new Viewer('Result', $error_msg . '<br><a href=\'Stu_chooser.php\' class=\'DOC_A\'>Back</a>');
+			echo $error_msg;
 		}
 		else {
-			new Viewer('Result', $this->student_output . '<br>' . $this->solution_output . '<br>' . '<a href=\'./Stu_chooser.php\' class=\'DOC_A\'>Back</a>');
+			$result = '';
+			if ($this->status === 'WA') {
+				$result = 'Wrong Answer';
+			}
+			if ($this->status === 'AC') {
+				$result = 'Accept';
+			}
+			echo<<<EOF
+<h1>$result</h1>
+<div class='WHOSE_DIV'>
+<img class='UP_DOWN_IMG' src='./tafree-svg/attention.svg'>
+<div class='RES_DIV'>
+<div class='SOL_DIV'>{$this->solution_output}</div>
+<div class='STU_DIV'>{$this->student_output}</div>
+</div>
+</div>
+EOF;
+
 		}
+		return;
 	}
 
 }
