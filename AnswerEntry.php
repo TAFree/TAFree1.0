@@ -29,9 +29,14 @@ class AnswerEntry implements IStrategy {
 			// Update item_subitem
 			foreach ($this->stu_source as $id => $pkg) {
 				
+				$stmt = $this->hookup->prepare('UPDATE ' . $this->item . '_' . $this->subitem . ' SET ' . $this->stu_account . '=:source WHERE classname=:classname');
+				
+			
+				$stmt->bindParam(':source', $source);
+				$stmt->bindParam(':classname', $classname);
+
 				$classname = $pkg->classname;
 				$content = $pkg->source;
-				$source;
 				
 				if (is_array($content)) {
 					$source = $this->mergeSource($content);
@@ -45,7 +50,6 @@ class AnswerEntry implements IStrategy {
 			
 				}
 
-				$stmt = $this->hookup->prepare('UPDATE ' . $this->item . '_' . $this->subitem . ' SET ' . $this->stu_account . '=\'' . $source . '\' WHERE classname=\'' . $classname . '\'');
 				$stmt->execute();	
 			
 			}

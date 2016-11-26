@@ -26,7 +26,7 @@ class Java_No_Input {
 	private $stu_account;
 	private $item;
 	private $subitem;
-    private $main;
+	private $main;
 	private $dir_name;
 	private $status;
 	private $solution_output;
@@ -89,9 +89,9 @@ class Java_No_Input {
 		$stmt = $this->hookup->prepare('SELECT main, classname, original_source, ' . $this->stu_account . ' FROM ' . $this->item . '_' . $this->subitem);
 		$stmt->execute();
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            if ($row['main'] === 'V') {
-                $this->main = $row['classname'];
-            }
+			if ($row['main'] === 'V') {
+			    $this->main = $row['classname'];
+			}
 			$student = fopen($this->dir_name . '/student/' . $row['classname'], 'w');
 			fwrite($student, $row[$this->stu_account]);
 			fclose($student);
@@ -226,9 +226,9 @@ class Java_No_Input {
 
 		// Configure execution command
 		$cmd = 'exec java -classpath ' . $dir . ' ';
-        $last_pos = strrpos($this->main, '.class');
-        $classname = substr($this->main, 0, $last_pos);
-        $cmd .= $classname;
+	        $last_pos = strrpos($this->main, '.java');
+	        $classname = substr($this->main, 0, $last_pos);
+	        $cmd .= $classname;
 		
 		// Create execution process
 		$process = proc_open($cmd, $desc, $pipes);
