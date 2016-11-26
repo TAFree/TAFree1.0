@@ -86,7 +86,7 @@ EOF;
 <tr class='SHOW_TR'>
 <td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'><input type='text' name='solution_filename[]'></td>
-<td class='CONTENT_TD'><textarea name='solution_content[]'></textarea></td>
+<td class='CONTENT_TD'><textarea name='solution_content[]'>// This block must include main function</textarea></td>
 </tr>
 </table>
 <table id='TESTDATA_TABLE'>

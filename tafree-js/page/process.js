@@ -32,7 +32,7 @@ TAFree.page.Process = {
 		
 	},
 
-	refactorData: function () {
+	refactorData: function (e) {
 		// Dependencies
 		var dom = TAFree.util.Dom,
 		    process = TAFree.util.Process,
@@ -92,7 +92,9 @@ TAFree.page.Process = {
     		xhr = new XMLHttpRequest;
 		xhr.onreadystatechange = function () {
 			if (this.readyState === 4 && this.status === 200) {
-				window.location = './JudgeAdapter.php?item=' + item + '&subitem=' + subitem + '&stu_account=' + stu_account;
+				if (this.response) {
+					window.location = './JudgeAdapter.php?item=' + item + '&subitem=' + subitem + '&stu_account=' + stu_account;
+				}
 			}
 	    	};	
 		xhr.open('POST', 'Handin.php');

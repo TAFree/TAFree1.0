@@ -51,6 +51,8 @@ class AnswerEntry implements IStrategy {
 			}
 				
 			$this->hookup = null;
+			
+			echo true;
 
 		}
 		catch (PDOException $e) {

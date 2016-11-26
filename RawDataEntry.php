@@ -267,6 +267,7 @@ class RawDataEntry implements IStrategy {
 			for ($k = 1; $k <= $this->item_nums[$i]; $k += 1) {
 				$sql = 'CREATE TABLE ' . $this->items[$i] . '_' . $k . '(
 					classname VARCHAR(100),
+					main CHAR(1),
 					original_source TEXT,
 					modified_source TEXT,';
 				for ($j = 0; $j < $stu_len; $j += 1) {

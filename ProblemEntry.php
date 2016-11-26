@@ -202,8 +202,16 @@ class ProblemEntry implements IStrategy {
 	}
 	
 	public function insertSubitem () {
-		$stmt = $this->hookup->prepare('INSERT INTO ' . $this->item . '_' . $this->subitem . ' (classname, original_source) VALUES (:classname, :original_source)');
+		$stmt = $this->hookup->prepare('INSERT INTO ' . $this->item . '_' . $this->subitem . ' (main, classname, original_source) VALUES (:main, :classname, :original_source)');
 		for ($i = 0; $i < count($this->solution_filenames); $i += 1) {
+			$check;
+			$stmt->bindParam(':main', $check);
+			if ($i === 0) {
+				$check = 'V';
+			}
+			else {
+				$check = null;
+			}
 			$stmt->bindParam(':classname', $this->solution_filenames[$i]);
 			$stmt->bindParam(':original_source', $this->solution_contents[$i]);
 			$stmt->execute();	
