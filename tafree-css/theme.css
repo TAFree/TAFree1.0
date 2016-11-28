@@ -29,24 +29,21 @@ footer {
 	left: 0;
 }
 
-ul {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	overflow: hidden;
-}
-		
-li {
-	float: left;
-	padding: 5px;
-}
-
-#NAV_A {
+.HEADER_A {
 	text-decoration: none;
 	color: #000000;
 } 
 
-#NAV_A:hover {
+.HEADER_A:hover {
+	color: #3F464C;
+}
+
+.NAV_A {
+	text-decoration: none;
+	color: #000000;
+} 
+
+.NAV_A:hover {
 	color: #3F464C;
 }
 

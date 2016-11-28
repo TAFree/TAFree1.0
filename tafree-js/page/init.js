@@ -7,14 +7,13 @@ TAFree.page.Init = {
 	// Dependencies
 	var data = TAFree.page.Data,
 	    dom = TAFree.util.Dom,
-
+	    
+	    blk = document.createElement('div'),
 	    logo = document.createElement('img'),
 	    link = document.createElement('a'),
 	    text = document.createElement('p'),
-	    list = document.createElement('li'),
-	    unordered = document.createElement('ul'),
 	    frag = document.createDocumentFragment(),
-	    title, home, greeting, copyright, i, link_nav, list_nav;
+	    title, home, greeting, copyright, i, link_header, blk_home, blk_header;
 	
 	// Set title
 	title = dom.getTag('title');
@@ -22,24 +21,28 @@ TAFree.page.Init = {
 	
 	// Set logo and home link
 	logo.src = data.getFrame('logo');
-	logo.height = window.innerHeight * 0.08;
+	logo.height = window.innerHeight * 0.1;
 	home = link.cloneNode(true);
 	home.href = data.getFrame('home');
 	home.appendChild(logo);
-	dom.getTag('header').appendChild(home);
+	blk_home = blk.cloneNode(true);
+	blk_home.appendChild(home);
+	blk_home.style.display = 'inline';
+	dom.getTag('header').appendChild(blk_home);
 	
-	// Set links in navigator
+	// Set links in header
 	urls = data.getFrame('urls');
 	for (i in urls) { 
-		link_nav = link.cloneNode(true);
-		link_nav.href = urls[i];
-		link_nav.innerHTML = i;
-		link_nav.id = 'NAV_A';
-		list_nav = list.cloneNode(true);
-		list_nav.appendChild(link_nav);
-		unordered.appendChild(list_nav);
+		link_header = link.cloneNode(true);
+		link_header.href = urls[i];
+		link_header.innerHTML = i;
+		link_header.setAttribute('class', 'HEADER_A');
+		link_header.style.fontSize = window.innerHeight * 0.03 + 'px';
+		blk_header = blk.cloneNode(true);
+		blk_header.style.display = 'inline';
+		blk_header.appendChild(link_header);
+		dom.getTag('header').appendChild(blk_header);
 	}
-	dom.getTag('nav').appendChild(unordered);
 
 	// Set Copyright
 	copyright = text.cloneNode(true); 

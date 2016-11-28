@@ -87,6 +87,10 @@ TAFree.page.Hash = (function () {
 			addon.codeLeft();
 			init.talk();
                         init.pullMsg();
+		},
+		
+		'about': function () {
+                        addon.codeLeft();
 		}
 
 	    },

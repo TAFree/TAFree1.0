@@ -18,7 +18,9 @@ TAFree.page.Data = (function () {
 			Support: './Support.php',
 			Discussion: './Discussion.php'
             	},
-		
+
+		home: './Login.php',
+
             	copyright: '&copy;2016 TAFree'
 	    },
 
