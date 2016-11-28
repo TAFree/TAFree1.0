@@ -21,13 +21,12 @@ TAFree.page.Init = {
 	
 	// Set logo and home link
 	logo.src = data.getFrame('logo');
-	logo.height = window.innerHeight * 0.08;
+	logo.width = window.innerWidth * 0.045;
 	home = link.cloneNode(true);
 	home.href = data.getFrame('home');
 	home.appendChild(logo);
 	blk_home = blk.cloneNode(true);
-	blk_home.style.padding = '2px';
-	blk_home.style.margin = '2px';
+	blk_home.style.margin = '1vw'
 	blk_home.appendChild(home);
 	blk_home.style.display = 'inline';
 	dom.getTag('header').appendChild(blk_home);
@@ -39,7 +38,7 @@ TAFree.page.Init = {
 		link_header.href = urls[i];
 		link_header.innerHTML = i;
 		link_header.setAttribute('class', 'HEADER_A');
-		link_header.style.fontSize = window.innerHeight * 0.03 + 'px';
+		link_header.style.fontSize = window.innerWidth * 0.014 + 'px';
 		blk_header = blk.cloneNode(true);
 		blk_header.style.display = 'inline';
 		blk_header.style.margin = '5vw';

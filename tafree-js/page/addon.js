@@ -11,6 +11,7 @@ TAFree.page.Addon = {
         
 	content = dom.getTag('content');
         content.style.textAlign = 'left';
+	content.style.padding = '2vw';
     },
 
     diggable: function (e) {

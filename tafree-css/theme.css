@@ -1,12 +1,13 @@
 body {
 	background-color: #D6E8FC;
 	color: #000000;
-	font-family: fantasy;
+	font-family: "Goudy Old Style", Garamond, "Big Calon", "Times New Romand", serif;
 }
 
 header {
 	background-color: #2186C4;
 	color: #FFF6E5;
+	font-family: "Goudy Old Style", Garamond, "Big Calon", "Times New Romand", serif;
 }
 
 nav {
@@ -31,11 +32,11 @@ footer {
 
 .HEADER_A {
 	text-decoration: none;
-	color: #000000;
+	color: #FFF6E5;
 } 
 
 .HEADER_A:hover {
-	color: #3F464C;
+	color: #D8D8D8;
 }
 
 .NAV_A {
