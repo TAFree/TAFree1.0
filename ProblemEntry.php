@@ -71,7 +71,7 @@ class ProblemEntry implements IStrategy {
 			if ($this->judge === 'other') {
 				
 				if (!$this->isSupport()) {
-					new Viewer ('Msg', 'Not support uploaded judge script file. <a class=\'SUPPORT_A\' href=\'./Fac_support.php\'>You can add support it</a>.' . '<br>');
+					new Viewer ('Msg', 'TAFree has not supported judge script file uploaded. <a class=\'DOC_A\' href=\'./Fac_expansion.php\'>You can expand it</a>.' . '<br>');
 					exit();
 				}
 				

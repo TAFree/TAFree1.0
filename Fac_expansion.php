@@ -43,11 +43,11 @@ Executing Command: python3
 </tr>
 <tr>
 <td class='CONTENT_TD'>File Extension</td>
-<td class='CONTENT_TD'><input type='text' name='ext'></td>
+<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='ext'></td>
 </tr>
 <tr>
 <td class='CONTENT_TD'>Executing Command</td>
-<td class='CONTENT_TD'><input type='text' name='cmd'></td>
+<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='cmd'></td>
 </tr>
 <tr>
 <th colspan='2' class='TITLE_TD'>Plug Out</th>

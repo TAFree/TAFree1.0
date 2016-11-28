@@ -39,7 +39,7 @@ class Fac_assign implements Product {
 </tr>
 <tr>
 <td class='CONTENT_TD'>Hint</td>
-<td class='CONTENT_TD'><textarea name='hint'></textarea></td>
+<td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='hint'></textarea></td>
 </tr>
 <tr>
 <td class='CONTENT_TD'>Judge</td>
@@ -75,18 +75,18 @@ EOF;
 </tr>
 <tr>
 <td><button class='ADD_BUTTON' type='button'><b>+</b></button></td>
-<td class='TITLE_TD'>Filename (.java, .cpp, .py)</td>
+<td class='TITLE_TD'>Filename (.java)</td>
 <td class='TITLE_TD'>Upload</td>
 </tr>
 <tr class='HIDDEN_TR'>
 <td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' name='solution_filename[]'></td>
-<td class='CONTENT_TD'><textarea name='solution_content[]'></textarea></td>
+<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='solution_filename[]'></td>
+<td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='solution_content[]'></textarea></td>
 </tr>
 <tr class='SHOW_TR'>
 <td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' name='solution_filename[]'></td>
-<td class='CONTENT_TD'><textarea name='solution_content[]'>// This block must include main function</textarea></td>
+<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='solution_filename[]'></td>
+<td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='solution_content[]'>// This block must include main function</textarea></td>
 </tr>
 </table>
 <table id='TESTDATA_TABLE'>
@@ -101,13 +101,13 @@ EOF;
 </tr>
 <tr class='HIDDEN_TR'>
 <td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' name='testdata_filename[]'></td>
-<td class='CONTENT_TD'><textarea name='testdata_content[]'></textarea></td>
+<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='testdata_filename[]'></td>
+<td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='testdata_content[]'></textarea></td>
 </tr>
 <tr class='SHOW_TR'>
 <td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' name='testdata_filename[]'></td>
-<td class='CONTENT_TD'><textarea name='testdata_content[]'></textarea></td>
+<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='testdata_filename[]'></td>
+<td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='testdata_content[]'></textarea></td>
 </tr>
 </table>
 </form>

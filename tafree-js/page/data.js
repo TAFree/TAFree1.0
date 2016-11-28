@@ -12,11 +12,8 @@ TAFree.page.Data = (function () {
 
 	    	logo: './tafree-svg/logo.svg',
 
-           	home: './Login.php',
-
             	urls: {
                 	About: './About.php',
-			Home: './Login.php',
 			Instruction: './Instruction.php',
 			Support: './Support.php',
 			Discussion: './Discussion.php'

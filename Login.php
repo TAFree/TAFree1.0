@@ -34,7 +34,6 @@ class Login implements Product{
 <option value='student'>Student</option>
 <option value='faculty'>Faculty</option>
 <option value='administer'>Administer</option>
-<option value='tester'>Tester</option>
 </select>
 <br>
 <br>
