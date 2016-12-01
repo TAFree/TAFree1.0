@@ -332,7 +332,7 @@ $router->match('GET', '/Stu_prob.php', function() {
 	
 	session_start();
 	
-	if ($_SESSION['student'] && $_SESSION['key_to_write']) {
+	if ($_SESSION['student'] && isset($_SESSION['key_to_write'])) {
 		unset($_SESSION['key_to_write']);
 		$registry = array();
 		$registry['guest'] = 'student';

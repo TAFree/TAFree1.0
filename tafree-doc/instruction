@@ -45,7 +45,7 @@ sudo apt-get install update
 sudo apt-get install apache2
 sudo apt-get install mysql-server
 sudo apt-get install php7.0-mysql
-sudo apt-get install php7.0 h3bapache2-mod-php7.0 php7.0-mcrypt
+sudo apt-get install php7.0 libapache2-mod-php7.0 php7.0-mcrypt
 </code></pre>
 <p>記得把資料庫最高權限者root的密碼記下來。</p>
 <br>
@@ -63,7 +63,7 @@ mysql > SELECT Host, User FROM mysql.user;
 </code></pre>
 <p>確定裡面沒有已存在的同名稱使用者後，建立一個新的使用者</p>
 <pre class='bash'><code>
-mysql > create user '帳號'@'localhost' identified by '密碼';
+mysql > CREATE user '帳號'@'localhost' IDENTIFIED BY '密碼';
 </code></pre>
 <p>給他TAFreeDB的所有操作權限</p>
 <pre class='bash'><code>
