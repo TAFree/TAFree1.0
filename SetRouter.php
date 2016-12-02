@@ -131,7 +131,7 @@ $router->match('GET', '/Alter.php', function() {
 
 $router->match('GET', '/Fac_chooser.php', function() {
 	session_start();
-	if ($_SESSION['faculty']) {
+	if (isset($_SESSION['faculty'])) {
 		new Viewer('Fac_chooser');
 	} else {
 		new Viewer('Sneaker');
