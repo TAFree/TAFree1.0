@@ -10,11 +10,17 @@ function __autoload($class_name) {
 }
 
 class Upload {
-	
+
 	public function __construct() {
 			
 		$trigger = new DBOperator();
-		$trigger->upload();
+
+		if (isset($_POST['delete'])) {
+			$trigger->reduce();
+		}
+		else {
+			$trigger->upload();
+		}
 	}
 
 }

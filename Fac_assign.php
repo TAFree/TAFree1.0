@@ -16,19 +16,43 @@ class Fac_assign implements Product {
 	private $formatHelper;
 	private $contentProduct;
 	private $generalJudges;
+	private $hookup;
+	private $item;
+	private $subitem;
 
 	public function getContent() {
+		$this->item = $_GET['item'];
+		$this->subitem = $_GET['subitem'];
+		
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<h1>{$_GET['item']}_{$_GET['subitem']}</h1>
+<h1>{$this->item}_{$this->subitem}</h1>
 <form method='POST' action='./Upload.php' enctype='multipart/form-data'>
 <div class='FAC_ASSIGN_DIV'>
 <input type='submit' value='Upload >>'>
-<input type='button' class='CLICKABLE' value='Delete >>'>
-<input type='hidden' name='item' value='{$_GET['item']}'>
-<input type='hidden' name='subitem' value='{$_GET['subitem']}'>
+EOF;
+		try {
+			$this->hookup = UniversalConnect::doConnect();						
+			
+			$stmt = $this->hookup->prepare('SELECT number FROM problem WHERE item=\'' . $this->item . '\'');
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			if ($row['number'] !== '1' && $this->subitem === $row['number']) {
+				$this->contentProduct .= '<label for=\'DELETE_INPUT\'><input type=\'checkbox\' id=\'DELETE_INPUT\' name=\'delete\' value=\'\'>Delete</label>';
+			}
+
+			$this->hookup = null;
+		}
+		catch (PDOException $e) {
+			echo 'Error: ' . $e->getMessage() . '<br>';
+		}
+		
+		$this->contentProduct .=<<<EOF
+<input type='hidden' name='item' value='{$this->item}'>
+<input type='hidden' name='subitem' value='{$this->subitem}'>
 </div>
 <table id='PROBLEM_TABLE'>
 <tr>

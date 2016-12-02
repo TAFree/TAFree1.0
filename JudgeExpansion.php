@@ -5,6 +5,7 @@ class JudgeExpansion implements IStrategy {
 	private $services = array();
 	private $ext;
 	private $cmd;
+	private $supports = array();
 	private $judge;
 
 	private $hookup;
@@ -12,15 +13,26 @@ class JudgeExpansion implements IStrategy {
 	public function algorithm () {
 		
 		// Get services
-		$this->services = $_POST['service'];
-		
+		if (!isset($_POST['service'])){
+			new Viewer ('Msg', 'Forgot to select plug in / out...' . '<br>');
+			exit();
+		}		
+		else {
+			$this->services = $_POST['service'];
+		}
+
 		// Get judge
-		if (in_array($this->services, 'plugout')) {
-			$this->judge = $_POST['judge'];
+		if (in_array('plugout', $this->services)) {
+			if (isset($_POST['judge'])) {
+				$this->judge = $_POST['judge'];
+			}
+			if (isset($_POST['support'])) {
+				$this->supports = $_POST['support'];
+			}
 		}
 		
 		// Get ext,  cmd
-		if (in_array($this->services, 'plugin')) {
+		if (in_array('plugin', $this->services)) {
 			if (!empty($_POST['ext']) && !empty($_POST['cmd'])) {
 				$this->ext = $_POST['ext'];
 				$this->cmd = $_POST['cmd'];
@@ -39,7 +51,7 @@ class JudgeExpansion implements IStrategy {
 			// Manipulate file
 			
 			// Delete judge file that exists on machine if needed
-			if ($this->judge !== 'no') {
+			if (isset($this->judge) && $this->judge !== 'no') {
 				$this-> deleteJudge();
 			}
 			
@@ -49,7 +61,12 @@ class JudgeExpansion implements IStrategy {
 			if (isset($this->ext) && isset($this->cmd)) {
 				$this->addSupport();
 			}
-		
+			
+			// Delete support table
+			if (isset($this->supports)) {
+				$this->deleteSupport();
+			}
+	
 			$this->hookup = null;
 
 			new Viewer('Msg', 'Successful expansion !');
@@ -93,6 +110,15 @@ class JudgeExpansion implements IStrategy {
 			$stmt->execute();
 		
 		}
+	}
+	
+	public function deleteSupport () {
+		
+		foreach($this->supports as $key => $value){
+			$stmt = $this->hookup->prepare('DELETE FROM support WHERE ext=\'' . $value . '\'');
+			$stmt->execute();
+		}
+
 	}
 
 }

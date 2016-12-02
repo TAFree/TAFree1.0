@@ -16,6 +16,9 @@ class Fac_expansion implements Product {
 	private $formatHelper;
 	private $contentProduct;
 	private $generalJudges;
+	private $exts = array();
+	private $cmds = array();
+	private $hookup;
 
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
@@ -28,7 +31,7 @@ class Fac_expansion implements Product {
 </div>
 <table id='EXPANSION_TABLE'>
 <tr>
-<th colspan='2' class='TITLE_TD'>Plug In</th>
+<th colspan='2' class='TITLE_TD'><input type='checkbox' name='service[]' value='plugin'>Plug In</th>
 </tr>
 <tr>
 <td class='CONTENT_TD'>Explanation</td>
@@ -50,10 +53,10 @@ Executing Command: python3
 <td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='cmd'></td>
 </tr>
 <tr>
-<th colspan='2' class='TITLE_TD'>Plug Out</th>
+<th colspan='2' class='TITLE_TD'><input type='checkbox' name='service[]' value='plugout'>Plug Out</th>
 </tr>
 <tr>
-<td class='CONTENT_TD'>Deletion</td>
+<td class='CONTENT_TD'>Judge Script</td>
 <td class='CONTENT_TD'>
 <select id='JUDGE_SELECT' name='judge'>
 <option value='no'>No</option>
@@ -70,9 +73,34 @@ EOF;
 </select>
 </td>
 </tr>
-</table>
-</form>
 EOF;
+				
+		try {
+			$this->hookup = UniversalConnect::doConnect();						
+
+			$stmt = $this->hookup->prepare('SELECT ext, cmd FROM support');
+			$stmt->execute();
+
+			while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+				array_push($this->exts, $row['ext']);
+				array_push($this->cmds, $row['cmd']);
+			}
+				
+			$this->contentProduct .= '<tr><td class=\'CONTENT_TD\' rowspan=\'' . count($this->exts) . '\'>Language Support</td>';
+			
+			for ($i = 0; $i < count($this->exts); $i += 1) {
+				$this->contentProduct .= '<td class=\'CONTENT_TD\'><input type=\'checkbox\' name=\'support[]\' value=\'' . $this->exts[$i] . '\'>' . $this->cmds[$i]. ' Hello.' . $this->exts[$i] . '</td></tr>';
+			}
+	
+			$this->hookup = null;
+		}
+		catch (PDOException $e) {
+			echo 'Error: ' . $e->getMessage() . '<br>';
+		}
+		
+
+		$this->contentProduct .= '</table></form>';
+
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
 		return $this->contentProduct;

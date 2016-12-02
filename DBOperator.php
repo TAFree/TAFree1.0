@@ -46,6 +46,11 @@ class DBOperator {
 		$context = new Context(new ProblemLock($unique_key, $item));
 		$context->algorithm();
 	}
+	
+	public function reduce() {
+		$context = new Context(new ProblemReduce());
+		$context->algorithm();
+	}
 
 	public function upload() {
 		$context = new Context(new ProblemEntry());
