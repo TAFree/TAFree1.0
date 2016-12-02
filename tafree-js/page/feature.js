@@ -132,7 +132,7 @@ TAFree.page.Feature = {
 	        top_tr = table.children[i];
 		bot_tr = table.children[i + 1];
 		if (top_tr.children[1].children[1].id === item) {
-			if (i - 2 > 0) {
+			if (i - 2 >= 0) {
 				table.children[i - 2].style.display = 'block';
 				table.children[i - 2 + 1].style.display = 'block';
 				break;

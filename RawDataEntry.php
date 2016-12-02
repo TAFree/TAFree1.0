@@ -19,7 +19,33 @@ class RawDataEntry implements IStrategy {
 	public function algorithm () {
 		
 		if (isset($_POST['submit'])) {
-	
+
+			// Create directories if they do not exist 
+			if (!file_exists('./tmp')) {
+				mkdir('./tmp');
+			}
+			if (!file_exists('./tar')) {
+				mkdir('./tar');
+			}
+			if (!file_exists('./process')) {
+				mkdir('./process');
+			}
+			if (!file_exists('./problem')) {
+				mkdir('./problem');
+			}
+			if (!file_exists('./problem/judge')) {
+				mkdir('./problem/judge');
+			}
+			if (!file_exists('./problem/testdata')) {
+				mkdir('./problem/testdata');
+			}
+			if (!file_exists('./problem/description')) {
+				mkdir('./problem/description');
+			}
+			if (!file_exists('./judge')) {
+				mkdir('./judge');
+			}
+
 			// Get items
 			$items = $_POST['item'];
 			$item_nums = $_POST['item_num'];
@@ -139,32 +165,6 @@ class RawDataEntry implements IStrategy {
 					$this->insertTable();
 
 					$this->hookup = null;
-
-					// Create directories if they do not exist 
-					if (!file_exists('./tmp')) {
-						mkdir('./tmp');
-					}
-					if (!file_exists('./tar')) {
-						mkdir('./tar');
-					}
-					if (!file_exists('./process')) {
-						mkdir('./process');
-					}
-					if (!file_exists('./problem')) {
-						mkdir('./problem');
-					}
-					if (!file_exists('./problem/judge')) {
-						mkdir('./problem/judge');
-					}
-					if (!file_exists('./problem/testdata')) {
-						mkdir('./problem/testdata');
-					}
-					if (!file_exists('./problem/description')) {
-						mkdir('./problem/description');
-					}
-					if (!file_exists('./judge')) {
-						mkdir('./judge');
-					}
 
 					// Delete problem directories	
 					$delete_dir_msg = system('rm -rf ./problem/description/* ./problem/judge/* ./problem/testdata/*', $retval);
