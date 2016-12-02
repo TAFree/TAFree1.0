@@ -2,6 +2,7 @@
 
 class JudgeExpansion implements IStrategy {
 	
+	private $services = array();
 	private $ext;
 	private $cmd;
 	private $judge;
@@ -10,19 +11,26 @@ class JudgeExpansion implements IStrategy {
 	
 	public function algorithm () {
 		
+		// Get services
+		$this->services = $_POST['service'];
+		
 		// Get judge
-		$this->judge = $_POST['judge'];
+		if (in_array($this->services, 'plugout')) {
+			$this->judge = $_POST['judge'];
+		}
 		
 		// Get ext,  cmd
-		if (!empty($_POST['ext']) && !empty($_POST['cmd'])) {
-			$this->ext = $_POST['ext'];
-			$this->cmd = $_POST['cmd'];
-		}	
-		else {			
-			new Viewer ('Msg', 'Do not leave empty file extension or empty executing command field...' . '<br>');
-			exit();
+		if (in_array($this->services, 'plugin')) {
+			if (!empty($_POST['ext']) && !empty($_POST['cmd'])) {
+				$this->ext = $_POST['ext'];
+				$this->cmd = $_POST['cmd'];
+			}	
+			else {			
+				new Viewer ('Msg', 'Do not leave empty file extension or empty executing command field...' . '<br>');
+				exit();
+			}
 		}
-	
+		
 		try {
 			// Connect to database
 			
@@ -38,8 +46,10 @@ class JudgeExpansion implements IStrategy {
 			// Manipulate table				
 			
 			// Query, update or insert support table
-			$this->addSupport();
-
+			if (isset($this->ext) && isset($this->cmd)) {
+				$this->addSupport();
+			}
+		
 			$this->hookup = null;
 
 			new Viewer('Msg', 'Successful expansion !');

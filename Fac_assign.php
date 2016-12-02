@@ -26,6 +26,7 @@ class Fac_assign implements Product {
 <form method='POST' action='./Upload.php' enctype='multipart/form-data'>
 <div class='FAC_ASSIGN_DIV'>
 <input type='submit' value='Upload >>'>
+<input type='button' class='CLICKABLE' value='Delete >>'>
 <input type='hidden' name='item' value='{$_GET['item']}'>
 <input type='hidden' name='subitem' value='{$_GET['subitem']}'>
 </div>
