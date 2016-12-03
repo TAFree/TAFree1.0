@@ -469,6 +469,72 @@ TAFree.page.Init = {
 		});
 	    }
 	
+    },
+
+    hideAll: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+            table, but, i, item, subitem;
+	    
+	    table = dom.getId('VERIFY_TABLE');
+	    but = dom.getId('QUALIFY_INPUT');
+	    item = dom.getid('item_input').value;
+	    subitem = dom.getid('subitem_input').value;
+
+	    for (i = 0; i < table.children.length; i += 1) {
+		table.children[i].style.display = 'none';
+	    }
+
+	    but.addEventListerner('click', function(){
+		window.location = './Qualify.php?item=' + item + '&subitem=' + subitem;
+	    });
+
+	    but.style.display = 'none';
+    },
+
+    checkAC: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+
+	    row, check, query;
+
+	    row = dom.getId('AC_TR');
+	    row.style.display = 'block';
+	    check = setInterval(query, 3000);
+	    query = function () {
+		var dom = TAFree.util.Dom,
+				
+	            xhr, img, item, subitem, tester_account, wa_row;
+		
+		    item = dom.getId('ITEM_INPUT').value;
+		    subitem = dom.getId('SUBITEM_INPUT').value;
+		    tester_account = dom.getId('TESTER_INPUT').value;
+		    img = dom.getId('AC_IMG');
+		    wa_row = dom.getId('WA_TR');
+		
+		    // Stop querying if judge status is AC		    
+		    if (img.src.includes('right')) {
+			clearInterval(check);	
+			// Show WA row
+			wa_row.style.display = 'block';	
+		    }
+
+		    // Query tester's judge status on server side
+		    xhr = new XMLHttpRequest();
+		    xhr.onreadystatechange = function () {
+			if (this.readyState === 4 && this.status === 200) {
+				if (this.response === 'AC') {
+					img.src = './tafree-svg/right.svg';
+ 				}
+				else {
+					img.src = './tafree-svg/wrong.svg';
+				}
+			}
+		    };	
+		xhr.open('POST', 'TaskChecker.php', true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.send('item=' + item + '&subitem=' + subitem + '&tester_account=' + tester_account);
+	    }
     }
 
 };

@@ -151,11 +151,6 @@ class RawDataEntry implements IStrategy {
 				fclose($file);
 				unlink($dir . '/' . $basename);
 
-				// Add super tester as student
-				array_push($this->stu_names, 'Super Tester');
-				array_push($this->stu_accs, 'tester');
-				array_push($this->stu_passs, '19911010');
-
 				try {
 					// Manipulate tables
 					$this->hookup = UniversalConnect::doConnect();

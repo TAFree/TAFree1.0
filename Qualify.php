@@ -9,59 +9,51 @@ function __autoload($class_name) {
 	include_once($class_name . '.php');
 }
 
-class Verify {
+class Qualify {
 	
-	private $tasks = array();
 	private $item;
 	private $subitem;
 	private $judge;
+
+	private $hookup;
 	
 	public function __construct() {
-			
-		$this->tasks = $_POST['task'];
+		
+		// Get item, subitem	
 		$this->item = $_POST['item'];
 		$this->subitem = $_POST['subitem'];
-		$this->judge = $_POST['judge'];
 		
-		$ac = new Status('AC');
-		$wa = new Status('WA');
-		$na = new Status('NA');
-		$ce = new Status('CE');
-		$re = new Status('RE');
-		$tle = new Status('TLE');
-		$mle = new Status('MLE');
-		$ole = new Status('OLE');
-		$se = new Status('SE');
-		$rf = new Status('RF');
-		
-		$ac->setSuccessor($wa);
-		$wa->setSuccessor($na);
-		$na->setSuccessor($ce);
-		$ce->setSuccessor($re);
-		$re->setSuccessor($tle);
-		$tle->setSuccessor($mle);
-		$mle->setSuccessor($ole);
-		$ole->setSuccessor($se);
-		$se->setSuccessor($rf);
-
-		$loadup = new Request($this->tasks);
-		
-		// If judge script is qualified then 
-		if ($ac->handleRequest($loadup)) {
-	
-			// Clone it from ./problem/judge/[item]/[subitem] directory to ./judge directory to be reused in the future
+		try {
+			$this->hookup = UniversalConnect::doConnect();						
+			
+			// Get judge
+			$this->judge = $this->getJudge();
+			
+			// Clone qualified judge script from ./problem/judge/[item]/[subitem] directory to ./judge directory to be reused in the future
 			$this->cloneJudge();	
-		
+			
 			// Check other subitem tables for changing problem status into 'Available'
 			if ($this->areAllFinished()) {
 				$trigger = new DBOperator();
 				$trigger->colorProblem($this->item, 'Available');	
-			}
-		
-		}		
+			}					
+
+			$this->hookup = null;
+		}
+		catch (PDOException $e) {
+			echo 'Error: ' . $e->getMessage() . '<br>';
+		}
 		
 	}
 			
+	public function getJudge () {
+		$stmt = $this->hookup->prepare('SELECT judgescript FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		return $row['judgescript'];
+	}
+
 	public function cloneJudge () {
 		
 		// Clone judge file ./problem/judge/[item]/[subitem] to ./judge

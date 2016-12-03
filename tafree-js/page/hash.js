@@ -69,6 +69,8 @@ TAFree.page.Hash = (function () {
 		
 		'fac_verify': function () {
 			addon.codeLeft();
+			init.hideAll();
+			init.checkAC();
             	},
                 
 		'fac_prob': function () {

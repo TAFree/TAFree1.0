@@ -36,15 +36,13 @@ EOF;
 			$stmt = $this->hookup->prepare('SELECT * FROM student');
 			$stmt->execute();
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-				if ($row['student_name'] !== 'Super Tester') {
-					$this->contentProduct .=<<<EOF
+				$this->contentProduct .=<<<EOF
 <tr>
 <td class='CONTENT_TD'>{$row['student_name']}</td>
 <td class='CONTENT_TD'>{$row['student_account']}</td>
 <td class='CONTENT_TD'>{$row['student_password']}</td>
 </tr>
 EOF;
-				}
 			}
 		}
 		catch (PDOException $e) {
