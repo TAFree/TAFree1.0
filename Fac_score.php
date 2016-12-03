@@ -47,17 +47,19 @@ EOF;
 				$stmt_stu = $this->hookup->prepare('SELECT student_name, student_account FROM student');
 				$stmt_stu->execute();
 				while($row_stu = $stmt_stu->fetch(PDO::FETCH_ASSOC)) {
-					$this->contentProduct .= '<tr><td class=\'CONTENT_TD\'>' . $row_stu['student_name'] . '</td>';
-					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row_stu['student_account'] . '</td>';
-					for ($i = 1; $i <= $row_prob['number']; $i += 1){			
-						
-						$stmt_item = $this->hookup->prepare('SELECT ' . $row_stu['student_account'] . ' FROM ' . $row_prob['item'] . ' WHERE subitem=\'' . $i . '\'');
-						$stmt_item->execute();
-						$row_item = $stmt_item->fetch(PDO::FETCH_ASSOC);
-						$score = ($row_item[$row_stu['student_account']] === 'AC') ? 1 : 0;
-						$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $score . '</td>';
+					if ($row_stu['student_name'] !== 'Super Tester') {
+						$this->contentProduct .= '<tr><td class=\'CONTENT_TD\'>' . $row_stu['student_name'] . '</td>';
+						$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row_stu['student_account'] . '</td>';
+						for ($i = 1; $i <= $row_prob['number']; $i += 1){			
+							
+							$stmt_item = $this->hookup->prepare('SELECT ' . $row_stu['student_account'] . ' FROM ' . $row_prob['item'] . ' WHERE subitem=\'' . $i . '\'');
+							$stmt_item->execute();
+							$row_item = $stmt_item->fetch(PDO::FETCH_ASSOC);
+							$score = ($row_item[$row_stu['student_account']] === 'AC') ? 1 : 0;
+							$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $score . '</td>';
+						}
+						$this->contentProduct .= '</tr>';
 					}
-					$this->contentProduct .= '</tr>';
 				}	
 				$this->contentProduct .= '</table></form>';
 			}

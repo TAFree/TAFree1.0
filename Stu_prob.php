@@ -21,14 +21,13 @@ class Stu_prob implements Product {
 	private $stu_account;
 	private $writeblock;
 
-	private $hookup;
+	public function __construct($info) {
+		$this->item = $info['item'];
+		$this->subitem = $info['subitem'];
+		$this->stu_account = $info['stu_account'];
+	}
 	
 	public function getContent() {
-		// Get item, subitem, stu_account
-		$this->item = $_GET['item'];
-		$this->subitem = $_GET['subitem'];
-	
-		$this->stu_account = $_SESSION['student'];
 
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();

@@ -256,6 +256,14 @@ $router->match('GET', '/Upload.php', function() {
 	new Viewer('Sneaker');
 });
 
+$router->match('POST', '/Verify.php', function() {
+	new Verify();
+});
+
+$router->match('GET', '/Verify.php', function() {
+	new Viewer('Sneaker');
+});
+
 $router->match('POST', '/Handout.php', function() {
 	
 	$looker = new KeyQuery($_POST['item']);
@@ -351,7 +359,12 @@ $router->match('GET', '/Stu_prob.php', function() {
 		$watchman = new Janitor($registry);
 		
 		if ($watchman->openDoor()) {
-			new Viewer('Stu_prob');
+			$info = array (
+				'stu_account' => $_SESSION['student'],
+				'item' => $_GET['item'],
+				'subitem' => $_GET['subitem']
+			);
+			new Viewer('Stu_prob', $info);
 		}
 		else {
 			new Viewer('Msg', $watchman->dialogue());

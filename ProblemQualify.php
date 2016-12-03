@@ -1,24 +1,18 @@
 <?php
 
-class ProblemAlter implements IStrategy {
+class ProblemQualify {
 	
 	private $item;
 	private $item_num;
 	private $subitem;
-	private $classnames = array();
-	private $modified_sources = array();
-	private $verify;
 
 	private $hookup;
 	
-	public function algorithm () {
+	public function __construct () {
 		
-		// Get item, subitem, classnames, modified_source
+		// Get item, subitem
 		$this->item = $_POST['item'];
 		$this->subitem = $_POST['subitem'];
-		$this->classnames = $_POST['classname'];	
-		$this->modified_sources = $_POST['modified_source'];	
-		$this->verify = $_POST['verify'];
 
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
@@ -26,10 +20,8 @@ class ProblemAlter implements IStrategy {
 			// Update subitem table
 			$this->updateSubitem();
 		
-			if ($this->verify) {
-				// Test judge script for it basic tasks
-				new Viewer('Fac_verify', $this->item . '_' . $this->subitem);
-			}
+			// Test judge script for it basic tasks
+			new Viewer('Fac_verify', $this->item . '_' . $this->subitem);
 /*			
 	public function cloneJudge () {
 		
@@ -57,13 +49,6 @@ class ProblemAlter implements IStrategy {
 		
 	}
 	
-	public function updateSubitem () {
-		for ($i = 0; $i < count($this->classnames); $i += 1) {
-			$stmt = $this->hookup->prepare('UPDATE ' . $this->item . '_' . $this->subitem . ' SET modified_source=:modified_source WHERE classname=\'' . $this->classnames[$i] . '\'');
-			$stmt->execute(array(':modified_source' => $this->modified_sources[$i]));	
-		}
-	}
-
 	public function areAllFinished () {
 		$stmt_num = $this->hookup->prepare('SELECT number FROM problem WHERE item=\'' . $this->item . '\'');
 		$stmt_num->execute();

@@ -43,7 +43,8 @@ EOF;
 			$stmt = $this->hookup->prepare('SELECT * FROM student');
 			$stmt->execute();
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-				$this->contentProduct .=<<<EOF
+				if ($row['student_name'] !== 'Super Tester') {
+					$this->contentProduct .=<<<EOF
 <tr>
 <td>
 <button class='SUB_ADD_DEL_BUTTON' type='button'><b>-</b></button>
@@ -54,6 +55,7 @@ EOF;
 <td><input type='hidden' value='{$row['student_account']}'></td>
 </tr>
 EOF;
+				}
 			}
 		}
 		catch (PDOException $e) {

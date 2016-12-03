@@ -10,12 +10,15 @@ class Modify implements Product {
 
 	private $item;
 	private $subitem;
+	private $verify
+
 
 	private $hookup;
 	
 	public function __construct($data) {
 		$this->item = $data['item'];
 		$this->subitem = $data['subitem'];
+		$this->verify = $data['verify'];
 	}	
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
@@ -27,6 +30,7 @@ class Modify implements Product {
 <div class='HIDDEN_DIV'>
 <input type='hidden' value='{$this->item}' name='item'>
 <input type='hidden' value='{$this->subitem}' name='subitem'>
+<input type='hidden value='{$this->verify}' name='verify'>
 </div>
 <div class='FAC_MODIFY'>
 <input type='button' id='HANDOUT_INPUT' class='CLICKABLE' value='Handout >>'>

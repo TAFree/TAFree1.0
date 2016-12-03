@@ -7,6 +7,8 @@ class ProblemEntry implements IStrategy {
 	private $hint;
 	private $describe;
 	private $judge;
+	private $verify;
+	private $safe;
 	private $solution_filenames = array();
 	private $solution_contents = array();
 	private $testdata_filenames = array();
@@ -16,10 +18,16 @@ class ProblemEntry implements IStrategy {
 	
 	public function algorithm () {
 		
-		// Get item, subitem, judge
+		// Get item, subitem, judge, safe
 		$this->item = $_POST['item'];
 		$this->subitem = $_POST['subitem'];
 		$this->judge = $_POST['judge'];
+		if (isset($_POST['safe'])) {
+			$this->safe = $_POST['safe'];
+		}
+		else {
+			$this->safe = 'free';
+		}
 
 		// Get hint
 		if (!empty($_POST['hint'])) {
@@ -74,16 +82,16 @@ class ProblemEntry implements IStrategy {
 					new Viewer ('Msg', 'TAFree has not supported judge script file uploaded. <a class=\'DOC_A\' href=\'./Fac_expansion.php\'>You can expand it</a>.' . '<br>');
 					exit();
 				}
-				
+				$this->verify = true;
 				$this-> uploadJudge();
 			
+			}
+			else {
+				$this->verify = false;
 			}
 			
 			// Clear and upload description files
 			$this->uploadDescription();
-			
-			// Clear and clone selected judge file from general judge directory 
-			$this->cloneJudge();
 
 			// Clear and upload testdata files
 			$this->uploadTestdata();
@@ -102,7 +110,7 @@ class ProblemEntry implements IStrategy {
 			$this->hookup = null;
 			
 			// Modify solution for student writing
-			new Viewer('Modify', array('item' => $this->item, 'subitem' => $this->subitem));
+			new Viewer('Modify', array('item' => $this->item, 'subitem' => $this->subitem), 'verify' => $this->verify);
 	
 		}
 		catch (PDOException $e) {
@@ -134,10 +142,17 @@ class ProblemEntry implements IStrategy {
 		
 	public function uploadJudge () {
 		
+		// Clear previous files
+		$delete_file_msg = system('rm -rf ' . './problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
+		if ($retval !== 0) {
+			new Viewer ('Msg', $delete_file_msg);
+			exit();
+		}
+		
 		// Upload to ./judge directory regarded as general judge file that can be reused
 		$tmpname = $_FILES['judge_file']['tmp_name'];
 		$basename = date('Ymd') . '_' . basename($_FILES['judge_file']['name']);			
-		if (!move_uploaded_file ($tmpname, './judge/' . $basename)) {
+		if (!move_uploaded_file ($tmpname, './problem/judge/' . $this->item .'/'. $this->subitem . '/' . $basename)) {
 			new Viewer ('Msg', 'Judge script is not uploaded...');
 			exit();
 		}
@@ -159,22 +174,6 @@ class ProblemEntry implements IStrategy {
 		}
 	}
 	
-	public function cloneJudge () {
-		
-		// Clear previous files
-		$delete_file_msg = system('rm -rf ' . 'problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
-		if ($retval !== 0) {
-			new Viewer ('Msg', $delete_file_msg);
-			exit();
-		}
-		
-		// Clone judge file from ./judge to ./problem/judge/[item]/[subitem] 
-		if (!copy('./judge/' . $this->judge, './problem/judge/' . $this->item . '/' . $this->subitem . '/' . $this->judge)) {
-			new Viewer ('Msg', $this->judge . ' copy failed...');
-			exit();
-		}
-	}
-
 	public function uploadTestdata () {
 		// Clear previous files
 		$delete_file_msg = system('rm -rf ' . 'problem/testdata/' . $this->item . '/' . $this->subitem . '/*', $retval);
@@ -192,8 +191,8 @@ class ProblemEntry implements IStrategy {
 	}
 
 	public function updateItem () {
-		$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET description=:describe, hint=:hint, judgescript=:judge WHERE subitem=\'' . $this->subitem . '\'');
-		$stmt->execute(array(':describe' => $this->describe, ':hint' => $this->hint, ':judge' => $this->judge));	
+		$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET description=:describe, hint=:hint, judgescript=:judge, safe=:safe WHERE subitem=\'' . $this->subitem . '\'');
+		$stmt->execute(array(':describe' => $this->describe, ':hint' => $this->hint, ':judge' => $this->judge, ':safe' => $this->safe));	
 	}
 	
 	public function clearSubitem () {

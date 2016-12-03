@@ -19,8 +19,6 @@ class Fac_look implements Product {
 	private $item;
 	private $subitem;
 	private $writeblock;
-
-	private $hookup;
 	
 	public function getContent() {
 		

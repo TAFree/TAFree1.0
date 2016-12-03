@@ -92,6 +92,12 @@ EOF;
 </select>
 </td>
 </tr>
+<tr>
+<td class='CONTENT_TD'>Safe Mode</td>
+<td class='CONTENT_TD'>
+<input type='checkbox' id='SAFE_INPUT' value='isolate' checked name='safe'><p class='WARN_P'>(Do not deselect safe mode if your judge script does not concern about security !)</p>
+</td>
+</tr>
 </table>
 <table id='SOLUTION_TABLE'>
 <tr>

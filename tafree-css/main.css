@@ -3,7 +3,7 @@
 }
 
 .DOC_DIV {
-	margin-bottom: 100px;
+	margin: auto 5vh;
 }
 
 #SNEAKER_P {
@@ -395,6 +395,19 @@
 }
 
 .MODIFY_LOCK_DIV {
+}
+
+#FAC_VERIFY_DIV{
+	margin: 30px auto;
+}
+
+#SAFE_INPUT {
+	display: inline;
+}
+
+.WARN_P {
+	display: inline;
+	color: red;
 }
 
 #FAC_CHOOSER_TABLE {

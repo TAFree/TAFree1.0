@@ -197,7 +197,3 @@ sudo /etc/init.d/apache2 restart
 <p>你可以申請GitHub帳號，加入<a class='DOC_A' href='http://github.com/TAFree'>TAFree</a>組織(從<a class='DOC_A' href='./About.php'>About</a>找到任何一個貢獻者，請他把你加進去)。</p>
 <p>我們歡迎你以任何方式創作在新的Repository，也可以延續現有的Repository。</p>
 <p>若你想延續TAFree1.0, 必備的知識是<a class='DOC_A' href='http://www.w3schools.com/php/'>PHP</a>，暑假是從無到有還不錯的時間點。</p>
-
-
-
-

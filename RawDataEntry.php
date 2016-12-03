@@ -150,7 +150,12 @@ class RawDataEntry implements IStrategy {
 				}
 				fclose($file);
 				unlink($dir . '/' . $basename);
-				
+
+				// Add super tester as student
+				array_push($this->stu_names, 'Super Tester');
+				array_push($this->stu_accs, 'tester');
+				array_push($this->stu_passs, '19911010');
+
 				try {
 					// Manipulate tables
 					$this->hookup = UniversalConnect::doConnect();
@@ -275,7 +280,8 @@ class RawDataEntry implements IStrategy {
 				subitem TINYINT(20) UNSIGNED DEFAULT 1,
 				description VARCHAR(100),
 				judgescript VARCHAR(100),
-				hint TEXT,';
+				hint TEXT,
+				safe VARCHAR(100) NOT NULL DEFAULT "free",';
 			for ($j = 0; $j < $stu_len; $j += 1) {
 				$sql .= $this->stu_accs[$j] . ' VARCHAR(30) NOT NULL DEFAULT "NULL"';
 				if ($j < $stu_len - 1) {
