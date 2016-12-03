@@ -1,3 +1,5 @@
+//./judge/Java_Has_Input.php
+
 <?php
 /**
  	This is a judge script for verifying lab assignment 

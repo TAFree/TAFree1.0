@@ -14,16 +14,35 @@ class Fac_verify implements Product {
 	private $item;
 	private $subitem;
 	private $stu_account;
+	private $judge;
+
+	private $hookup;
 	
 	public function __construct($fullitem) {
+		
+		// Get item, subitem, stu_account, judge
 		$this->item = substr($fullitem, 0, strrpos($fullitem, '_'));
 		$this->subitem = substr($fullitem, strrpos($fullitem, '_') + 1);
+		$this->stu_account = 'tester';
+		
+		try {
+			$this->hookup = UniversalConnect::doConnect();						
+			
+			$stmt = $this->hookup->prepare('SELECT judgescript FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$this->judge = $row['judgescript'];
+
+			$this->hookup = null;
+		}
+		catch (PDOException $e) {
+			echo 'Error: ' . $e->getMessage() . '<br>';
+		}
+		
 	}
 
 	public function getContent() {
 		
-		$this->stu_account = 'tester';
-
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
@@ -34,14 +53,15 @@ class Fac_verify implements Product {
 <input type='hidden' value='{$this->item}' name='item'>
 <input type='hidden' value='{$this->subitem}' name='subitem'>
 <input type='hidden' value='{$this->stu_account}' name='stu_account'>
+<input type='hidden' value='{$this->judge}' name='judge'>
 </div>
 <div id='FAC_VERIFY_DIV'>
 <input type='submit' class='CLICKABLE' value='Verify >>'>
 <pre>
 Select tasks for testing judge script:
 A qualified judge script is at least able to distinguish status of Accept (AC) & Wrong Answer (WA) from student's source code.
-<label for='AC_INPUT'><input type='checkbox' id='AC_INPUT' value='AC' disabled checked name='task[]'>AC (Accept)</label>
-<label for='WA_INPUT'><input type='checkbox' id='WA_INPUT' value='WA' disabled checked name='task[]'>WA (Wrong Anwser)</label>
+<label for='AC_INPUT'><input type='checkbox' id='AC_INPUT' value='AC' disabled checked name='task[]'>AC (Accept)<input type='hidden' value='AC' name='task[]'></label>
+<label for='WA_INPUT'><input type='checkbox' id='WA_INPUT' value='WA' disabled checked name='task[]'>WA (Wrong Anwser)<input type='hidden' value='WA' name='task[]'></label>
 <label for='NA_INPUT'><input type='checkbox' id='NA_INPUT' value='NA' name='task[]'>NA (Not Accept, passed part of testdata, not all)</label>
 <label for='CE_INPUT'><input type='checkbox' id='CE_INPUT' value='CE' disable name='task[]'>CE (Compile Error)</label>
 <label for='RE_INPUT'><input type='checkbox' id='RE_INPUT' value='RE' name='task[]'>RE (Runtime Error)</label>

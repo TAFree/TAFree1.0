@@ -19,7 +19,7 @@ class ProblemAlter implements IStrategy {
 		$this->classnames = $_POST['classname'];	
 		$this->modified_sources = $_POST['modified_source'];	
 		$this->verify = $_POST['verify'];
-
+		
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
 			
@@ -30,31 +30,24 @@ class ProblemAlter implements IStrategy {
 				// Test judge script for it basic tasks
 				new Viewer('Fac_verify', $this->item . '_' . $this->subitem);
 			}
-/*			
-	public function cloneJudge () {
+			else {
+				// Check other subitem tables for changing problem status into 'Available'
+				if ($this->areAllFinished()) {
+					$trigger = new DBOperator();
+					$trigger->colorProblem($this->item, 'Available');
 		
-		// Clone judge file from ./judge to ./problem/judge/[item]/[subitem] 
-		if (!copy('./judge/' . $this->judge, './problem/judge/' . $this->item . '/' . $this->subitem . '/' . $this->judge)) {
-			new Viewer ('Msg', $this->judge . ' copy failed...');
-			exit();
-		}
-	}
-*/
-/*	
-			// Check other subitem tables for changing problem status into 'Available'
-			if ($this->areAllFinished()) {
-				$trigger = new DBOperator();
-				$trigger->colorProblem($this->item, 'Available');
+				}
+				// Successful handout message without requirement of verifying judge script 
+				new Viewer('Msg', $this->item . '_' . $this->subitem . ' already handout !' . '<br>' . 'Make sure this is final version or not to give students writing permission.');
+				
 			}
-*/			
+			
 			$this->hookup = null;
 		}
 		catch (PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
-
-//		new Viewer('Msg', $this->item . '_' . $this->subitem . ' already handout !' . '<br>' . 'Make sure this is final version or not to give students writing permission.');
-		
+	
 	}
 	
 	public function updateSubitem () {

@@ -76,6 +76,7 @@ class ProblemEntry implements IStrategy {
 			// Manipulate files
 			
 			// Upload judge file if it does not exist on machine
+			
 			if ($this->judge === 'other') {
 				
 				if (!$this->isSupport()) {
@@ -110,7 +111,7 @@ class ProblemEntry implements IStrategy {
 			$this->hookup = null;
 			
 			// Modify solution for student writing
-			new Viewer('Modify', array('item' => $this->item, 'subitem' => $this->subitem), 'verify' => $this->verify);
+			new Viewer('Modify', array('item' => $this->item, 'subitem' => $this->subitem, 'verify' => $this->verify));
 	
 		}
 		catch (PDOException $e) {
