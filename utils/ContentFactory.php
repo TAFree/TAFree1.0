@@ -1,7 +1,8 @@
 <?php
+namespace TAFree\utils;
 
-include_once('Creator.php');
-include_once('Product.php');
+use TAFree\classes\Product;
+use TAFree\classes\Creator;
 
 class ContentFactory extends Creator {
 	

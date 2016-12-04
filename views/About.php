@@ -1,15 +1,16 @@
 <?php
+namespace TAFree\views;
 
-ini_set('display_errors', '1');
-ERROR_REPORTING(E_ALL);
+use TAFree\classes\Product;
+use TAFree\helpers\FormatHelper;
 
-include_once('FormatHelper.php');
-include_once('Product.php');
-include_once('SetRouter.php');
+require_once('../composers/Autoloader.php');
+require_once('../routes/SetRouter.php');
 
 class About implements Product{
 
-    private $content;
+        private $content;
+
 	private $formatHelper;
 	private $contentProduct;
 	
@@ -17,7 +18,7 @@ class About implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->content = file_get_contents('tafree-doc/about');	
+		$this->content = file_get_contents('../public/tafree-doc/about');	
 		$this->contentProduct .= '<div class=\'DOC_DIV\'>' . $this->content . '</div>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
@@ -27,12 +28,6 @@ class About implements Product{
 
 }
 
-if (isset($router)) {
-	$router->run();
-}
-else {
-	include_once('SetRouter.php');
-	$router->run();
-}
+$router->run();
 
 ?>

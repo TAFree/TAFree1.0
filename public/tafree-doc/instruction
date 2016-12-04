@@ -138,7 +138,7 @@ sudo vi /etc/apache2/mods-available/dir.conf
 </code></pre>
 <p>將Login.php放在第一順位</p>
 <pre class='apache'><code>
-DirectoryIndex Login.php index.html ...
+DirectoryIndex views/Login.php index.html ...
 </code></pre>
 <br>
 <h4>3. 客製化網站目錄</h4>

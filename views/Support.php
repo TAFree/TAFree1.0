@@ -1,16 +1,11 @@
 <?php
+namespace TAFree\views;
 
-ini_set('display_errors', '1');
-ERROR_REPORTING(E_ALL);
+use TAFree\classes\Product;
+use TAFree\helpers\FormatHelper;
 
-include_once('FormatHelper.php');
-include_once('Product.php');
-include_once('SetRouter.php');
-
-
-function __autoload($class_name) {
-	include_once($class_name . '.php');
-}
+require_once('../composers/Autoloader.php');
+require_once('../routes/SetRouter.php');
 
 class Support implements Product{
 	
@@ -24,9 +19,10 @@ class Support implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->content = file_get_contents('tafree-doc/support');	
+		$this->content = file_get_contents('../public/tafree-doc/support');	
 		$this->contentProduct .= '<div class=\'DOC_DIV\'>' . $this->content;
-		$this->examples = new ExampleFetch();
+//		$this->examples = new ExampleFetch();
+		
 		$this->contentProduct .= $this->examples->getContent() . '</div>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
@@ -36,13 +32,7 @@ class Support implements Product{
 
 }
 
-if (isset($router)) {
-	$router->run();
-}
-else {
-	include_once('SetRouter.php');
-	$router->run();
-}
+$router->run();
 
 ?>
 

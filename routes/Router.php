@@ -26,6 +26,8 @@
  *
  */
 
+namespace TAFree\routes;
+
 class Router
 {
     /**

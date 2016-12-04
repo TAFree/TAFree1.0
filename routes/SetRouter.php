@@ -1,7 +1,7 @@
 <?php
 
-include_once('Router.php');
-include_once('Viewer.php');
+use TAFree\routes\Router;
+use TAFree\utils\Viewer;
 
 $router = new Router();
 

@@ -1,11 +1,11 @@
 <?php
+namespace TAFree\views;
 
-ini_set('display_errors', '1');
-ERROR_REPORTING(E_ALL);
+use TAFree\classes\Product;
+use TAFree\helpers\FormatHelper;
 
-include_once('FormatHelper.php');
-include_once('Product.php');
-include_once('SetRouter.php');
+require_once('../composers/Autoloader.php');
+require_once('../routes/SetRouter.php');
 
 class Login implements Product{	
 
@@ -55,13 +55,7 @@ EOF;
 
 }
 
-if (isset($router)) {
-	$router->run();
-}
-else {
-	include_once('SetRouter.php');
-	$router->run();
-}
+$router->run();
 
 ?>
 

@@ -1,4 +1,7 @@
 <?php
+namespace TAFree\classes;
+
+use TAFree\classes\Product;
 
 abstract class Creator {
 

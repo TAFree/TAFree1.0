@@ -10,16 +10,16 @@ TAFree.page.Data = (function () {
 	    	
 	    	title: 'TAFree Online Judge',            
 
-	    	logo: './tafree-svg/logo.svg',
+	    	logo: '../public/tafree-svg/logo.svg',
 
             	urls: {
-                	About: './About.php',
-			Instruction: './Instruction.php',
-			Support: './Support.php',
-			Discussion: './Discussion.php'
+                	About: '../views/About.php',
+			Instruction: '../views/Instruction.php',
+			Support: '../views/Support.php',
+			Discussion: '../views/Discussion.php'
             	},
 
-		home: './Login.php',
+		home: '../views/Login.php',
 
             	copyright: '&copy;2016 TAFree'
 	    },
