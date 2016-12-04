@@ -1,7 +1,10 @@
 <?php
+namespace TAFree\views;
 
-include_once('FormatHelper.php');
-include_once('Product.php');
+use TAFree\classes\Product;
+use TAFree\helpers\FormatHelper;
+
+require_once('../composers/Autoloader.php');
 
 class Sneaker implements Product{
 	

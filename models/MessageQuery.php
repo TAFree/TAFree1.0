@@ -1,4 +1,10 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class MessageQuery implements IStrategy {
 
@@ -25,7 +31,7 @@ class MessageQuery implements IStrategy {
 	
 			echo $this->content;
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 	

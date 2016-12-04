@@ -1,4 +1,5 @@
 <?php
+namespace TAFree\secrete;
 
 interface IConnectInfo {
 

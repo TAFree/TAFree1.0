@@ -1,4 +1,10 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class MessageEntry implements IStrategy {
 	

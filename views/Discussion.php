@@ -27,15 +27,12 @@ class Discussion implements Product{
 EOF;
 		$this->contentProduct .= '<button id=\'TALK_BUTTON\'>Talk</button></div></div>';	
 		$this->contentProduct .= $this->formatHelper->closeUp();
-		
 		return $this->contentProduct;
 	}	 
 
 }
 
 $router->run();
-
-}
 
 ?>
 

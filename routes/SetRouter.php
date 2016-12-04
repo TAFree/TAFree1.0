@@ -1,7 +1,7 @@
 <?php
-
 use TAFree\routes\Router;
 use TAFree\utils\Viewer;
+use TAFree\controllers as controllers;
 
 $router = new Router();
 
@@ -41,19 +41,19 @@ $router->match('GET', 'Discussion.php', function () {
 	new Viewer('Discussion');
 });
 
-$router->match('POST', '/MessagePull.php', function () {
-	new MessagePull();
+$router->match('POST', 'MessagePull.php', function () {
+	new controllers\MessagePull();
 });
 
-$router->match('GET', '/MessagePull.php', function () {
+$router->match('GET', 'MessagePull.php', function () {
 	new Viewer('Sneaker');
 });
 
-$router->match('POST', '/MessagePush.php', function () {
-	new MessagePush();
+$router->match('POST', 'MessagePush.php', function () {
+	new controllers\MessagePush();
 });
 
-$router->match('GET', '/MessagePush.php', function () {
+$router->match('GET', 'MessagePush.php', function () {
 	new Viewer('Sneaker');
 });
 

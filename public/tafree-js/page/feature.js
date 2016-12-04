@@ -493,7 +493,7 @@ TAFree.page.Feature = {
 		}
 	    };
 
-	    xhr.open('POST', '../MessagePull.php', true);
+	    xhr.open('POST', '../controllers/MessagePull.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    
 	    starttime = init.start;
@@ -530,7 +530,7 @@ TAFree.page.Feature = {
 	    
 	    // Send message on server side
 	    xhr = new XMLHttpRequest();
-	    xhr.open('POST', '../MessagePush.php', true);
+	    xhr.open('POST', '../controllers/MessagePush.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('subject=' + subject + '&message=' + message);
 

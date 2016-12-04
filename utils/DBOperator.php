@@ -1,89 +1,95 @@
 <?php
+namespace TAFree\utils;
+
+use TAFree\classes\Context;
+use TAFree\models as models;
+
+require_once('../composers/Autoloader.php');
 
 class DBOperator {
 	
 	public function initial() {
-		$context = new Context(new RawDataEntry()                   );
+		$context = new Context(new models\RawDataEntry());
 		$context->algorithm();
 	}		
 
 	public function queryStudent() {
-		$context = new Context(new StudentQuery());
+		$context = new Context(new models\StudentQuery());
 		$context->algorithm();
 	}
 	
 	public function queryFaculty() {
-		$context = new Context(new FacultyQuery());
+		$context = new Context(new models\FacultyQuery());
 		$context->algorithm();
 	}
 	
 	public function apply() {
-		$context = new Context(new LeaveApply());
+		$context = new Context(new models\LeaveApply());
 		$context->algorithm();
 	}
 	
 	public function ratify() {
-		$context = new Context(new LeaveRatify());
+		$context = new Context(new models\LeaveRatify());
 		$context->algorithm();
 	}
 	
 	public function alter() {
-		$context = new Context(new StudentAlter());
+		$context = new Context(new models\StudentAlter());
 		$context->algorithm();
 	}
 
 	public function setupTime() {
-		$context = new Context(new TimeSetup());
+		$context = new Context(new models\TimeSetup());
 		$context->algorithm();
 	}
 	
 	public function present() {
-		$context = new Context(new StudentEntry());
+		$context = new Context(new models\StudentEntry());
 		$context->algorithm();
 	}
 
 	public function assignRegistry($unique_key, $item) {
-		$context = new Context(new ProblemLock($unique_key, $item));
+		$context = new Context(new models\ProblemLock($unique_key, $item));
 		$context->algorithm();
 	}
 	
 	public function reduce() {
-		$context = new Context(new ProblemReduce());
+		$context = new Context(new models\ProblemReduce());
 		$context->algorithm();
 	}
 
 	public function upload() {
-		$context = new Context(new ProblemEntry());
+		$context = new Context(new models\ProblemEntry());
 		$context->algorithm();
 	}
 	
 	public function handout() {
-		$context = new Context(new ProblemAlter());
+		$context = new Context(new models\ProblemAlter());
 		$context->algorithm();
 	}
 	
 	public function colorProblem($item, $item_status) {
-		$context = new Context(new ProblemColoring($item, $item_status));
+		$context = new Context(new models\ProblemColoring($item, $item_status));
 		$context->algorithm();
 	}
 
 	public function handin() {
-		$context = new Context(new AnswerEntry());
+		$context = new Context(new models\AnswerEntry());
 		$context->algorithm();
 	}
 	
 	public function pullMessage() {
-		$context = new Context(new MessageQuery());
+		$context = new Context(new models\MessageQuery());
 		$context->algorithm();
 	}
 
 	public function pushMessage($subject, $message) {
-		$context = new Context(new MessageEntry($subject, $message));
+		$context = new Context(new models\MessageEntry($subject, $message));
 		$context->algorithm();
 	}
 
 	public function expand() {
-		$context = new Context(new JudgeExpansion());
+		$context = new Context(new models\JudgeExpansion());
 		$context->algorithm();
 	}
 
