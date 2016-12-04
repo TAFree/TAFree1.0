@@ -256,22 +256,6 @@ $router->match('GET', '/Upload.php', function() {
 	new Viewer('Sneaker');
 });
 
-$router->match('POST', '/StatusFetch.php', function() {
-	new StatusFetch();
-});
-
-$router->match('GET', '/StatusFetch.php', function() {
-	new Viewer('Sneaker');
-});
-
-$router->match('POST', '/Qualify.php', function() {
-	new Qualify();
-});
-
-$router->match('GET', '/Qualify.php', function() {
-	new Viewer('Sneaker');
-});
-
 $router->match('POST', '/Handout.php', function() {
 	
 	$looker = new KeyQuery($_POST['item']);

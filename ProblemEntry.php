@@ -7,7 +7,6 @@ class ProblemEntry implements IStrategy {
 	private $hint;
 	private $describe;
 	private $judge;
-	private $verify;
 	private $safe;
 	private $solution_filenames = array();
 	private $solution_contents = array();
@@ -83,12 +82,8 @@ class ProblemEntry implements IStrategy {
 					new Viewer ('Msg', 'TAFree has not supported judge script file uploaded. <a class=\'DOC_A\' href=\'./Fac_expansion.php\'>You can expand it</a>.' . '<br>');
 					exit();
 				}
-				$this->verify = true;
 				$this-> uploadJudge();
 			
-			}
-			else {
-				$this->verify = false;
 			}
 			
 			// Clear and upload description files
@@ -111,7 +106,7 @@ class ProblemEntry implements IStrategy {
 			$this->hookup = null;
 			
 			// Modify solution for student writing
-			new Viewer('Modify', array('item' => $this->item, 'subitem' => $this->subitem, 'verify' => $this->verify));
+			new Viewer('Modify', array('item' => $this->item, 'subitem' => $this->subitem));
 	
 		}
 		catch (PDOException $e) {

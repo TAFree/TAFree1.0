@@ -18,7 +18,6 @@ class ProblemAlter implements IStrategy {
 		$this->subitem = $_POST['subitem'];
 		$this->classnames = $_POST['classname'];	
 		$this->modified_sources = $_POST['modified_source'];	
-		$this->verify = $_POST['verify'];
 		
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
@@ -26,22 +25,17 @@ class ProblemAlter implements IStrategy {
 			// Update subitem table
 			$this->updateSubitem();
 		
-			if ($this->verify) {
-				// Test judge script for it basic tasks
-				new Viewer('Fac_verify', $this->item . '_' . $this->subitem);
-			}
-			else {
-				// Check other subitem tables for changing problem status into 'Available'
-				if ($this->areAllFinished()) {
-					$trigger = new DBOperator();
-					$trigger->colorProblem($this->item, 'Available');
-		
-				}
-				// Successful handout message without requirement of verifying judge script 
-				new Viewer('Msg', $this->item . '_' . $this->subitem . ' already handout !' . '<br>' . 'Make sure this is final version or not to give students writing permission.');
-				
-			}
+			// Check other subitem tables for changing problem status into 'Available'
+			if ($this->areAllFinished()) {
 			
+				$trigger = new DBOperator();
+				$trigger->colorProblem($this->item, 'Available');
+		
+			}
+				
+			// Successful handout message without requirement of verifying judge script 
+			new Viewer('Msg', $this->item . '_' . $this->subitem . ' already handout !' . '<br>' . 'Make sure this is final version or not to give students writing permission.');
+				
 			$this->hookup = null;
 		}
 		catch (PDOException $e) {

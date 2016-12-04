@@ -61,7 +61,7 @@ class StudentAlter implements IStrategy {
 				
 				$this->hookup = null;
 				
-				new Viewer ('Msg', 'Successfully altered tables !' . '<br>');
+				new Viewer ('Msg', 'Successfully altered student list !' . '<br>');
 			
 			}
 			catch (PDOException $e) {
