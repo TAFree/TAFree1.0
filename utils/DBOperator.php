@@ -1,6 +1,9 @@
 <?php
 namespace TAFree\utils;
 
+ini_set('display_errors', '1');
+ERROR_REPORTING(E_ALL);
+
 use TAFree\classes\Context;
 use TAFree\models as models;
 
@@ -78,7 +81,7 @@ class DBOperator {
 		$context->algorithm();
 	}
 	
-	public function pullMessage() {
+	public function pullMessage() {		
 		$context = new Context(new models\MessageQuery());
 		$context->algorithm();
 	}

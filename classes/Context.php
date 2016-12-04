@@ -3,6 +3,8 @@ namespace TAFree\classes;
 
 use TAFree\classes\IStrategy;
 
+require_once('../composers/Autoloader.php');
+
 class Context {
 	
 	private $strategy;

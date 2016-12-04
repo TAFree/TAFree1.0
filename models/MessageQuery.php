@@ -23,8 +23,8 @@ class MessageQuery implements IStrategy {
 			$stmt = $this->hookup->prepare('SELECT * FROM discussion WHERE timestamp BETWEEN \'' . $this->starttime . '\' AND ' . '\'' . $this->now . '\'');
 			$stmt->execute();
 			$this->content = $this->now . '#';
-			while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-				$this->content .= '<img class=\'DISCUSSION_SUBJECT_IMG\' src=\'./tafree-svg/' . strtolower($row['subject']) . '.svg\'><pre class=\'DISCUSSION_MSG_PRE\'>' . $row['message'] . '</pre><br>';
+			while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+				$this->content .= '<img class=\'DISCUSSION_SUBJECT_IMG\' src=\'../public/tafree-svg/' . strtolower($row['subject']) . '.svg\'><pre class=\'DISCUSSION_MSG_PRE\'>' . $row['message'] . '</pre><br>';
 			}
 			
 			$this->hookup = null;

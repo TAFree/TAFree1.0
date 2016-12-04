@@ -31,7 +31,7 @@ class MessageEntry implements IStrategy {
 
 			$this->hookup = null;
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 		
