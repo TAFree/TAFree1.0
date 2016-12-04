@@ -15,7 +15,7 @@ $router->match('GET', '/', function () {
 	new Viewer('Login');
 });
 
-$router->match('GET', '/Login.php', function () {
+$router->match('GET', 'Login.php', function () {
 	session_start();
 	if (isset($_SESSION)) {
 		session_unset();
@@ -25,19 +25,19 @@ $router->match('GET', '/Login.php', function () {
 	new Viewer('Login');
 });
 
-$router->match('GET', '/About.php', function () {
+$router->match('GET', 'About.php', function () {
 	new Viewer('About');
 });
 
-$router->match('GET', '/Instruction.php', function () {
+$router->match('GET', 'Instruction.php', function () {
 	new Viewer('Instruction');
 });
 
-$router->match('GET', '/Support.php', function () {
+$router->match('GET', 'Support.php', function () {
 	new Viewer('Support');
 });
 
-$router->match('GET', '/Discussion.php', function () {
+$router->match('GET', 'Discussion.php', function () {
 	new Viewer('Discussion');
 });
 

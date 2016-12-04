@@ -1,7 +1,9 @@
 <?php 
+namespace TAFree\fetchers;
 
-ini_set('display_errors', '1');
-ERROR_REPORTING(E_ALL);
+use TAFree\classes\Product;
+
+require_once('../composers/Autoloader.php');
 
 class ExampleFetch implements Product {
 	
@@ -11,7 +13,7 @@ class ExampleFetch implements Product {
 		
 		$this->examples = '';
 
-		foreach (glob('./judge/*') as $filename) {
+		foreach (glob('../judge/*') as $filename) {
 			$ext = substr($filename, strrpos($filename, '.') + 1);
 			$handle = fopen($filename, 'r');
 			$contents = fread($handle, filesize($filename));

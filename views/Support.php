@@ -3,6 +3,7 @@ namespace TAFree\views;
 
 use TAFree\classes\Product;
 use TAFree\helpers\FormatHelper;
+use TAFree\fetchers\ExampleFetch;
 
 require_once('../composers/Autoloader.php');
 require_once('../routes/SetRouter.php');
@@ -21,7 +22,7 @@ class Support implements Product{
 		
 		$this->content = file_get_contents('../public/tafree-doc/support');	
 		$this->contentProduct .= '<div class=\'DOC_DIV\'>' . $this->content;
-//		$this->examples = new ExampleFetch();
+		$this->examples = new ExampleFetch();
 		
 		$this->contentProduct .= $this->examples->getContent() . '</div>';
 
