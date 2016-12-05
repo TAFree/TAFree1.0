@@ -1,6 +1,15 @@
-<?php
-	
-include_once('Util.php');
+<?php	
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\database\UniversalConnect;
+use TAFree\utils\Util;
+use TAFree\utils\Viewer;
+
+ini_set('display_errors', '1');
+ERROR_REPORTING(E_ALL);
+
+require_once('../composers/Autoloader.php');
 
 class StudentAlter implements IStrategy {
 	
@@ -64,7 +73,7 @@ class StudentAlter implements IStrategy {
 				new Viewer ('Msg', 'Successfully altered student list !' . '<br>');
 			
 			}
-			catch (PDOException $e) {
+			catch (\PDOException $e) {
 				echo 'Error: ' . $e->getMessage() . '<br>';
 			}
 				
@@ -87,13 +96,13 @@ class StudentAlter implements IStrategy {
 		for ($i = 0; $i < count($this->del_accs); $i += 1) {
 			$stmt_item = $this->hookup->prepare('SELECT item FROM problem');
 			$stmt_item->execute();
-			while($row_item = $stmt_item->fetch(PDO::FETCH_ASSOC)){
+			while($row_item = $stmt_item->fetch(\PDO::FETCH_ASSOC)){
 				$item = $row_item['item'];
 				$stmt_del_item = $this->hookup->prepare('ALTER TABLE ' . $item . ' DROP COLUMN ' . $this->del_accs[$i]);
 				$stmt_del_item->execute();
 				$stmt_subitem = $this->hookup->prepare('SELECT subitem FROM ' . $item);
 				$stmt_subitem->execute();
-				while ($row_subitem = $stmt_subitem->fetch(PDO::FETCH_ASSOC)) {
+				while ($row_subitem = $stmt_subitem->fetch(\PDO::FETCH_ASSOC)) {
 					$subitem = $row_subitem['subitem'];	
 					for ($i = 0; $i < count($this->del_accs); $i += 1) {
 						$stmt_del_subitem = $this->hookup->prepare('ALTER TABLE ' . $item . '_' . $subitem . ' DROP COLUMN ' . $this->del_accs[$i]);
@@ -124,7 +133,7 @@ class StudentAlter implements IStrategy {
 		for ($j = 0; $j < count($this->add_accs); $j += 1) {	
 			$stmt_item = $this->hookup->prepare('SELECT item, number FROM problem');
 			$stmt_item->execute();
-			while($row_item = $stmt_item->fetch(PDO::FETCH_ASSOC)){
+			while($row_item = $stmt_item->fetch(\PDO::FETCH_ASSOC)){
 				$item = $row_item['item'];
 				$stmt_add_item = $this->hookup->prepare('ALTER TABLE ' . $item . ' ADD ' . $this->add_accs[$j] . ' VARCHAR(30) NOT NULL DEFAULT "NULL"');
 				$stmt_add_item->execute();

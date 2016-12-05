@@ -1,4 +1,11 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\utils\Viewer;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class ProblemEntry implements IStrategy {
 	
@@ -74,16 +81,19 @@ class ProblemEntry implements IStrategy {
 		
 			// Manipulate files
 			
-			// Upload judge file if it does not exist on machine
-			
+			// Fetch judge file 
 			if ($this->judge === 'other') {
-				
+				// Upload judge file if it does not exist on machine
 				if (!$this->isSupport()) {
-					new Viewer ('Msg', 'TAFree has not supported judge script file uploaded. <a class=\'DOC_A\' href=\'./Fac_expansion.php\'>You can expand it</a>.' . '<br>');
+					new Viewer ('Msg', 'TAFree has not supported judge script file uploaded. <a class=\'DOC_A\' href=\'../views/Fac_expansion.php\'>You can expand it</a>.' . '<br>');
 					exit();
 				}
 				$this-> uploadJudge();
 			
+			}
+			else {
+				// Clone judge file if it is already on machine
+				$this->cloneJudge();
 			}
 			
 			// Clear and upload description files
@@ -109,7 +119,7 @@ class ProblemEntry implements IStrategy {
 			new Viewer('Modify', array('item' => $this->item, 'subitem' => $this->subitem));
 	
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}	
 	
@@ -118,16 +128,16 @@ class ProblemEntry implements IStrategy {
 	public function uploadDescription () {	
 		
 		// Clear previous files
-		$delete_file_msg = system('rm -rf ' . 'problem/description/' . $this->item . '/' . $this->subitem . '/*', $retval);
+		$delete_file_msg = system('rm -rf ' . '../problem/description/' . $this->item . '/' . $this->subitem . '/*', $retval);
 		if ($retval !== 0) {
 			new Viewer ('Msg', $delete_file_msg);
 			exit();
 		}
 		
-		// Upload to ./problem/description/[item]/[subitem] directory 	
+		// Upload to ../problem/description/[item]/[subitem] directory 	
 		$tmpname = $_FILES['description']['tmp_name'];
 		$basename = basename($_FILES['description']['name']);				
-		if(!move_uploaded_file ($tmpname, './problem/description/' . '/' . $this->item . '/' . $this->subitem . '/' . $basename)) {
+		if(!move_uploaded_file ($tmpname, '../problem/description/' . '/' . $this->item . '/' . $this->subitem . '/' . $basename)) {
 			new Viewer ('Msg', 'Description file is not uploaded...');
 			exit();
 		}
@@ -139,22 +149,38 @@ class ProblemEntry implements IStrategy {
 	public function uploadJudge () {
 		
 		// Clear previous files
-		$delete_file_msg = system('rm -rf ' . './problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
+		$delete_file_msg = system('rm -rf ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
 		if ($retval !== 0) {
 			new Viewer ('Msg', $delete_file_msg);
 			exit();
 		}
 		
-		// Upload to ./judge directory regarded as general judge file that can be reused
+		// Upload to ../problem/judge/[item]/[subitem] directory 
 		$tmpname = $_FILES['judge_file']['tmp_name'];
-		$basename = date('Ymd') . '_' . basename($_FILES['judge_file']['name']);			
-		if (!move_uploaded_file ($tmpname, './problem/judge/' . $this->item .'/'. $this->subitem . '/' . $basename)) {
+		$basename = date('Ymd') . '_' . basename($_FILES['judge_file']['name']);				
+		if (!move_uploaded_file ($tmpname, '../problem/judge/' . $this->item .'/'. $this->subitem . '/' . $basename)) {
 			new Viewer ('Msg', 'Judge script is not uploaded...');
 			exit();
 		}
 	
 		// Update judge 
 		$this->judge = $basename;
+	}
+	
+	public function cloneJudge () {
+		
+		// Clear previous files
+		$delete_file_msg = system('rm -rf ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
+		if ($retval !== 0) {
+			new Viewer ('Msg', $delete_file_msg);
+			exit();
+		}
+		
+		// Copy to ../problem/judge/[item]/[subitem] directory 
+		if (!copy ('../judge/' . $this->judge, '../problem/judge/' . $this->item . '/' . $this->subitem . '/' . $this->judge)) {
+			new Viewer ('Msg', 'Judge script copy failed...');
+			exit();
+		}
 	}
 	
 	public function isSupport () {
@@ -172,15 +198,15 @@ class ProblemEntry implements IStrategy {
 	
 	public function uploadTestdata () {
 		// Clear previous files
-		$delete_file_msg = system('rm -rf ' . 'problem/testdata/' . $this->item . '/' . $this->subitem . '/*', $retval);
+		$delete_file_msg = system('rm -rf ' . '../problem/testdata/' . $this->item . '/' . $this->subitem . '/*', $retval);
 		if ($retval !== 0) {
 			new Viewer ('Msg', $delete_file_msg);
 			exit();
 		}
 		
-		// Upload to ./problem/testdata/[item]/[subitem] directory 	
+		// Upload to ../problem/testdata/[item]/[subitem] directory 	
 		for ($i = 0; $i < count($this->testdata_filenames); $i += 1) {
-			$testdata = fopen('./problem/testdata/' . $this->item . '/' . $this->subitem . '/' . $this->testdata_filenames[$i], 'w');
+			$testdata = fopen('../problem/testdata/' . $this->item . '/' . $this->subitem . '/' . $this->testdata_filenames[$i], 'w');
 			fwrite($testdata, $this->testdata_contents[$i]);
 			fclose($testdata); 
 		}

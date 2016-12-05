@@ -135,7 +135,7 @@ class RawDataEntry implements IStrategy {
 						$this->stu_accs[$i] = $row[1];
 					}
 					else {
-						new Viewer ('Msg', $row[1] . ' is not only alphabet or number...' . '<br>');
+						new Viewer ('Msg', $row[1] . ' student account only can be alphabet or number...' . '<br>');
 						fclose($file);
 						unlink($dir . '/' . $basename);
 						exit();
@@ -146,7 +146,7 @@ class RawDataEntry implements IStrategy {
 						$this->stu_passs[$i] = $row[2];
 					}
 					else {
-						new Viewer ('Msg', $row[2] . ' is not only alphabet or number...' . '<br>');
+						new Viewer ('Msg', $row[2] . ' student password only can be alphabet or number...' . '<br>');
 						fclose($file);
 						unlink($dir . '/' . $basename);
 						exit();

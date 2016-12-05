@@ -1,6 +1,12 @@
 <?php
+namespace TAFree\models;
 
-include_once('Util.php');
+use TAFree\classes\IStrategy;
+use TAFree\utils\Util;
+use TAFree\utils\Viewer;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class StudentQuery implements IStrategy {
 
@@ -23,7 +29,7 @@ class StudentQuery implements IStrategy {
 			$this->hookup = null;
 			if ($this->result === 1) {
 				session_start();
-				$_SESSION['student_name'] = $stmt->fetch(PDO::FETCH_ASSOC)['student_name'];
+				$_SESSION['student_name'] = $stmt->fetch(\PDO::FETCH_ASSOC)['student_name'];
 				$_SESSION['student'] = $this->account;
 				new Viewer('Stu_index');
 			}
@@ -31,7 +37,7 @@ class StudentQuery implements IStrategy {
 				new Viewer('WrongPerson');
 			}
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 	

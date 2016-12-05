@@ -1,4 +1,11 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\utils\Viewer;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class JudgeExpansion implements IStrategy {
 	
@@ -6,7 +13,8 @@ class JudgeExpansion implements IStrategy {
 	private $ext;
 	private $cmd;
 	private $supports = array();
-	private $judge;
+	private $del_judge;
+	private $add_judge;
 
 	private $hookup;
 	
@@ -21,26 +29,25 @@ class JudgeExpansion implements IStrategy {
 			$this->services = $_POST['service'];
 		}
 
-		// Get judge
+		// Get deleted judge and support
 		if (in_array('plugout', $this->services)) {
-			if (isset($_POST['judge'])) {
-				$this->judge = $_POST['judge'];
+			if (isset($_POST['del_judge'])) {
+				$this->judge = $_POST['del_judge'];
 			}
 			if (isset($_POST['support'])) {
 				$this->supports = $_POST['support'];
 			}
 		}
 		
-		// Get ext,  cmd
+		// Get added ext,  cmd, and judge
 		if (in_array('plugin', $this->services)) {
+			if (isset($_FILES['add_judge'])) {
+				$this->add_judge = $_FILES['add_judge'];
+			}
 			if (!empty($_POST['ext']) && !empty($_POST['cmd'])) {
 				$this->ext = $_POST['ext'];
 				$this->cmd = $_POST['cmd'];
 			}	
-			else {			
-				new Viewer ('Msg', 'Do not leave empty file extension or empty executing command field...' . '<br>');
-				exit();
-			}
 		}
 		
 		try {
@@ -50,9 +57,14 @@ class JudgeExpansion implements IStrategy {
 		
 			// Manipulate file
 			
-			// Delete judge file that exists on machine if needed
-			if (isset($this->judge) && $this->judge !== 'no') {
-				$this-> deleteJudge();
+			// Add general judge file
+			if (isset($this->add_judge)) {
+				$this->addJudge();
+			}
+
+			// Delete judge file that exists on machine 
+			if (isset($this->del_judge) && $this->del_judge !== 'no') {
+				$this->deleteJudge();
 			}
 			
 			// Manipulate table				
@@ -72,17 +84,29 @@ class JudgeExpansion implements IStrategy {
 			new Viewer('Msg', 'Successful expansion !');
 
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 	
 	}
 		
+	public function addJudge () {	
+		
+		// Upload to ../judge directory 
+		$tmpname = $this->add_judge['tmp_name'];
+		$basename = date('Ymd') . '_' . basename($this->add_judge['name']);				
+		if (!move_uploaded_file ($tmpname, '../judge/' . $basename)) {
+			new Viewer ('Msg', 'Judge script is not uploaded...');
+			exit();
+		}
+	
+	}
+
 	public function deleteJudge () {
 		
 		// Delete file in ./judge directory 
-		if (file_exists ('./judge/' . $this->judge)) {
-			unlink('./judge/' . $this->judge);
+		if (file_exists ('../judge/' . $this->del_judge)) {
+			unlink('../judge/' . $this->del_judge);
 		}
 		else {	
 			new Viewer ('Msg', 'Judge script file is not on machine...');

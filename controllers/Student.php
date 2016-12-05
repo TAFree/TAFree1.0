@@ -22,7 +22,7 @@ class Student extends Handler {
 			$trigger->queryStudent();
 			
 		}
-		else if ($this->successor !== NULL) {
+		else if ($this->successor !== null) {
 			$this->successor->handleRequest($request);
 		}
 	}

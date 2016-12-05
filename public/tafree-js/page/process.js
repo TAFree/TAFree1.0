@@ -93,11 +93,11 @@ TAFree.page.Process = {
 		xhr.onreadystatechange = function () {
 			if (this.readyState === 4 && this.status === 200) {
 				if (this.response) {
-					window.location = './JudgeAdapter.php?item=' + item + '&subitem=' + subitem + '&stu_account=' + stu_account;
+					window.location = '../controllers/JudgeAdapter.php?item=' + item + '&subitem=' + subitem + '&stu_account=' + stu_account;
 				}
 			}
 	    	};	
-		xhr.open('POST', 'Handin.php');
+		xhr.open('POST', '../controllers/Handin.php');
 		xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 		xhr.send(JSON.stringify(obj)); 
 	},

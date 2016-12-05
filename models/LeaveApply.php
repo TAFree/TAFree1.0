@@ -1,6 +1,11 @@
 <?php
-	
-include_once('Util.php');
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\utils\Viewer;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class LeaveApply implements IStrategy {
 	
@@ -45,7 +50,7 @@ class LeaveApply implements IStrategy {
 
 				$this->hookup = null;
 			}
-			catch (PDOException $e) {
+			catch (\PDOException $e) {
 				echo 'Error: ' . $e->getMessage() . '<br>';
 			}
 			
@@ -88,7 +93,7 @@ class LeaveApply implements IStrategy {
 		$stmt = $this->hookup->prepare('SELECT faculty_email FROM faculty');
 		$stmt->execute();
 		$i = 0;
-		while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		while($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
 			$this->emails[$i] = $row['faculty_email'];
 			$i += 1;
 		}

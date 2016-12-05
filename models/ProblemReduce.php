@@ -1,4 +1,11 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\utils\Viewer;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class ProblemReduce implements IStrategy {
 	
@@ -30,13 +37,34 @@ class ProblemReduce implements IStrategy {
 	
 			// Delete subitem table
 			$this->deleteSubitem();
+			
+			// Delete ../problem/judge/[item]/[subitem]
+			$delete_file_msg = System('rm -rf ../problem/judge/' . $this->item . '/' . $this->subitem, $retval);
+			if ($retval !== 0) {
+				new Viewer('Msg', $delete_file_msg);
+				exit();
+			}
+			
+			// Delete ../problem/judge/[item]/[subitem]
+			$delete_file_msg = System('rm -rf ../problem/testdata/' . $this->item . '/' . $this->subitem, $retval);
+			if ($retval !== 0) {
+				new Viewer('Msg', $delete_file_msg);
+				exit();
+			}
+			
+			// Delete ../problem/judge/[item]/[subitem]
+			$delete_file_msg = System('rm -rf ../problem/description/' . $this->item . '/' . $this->subitem, $retval);
+			if ($retval !== 0) {
+				new Viewer('Msg', $delete_file_msg);
+				exit();
+			}
 
 			$this->hookup = null;
 			
 			new Viewer('Msg', 'Already delete ' . $this->item . '_' . $this->subitem . ' ! ');
 	
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}	
 	

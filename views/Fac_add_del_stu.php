@@ -23,7 +23,7 @@ class Fac_add_del_stu implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<form method='POST' action='./Alter.php'>
+<form method='POST' action='../controllers/Alter.php'>
 <table id='ADD_DEL_STU_TABLE'>
 <tr>
 <td colspan='4'>

@@ -545,6 +545,7 @@
 	background-color: transparent;
 	overflow: scroll;
 	display: none;
+	white-space: pre;
 }
 
 .STU_DIV {
@@ -556,6 +557,7 @@
 	font-size: 5vh;
 	background-color: transparent;
 	overflow: scroll;
+	white-space: pre;
 }
 
 .WHOSE_DIV {
@@ -590,4 +592,9 @@
 	width: 100%;
 	height: 100%;
 }
+
+.EXPAND_INPUT {
+	
+}
+
 

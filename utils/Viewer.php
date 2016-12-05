@@ -7,7 +7,7 @@ class Viewer {
 	
 	private $contentFactory;
 
-	public function __construct($page, $para=NULL) {		
+	public function __construct($page, $para = null) {		
 
 		$this->contentFactory = new ContentFactory();
 

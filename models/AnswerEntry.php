@@ -1,7 +1,13 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\database\UniversalConnect;
 
 ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
+
+require_once('../composers/Autoloader.php');
 
 class AnswerEntry implements IStrategy {
 	
@@ -37,16 +43,16 @@ class AnswerEntry implements IStrategy {
 
 				$classname = $pkg->classname;
 				$content = $pkg->source;
-				
+			
 				if (is_array($content)) {
 					$source = $this->mergeSource($content);
 				}
 				else if ($content === 'Locked'){
 					
-					$stmt = $this->hookup->prepare('SELECT original_source FROM ' . $this->item . '_' . $this->subitem . ' WHERE classname=\'' . $classname . '\'');
-					$stmt->execute();	
-					$row = $stmt->fetch(PDO::FETCH_ASSOC);
-					$source = $row['original_source'];
+					$stmt_locked = $this->hookup->prepare('SELECT original_source FROM ' . $this->item . '_' . $this->subitem . ' WHERE classname=\'' . $classname . '\'');
+					$stmt_locked->execute();	
+					$row_locked = $stmt_locked->fetch(\PDO::FETCH_ASSOC);
+					$source = $row_locked['original_source'];
 			
 				}
 
@@ -59,7 +65,7 @@ class AnswerEntry implements IStrategy {
 			echo true;
 
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 		
@@ -67,7 +73,7 @@ class AnswerEntry implements IStrategy {
 
 	public function mergeSource ($content) {
 
-		$filename = './tar/' . uniqid(time(), true) . '-source.tmp';
+		$filename = '../tar/' . uniqid(time(), true) . '-source.tmp';
 		$tmp_res = fopen($filename, 'w');
 		fclose($tmp_res);
 

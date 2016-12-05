@@ -57,7 +57,7 @@ EOF;
 				$status = $row_item[$row_stu['student_account']];
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . '<p class=\'STATUS_CODE_P\'>' . $status . '</p>' . '</td>';
 				if ($status !== 'NULL') {
-					$this->contentProduct .= '<td class=\'CONTENT_TD\'><a class=\'CLICKABLE\' href=\'./SourceWatch.php?stu_account=' . $row_stu['student_account'] . '&fullitem=' . $this->item . '_' . $this->subitem . '\'>Watch</a></td></tr>';
+					$this->contentProduct .= '<td class=\'CONTENT_TD\'><a class=\'CLICKABLE\' href=\'../views/SourceWatch.php?stu_account=' . $row_stu['student_account'] . '&fullitem=' . $this->item . '_' . $this->subitem . '\'>Watch</a></td></tr>';
 				}
 				else {
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'></td></tr>';

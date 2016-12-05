@@ -30,7 +30,7 @@ class Fac_score implements Product {
 			while($row_prob = $stmt_prob->fetch(\PDO::FETCH_ASSOC)) {
 				$colspan = $row_prob['number'] + 2;
 				$this->contentProduct .=<<<EOF
-<form method='POST' action='./ScoreTar.php'>
+<form method='POST' action='../fetchers/ScoreTar.php'>
 <input type='hidden' name='item' value='{$row_prob['item']}'>
 <table class='FAC_SCORE_TABLE'>
 <tr><th class='TITLE_TD' colspan='$colspan'><p class='FAC_SCORE_P'>{$row_prob['item']}</p><input type='submit' class='CLICKABLE' value='Download'></th></tr>

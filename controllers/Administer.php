@@ -37,7 +37,7 @@ class Administer extends Handler {
 				new viewer('WrongPerson');
 			}
 		}
-		else if ($this->successor !== NULL) {
+		else if ($this->successor !== null) {
 			$this->successor->handleRequest($request);
 		}
 	}

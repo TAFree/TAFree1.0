@@ -20,7 +20,7 @@ class Faculty extends Handler {
 			$trigger = new DBOperator();
 			$trigger->queryFaculty();
 		}
-		else if ($this->successor !== NULL) {
+		else if ($this->successor !== null) {
 			$this->successor->handleRequest($request);
 		}
 	}

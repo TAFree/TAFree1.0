@@ -1,4 +1,10 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class ProblemColoring implements IStrategy {
 	
@@ -22,7 +28,7 @@ class ProblemColoring implements IStrategy {
 
 			$this->hookup = null;
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 	

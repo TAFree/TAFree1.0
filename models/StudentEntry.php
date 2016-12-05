@@ -1,4 +1,10 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class StudentEntry implements IStrategy {
 	
@@ -23,7 +29,7 @@ class StudentEntry implements IStrategy {
 
 			$this->hookup = null;
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 		
@@ -33,7 +39,7 @@ class StudentEntry implements IStrategy {
 		// closeup
 		$stmt = $this->hookup->prepare('UPDATE closeup SET ' . $this->account . '=:closeup WHERE item=\'' . $this->item . '\'');
 		if ($this->closeup === 'null') {
-			$this->closeup = NULL;
+			$this->closeup = null;
 		}
 		$stmt->execute(array(':closeup' => $this->closeup));	
 	}

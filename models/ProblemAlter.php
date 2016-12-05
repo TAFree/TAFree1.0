@@ -1,4 +1,12 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\utils\Viewer;
+use TAFree\utils\DBOperator;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class ProblemAlter implements IStrategy {
 	
@@ -7,7 +15,6 @@ class ProblemAlter implements IStrategy {
 	private $subitem;
 	private $classnames = array();
 	private $modified_sources = array();
-	private $verify;
 
 	private $hookup;
 	
@@ -33,12 +40,12 @@ class ProblemAlter implements IStrategy {
 		
 			}
 				
-			// Successful handout message without requirement of verifying judge script 
+			// Successful handout message 
 			new Viewer('Msg', $this->item . '_' . $this->subitem . ' already handout !' . '<br>' . 'Make sure this is final version or not to give students writing permission.');
 				
 			$this->hookup = null;
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 	
@@ -54,7 +61,7 @@ class ProblemAlter implements IStrategy {
 	public function areAllFinished () {
 		$stmt_num = $this->hookup->prepare('SELECT number FROM problem WHERE item=\'' . $this->item . '\'');
 		$stmt_num->execute();
-		$this->item_num = $stmt_num->fetch(PDO::FETCH_ASSOC)['number'];
+		$this->item_num = $stmt_num->fetch(\PDO::FETCH_ASSOC)['number'];
 			
 		for ($i = 1; $i <= $this->item_num; $i += 1) {
 			$stmt_subitem = $this->hookup->prepare('SELECT modified_source FROM ' . $this->item . '_' . $i);

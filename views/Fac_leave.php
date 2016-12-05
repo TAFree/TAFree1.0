@@ -22,7 +22,7 @@ class Fac_leave implements Product {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		$this->contentProduct .=<<<EOF
-<form method='POST' action='./Ratify.php'>
+<form method='POST' action='../controllers/Ratify.php'>
 <table id='FAC_LEAVE_TABLE'>
 <tr>
 <td colspan='8'>

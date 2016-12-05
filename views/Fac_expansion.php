@@ -25,7 +25,7 @@ class Fac_expansion implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<form method='POST' action='./Expand.php' enctype='multipart/form-data'>
+<form method='POST' action='../controllers/Expand.php' enctype='multipart/form-data'>
 <div id='FAC_EXPANSION_DIV'>
 <input type='submit' value='Expand >>'>
 </div>
@@ -34,23 +34,20 @@ class Fac_expansion implements Product {
 <th colspan='2' class='TITLE_TD'><input type='checkbox' name='service[]' value='plugin'>Plug In</th>
 </tr>
 <tr>
-<td class='CONTENT_TD'>Explanation</td>
+<td class='CONTENT_TD'>General Judge Script</td>
 <td class='CONTENT_TD'>
-<pre>
-TAFree accepts an executable command in bash,
-For example, python3 hello.py
-File Extension: py
-Executing Command: python3
-</pre>
+<input type='file' name='add_judge'>
 </td>
 </tr>
 <tr>
-<td class='CONTENT_TD'>File Extension</td>
-<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='ext'></td>
-</tr>
-<tr>
-<td class='CONTENT_TD'>Executing Command</td>
-<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='cmd'></td>
+<td class='CONTENT_TD'>
+<pre>python3 Hello.py</pre>
+</td>
+<td class='CONTENT_TD'>
+<pre>
+<input type='text' class='EXPAND_INPUT' name='cmd'> Hello.<input type='text' class='EXPAND_INPUT' name='ext'>
+</pre>
+</td>
 </tr>
 <tr>
 <th colspan='2' class='TITLE_TD'><input type='checkbox' name='service[]' value='plugout'>Plug Out</th>
@@ -58,11 +55,11 @@ Executing Command: python3
 <tr>
 <td class='CONTENT_TD'>Judge Script</td>
 <td class='CONTENT_TD'>
-<select id='JUDGE_SELECT' name='judge'>
+<select id='JUDGE_SELECT' name='del_judge'>
 <option value='no'>No</option>
 EOF;
 		
-		$generalJudges = glob('judge/*');
+		$generalJudges = glob('../judge/*');
 		foreach ($generalJudges as $file) {
 			$file = (string)$file;
 			$filename = substr($file, strripos($file, '/') + 1);
@@ -89,7 +86,7 @@ EOF;
 			$this->contentProduct .= '<tr><td class=\'CONTENT_TD\' rowspan=\'' . count($this->exts) . '\'>Language Support</td>';
 			
 			for ($i = 0; $i < count($this->exts); $i += 1) {
-				$this->contentProduct .= '<td class=\'CONTENT_TD\'><input type=\'checkbox\' name=\'support[]\' value=\'' . $this->exts[$i] . '\'>' . $this->cmds[$i]. ' Hello.' . $this->exts[$i] . '</td></tr>';
+				$this->contentProduct .= '<td class=\'CONTENT_TD\'><pre><input type=\'checkbox\' name=\'support[]\' value=\'' . $this->exts[$i] . '\'>' . $this->cmds[$i]. ' Hello.' . $this->exts[$i] . '</pre></td></tr>';
 			}
 	
 			$this->hookup = null;

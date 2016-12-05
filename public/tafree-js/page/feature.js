@@ -322,7 +322,7 @@ TAFree.page.Feature = {
 			}
 		}
 	    };	
-	    xhr.open('POST', 'Setup.php', true);
+	    xhr.open('POST', '../controllers/Setup.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('showup=' + showup + '&backup=' + backup + '&item=' + item);
 	},
@@ -358,7 +358,7 @@ TAFree.page.Feature = {
 		    // Show checked image in page when server response is ready
 		    td.children[1].src = '../public/tafree-svg/right.svg';   
 		}
-		xhr.open('POST', 'Present.php', true);
+		xhr.open('POST', '../controllers/Present.php', true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	        xhr.send('closeup=' + closeup + '&account=' + account + '&item=' + item);  
             }	
@@ -448,7 +448,7 @@ TAFree.page.Feature = {
 	    
 	    // Change item status into red on server side
 	    xhr = new XMLHttpRequest();
-	    xhr.open('POST', 'ProblemStatus.php', true);
+	    xhr.open('POST', '../controllers/ProblemStatus.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('item=' + item + '&item_status=' + item_status);
 	    confirm(item + ' status has become in used. You should finish all assigning work or other one could not reassign whole ' + item + '.');
@@ -460,10 +460,10 @@ TAFree.page.Feature = {
 		if (this.readyState === 4 && this.status === 200) {
 			var key;
 			key = this.responseText;
-			window.location = './Fac_assign.php?key_to_assign='+ key + '&item=' + item + '&subitem=' + subitem;
+			window.location = '../views/Fac_assign.php?key_to_assign='+ key + '&item=' + item + '&subitem=' + subitem;
 		}
 	    };
-	    xhr.open('POST', './AssignControl.php', true);
+	    xhr.open('POST', '../controllers/AssignControl.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('item=' + item);
 	},

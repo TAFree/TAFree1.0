@@ -38,7 +38,7 @@ EOF;
 			if (!empty($row['description'])) {
 			
 				$this->contentProduct .=<<<EOF
-<a class='CLICKABLE' href='./problem/description/{$this->item}/{$this->subitem}/{$row['description']}' download='{$row['description']}'>Description</a>
+<a class='CLICKABLE' href='../problem/description/{$this->item}/{$this->subitem}/{$row['description']}' download='{$row['description']}'>Description</a>
 EOF;
 			}
 		

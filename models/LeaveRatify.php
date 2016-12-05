@@ -1,6 +1,12 @@
 <?php
+namespace TAFree\models;
 
-include_once('Util.php');
+use TAFree\classes\IStrategy;
+use TAFree\database\UniversalConnect;
+use TAFree\utils\Util;
+use TAFree\utils\Viewer;
+
+require_once('../composers/Autoloader.php');
 
 class LeaveRatify implements IStrategy {
 	
@@ -53,7 +59,7 @@ class LeaveRatify implements IStrategy {
 
 				$this->hookup = null;
 			}
-			catch (PDOException $e) {
+			catch (\PDOException $e) {
 				echo 'Error: ' . $e->getMessage() . '<br>';
 			}
 			

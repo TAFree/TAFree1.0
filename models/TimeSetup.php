@@ -1,4 +1,10 @@
 <?php
+namespace TAFree\models;
+
+use TAFree\classes\IStrategy;
+use TAFree\database\UniversalConnect;
+
+require_once('../composers/Autoloader.php');
 
 class TimeSetup implements IStrategy {
 	
@@ -23,7 +29,7 @@ class TimeSetup implements IStrategy {
 
 			$this->hookup = null;
 		}
-		catch (PDOException $e) {
+		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 		
@@ -36,7 +42,7 @@ class TimeSetup implements IStrategy {
 		$stmt->execute();
 
 		// Arrange score back task	
-		$command = 'php ./ScoreBackup.php ' . $this->item;
+		$command = 'php ../mailer/ScoreBackup.php ' . $this->item;
 		$backup_time = preg_split('/[\s:-]+/', $this->backup);
 		$year = $backup_time[0];
 		$mon = $backup_time[1];

@@ -72,7 +72,7 @@ EOF;
 					$stmt_closeup->execute();
 					$row_time = $stmt_closeup->fetch(\PDO::FETCH_ASSOC);
 					$this->contentProduct .= '<td>' . $row_time[$row_stu['student_account']] . '</td>';
-					if ($row_time[$row_stu['student_account']] === NULL) {
+					if ($row_time[$row_stu['student_account']] === null) {
 						$this->contentProduct .= '<td><input type=\'checkbox\' class=\'HERE_CHECKBOX\'><img src=\'../public/tafree-svg/unknown.svg\' height=\'15\' width=\'15\'></td>';
 					}else{
 						$this->contentProduct .= '<td><input type=\'checkbox\' class=\'HERE_CHECKBOX\' checked=\'true\'><img src=\'../public/tafree-svg/right.svg\' height=\'15\' width=\'15\'></td>';
