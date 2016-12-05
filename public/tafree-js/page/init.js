@@ -332,16 +332,16 @@ TAFree.page.Init = {
 	for (i = 0; i < imgs.length; i += 1) {
 		switch(imgs[i].title) {
 		case 'Uninitialized':
-			imgs[i].src = './tafree-svg/status_yellow.svg';
+			imgs[i].src = '../public/tafree-svg/status_yellow.svg';
 		break;
 		case 'In used':
-			imgs[i].src = './tafree-svg/status_red.svg';
+			imgs[i].src = '../public/tafree-svg/status_red.svg';
 		break;
 		case 'Available':
-			imgs[i].src = './tafree-svg/status_green.svg';
+			imgs[i].src = '../public/tafree-svg/status_green.svg';
 		break;
 		default:
-			imgs[i].src = './tafree-svg/wrong.svg';
+			imgs[i].src = '../public/tafree-svg/wrong.svg';
 		}
 	}
     },
@@ -458,11 +458,11 @@ TAFree.page.Init = {
 			stu = ele.parentNode.children[1].children[1];
 			sol = ele.parentNode.children[1].children[0];
 			if (ele.src.includes('attention')) {
-				ele.src = './tafree-svg/undo.svg';
+				ele.src = '../public/tafree-svg/undo.svg';
 				sol.style.display = 'block';
 			}
 			else{
-				ele.src = './tafree-svg/attention.svg';
+				ele.src = '../public/tafree-svg/attention.svg';
 				sol.style.display = 'none';
 
 			}

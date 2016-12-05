@@ -30,7 +30,7 @@ class Stu_chooser implements Product {
 			$stmt = $this->hookup->prepare('SELECT item, number FROM problem');	
 			$stmt->execute();
 			while ($row_item = $stmt->fetch(PDO::FETCH_ASSOC)) {
-				$this->contentProduct .= '<tr><td><img class=\'PRE_IMG\' height=\'30\' width=\'30\' src=\'./tafree-svg/previous.svg\'><svg id=\'' . $row_item['item'] . '\' class=\'POLYGON_SVG\'></svg><input class=\'NUMBER_SUBITEM_HIDDEN\' type=\'hidden\' value=\'' . $row_item['number'] . '\'><img class=\'NEXT_IMG\' height=\'30\' width=\'30\' src=\'./tafree-svg/next.svg\'></td></tr>';	
+				$this->contentProduct .= '<tr><td><img class=\'PRE_IMG\' height=\'30\' width=\'30\' src=\'../public/tafree-svg/previous.svg\'><svg id=\'' . $row_item['item'] . '\' class=\'POLYGON_SVG\'></svg><input class=\'NUMBER_SUBITEM_HIDDEN\' type=\'hidden\' value=\'' . $row_item['number'] . '\'><img class=\'NEXT_IMG\' height=\'30\' width=\'30\' src=\'../public/tafree-svg/next.svg\'></td></tr>';	
 			}
 		}
 		catch (PDOException $e) {

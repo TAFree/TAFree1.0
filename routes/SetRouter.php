@@ -57,19 +57,19 @@ $router->match('GET', 'MessagePush.php', function () {
 	new Viewer('Sneaker');
 });
 
-$router->match('POST', '/Index.php', function() {
-	new Index();
+$router->match('POST', 'Index.php', function() {
+	new controllers\Index();
 });
 
-$router->match('GET', '/Index.php', function() {
+$router->match('GET', 'Index.php', function() {
 	new Viewer('Sneaker');
 });
 
-$router->match('POST', '/Initial.php', function() {
-	new Initial();
+$router->match('POST', 'Initial.php', function() {
+	new controllers\Initial();
 });
 
-$router->match('GET', '/Initial.php', function() {
+$router->match('GET', 'Initial.php', function() {
 	new Viewer('Sneaker');
 });
 

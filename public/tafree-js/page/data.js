@@ -60,9 +60,9 @@ TAFree.page.Data = (function () {
 
 	    zoom = {
 	    	
-            	in: './tafree-svg/zoom-in.svg',
+            	in: '../public/tafree-svg/zoom-in.svg',
             
-	    	'out': './tafree-svg/zoom-out.svg'
+	    	'out': '../public/tafree-svg/zoom-out.svg'
 	    },
 
 	    getZoom = function(arg) {

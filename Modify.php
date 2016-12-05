@@ -56,12 +56,12 @@ EOF;
 </div>
 <div class='MODIFY_BAR_DIV'>
 <table class='MODIFY_TABLE'>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/line.svg' title='Cut out line'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/block.svg' title='Cut out block'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/all.svg' title='Cut out all'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/rubber.svg' title='Remove line'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/undo.svg' title='Restore'></td></tr>
-<tr><td><img class='MODIFY_BUTTON_IMG' src='tafree-svg/lock.svg' title='Lock all'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/line.svg' title='Cut out line'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/block.svg' title='Cut out block'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/all.svg' title='Cut out all'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/rubber.svg' title='Remove line'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/undo.svg' title='Restore'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/lock.svg' title='Lock all'></td></tr>
 </table>
 </div>
 </div>

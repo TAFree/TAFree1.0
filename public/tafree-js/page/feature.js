@@ -317,7 +317,7 @@ TAFree.page.Feature = {
 				if (closeup_td.innerHTML === '') {
 					closeup_td.innerHTML = closeup;
 					present_checkbox.checked = false;
-					present_img.src='./tafree-svg/unknown.svg';
+					present_img.src='../public/tafree-svg/unknown.svg';
 				}
 			}
 		}
@@ -356,7 +356,7 @@ TAFree.page.Feature = {
 		xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 		    // Show checked image in page when server response is ready
-		    td.children[1].src = './tafree-svg/right.svg';   
+		    td.children[1].src = '../public/tafree-svg/right.svg';   
 		}
 		xhr.open('POST', 'Present.php', true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -370,7 +370,7 @@ TAFree.page.Feature = {
 		xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 		    // Show checked image in page when server response is ready
-		    td.children[1].src = './tafree-svg/unknown.svg';   
+		    td.children[1].src = '../public/tafree-svg/unknown.svg';   
 		}
 		xhr.open('POST', 'Present.php', true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -421,7 +421,7 @@ TAFree.page.Feature = {
 		break;
 	    case 'lock.svg':
 		code.style.cursor='auto';
-		code.innerHTML = '<div class=\'MODIFY_LOCK_DIV\'><img height=\'50\' width=\'50\' src=\'tafree-svg/lock.svg\'>We already prepared for you.</div>';
+		code.innerHTML = '<div class=\'MODIFY_LOCK_DIV\'><img height=\'50\' width=\'50\' src=\'../public/tafree-svg/lock.svg\'>We already prepared for you.</div>';
 		addon.pattern = null;
 	    	break;
 	    case 'all.svg':

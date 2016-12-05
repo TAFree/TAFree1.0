@@ -17,7 +17,7 @@ class Login implements Product{
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<form method='POST' action='./Index.php'>
+<form method='POST' action='../controllers/Index.php'>
 <table id='LOGIN_TABLE'>
 <tr>
 <td>Account</td>
