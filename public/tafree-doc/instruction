@@ -132,16 +132,7 @@ export APACHE_RUN_GROUP=[tafree代理人帳號]
 source /etc/apache2/envvars
 </code></pre>
 <br>
-<h4>2. 客製化網站首頁順位</h4>
-<pre class='bash'><code>
-sudo vi /etc/apache2/mods-available/dir.conf
-</code></pre>
-<p>將Login.php放在第一順位</p>
-<pre class='apache'><code>
-DirectoryIndex views/Login.php index.html ...
-</code></pre>
-<br>
-<h4>3. 客製化網站目錄</h4>
+<h4>2. 客製化網站目錄</h4>
 <pre class='bash'><code>
 cd /etc/apache2/sites-available
 sudo mv 000-default.conf 001-default.conf
@@ -161,9 +152,16 @@ sudo a2ensite 000-tafree.conf
 <pre class='bash'><code>
 sudo vi /etc/apache2/apache2.conf
 </code></pre>
-<p>找到Directory標籤，把/var/www/html/換成/home/tafree/TAFree1.0/就可以了。</p>
+<pre class='apache'><code>
+// Add this snippet
+&lt;Directory /home/tafree/TAFree1.0/&gt;
+	Options FollowSymLinks
+	AllowOverride None
+	Require all granted
+&lt;/Directory&gt;
+</code></pre>
 <br>
-<h4>4. 重啟Apache2</h4>
+<h4>3. 重啟Apache2</h4>
 <pre class='bash'><code>
 sudo /etc/init.d/apache2 restart
 </code></pre>
