@@ -33,13 +33,15 @@ class FacultyQuery implements IStrategy {
 				SessionManager::setParameter('guest', 'faculty'); 
 				SessionManager::setParameter('nickname', $row['faculty_name']);
 				SessionManager::setParameter('account', $row['faculty_account']);
-				new Viewer('Fac_index');
+				new Viewer('Fac_problems');
+				$this->hookup = null;
+				exit();
 			}
 			else{
 				new Viewer('WrongPerson');
+				$this->hookup = null;
+				exit();
 			}	
-
-			$this->hookup = null;
 
 		}
 		catch (\PDOException $e) {

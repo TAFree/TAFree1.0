@@ -11,7 +11,6 @@ use TAFree\controllers\Administer;
 use TAFree\utils\Request;
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
 class Index {
 	
@@ -35,6 +34,6 @@ class Index {
 	
 }
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>

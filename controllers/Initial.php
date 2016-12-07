@@ -7,7 +7,6 @@ ERROR_REPORTING(E_ALL);
 use TAFree\utils\DBOperator;
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
 class Initial {
 	
@@ -19,6 +18,6 @@ class Initial {
 
 }	
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>

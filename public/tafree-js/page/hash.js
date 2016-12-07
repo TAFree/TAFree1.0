@@ -10,7 +10,7 @@ TAFree.page.Hash = (function () {
 	    
 	    content = { 
             
-            	'fac_chooser': function () {
+            	'fac_problems': function () {
 			init.polygon('fac');
 			init.jumpThree();
 			init.colorItem();

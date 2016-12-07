@@ -11,7 +11,7 @@ header {
 }
 
 nav {
-	background-color: #FFF6E5;
+	background-color: #000000;
 }
 
 #HEADER_DIV {
@@ -41,11 +41,35 @@ footer {
 
 .NAV_A {
 	text-decoration: none;
-	color: #000000;
+	border: 1px solid #FFF6E5;
+	border-radius: 5%;
+	text-align: center;
+	color: #FFF6E5;
+	font-size: 2.3vh;
+	display: inline;
+	border-bottom: none;
+	margin-right: 2vw;
+	font-weight: 600;
 } 
 
 .NAV_A:hover {
+	background-color: #FFF6E5;
 	color: #3F464C;
+}
+
+.NAV_IMG {
+	height: 2.3vh;
+	display: inline;
+	margin-left: 1vw;
+	margin-right: 0;
+}
+
+.NICKNAME_P {
+	color: #3196C4;
+	display: inline;
+	font-size: 2.7vh;
+	margin-right: 2vw;
+	font-weight: 700;
 }
 
 p {

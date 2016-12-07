@@ -1,6 +1,7 @@
 <?php
 use TAFree\routes\Router;
 use TAFree\routes\Janitor;
+use TAFree\routes\SessionManager;
 use TAFree\utils\Viewer;
 use TAFree\controllers as controllers;
 use TAFree\fetchers as fetchers;
@@ -11,22 +12,12 @@ ERROR_REPORTING(E_ALL);
 $router = new Router();
 
 $router->match('GET', '/', function () {
-	session_start();
-	if (isset($_SESSION)) {
-		session_unset();
-		session_destroy();
-		session_start();
-	}
+	SessionManager::init();
 	new Viewer('Login');
 });
 
 $router->match('GET', 'Login.php', function () {
-	session_start();
-	if (isset($_SESSION)) {
-		session_unset();
-		session_destroy();
-		session_start();
-	}
+	SessionManager::init();
 	new Viewer('Login');
 });
 
@@ -134,10 +125,10 @@ $router->match('GET', 'Alter.php', function() {
 	new Viewer('Sneaker');
 });
 
-$router->match('GET', 'Fac_chooser.php', function() {
-	session_start();
-	if (isset($_SESSION['faculty'])) {
-		new Viewer('Fac_chooser');
+$router->match('GET', 'Fac_problems.php', function() {
+	echo SessionManager::getParameter('guest');exit();
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		new Viewer('Fac_problems');
 	} else {
 		new Viewer('Sneaker');
 	}
@@ -426,5 +417,7 @@ $router->match('GET', 'Handin.php', function() {
 	new Viewer('Sneaker');
 
 });
+
+$router->run();
 
 ?>

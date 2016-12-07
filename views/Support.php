@@ -5,8 +5,10 @@ use TAFree\classes\Product;
 use TAFree\helpers\FormatHelper;
 use TAFree\fetchers\ExampleFetch;
 
+ini_set('display_errors', '1');
+ERROR_REPORTING(E_ALL);
+
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
 class Support implements Product{
 	
@@ -33,7 +35,7 @@ class Support implements Product{
 
 }
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>
 

@@ -7,21 +7,15 @@ ERROR_REPORTING(E_ALL);
 require_once('../composers/Autoloader.php');
 
 class SessionManager {
-	
-	private static $sessions;
 
-	const INIT = 'init';
-	const UNINIT = 'uninit';
-
-	private static $session_state;
 
 	public static function init() {
 
 		if (self::existSession()) {
 			self::destroyAll();
 		}
-
-		session_start();
+		
+		self::start();
 
 		$_SESSION['guest'] = null;
 		$_SESSION['nickname'] = null;
@@ -29,44 +23,50 @@ class SessionManager {
 		$_SESSION['item'] = null;
 		$_SESSION['subitem'] = null;
 
-		self::$sessions = $_SESSION;
-
-		self::$session_state = self::INIT;
-
-	}
-
-	public static function existSession() {
-		return isset($_SESSION);
 	}
 
 	public static function setParameter($key, $value) {
+		if (!self::existSession()) {
+			self::start();
+		}
 		if (!self::hasParameter($key)) {
 			return false;
 		}	
-		self::$sessions[$key] = $value;
+		$_SESSION[$key] = $value;
 	}
 	
 	public static function getParameter($key) {
+		if (!self::existSession()) {
+			self::start();
+		}
 		if (self::hasParameter($key)) {
-			return self::$sessions[$key];
+			return $_SESSION[$key];
 		}
 		return false;
 	}
 	
-	public static function hasParameter($key) {
-		if (self::$session_state === self::INIT && array_key_exists($key, self::$sessions)) {
+	private static function existSession() {
+		return isset($_SESSION);
+	}
+	
+	private static function hasParameter($key) {
+		if (isset($_SESSION[$key])) {
 			return true;
 		}
 		return false;
 	}		
 
-	public static function destroyAll() {
+	private static function destroyAll() {
 	
 		session_unset();
 		session_destroy();
-		
-		self::$session_state = self::UNINIT;
 	
+	}
+
+	private static function start() {
+		if (session_status() === \PHP_SESSION_NONE) {
+			session_start();
+		}
 	}
 
 }

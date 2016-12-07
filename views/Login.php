@@ -4,8 +4,10 @@ namespace TAFree\views;
 use TAFree\classes\Product;
 use TAFree\helpers\FormatHelper;
 
+ini_set('display_errors', '1');
+ERROR_REPORTING(E_ALL);
+
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
 class Login implements Product{	
 
@@ -55,7 +57,7 @@ EOF;
 
 }
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>
 

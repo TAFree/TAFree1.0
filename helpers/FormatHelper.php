@@ -52,8 +52,8 @@ EOF;
 	if (!is_null($this->guest)) {
 		switch ($this->guest) {
 		case 'student':
-			$this->topper .= '<img src=\'../public/tafree-svg/greet.svg\' class=\'GREET_IMG\'>' . $this->nickname . ' ';
-			$this->topper .= '<a href=\'../views/Stu_problem.php\' class=\'NAV_A\'>Problem</a>';
+			$this->topper .= '<img title=\'Hi!\' src=\'../public/tafree-svg/greet.svg\' class=\'NAV_IMG\'><p class=\'NICKNAME_P\'>' . $this->nickname . '</p>';
+			$this->topper .= '<a href=\'../views/Stu_problems.php\' class=\'NAV_A\'>Problems</a>';
 			$this->topper .= '<a href=\'../views/Stu_record.php\' class=\'NAV_A\'>Record</a>';
 			$this->topper .= '<a href=\'../views/Stu_mail.php\' class=\'NAV_A\'>Mail</a>';
 			$this->topper .= '<a href=\'../views/Stu_score.php\' class=\'NAV_A\'>Score</a>';
@@ -63,8 +63,8 @@ EOF;
 			}	
 			break;
 		case 'faculty':
-			$this->topper .= '<img src=\'../public/tafree-svg/greet.svg\' class=\'GREET_IMG\'>' . $this->nickname . ' ';
-			$this->topper .= '<a href=\'../views/Fac_problem.php\' class=\'NAV_A\'>Problem</a>';
+			$this->topper .= '<img title=\'Hi!\' src=\'../public/tafree-svg/greet.svg\' class=\'NAV_IMG\'><p class=\'NICKNAME_P\'>' . $this->nickname . '</p>';
+			$this->topper .= '<a href=\'../views/Fac_problems.php\' class=\'NAV_A\'>Problems</a>';
 			$this->topper .= '<a href=\'../views/Fac_score.php\' class=\'NAV_A\'>Score</a>';
 			$this->topper .= '<a href=\'../views/Fac_mail.php\' class=\'NAV_A\'>Mail</a>';
 			$this->topper .= '<a href=\'../views/Fac_student.php\' class=\'NAV_A\'>Student</a>';
