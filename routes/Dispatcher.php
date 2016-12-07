@@ -126,7 +126,6 @@ $router->match('GET', 'Alter.php', function() {
 });
 
 $router->match('GET', 'Fac_problems.php', function() {
-	echo SessionManager::getParameter('guest');exit();
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		new Viewer('Fac_problems');
 	} else {
@@ -271,8 +270,7 @@ $router->match('GET', 'Handout.php', function() {
 });
 
 $router->match('GET', 'Fac_score.php', function() {
-	session_start();
-	if (isset($_SESSION['faculty'])) {
+	if (SessionManager::getParameter('guest') === 'faculty') {
 		new Viewer('Fac_score');
 	} else {
 		new Viewer('Sneaker');
@@ -284,7 +282,11 @@ $router->match('GET', 'ScoreTar.php', function() {
 });
 
 $router->match('POST', 'ScoreTar.php', function() {
-	new fetchers\ScoreTar();
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		new fetchers\ScoreTar();
+	} else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('GET', 'Stu_score.php', function() {

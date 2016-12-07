@@ -17,11 +17,11 @@ class SessionManager {
 		
 		self::start();
 
-		$_SESSION['guest'] = null;
-		$_SESSION['nickname'] = null;
-		$_SESSION['account'] = null;
-		$_SESSION['item'] = null;
-		$_SESSION['subitem'] = null;
+		$_SESSION['guest'] = '';
+		$_SESSION['nickname'] = '';
+		$_SESSION['account'] = '';
+		$_SESSION['item'] = '';
+		$_SESSION['subitem'] = '';
 
 	}
 

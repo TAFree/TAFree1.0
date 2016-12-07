@@ -49,7 +49,7 @@ class FormatHelper {
 <nav>
 EOF;
 
-	if (!is_null($this->guest)) {
+	if (!empty($this->guest) && $this->guest !== false) {
 		switch ($this->guest) {
 		case 'student':
 			$this->topper .= '<img title=\'Hi!\' src=\'../public/tafree-svg/greet.svg\' class=\'NAV_IMG\'><p class=\'NICKNAME_P\'>' . $this->nickname . '</p>';
@@ -58,7 +58,7 @@ EOF;
 			$this->topper .= '<a href=\'../views/Stu_mail.php\' class=\'NAV_A\'>Mail</a>';
 			$this->topper .= '<a href=\'../views/Stu_score.php\' class=\'NAV_A\'>Score</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
-			if (!is_null($this->item)) {
+			if (!empty($this->item)) {
 					$this->topper .= '<a href=\'../views/Stu_prob.php\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
 			}	
 			break;
@@ -70,7 +70,7 @@ EOF;
 			$this->topper .= '<a href=\'../views/Fac_student.php\' class=\'NAV_A\'>Student</a>';
 			$this->topper .= '<a href=\'../views/Fac_expansion.php\' class=\'NAV_A\'>Expansion</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
-			if (!is_null($this->item)) {
+			if (!empty($this->item)) {
 					$this->topper .= '<a href=\'../views/Fac_prob.php\' id=\'FAC_PROBLEM_A\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
 					$this->topper .= '<a href=\'../views/Fac_coders.php\' class=\'NAV_A\'>Coders</a>';
 					$this->topper .= '<a href=\'../views/Fac_display.php\' class=\'NAV_A\'>Display</a>';
