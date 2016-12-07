@@ -6,9 +6,7 @@ TAFree.page.Data = (function () {
 	// Dependencies
 	var dom = TAFree.util.Dom,
 		
-	    frame = { 
-	    	
-	    	title: 'TAFree Online Judge',            
+	    frame = {         
 
 	    	logo: '../public/tafree-svg/logo.svg',
 

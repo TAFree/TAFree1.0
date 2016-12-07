@@ -1,23 +1,39 @@
 <?php
 namespace TAFree\helpers;
 
+use TAFree\routes\SessionManager;
+
+ini_set('display_errors', '1');
+ERROR_REPORTING(E_ALL);
+
+require_once('../composers/Autoloader.php');
+
 class FormatHelper {
 
 	private $page_identifier;
 	private $topper;
 	private $bottom;
-	
+	private $guest;
+	private $nickname;
+	private $account;
+	private $item;
+	private $subitem;
 	
 	public function __construct($identifier) {
 		$id = strtolower($identifier);
 		$this->page_identifier = substr($id, strrpos($id, '\\') + 1);
+		$this->guest = SessionManager::getParameter('guest');
+		$this->nickname = SessionManager::getParameter('nickname');
+		$this->account = SessionManager::getParameter('account');
+		$this->item = SessionManager::getParameter('item');
+		$this->subitem = SessionManager::getParameter('subitem');
 	}
 
 	public function addTop() {
 		$this->topper =<<<EOF
 <!DOCTYPE html>
 <html>
-<title>Title</title>
+<title>TAFree Online Judge</title>
 <meta charset='utf-8'>
 <head>
 <link type='text/css' rel='stylesheet' href='../public/tafree-css/theme.css'>		
@@ -30,7 +46,41 @@ class FormatHelper {
 <body>
 <div id='HEADER_DIV'>
 <header></header>
-<nav></nav>
+<nav>
+EOF;
+
+	if (!is_null($this->guest)) {
+		switch ($this->guest) {
+		case 'student':
+			$this->topper .= '<img src=\'../public/tafree-svg/greet.svg\' class=\'GREET_IMG\'>' . $this->nickname . ' ';
+			$this->topper .= '<a href=\'../views/Stu_problem.php\' class=\'NAV_A\'>Problem</a>';
+			$this->topper .= '<a href=\'../views/Stu_record.php\' class=\'NAV_A\'>Record</a>';
+			$this->topper .= '<a href=\'../views/Stu_mail.php\' class=\'NAV_A\'>Mail</a>';
+			$this->topper .= '<a href=\'../views/Stu_score.php\' class=\'NAV_A\'>Score</a>';
+			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
+			if (!is_null($this->item)) {
+					$this->topper .= '<a href=\'../views/Stu_prob.php\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
+			}	
+			break;
+		case 'faculty':
+			$this->topper .= '<img src=\'../public/tafree-svg/greet.svg\' class=\'GREET_IMG\'>' . $this->nickname . ' ';
+			$this->topper .= '<a href=\'../views/Fac_problem.php\' class=\'NAV_A\'>Problem</a>';
+			$this->topper .= '<a href=\'../views/Fac_score.php\' class=\'NAV_A\'>Score</a>';
+			$this->topper .= '<a href=\'../views/Fac_mail.php\' class=\'NAV_A\'>Mail</a>';
+			$this->topper .= '<a href=\'../views/Fac_student.php\' class=\'NAV_A\'>Student</a>';
+			$this->topper .= '<a href=\'../views/Fac_expansion.php\' class=\'NAV_A\'>Expansion</a>';
+			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
+			if (!is_null($this->item)) {
+					$this->topper .= '<a href=\'../views/Fac_prob.php\' id=\'FAC_PROBLEM_A\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
+					$this->topper .= '<a href=\'../views/Fac_coders.php\' class=\'NAV_A\'>Coders</a>';
+					$this->topper .= '<a href=\'../views/Fac_display.php\' class=\'NAV_A\'>Display</a>';
+			}
+			break;
+		}
+	}
+		
+		$this->topper .=<<<EOF
+</nav>
 </div>
 <content>
 EOF;

@@ -13,11 +13,7 @@ TAFree.page.Init = {
 	    link = document.createElement('a'),
 	    text = document.createElement('p'),
 	    frag = document.createDocumentFragment(),
-	    title, home, greeting, copyright, i, link_header, blk_home, blk_header;
-	
-	// Set title
-	title = dom.getTag('title');
-	title.innerHTML = data.getFrame('title');
+	    home, greeting, copyright, i, link_header, blk_home, blk_header;
 	
 	// Set logo and home link
 	logo.src = data.getFrame('logo');
