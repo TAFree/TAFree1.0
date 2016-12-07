@@ -28,9 +28,9 @@ TAFree.page.Data = (function () {
             	}
 	    },
 
-	    stu_leave = {
+	    stu_mail = {
 	    	
-            	ele: dom.getId('STU_LEAVE'),
+            	ele: dom.getId('STU_MAIL'),
 		
 	    	check: true
 
@@ -38,21 +38,21 @@ TAFree.page.Data = (function () {
 
 	    getStu_leave = function(arg) {
 	        if (stu_leave.hasOwnProperty(arg)) {
-                	return stu_leave[arg];
+                	return stu_mail[arg];
             	}
 	    },
 	    
-	    fac_leave = {
+	    fac_mail = {
 	    	
-            	ele: dom.getId('FAC_LEAVE'),
+            	ele: dom.getId('FAC_MAIL'),
 		
 	    	check: true
 
 	    },
 
-	    getFac_leave = function(arg) {
-	        if (fac_leave.hasOwnProperty(arg)) {
-                    	return fac_leave[arg];
+	    getFac_mail = function(arg) {
+	        if (fac_mail.hasOwnProperty(arg)) {
+                    	return fac_mail[arg];
                 }
             },
 
@@ -104,9 +104,9 @@ TAFree.page.Data = (function () {
 
 		getFrame: getFrame,
 
-		getStu_leave: getStu_leave,
+		getStu_mail: getStu_mail,
 
-		getFac_leave: getFac_leave,
+		getFac_mail: getFac_mail,
         
 	        getZoom: getZoom,
 		

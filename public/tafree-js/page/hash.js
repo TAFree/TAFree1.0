@@ -18,7 +18,7 @@ TAFree.page.Hash = (function () {
 			init.here();
             	},
             	
-		'stu_chooser': function () {
+		'stu_problems': function () {
                 	init.polygon('stu');
 			init.jumpItem();
             	},
@@ -32,7 +32,7 @@ TAFree.page.Hash = (function () {
                 	init.manSepRow();
             	}, 
                 
-                'fac_add_del_stu': function () {
+                'fac_students': function () {
                   	init.deleteRow();
 			init.manRow();
 			
@@ -45,7 +45,7 @@ TAFree.page.Hash = (function () {
 			init.handout();
             	},	
 
-                'stu_prob': function () {
+                'stu_problem': function () {
                     	addon.codeLeft();
                     	init.enableZoom();
 			addon.clearModify();
@@ -61,7 +61,7 @@ TAFree.page.Hash = (function () {
                     	addon.codeLeft();
 		},
 
-		'fac_look': function () {
+		'fac_display': function () {
 			addon.codeLeft();
                     	init.enableZoom();
 			addon.clearModify();

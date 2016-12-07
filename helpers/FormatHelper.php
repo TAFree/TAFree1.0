@@ -59,7 +59,7 @@ EOF;
 			$this->topper .= '<a href=\'../views/Stu_score.php\' class=\'NAV_A\'>Score</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
 			if (!empty($this->item)) {
-					$this->topper .= '<a href=\'../views/Stu_prob.php\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
+					$this->topper .= '<a href=\'../views/Stu_problem.php\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
 			}	
 			break;
 		case 'faculty':
@@ -67,14 +67,18 @@ EOF;
 			$this->topper .= '<a href=\'../views/Fac_problems.php\' class=\'NAV_A\'>Problems</a>';
 			$this->topper .= '<a href=\'../views/Fac_score.php\' class=\'NAV_A\'>Score</a>';
 			$this->topper .= '<a href=\'../views/Fac_mail.php\' class=\'NAV_A\'>Mail</a>';
-			$this->topper .= '<a href=\'../views/Fac_student.php\' class=\'NAV_A\'>Student</a>';
+			$this->topper .= '<a href=\'../views/Fac_students.php\' class=\'NAV_A\'>Students</a>';
 			$this->topper .= '<a href=\'../views/Fac_expansion.php\' class=\'NAV_A\'>Expansion</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
 			if (!empty($this->item)) {
-					$this->topper .= '<a href=\'../views/Fac_prob.php\' id=\'FAC_PROBLEM_A\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
+					$this->topper .= '<a href=\'../views/Fac_problem.php\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
 					$this->topper .= '<a href=\'../views/Fac_coders.php\' class=\'NAV_A\'>Coders</a>';
 					$this->topper .= '<a href=\'../views/Fac_display.php\' class=\'NAV_A\'>Display</a>';
 			}
+			break;
+		case 'administer':
+			$this->topper .= '<img title=\'Hi!\' src=\'../public/tafree-svg/greet.svg\' class=\'NAV_IMG\'><p class=\'NICKNAME_P\'>' . $this->nickname . '</p>';
+			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
 			break;
 		}
 	}

@@ -9,9 +9,8 @@ ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
-class Fac_look implements Product {	
+class Fac_display implements Product {	
 	
 	private $formatHelper;
 	private $contentProduct;
@@ -38,6 +37,6 @@ class Fac_look implements Product {
 
 }
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>

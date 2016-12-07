@@ -6,9 +6,8 @@ use TAFree\helpers\FormatHelper;
 use TAFree\database\UniversalConnect;
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
-class Stu_leave implements Product {	
+class Stu_mail implements Product {	
 	
 	private $formatHelper;
 	private $contentProduct;
@@ -96,6 +95,6 @@ EOF;
 
 }
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>
