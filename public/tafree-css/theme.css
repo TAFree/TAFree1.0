@@ -64,6 +64,10 @@ footer {
 	margin-right: 0;
 }
 
+#FLAG_IMG {
+	display: none;
+}
+
 .NICKNAME_P {
 	color: #3196C4;
 	display: inline;

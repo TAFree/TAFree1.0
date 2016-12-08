@@ -11,7 +11,9 @@ TAFree.util.Init = {
             handler = function (e) {
                 // Initialize frame
                 init.frame();
-                // Initialize content
+		// Query mail all the time
+		init.queryMail();
+		// Initialize content
                 if (typeof hash.getContent(identifier) === 'function') {
 			hash.getContent(identifier)();
 		}

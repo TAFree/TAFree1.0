@@ -5,6 +5,7 @@ use TAFree\classes\IStrategy;
 use TAFree\utils\Viewer;
 use TAFree\utils\DBOperator;
 use TAFree\database\UniversalConnect;
+use TAFree\models\ProblemChecker;
 
 require_once('../composers/Autoloader.php');
 
@@ -33,11 +34,12 @@ class ProblemAlter implements IStrategy {
 			$this->updateSubitem();
 		
 			// Check other subitem tables for changing problem status into 'Available'
-			if ($this->areAllFinished()) {
-			
+			$checker = new ProblemChecker();
+			$obj = array();
+			$obj['item'] = $this->item;
+			if ($checker->result($obj)) {
 				$trigger = new DBOperator();
 				$trigger->colorProblem($this->item, 'Available');
-		
 			}
 				
 			// Successful handout message 
@@ -58,20 +60,6 @@ class ProblemAlter implements IStrategy {
 		}
 	}
 
-	public function areAllFinished () {
-		$stmt_num = $this->hookup->prepare('SELECT number FROM problem WHERE item=\'' . $this->item . '\'');
-		$stmt_num->execute();
-		$this->item_num = $stmt_num->fetch(\PDO::FETCH_ASSOC)['number'];
-			
-		for ($i = 1; $i <= $this->item_num; $i += 1) {
-			$stmt_subitem = $this->hookup->prepare('SELECT modified_source FROM ' . $this->item . '_' . $i);
-			$stmt_subitem->execute();
-			if ($stmt_subitem->rowCount() === 0) {
-				return false;
-			}
-		}
-		return true;
-	}
 }
 
 ?>

@@ -520,6 +520,31 @@ TAFree.page.Feature = {
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('subject=' + subject + '&message=' + message);
 
+	},
+
+	fetchMail: function () {
+        
+	var xhr;
+
+	    // Fetch mail on server side
+	    xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+		//  Show flag if there is an unchecked mail
+		if (this.readyState === 4 && this.status === 200) {
+			var dom = TAFree.util.Dom,
+			    flag;
+		
+			    flag = dom.getId('FLAG_IMG');
+			    if (this.response >= 1) {
+			    	flag.style.display = 'inline';
+			    }
+		}
+	    };
+
+	    xhr.open('POST', '../controllers/MailUpdater.php', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.send();
+
 	}
 
 };

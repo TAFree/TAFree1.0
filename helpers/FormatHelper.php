@@ -55,7 +55,7 @@ EOF;
 			$this->topper .= '<img title=\'Hi!\' src=\'../public/tafree-svg/greet.svg\' class=\'NAV_IMG\'><p class=\'NICKNAME_P\'>' . $this->nickname . '</p>';
 			$this->topper .= '<a href=\'../views/Stu_problems.php\' class=\'NAV_A\'>Problems</a>';
 			$this->topper .= '<a href=\'../views/Stu_record.php\' class=\'NAV_A\'>Record</a>';
-			$this->topper .= '<a href=\'../views/Stu_mail.php\' class=\'NAV_A\'>Mail</a>';
+			$this->topper .= '<a href=\'../views/Stu_mail.php\' id=\'MAIL_A\' class=\'NAV_A\'>Mail<img class=\'NAV_IMG\' id=\'FLAG_IMG\' src=\'../public/tafree-svg/flag.svg\'></a>';
 			$this->topper .= '<a href=\'../views/Stu_score.php\' class=\'NAV_A\'>Score</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
 			if (!empty($this->item)) {
@@ -66,7 +66,7 @@ EOF;
 			$this->topper .= '<img title=\'Hi!\' src=\'../public/tafree-svg/greet.svg\' class=\'NAV_IMG\'><p class=\'NICKNAME_P\'>' . $this->nickname . '</p>';
 			$this->topper .= '<a href=\'../views/Fac_problems.php\' class=\'NAV_A\'>Problems</a>';
 			$this->topper .= '<a href=\'../views/Fac_score.php\' class=\'NAV_A\'>Score</a>';
-			$this->topper .= '<a href=\'../views/Fac_mail.php\' class=\'NAV_A\'>Mail</a>';
+			$this->topper .= '<a href=\'../views/Fac_mail.php\' id=\'MAIL_A\' class=\'NAV_A\'>Mail<img class=\'NAV_IMG\' id=\'FLAG_IMG\' src=\'../public/tafree-svg/flag.svg\'></a>';
 			$this->topper .= '<a href=\'../views/Fac_students.php\' class=\'NAV_A\'>Students</a>';
 			$this->topper .= '<a href=\'../views/Fac_expansion.php\' class=\'NAV_A\'>Expansion</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';

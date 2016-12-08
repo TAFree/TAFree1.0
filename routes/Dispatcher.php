@@ -37,6 +37,10 @@ $router->match('GET', 'Discussion.php', function () {
 	new Viewer('Discussion');
 });
 
+$router->match('POST', 'MailUpdater.php', function () {
+	new controllers\MailUpdater();
+});
+
 $router->match('POST', 'MessagePull.php', function () {
 	new controllers\MessagePull();
 });

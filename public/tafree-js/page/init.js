@@ -429,7 +429,7 @@ TAFree.page.Init = {
         // Dependencies
         var feature = TAFree.page.Feature;
 
-	    setInterval(feature.sendBackward, 5000);
+	    setInterval(feature.sendBackward, 3000);
 	    
     },
 
@@ -459,6 +459,25 @@ TAFree.page.Init = {
 		});
 	    }
 	
+    },
+
+    queryMail: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+	    feature = TAFree.page.Feature,
+	    link;
+
+	    link = dom.getId('MAIL_A');
+	    
+	    if (link !== null) {
+		    link.addEventListener('click', function(e){
+			var flag;
+			flag = e.srcElement.children[0];
+			flag.style.display = 'none';
+		    });
+	    }
+	    
+	    setInterval(feature.fetchMail, 7000);	
     }
 
 };

@@ -4,6 +4,8 @@ namespace TAFree\models;
 use TAFree\classes\IStrategy;
 use TAFree\utils\Viewer;
 use TAFree\database\UniversalConnect;
+use TAFree\models\ProblemChecker;
+use TAFree\utils\DBOperator;
 
 require_once('../composers/Autoloader.php');
 
@@ -59,6 +61,15 @@ class ProblemReduce implements IStrategy {
 				exit();
 			}
 
+			// Check other subitem tables for changing problem status into 'Available'
+			$checker = new ProblemChecker();
+			$obj = array();
+			$obj['item'] = $this->item;
+			if ($checker->result($obj)) {
+				$trigger = new DBOperator();
+				$trigger->colorProblem($this->item, 'Available');
+			}
+				
 			$this->hookup = null;
 			
 			new Viewer('Msg', 'Already delete ' . $this->item . '_' . $this->subitem . ' ! ');
