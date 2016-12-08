@@ -7,7 +7,6 @@ ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
 class Alter {
 	
@@ -18,6 +17,6 @@ class Alter {
 
 }
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>

@@ -109,6 +109,6 @@ EOF;
 
 }
 
-require_once('../routes/dispatcher.php');
+require_once('../routes/Dispatcher.php');
 
 ?>

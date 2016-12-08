@@ -80,7 +80,7 @@ TAFree.page.Init = {
 
 	    poly_data.urls = [];
 	    for (k = 1; k <= nums[i].value; k += 1) {
-		poly_data.urls.push('../views/' + who + '_prob.php?item=' + svgs[i].id + '&subitem=' + k);
+		poly_data.urls.push('../views/' + who + '_problem.php?item=' + svgs[i].id + '&subitem=' + k);
 	    }
             
 	    if (nums[i].value === '1') { // Single problem

@@ -28,9 +28,6 @@ class SessionManager {
 	public static function setParameter($key, $value) {
 		if (!self::existSession()) {
 			self::start();
-		}
-		if (!self::hasParameter($key)) {
-			return false;
 		}	
 		$_SESSION[$key] = $value;
 	}
@@ -45,6 +42,12 @@ class SessionManager {
 		return false;
 	}
 	
+	public static function deleteParameter($key) {
+		if (self::hasParameter($key)) {
+			unset($_SESSION[$key]);
+		}
+	}
+
 	private static function existSession() {
 		return isset($_SESSION);
 	}

@@ -36,42 +36,13 @@
 	text-align: left;
 }
 
-.CIR_TABLE {
-	margin: 50px auto;
-}
-
-.BIG_CIRCLE {
-	cx: 150px;
-	cy: 150px;
-	r: 120px;
-	fill: #FFF6E5;
-}
-
-.SMALL_CIRCLE {
-	cx: 150px;
-	cy: 150px;
-	r: 100px;
-	fill: #FFF6E5;
-	stroke-width: 5px;
-	stroke: #2186C4;
-}
-
-.CIR_SVG {
-	height: 300px;
-	width: 300px;
-}
-
-.CIR_TEXT:hover {
-	fill: #3F464C;
-}
-
 #FAC_DIV {
 	margin: 150px auto; 
 }
 
 .FAC_A {
 	width:300px;
-    height:40px;
+	height:40px;
 	background-color: #FFF6E5;
 	text-align: center;
 	text-decoration: none;

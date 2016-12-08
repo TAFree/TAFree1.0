@@ -62,67 +62,74 @@ $router->match('GET', 'Index.php', function() {
 });
 
 $router->match('POST', 'Initial.php', function() {
-	new controllers\Initial();
-});
-
-$router->match('GET', 'Initial.php', function() {
-	new Viewer('Sneaker');
+	if (SessionManager::getParameter('guest') === 'administer') {
+		new controllers\Initial();
+	}
 });
 
 $router->match('POST', 'ProblemStatus.php', function() {
-	new controllers\ProblemStatus();
-});
-
-$router->match('GET', 'ProblemStatus.php', function() {
-	new Viewer('Sneaker');
+	if (SessionManager::getParameter('guest') === 'administer') {
+		new controllers\ProblemStatus();
+	}
+	else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('POST', 'AssignControl.php', function() {
-	new controllers\AssignControl();
-});
-
-$router->match('GET', 'AssignControl.php', function() {
-	new Viewer('Sneaker');
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		new controllers\AssignControl();
+	}
+	else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('POST', 'Setup.php', function() {
-	new controllers\Setup();
-});
-
-$router->match('GET', 'Setup.php', function() {
-	new Viewer('Sneaker');
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		new controllers\Setup();
+	}
+	else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('POST', 'Present.php', function() {
-	new controllers\Present();
-});
-
-$router->match('GET', 'Present.php', function() {
-	new Viewer('Sneaker');
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		new controllers\Present();
+	}
+	else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('POST', 'Apply.php', function() {
-	new controllers\Apply();
-});
-
-$router->match('GET', 'Apply.php', function() {
-	new Viewer('Sneaker');
+	if (SessionManager::getParameter('guest') === 'student') {
+		new controllers\Apply();
+	}
+	else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('POST', 'Ratify.php', function() {
-	new controllers\Ratify();
-});
-
-$router->match('GET', 'Ratify.php', function() {
-	new Viewer('Sneaker');
+	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_ratify')) {
+		SessionManager::deleteParameter('key_to_ratify');
+		new controllers\Ratify();
+	}
+	else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('POST', 'Alter.php', function() {
-	new controllers\Alter();
-});
-
-$router->match('GET', 'Alter.php', function() {
-	new Viewer('Sneaker');
+	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_alter')) {
+		SessionManager::deleteParameter('key_to_alter');
+		new controllers\Alter();
+	}
+	else {
+		new Viewer('Sneaker');
+	}
 });
 
 $router->match('GET', 'Fac_problems.php', function() {
@@ -143,7 +150,8 @@ $router->match('GET', 'Fac_problem.php', function() {
 
 $router->match('GET', 'Fac_students.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
-		new Viewer('Fac_stu');
+		SessionManager::setParameter('key_to_alter', true);
+		new Viewer('Fac_students');
 	} else {
 		new Viewer('Sneaker');
 	}
@@ -151,6 +159,7 @@ $router->match('GET', 'Fac_students.php', function() {
 
 $router->match('GET', 'Fac_mail.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
+		SessionManager::setParameter('key_to_ratify', true);
 		new Viewer('Fac_mail');
 	} else {
 		new Viewer('Sneaker');
@@ -159,6 +168,7 @@ $router->match('GET', 'Fac_mail.php', function() {
 
 $router->match('GET', 'Fac_expansion.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
+		SessionManager::setParameter('key_to_expand', true);
 		new Viewer('Fac_expansion');
 	} else {
 		new Viewer('Sneaker');
@@ -166,16 +176,13 @@ $router->match('GET', 'Fac_expansion.php', function() {
 });
 
 $router->match('POST', 'Expand.php', function() {
-	if (SessionManager::getParameter('guest') === 'faculty') {
+	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_expand')) {
+		SessionManager::deleteParameter('key_to_expand');
 		new controllers\Expand();
 	}
 	else {
 		new Viewer('Sneaker');
 	}
-});
-
-$router->match('GET', 'Expand.php', function() {
-	new Viewer('Sneaker');
 });
 
 $router->match('GET', 'Fac_display.php', function() {
@@ -256,10 +263,6 @@ $router->match('GET', 'Fac_score.php', function() {
 	} else {
 		new Viewer('Sneaker');
 	}
-});
-
-$router->match('GET', 'ScoreTar.php', function() {
-	new Viewer('Sneaker');
 });
 
 $router->match('POST', 'ScoreTar.php', function() {
