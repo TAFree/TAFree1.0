@@ -372,7 +372,7 @@ TAFree.page.Feature = {
 		    // Show checked image in page when server response is ready
 		    td.children[1].src = '../public/tafree-svg/unknown.svg';   
 		}
-		xhr.open('POST', 'Present.php', true);
+		xhr.open('POST', '../controllers/Present.php', true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	        xhr.send('closeup=' + closeup + '&account=' + account + '&item=' + item);  
 	    }
@@ -451,21 +451,7 @@ TAFree.page.Feature = {
 	    xhr.open('POST', '../controllers/ProblemStatus.php', true);
 	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    xhr.send('item=' + item + '&item_status=' + item_status);
-	    confirm(item + ' status has become in used. You should finish all assigning work or other one could not reassign whole ' + item + '.');
-	    
-	    // Update unique_key in problem table on server side and send a request with that key
-	    xhr = new XMLHttpRequest(); 
-            xhr.onreadystatechange = function () {
-		// Get unique_key when server response is ready
-		if (this.readyState === 4 && this.status === 200) {
-			var key;
-			key = this.responseText;
-			window.location = '../views/Fac_assign.php?key_to_assign='+ key + '&item=' + item + '&subitem=' + subitem;
-		}
-	    };
-	    xhr.open('POST', '../controllers/AssignControl.php', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send('item=' + item);
+	    confirm(item + ' assigning status has become in used. It will not be changed before finishing whole ' + item + ' problems. Please finish process ! ');
 	},
 
 	sendBackward: function () {

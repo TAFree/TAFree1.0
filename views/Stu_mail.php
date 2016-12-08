@@ -4,6 +4,7 @@ namespace TAFree\views;
 use TAFree\classes\Product;
 use TAFree\helpers\FormatHelper;
 use TAFree\database\UniversalConnect;
+use TAFree\routes\SessionManager;
 
 require_once('../composers/Autoloader.php');
 
@@ -11,8 +12,15 @@ class Stu_mail implements Product {
 	
 	private $formatHelper;
 	private $contentProduct;
+	private $student_name;
+	private $student_account;
 
 	private $hookup;
+
+	public function __construct () {
+		$this->student_name = SessionManager::getParameter('nickname');
+		$this->student_account = SessionManager::getParameter('account');
+	}
 
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
@@ -40,7 +48,7 @@ EOF;
 		try {
 			$this->hookup = UniversalConnect::doConnect();
 			$stmt = $this->hookup->prepare('SELECT * FROM apply WHERE student_account=?');
-			$stmt->execute(array($_SESSION['student']));
+			$stmt->execute(array($this->student_account));
 			while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
 				$this->contentProduct .= '<tr>';
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_name'] . '</td>';
@@ -55,8 +63,8 @@ EOF;
 			
 			$this->contentProduct .=<<<EOF
 <tr>
-<td class='CONTENT_TD'>{$_SESSION['student_name']}</td>
-<td class='CONTENT_TD'>{$_SESSION['student']}</td>
+<td class='CONTENT_TD'>{$this->student_name}</td>
+<td class='CONTENT_TD'>{$this->student_account}</td>
 <td class='CONTENT_TD'>
 <select name='item'>
 EOF;

@@ -4,12 +4,12 @@ namespace TAFree\views;
 use TAFree\classes\Product;
 use TAFree\helpers\FormatHelper;
 use TAFree\database\UniversalConnect;
+use TAFree\routes\SessionManager;
 
 ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
 class Fac_coders implements Product {	
 
@@ -21,10 +21,12 @@ class Fac_coders implements Product {
 
 	private $hookup;
 	
-	public function getContent() { 
+	public function __construct () {
+		$this->item = SessionManager::getParameter('item');
+		$this->subitem = SessionManager::getParameter('subitem');
+	}
 
-		$this->item = $_GET['item'];
-		$this->subitem = $_GET['subitem'];
+	public function getContent() { 
 
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
@@ -80,6 +82,6 @@ EOF;
 
 }	
 		
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>

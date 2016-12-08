@@ -9,7 +9,7 @@ require_once('../composers/Autoloader.php');
 class Janitor {
 		
 	private $controlArea = array (
-		'Stu_prob' => 'TAFree\models\TimeChecker',
+		'Stu_problem' => 'TAFree\models\TimeChecker',
 		'Handin' => 'TAFree\models\TimeChecker'
 	);
 	private $destination;

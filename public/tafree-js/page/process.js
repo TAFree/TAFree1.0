@@ -93,7 +93,7 @@ TAFree.page.Process = {
 		xhr.onreadystatechange = function () {
 			if (this.readyState === 4 && this.status === 200) {
 				if (this.response) {
-					window.location = '../controllers/JudgeAdapter.php?item=' + item + '&subitem=' + subitem + '&stu_account=' + stu_account;
+					window.location = '../controllers/JudgeAdapter.php';
 				}
 			}
 	    	};	

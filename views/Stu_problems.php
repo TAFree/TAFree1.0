@@ -9,9 +9,8 @@ ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
-class Stu_chooser implements Product {	
+class Stu_problems implements Product {	
 
 	private $formatHelper;
 	private $contentProduct;
@@ -46,6 +45,6 @@ class Stu_chooser implements Product {
 
 }
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>

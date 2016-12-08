@@ -7,7 +7,6 @@ ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
 class Apply {
 	
@@ -19,6 +18,6 @@ class Apply {
 
 }
 	
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>

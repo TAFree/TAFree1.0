@@ -65,13 +65,13 @@ class LeaveRatify implements IStrategy {
 			
 			// Send email to students
 			foreach ($this->emails as $email) {
-				$command = 'echo \'This is a student leave ratification sent from TAFree. Please check your leave apply via http://140.112.12.112\' | mail -s \'Faculty Leave Ratification\' ' . $email;
+				$command = 'echo \'This is a writing ratification sent from TAFree. Please check the allowed deadline via http://140.112.12.112\' | mail -s \'Writing Ratification\' ' . $email;
 				$handler = popen('at now + 1 minute', 'w');
 				fwrite($handler, $command);
 				fclose($handler);
 			}
 			
-			new Viewer ('Msg', 'Already sent an email to those students with allowed deadlines !<br>Automatically added them to \'Whitelist\'.' . '<br>');
+			new Viewer ('Msg', 'Already sent emails to those students with allowed deadlines informed ! <br>They are available to do assignment within show up time and allowed deadline.');
 		
 		}
 		

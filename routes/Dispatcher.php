@@ -41,24 +41,12 @@ $router->match('POST', 'MessagePull.php', function () {
 	new controllers\MessagePull();
 });
 
-$router->match('GET', 'MessagePull.php', function () {
-	new Viewer('Sneaker');
-});
-
 $router->match('POST', 'MessagePush.php', function () {
 	new controllers\MessagePush();
 });
 
-$router->match('GET', 'MessagePush.php', function () {
-	new Viewer('Sneaker');
-});
-
 $router->match('POST', 'Index.php', function() {
 	new controllers\Index();
-});
-
-$router->match('GET', 'Index.php', function() {
-	new Viewer('Sneaker');
 });
 
 $router->match('POST', 'Initial.php', function() {
@@ -68,20 +56,12 @@ $router->match('POST', 'Initial.php', function() {
 });
 
 $router->match('POST', 'ProblemStatus.php', function() {
-	if (SessionManager::getParameter('guest') === 'administer') {
+	if (SessionManager::getParameter('guest') === 'faculty') {
 		new controllers\ProblemStatus();
 	}
 	else {
 		new Viewer('Sneaker');
-	}
-});
-
-$router->match('POST', 'AssignControl.php', function() {
-	if (SessionManager::getParameter('guest') === 'faculty') {
-		new controllers\AssignControl();
-	}
-	else {
-		new Viewer('Sneaker');
+		exit();
 	}
 });
 
@@ -91,6 +71,7 @@ $router->match('POST', 'Setup.php', function() {
 	}
 	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
@@ -100,15 +81,18 @@ $router->match('POST', 'Present.php', function() {
 	}
 	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('POST', 'Apply.php', function() {
-	if (SessionManager::getParameter('guest') === 'student') {
+	if (SessionManager::getParameter('guest') === 'student' && SessionManager::getParameter('key_to_apply')) {
+		SessionManager::deleteParameter('key_to_apply');
 		new controllers\Apply();
 	}
 	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
@@ -119,6 +103,7 @@ $router->match('POST', 'Ratify.php', function() {
 	}
 	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
@@ -129,22 +114,17 @@ $router->match('POST', 'Alter.php', function() {
 	}
 	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('GET', 'Fac_problems.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		new Viewer('Fac_problems');
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
-	}
-});
-
-$router->match('GET', 'Fac_problem.php', function() {
-	if (SessionManager::getParameter('guest') === 'faculty') {
-		new Viewer('Fac_prob');
-	} else {
-		new Viewer('Sneaker');
+		exit();
 	}
 });
 
@@ -152,8 +132,10 @@ $router->match('GET', 'Fac_students.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		SessionManager::setParameter('key_to_alter', true);
 		new Viewer('Fac_students');
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
@@ -161,8 +143,10 @@ $router->match('GET', 'Fac_mail.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		SessionManager::setParameter('key_to_ratify', true);
 		new Viewer('Fac_mail');
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
@@ -170,8 +154,10 @@ $router->match('GET', 'Fac_expansion.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		SessionManager::setParameter('key_to_expand', true);
 		new Viewer('Fac_expansion');
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
@@ -182,201 +168,233 @@ $router->match('POST', 'Expand.php', function() {
 	}
 	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('GET', 'Fac_display.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
-		new Viewer('Fac_look');
-	} else {
+		new Viewer('Fac_display');
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('GET', 'Fac_coders.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		new viewer('Fac_coders');
-	} else {
-		new viewer('sneaker');
+	} 
+	else {
+		new viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('GET', 'Fac_assign.php', function() {
 
-	$looker = new fetchers\KeyQuery($_GET['item']);
-	
-	session_start();
-
-	if (!isset($_SESSION['key_to_assign'])) {
-		$_SESSION['key_to_assign'] = $_GET['key_to_assign'];
+	// Set session variables of item and subitem
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		SessionManager::setParameter('item', $_GET['item']);
+		SessionManager::setParameter('subitem', $_GET['subitem']);
 	}
-
-	if (isset($_SESSION['faculty']) && $_SESSION['key_to_assign'] === $looker->findKey()) {
-		$_SESSION['key_to_assign'] = '19911010';
-		$_SESSION['key_to_upload'] = $looker->findKey();
-		new Viewer('Fac_assign');
-	} else {
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
+
+	$item = SessionManager::getParameter('item');
+
+	// Generate a key to assign problem and update this key in problem table if there is no key_to_assign session variable
+	if (!SessionManager::getParameter('key_to_assign')) {
+		$controller = new controllers\AssignControl($item);
+		$key = $controller->getKey();
+		SessionManager::setParameter('key_to_assign', $key);
+	}
+	
+	// Query key in problem table
+	$looker = new fetchers\KeyQuery($item);
+
+	// Compare keys from problem table and session variable
+	if (SessionManager::getParameter('key_to_assign') === $looker->findKey()) {
+		SessionManager::deleteParameter('key_to_assign');
+		SessionManager::setParameter('key_to_upload', $looker->findKey());
+		new Viewer('Fac_assign');
+	} 
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+
 });
 
 $router->match('POST', 'Upload.php', function() {
 	
-	$looker = new fetchers\KeyQuery($_POST['item']);
+	$item = SessionManager::getParameter('item');
 	
-	session_start();
-
-	if (isset($_SESSION['key_to_upload']) && $_SESSION['key_to_upload'] === $looker->findKey()) {
-		unset($_SESSION['key_to_upload']); 
-		$_SESSION['key_to_handout'] = $looker->findKey();
+	// Query key in problem table
+	$looker = new fetchers\KeyQuery($item);
+	
+	// Compare keys from problem table and session variable
+	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_upload') === $looker->findKey()) {
+		SessionManager::deleteParameter('key_to_upload');
+		SessionManager::setParameter('key_to_handout', $looker->findKey());
 		new controllers\Upload();
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
-});
-
-$router->match('GET', 'Upload.php', function() {
-	new Viewer('Sneaker');
 });
 
 $router->match('POST', 'Handout.php', function() {
 	
-	$looker = new fetchers\KeyQuery($_POST['item']);
+	$item = SessionManager::getParameter('item');
+		
+	// Query key in problem table
+	$looker = new fetchers\KeyQuery($item);
 	
-	session_start();
-
-	if (isset($_SESSION['key_to_handout']) && $_SESSION['key_to_handout'] === $looker->findKey()) {
-		unset($_SESSION['key_to_handout']); 
+	// Compare keys from problem table and session variable
+	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_handout') === $looker->findKey()) {
+		SessionManager::deleteParameter('key_to_handout');
 		new controllers\Handout();
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
-});
-
-$router->match('GET', 'Handout.php', function() {
-	new Viewer('Sneaker');
 });
 
 $router->match('GET', 'Fac_score.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		new Viewer('Fac_score');
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('POST', 'ScoreTar.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		new fetchers\ScoreTar();
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('GET', 'Stu_score.php', function() {
 	if (SessionManager::getParameter('guest') === 'student') {
 		new Viewer('Stu_score');
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('GET', 'Stu_record.php', function() {
 	if (SessionManager::getParameter('guest') === 'student') {
 		new Viewer('Stu_record');
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('GET', 'SourceWatch.php', function() {
-	session_start();
-	foreach ($_SESSION as $key => $value) {
-		if ($key === 'student' || $key === 'faculty') {
-			new Viewer('SourceWatch');
-			return;
-		}
+	if (SessionManager::getParameter('guest') === 'student' || SessionManager::getParameter('guest') === 'faculty') {
+		new Viewer('SourceWatch');
 	}
-	new Viewer('Sneaker');
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
 });
 
 $router->match('GET', 'Stu_problems.php', function() {
-
-	session_start();
-
-	$_SESSION['key_to_write'] = true;
-
-	if (isset($_SESSION['student'])) {
-		new Viewer('Stu_chooser');
-	} else {
+	if (SessionManager::getParameter('guest') === 'student') {
+		new Viewer('Stu_problems');
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('GET', 'Stu_problem.php', function() {
 	
-	session_start();
+	if (SessionManager::getParameter('guest') === 'student') {
 	
-	if (isset($_SESSION['student']) && isset($_SESSION['key_to_write'])) {
+		// Set session variables of item and subitem
+		SessionManager::setParameter('item', $_GET['item']);
+		SessionManager::setParameter('subitem', $_GET['subitem']);
 
-		unset($_SESSION['key_to_write']);
 		$registry = array();
-		$registry['guest'] = 'student';
-		$registry['account'] = (string)$_SESSION['student'];
-		$registry['destination'] = 'Stu_prob';
+		$registry['guest'] = SessionManager::getParameter('guest');
+		$registry['account'] = SessionManager::getParameter('account');
+		$registry['destination'] = 'Stu_problem';
 		$registry['time'] = date('Y-m-d H:i:s');
-		$registry['item'] = $_GET['item'];
+		$registry['item'] = SessionManager::getParameter('item');
 
 		$watchman = new Janitor($registry);
 		
 		if ($watchman->openDoor()) {
 			$info = array (
-				'stu_account' => $_SESSION['student'],
-				'item' => $_GET['item'],
-				'subitem' => $_GET['subitem']
+				'stu_account' => SessionManager::getParameter('account'),
+				'item' => SessionManager::getParameter('item'),
+				'subitem' => SessionManager::getParameter('subitem')
 			);
-			new Viewer('Stu_prob', $info);
+			new Viewer('Stu_problem', $info);
 		}
 		else {
 			new Viewer('Msg', $watchman->dialogue());
 		}
 
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 
 });
 
 $router->match('GET', 'Stu_mail.php', function() {
 	if (SessionManager::getParameter('guest') === 'student') {
-		new Viewer('Stu_leave');
-	} else {
+		SessionManager::setParameter('key_to_apply', true);
+		new Viewer('Stu_mail');
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('GET', 'JudgeAdapter.php', function() {
-	session_start();
-	if (isset($_SESSION['student'])) { 
+	if (SessionManager::getParameter('guest') === 'student') { 
 		new controllers\JudgeAdapter();
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
 });
 
 $router->match('POST', 'Handin.php', function() {
-
-	session_start();
 	
-	if (isset($_SESSION['student'])) {
+	if (SessionManager::getParameter('guest') === 'student') {
 	
 		$data = file_get_contents('php://input'); 
 		$obj = json_decode($data); 
 		
 		// Configure registry array
 		$registry = array();
-		$registry['guest'] = 'student';
-		$registry['account'] = (string)$_SESSION['student'];
+		$registry['guest'] = SessionManager::getParameter('guest');
+		$registry['account'] = SessionManager::getParameter('account');
 		$registry['destination'] = 'Handin';
 		$registry['time'] = date('Y-m-d H:i:s');
 		$registry['item'] = $obj->item;
@@ -390,15 +408,12 @@ $router->match('POST', 'Handin.php', function() {
 			new Viewer('Msg', $watchman->dialogue());
 		}
 
-	} else {
+	} 
+	else {
 		new Viewer('Sneaker');
+		exit();
 	}
-
-});
-
-$router->match('GET', 'Handin.php', function() {
-	new Viewer('Sneaker');
-
+	
 });
 
 $router->run();

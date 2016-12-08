@@ -5,6 +5,7 @@ use TAFree\classes\IStrategy;
 use TAFree\utils\Util;
 use TAFree\utils\Viewer;
 use TAFree\database\UniversalConnect;
+use TAFree\routes\SessionManager;
 
 require_once('../composers/Autoloader.php');
 
@@ -25,16 +26,17 @@ class StudentQuery implements IStrategy {
 			$this->hookup = UniversalConnect::doConnect();
 			$stmt = $this->hookup->prepare('SELECT * FROM student WHERE student_account=? AND student_password=?');
 			$stmt->execute(array($this->account, $this->password));
-			$this->result = $stmt->rowCount();
-			$this->hookup = null;
-			if ($this->result === 1) {
-				session_start();
-				$_SESSION['student_name'] = $stmt->fetch(\PDO::FETCH_ASSOC)['student_name'];
-				$_SESSION['student'] = $this->account;
-				new Viewer('Stu_index');
+			if ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+				SessionManager::init();
+				SessionManager::setParameter('guest', 'student'); 
+				SessionManager::setParameter('nickname', $row['student_name']);
+				SessionManager::setParameter('account', $row['student_account']);
+				new Viewer('Stu_problems');
+				$this->hookup = null;
 			}
 			else{
 				new Viewer('WrongPerson');
+				$this->hookup = null;
 			}
 		}
 		catch (\PDOException $e) {

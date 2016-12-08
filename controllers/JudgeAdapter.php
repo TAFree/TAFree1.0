@@ -4,12 +4,12 @@ namespace TAFree\controllers;
 use TAFree\utils\DBOperator;
 use TAFree\utils\Viewer;
 use TAFree\database\UniversalConnect;
+use TAFree\routes\SessionManager;
 
 ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
 class JudgeAdapter {
 	
@@ -26,9 +26,9 @@ class JudgeAdapter {
 	public function __construct () {
 		
 		// Get item, subitem, stu_account, stu_account
-		$this->item = $_GET['item'];
-		$this->subitem = $_GET['subitem'];
-		$this->stu_account = $_GET['stu_account'];
+		$this->item = SessionManager::getParameter('item');
+		$this->subitem = SessionManager::getParameter('subitem');
+		$this->stu_account = SessionManager::getParameter('account');
 
 	
 		try {
@@ -85,7 +85,7 @@ class JudgeAdapter {
 
 }
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>
 

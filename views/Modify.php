@@ -4,6 +4,7 @@ namespace TAFree\views;
 use TAFree\classes\Product;
 use TAFree\helpers\FormatHelper;
 use TAFree\database\UniversalConnect;
+use TAFree\routes\SessionManager;
 
 require_once('../composers/Autoloader.php');
 
@@ -18,6 +19,10 @@ class Modify implements Product {
 	private $hookup;
 	
 	public function __construct($data) {
+		
+		// Reset key_to_assign session variable to avoid previous page clicking
+		SessionManager::setParameter('key_to_assign', '19911010');
+		
 		$this->item = $data['item'];
 		$this->subitem = $data['subitem'];
 	}	

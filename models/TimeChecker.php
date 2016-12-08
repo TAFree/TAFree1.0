@@ -58,11 +58,11 @@ class TimeChecker extends Checker {
 			return false;
 		}
 		else if (empty($this->closeup_time)) {
-			$this->error_msg = 'You do not have permission to write this problem ! Please <a id=\'APPLY_A\' href=\'./Stu_leave.php\'>apply for writing</a> with proper reason.';
+			$this->error_msg = 'You do not have permission to write this problem ! Please <a id=\'APPLY_A\' href=\'../views/Stu_mail.php\'>apply for writing</a> with proper reason.';
 			return false;
 		}
 		else if (strtotime($this->closeup_time) < strtotime($this->registry_time)) {
-			$this->error_msg = 'Time out ! Please <a id=\'APPLY_A\' href=\'./Stu_leave.php\'>apply for writing</a> with proper reason.';
+			$this->error_msg = 'Time out ! Please <a id=\'APPLY_A\' href=\'../views/Stu_mail.php\'>apply for writing</a> with proper reason.';
 			return false;
 		}
 		else {

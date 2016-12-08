@@ -80,7 +80,12 @@ TAFree.page.Init = {
 
 	    poly_data.urls = [];
 	    for (k = 1; k <= nums[i].value; k += 1) {
-		poly_data.urls.push('../views/' + who + '_problem.php?item=' + svgs[i].id + '&subitem=' + k);
+		if (who === 'Fac') {
+			poly_data.urls.push('../views/Fac_assign.php?item=' + svgs[i].id + '&subitem=' + k);
+		}
+		if (who === 'Stu') {
+			poly_data.urls.push('../views/Stu_problem.php?item=' + svgs[i].id + '&subitem=' + k);
+	    	}
 	    }
             
 	    if (nums[i].value === '1') { // Single problem
@@ -390,17 +395,6 @@ TAFree.page.Init = {
 			input.style.display = 'inline';
 		}
 	});
-    },
-
-    beInUsed: function () {
-        // Dependencies
-        var dom = TAFree.util.Dom,
-      	    feature = TAFree.page.Feature,
-		
-	    but, i;
-
-	but = dom.getId('ASSIGN_INPUT');
-	but.addEventListener('click', feature.beInUsed);
     },
 
     handin: function () {

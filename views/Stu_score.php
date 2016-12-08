@@ -4,12 +4,12 @@ namespace TAFree\views;
 use TAFree\classes\Product;
 use TAFree\helpers\FormatHelper;
 use TAFree\database\UniversalConnect;
+use TAFree\routes\SessionManager;
 
 ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
 
 require_once('../composers/Autoloader.php');
-require_once('../routes/SetRouter.php');
 
 class Stu_score implements Product {	
 
@@ -20,10 +20,12 @@ class Stu_score implements Product {
 
 	private $hookup;
 
+	public function __construct () {
+		$this->stu_account = SessionManager::getParameter('account');
+	}
+
 	public function getContent() {
 		
-		$this->stu_account = $_SESSION['student'];
-
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 
@@ -70,6 +72,6 @@ EOF;
 
 }
 
-$router->run();
+require_once('../routes/Dispatcher.php');
 
 ?>

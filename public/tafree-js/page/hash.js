@@ -5,6 +5,7 @@ TAFree.page.Hash = (function () {
 	// Private property
 	// Dependencies
 	var init = TAFree.page.Init,
+	    feature = TAFree.page.Feature,
 	    addon = TAFree.page.Addon,
 	    process = TAFree.page.Process,
 	    
@@ -24,6 +25,7 @@ TAFree.page.Hash = (function () {
             	},
             
             	'fac_assign': function () {
+			feature.beInUsed();
 			init.manGenRow();
 			init.otherJudge();
             	},
@@ -34,8 +36,7 @@ TAFree.page.Hash = (function () {
                 
                 'fac_students': function () {
                   	init.deleteRow();
-			init.manRow();
-			
+			init.manRow();			
             	},
                 
                 'modify': function () {
@@ -65,10 +66,6 @@ TAFree.page.Hash = (function () {
 			addon.codeLeft();
                     	init.enableZoom();
 			addon.clearModify();
-            	},
-                
-		'fac_prob': function () {
-                    	init.beInUsed();
             	},
 		
 		'fac_coders': function () {

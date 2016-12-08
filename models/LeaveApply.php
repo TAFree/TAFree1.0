@@ -4,6 +4,7 @@ namespace TAFree\models;
 use TAFree\classes\IStrategy;
 use TAFree\utils\Viewer;
 use TAFree\database\UniversalConnect;
+use TAFree\routes\SessionManager;
 
 require_once('../composers/Autoloader.php');
 
@@ -19,14 +20,16 @@ class LeaveApply implements IStrategy {
 
 	private $hookup;
 	
+	public function __construct () {
+		$this->name = SessionManager::getParameter('nickname');
+		$this->account = SessionManager::getParameter('account');
+	}
+
 	public function algorithm () {
 		
 		if (isset($_POST['submit'])) {
 	
 			// Get leave apply parameters
-			session_start();
-			$this->name = $_SESSION['student_name'];
-			$this->account = $_SESSION['student'];
 			$this->item = $_POST['item'];
 			$this->reason = $_POST['reason'];
 			$expected_date = $_POST['date'];
@@ -56,13 +59,13 @@ class LeaveApply implements IStrategy {
 			
 			// Send email to faculty
 			foreach ($this->emails as $email) {
-				$command = 'echo \'This is a student leave apply sent from TAFree. Please reply him/her via http://140.112.12.112\' | mail -s \'Student Leave Apply\' ' . $email;
+				$command = 'echo \'This is a student writing apply sent from TAFree. Please reply him/her via http://140.112.12.112\' | mail -s \'Student Writing Apply\' ' . $email;
 				$handler = popen('at now + 1 minute', 'w');
 				fwrite($handler, $command);
 				fclose($handler);
 			}
 			
-			new Viewer ('Msg', 'Already sent an email to faculty !<br>Check \'Reply\' for allowed deadline from faculty.' . '<br>');
+			new Viewer ('Msg', 'Already sent an email to faculty ! <br>Please wait their reply.');
 		
 		}
 		
