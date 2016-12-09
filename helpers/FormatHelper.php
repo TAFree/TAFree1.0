@@ -59,7 +59,7 @@ EOF;
 			$this->topper .= '<a href=\'../views/Stu_score.php\' class=\'NAV_A\'>Score</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
 			if (!empty($this->item)) {
-					$this->topper .= '<a href=\'../views/Stu_problem.php?item=' . $this->item . '&subitem=' . $this->subitem . '\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
+					$this->topper .= '<a href=\'../views/Stu_problem.php?item=' . $this->item . '&subitem=' . $this->subitem . '\' class=\'NAV_PROB_A\'>' . $this->item . '_' . $this->subitem . '</a>';
 			}	
 			break;
 		case 'faculty':
@@ -71,9 +71,9 @@ EOF;
 			$this->topper .= '<a href=\'../views/Fac_expansion.php\' class=\'NAV_A\'>Expansion</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
 			if (!empty($this->item)) {
-					$this->topper .= '<a href=\'../views/Fac_assign.php?item=' . $this->item . '&subitem=' . $this->subitem . '\' class=\'NAV_A\'>' . $this->item . '_' . $this->subitem . '</a>';
-					$this->topper .= '<a href=\'../views/Fac_coders.php\' class=\'NAV_A\'>Coders</a>';
-					$this->topper .= '<a href=\'../views/Fac_display.php\' class=\'NAV_A\'>Display</a>';
+					$this->topper .= '<a href=\'../views/Fac_assign.php?item=' . $this->item . '&subitem=' . $this->subitem . '\' class=\'NAV_PROB_A\'>' . $this->item . '_' . $this->subitem . '</a>';
+					$this->topper .= '<a href=\'../views/Fac_coders.php\' class=\'NAV_PROB_A\'>Coders</a>';
+					$this->topper .= '<a href=\'../views/Fac_display.php\' class=\'NAV_PROB_A\'>Display</a>';
 			}
 			break;
 		case 'administer':

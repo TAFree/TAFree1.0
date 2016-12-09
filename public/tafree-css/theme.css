@@ -57,6 +57,24 @@ footer {
 	color: #3F464C;
 }
 
+.NAV_PROB_A {
+	text-decoration: none;
+	border: 1px solid #FFF6E5;
+	border-radius: 5%;
+	text-align: center;
+	color: #FF8C00;
+	font-size: 2.3vh;
+	display: inline;
+	border-bottom: none;
+	margin-right: 2vw;
+	font-weight: 600;
+} 
+
+.NAV_PROB_A:hover {
+	background-color: #FFF6E5;
+	color: #3F464C;
+}
+
 .NAV_IMG {
 	height: 2.3vh;
 	display: inline;

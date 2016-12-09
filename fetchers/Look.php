@@ -13,7 +13,6 @@ class Look implements Product {
 
 	private $item;
 	private $subitem;
-	private $hint;
 
 	private $hookup;
 
@@ -29,25 +28,15 @@ class Look implements Product {
 			$stmt = $this->hookup->prepare('SELECT hint, description FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
 			$stmt->execute();
 			$row = $stmt->fetch(\PDO::FETCH_ASSOC);
-			$this->hint = $row['hint'];	
-			$this->contentProduct .=<<<EOF
-<div>
-<h1>{$this->item}_{$this->subitem}</h1>
-<div class='HINT_DIV'>{$this->hint}</div>
-EOF;
+
+			$this->contentProduct .= '<h1>' . $this->item . '_' . $this->subitem . '</h1>';
 			if (!empty($row['description'])) {
-			
 				$this->contentProduct .=<<<EOF
-<a class='CLICKABLE' href='../problem/description/{$this->item}/{$this->subitem}/{$row['description']}' download='{$row['description']}'>Description</a>
+<a class='CLICKABLE_LEFT' href='../problem/description/{$this->item}/{$this->subitem}/{$row['description']}' download='{$row['description']}'>Description</a>
 EOF;
 			}
-		
-			$this->contentProduct .=<<<EOF
-</div>
-<table class='CODES_TABLE'>
-<tr>
-EOF;
-			
+			$this->contentProduct .= '<div class=\'HINT_DIV\'>' . $row['hint'] . '</div>';
+			$this->contentProduct .= '<table class=\'CODES_TABLE\'><tr>';
 			$stmt = $this->hookup->prepare('SELECT classname, modified_source FROM ' . $this->item . '_' . $this->subitem);
 			$stmt->execute();
 			$i = 0;
@@ -67,18 +56,17 @@ EOF;
 </td>
 EOF;
 			}
+			$this->contentProduct .= '</tr></table>';
+			
+			$this->hookup = null;
+			
 		}
 		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}		
 		
-
-		$this->contentProduct .=<<<EOF
-</tr>
-</table>
-EOF;
-		
 		return $this->contentProduct;
+	
 	}	 
 
 }

@@ -35,7 +35,8 @@ class Fac_assign implements Product {
 		$this->contentProduct .=<<<EOF
 <form method='POST' action='../controllers/Upload.php' enctype='multipart/form-data'>
 <div class='PUT_BUTTON_DIV'>
-<h1>{$this->item}_{$this->subitem}</h1>
+<input type='hidden' name='item' value='{$this->item}'>
+<input type='hidden' name='subitem' value='{$this->subitem}'>
 <input type='submit' class='CLICKABLE' value='Upload' id='UPLOAD_INPUT'>
 EOF;
 		try {
@@ -56,8 +57,6 @@ EOF;
 		}
 		
 		$this->contentProduct .=<<<EOF
-<input type='hidden' name='item' value='{$this->item}'>
-<input type='hidden' name='subitem' value='{$this->subitem}'>
 </div>
 <table id='PROBLEM_TABLE'>
 <tr>
@@ -116,12 +115,12 @@ EOF;
 </tr>
 <tr class='HIDDEN_TR'>
 <td class='ADMIN_BUTTON_TD'><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' name='solution_filename[]'></td>
+<td class='CONTENT_TD'><input class='FILENAME_INPUT' type='text' name='solution_filename[]'></td>
 <td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='solution_content[]'></textarea></td>
 </tr>
 <tr class='SHOW_TR'>
 <td class='ADMIN_BUTTON_TD'><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' name='solution_filename[]'></td>
+<td class='CONTENT_TD'><input class='FILENAME_INPUT' type='text' name='solution_filename[]'></td>
 <td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='solution_content[]'>// This block must include main function</textarea></td>
 </tr>
 </table>
@@ -137,12 +136,12 @@ EOF;
 </tr>
 <tr class='HIDDEN_TR'>
 <td class='ADMIN_BUTTON_TD'><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' name='testdata_filename[]'></td>
+<td class='CONTENT_TD'><input class='FILENAME_INPUT' type='text' name='testdata_filename[]'></td>
 <td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='testdata_content[]'></textarea></td>
 </tr>
 <tr class='SHOW_TR'>
 <td class='ADMIN_BUTTON_TD'><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' name='testdata_filename[]'></td>
+<td class='CONTENT_TD'><input class='FILENAME_INPUT' type='text' name='testdata_filename[]'></td>
 <td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='testdata_content[]'></textarea></td>
 </tr>
 </table>

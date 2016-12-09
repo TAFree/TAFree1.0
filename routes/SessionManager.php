@@ -10,12 +10,12 @@ class SessionManager {
 
 
 	public static function init() {
-
-		if (self::existSession()) {
-			self::destroyAll();
-		}
 		
-		self::start();
+		if (!self::existSession()) {	
+			self::start();
+		}
+
+		self::destroyAll();
 
 		$_SESSION['guest'] = '';
 		$_SESSION['nickname'] = '';
@@ -49,7 +49,10 @@ class SessionManager {
 	}
 
 	private static function existSession() {
-		return isset($_SESSION);
+		if (session_status() === \PHP_SESSION_NONE) {
+			return false;
+		}
+		return true;
 	}
 	
 	private static function hasParameter($key) {

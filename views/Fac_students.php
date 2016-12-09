@@ -23,16 +23,12 @@ class Fac_students implements Product {
 		
 		$this->contentProduct .=<<<EOF
 <form method='POST' action='../controllers/Alter.php'>
+<div class='PUT_BUTTON_DIV'>
+<input class='CLICKABLE' type='submit' name='submit' value='Change'>
+</div>
 <table id='ADD_DEL_STU_TABLE'>
 <tr>
-<td colspan='4'>
-<input type='submit' name='submit' value='Change >>'>
-<br>
-<br>
-</td>
-</tr>
-<tr>
-<th><button id='ADD_BUTTON' class='ADD_DEL_BUTTON' type='button'><b>+</b></button></td>
+<th class='ADMIN_BUTTON_TD'><button id='ADD_BUTTON' class='ADD_DEL_BUTTON' type='button'><b>+</b></button></th>
 <th class='TITLE_TD'>Student Name</th>
 <th class='TITLE_TD'>Student Account</th>
 <th class='TITLE_TD'>Student Password</th>
@@ -45,9 +41,7 @@ EOF;
 			while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
 				$this->contentProduct .=<<<EOF
 <tr>
-<td>
-<button class='SUB_ADD_DEL_BUTTON' type='button'><b>-</b></button>
-</td>
+<td class='ADMIN_BUTTON_TD'><button class='SUB_ADD_DEL_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'>{$row['student_name']}</td>
 <td class='CONTENT_TD'>{$row['student_account']}</td>
 <td class='CONTENT_TD'>{$row['student_password']}</td>

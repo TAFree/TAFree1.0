@@ -58,7 +58,7 @@ class JudgeExpansion implements IStrategy {
 			// Manipulate file
 			
 			// Add general judge file
-			if (isset($this->add_judge)) {
+			if (!empty($this->add_judge['tmp'])) {
 				$this->addJudge();
 			}
 

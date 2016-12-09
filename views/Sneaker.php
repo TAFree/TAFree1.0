@@ -17,7 +17,7 @@ class Sneaker implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->contentProduct .= '<div id=\'SNEAKER_P\'>' . $this->content . '</div>';
+		$this->contentProduct .= '<div id=\'SNEAKER_DIV\'>' . $this->content . '</div>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		

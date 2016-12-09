@@ -144,28 +144,22 @@
     
 }
 
-#FAC_EXPANSION_DIV{
-	margin: 30px auto;
-	text-align: center;
-	margin-bottom: 0;
-}
-
 #EXPANSION_TABLE {
     margin: 0 auto;
     margin-top: 30px;
     margin-bottom: 30px;
-    width: 50%;
+    width: 80%;
     height: 50%;
 }
 
-.STATUS_DOWNLOAD_TABLE {
-    margin: 50px auto;
-    width: 800px;
+#STATUS_DOWNLOAD_TABLE {
+    margin: 20px auto;
+    width: 80%;
 }
 
 #STATUS_TABLE  {
-	margin: 10px auto;
-	width: 800px;
+	margin: 5vh auto;
+	width: 80%;
 }
 
 .CLICKABLE {
@@ -178,6 +172,20 @@
     border-radius: 5%;
     border : 1px solid #3F464C;
     margin: 0 auto;
+}
+
+.CLICKABLE_LEFT {
+    display: inline-block;
+    background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+    color: #000000;
+    text-decoration: none;
+    width: 100px;
+    padding: 2px 1px;
+    border-radius: 5%;
+    border : 1px solid #3F464C;
+    margin: 20px;
+    margin-left: 0;
+    margin-top: 0;
 }
 
 #ALL_INPUT {
@@ -197,8 +205,8 @@
 }
 
 #ADD_DEL_STU_TABLE {
-    margin: 30px auto;
-    width: 800px;
+    margin: 5vh auto;
+    width: 80%;
     margin-bottom: 50px;
 }
 
@@ -223,11 +231,6 @@
     margin: 10px auto;
     width: 800px;
     table-layout: fixed;
-}
-
-.FAC_MODIFY_DIV{
-	margin: 30px auto;
-	text-align: center;
 }
 
 .HIDDEN_DIV {
@@ -331,7 +334,7 @@
 .MODIFY_BLOCK_TEXTAREA {
     white-space: pre;
     width: 100%;
-    height: 20%;
+    height: 40%;
     resize: none;
     overflow: scroll;
     box-sizing: border-box;
@@ -585,4 +588,6 @@
         #FFF6E5 2.5px,
         #FFF6E5 5px
     );
+    width: 95%;
+    margin: 1px;
 }

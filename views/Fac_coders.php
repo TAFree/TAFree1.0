@@ -35,7 +35,7 @@ class Fac_coders implements Product {
 <table id='STATUS_TABLE'>
 <tr><th class='TITLE_TD'>Status</th><th class='TITLE_TD'>%</th></tr>
 </table>
-<table class='STATUS_DOWNLOAD_TABLE'>
+<table id='STATUS_DOWNLOAD_TABLE'>
 <tr><th colspan='4' class='TITLE_TD'>{$this->item}_{$this->subitem}</th></tr>
 <tr>
 <td class='TITLE_TD'>Student Name</td>

@@ -32,14 +32,13 @@ class Modify implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<h1>{$this->item}_{$this->subitem}</h1>
 <form id='MODIFY_FORM' method='POST' action='../controllers/Handout.php'>
 <div class='HIDDEN_DIV'>
 <input type='hidden' value='{$this->item}' name='item'>
 <input type='hidden' value='{$this->subitem}' name='subitem'>
 </div>
-<div class='FAC_MODIFY'>
-<input type='button' id='HANDOUT_INPUT' class='CLICKABLE' value='Handout >>'>
+<div class='PUT_BUTTON_DIV'>
+<input type='button' id='HANDOUT_INPUT' class='CLICKABLE' value='Handout'>
 </div>
 <table class='CODES_TABLE'>
 <tr>

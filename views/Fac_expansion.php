@@ -25,8 +25,8 @@ class Fac_expansion implements Product {
 		
 		$this->contentProduct .=<<<EOF
 <form method='POST' action='../controllers/Expand.php' enctype='multipart/form-data'>
-<div id='FAC_EXPANSION_DIV'>
-<input type='submit' value='Expand >>'>
+<div class='PUT_BUTTON_DIV'>
+<input class='CLICKABLE' type='submit' value='Expand'>
 </div>
 <table id='EXPANSION_TABLE'>
 <tr>
