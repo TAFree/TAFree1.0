@@ -60,7 +60,7 @@ EOF;
 			
 				// Load student list
 				$this->contentProduct .= '<tr><td colspan=\'2\'><table class=\'PRESENT_TABLE\'>';
-				$this->contentProduct .= '<tr><th>Student Name</th><th>Student Account</th><th>Closeup Time</th><th>Present</th></tr>';
+				$this->contentProduct .= '<tr><th class=\'PRESENT_TH\'>Student Name</th><th class=\'PRESENT_TH\'>Student Account</th><th class=\'PRESENT_TD\'>Closeup Time</th><th class=\'PRESENT_TH\'>Present</th></tr>';
 				$stmt_students = $this->hookup->prepare('SELECT * FROM student');
 				$stmt_students->execute();
 				while ($row_stu = $stmt_students->fetch(\PDO::FETCH_ASSOC)) {

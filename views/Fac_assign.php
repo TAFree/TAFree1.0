@@ -36,7 +36,7 @@ class Fac_assign implements Product {
 <h1>{$this->item}_{$this->subitem}</h1>
 <form method='POST' action='../controllers/Upload.php' enctype='multipart/form-data'>
 <div class='FAC_ASSIGN_DIV'>
-<input type='submit' value='Upload >>'>
+<input type='submit' class='CLICKABLE' value='Upload >>'>
 EOF;
 		try {
 			$this->hookup = UniversalConnect::doConnect();						

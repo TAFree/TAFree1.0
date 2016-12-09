@@ -1,5 +1,6 @@
 #LOGIN_TABLE {
 	margin: 30vh auto;
+	text-align: center;
 }
 
 .DOC_DIV {
@@ -34,25 +35,6 @@
 .CONTENT_TD {
 	background-color: #FFF6E5;
 	text-align: left;
-}
-
-#FAC_DIV {
-	margin: 150px auto; 
-}
-
-.FAC_A {
-	width:300px;
-	height:40px;
-	background-color: #FFF6E5;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 30px;
-	color: #000000;
-}
-
-.FAC_A:hover {
-	color: #3F464C; 
 }
 
 .POLYGON_SVG {
@@ -189,7 +171,7 @@
     width: 100px;
     padding: 3px;
     border-radius: 4%;
-    border : 0.5px solid #3F464C;
+    border : 2px solid #3F464C;
     margin: 0 auto;
 }
 
@@ -422,15 +404,6 @@
     font-size: 14px;
 }
 
-#APPLY_A {
-	text-decoration: none;
-	color: #000000;
-} 
-
-#APPLY_A:hover {
-	color: #3F464C;
-}
-
 #SUPPORT_A {
 	text-decoration: none;
 	color: #000000;
@@ -568,4 +541,28 @@
 	
 }
 
+.SETUP_BUTTON {
+    display: block;
+    background-color: #FFF6E5;
+    color: #000000;
+    text-decoration: none;
+    width: 100px;
+    padding: 3px;
+    border-radius: 4%;
+    border : 2px solid #3F464C;
+    margin: 0 auto;
+    display: block;
+}
 
+.SETUP_BUTTON:hover {
+    color: #3F464C;	
+}
+
+.ITEM_TR {
+	font-family: "Goudy Old Style", Garamond, "Big Calon", "Times New Romand", serif;
+	font-weight: 800;
+}
+
+.PRESENT_TH {
+	height: 5vh;
+}

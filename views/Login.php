@@ -43,7 +43,7 @@ class Login implements Product{
 </tr>
 <tr>
 <td colspan='2'>
-<input type='submit' name='submit' value='Login'>
+<input type='submit' class='CLICKABLE' name='submit' value='Login'>
 </td>
 </tr>
 </table>

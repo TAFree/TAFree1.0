@@ -28,7 +28,7 @@ TAFree.asset.Polygon = {
             circle.setAttribute('r', r);
         
 	    circle.onmouseover = function() {
-                this.style.fill = '#FFF6E5';
+		    this.style.fill = '#FFF6E5';   
             }
             circle.onmouseout = function() {
                 this.style.fill = '#2186C4';
@@ -109,8 +109,7 @@ TAFree.asset.Polygon = {
             tri.setAttribute('stroke', '#000000');
             tri.style.fill = '#7ECEFC';
             tri.onmouseover = function(){
-                this.style.fill = '#FFF6E5'
-                
+		this.style.fill = '#FFF6E5';
             };
             tri.onmouseout = function(){
                 this.style.fill = '#7ECEFC';
@@ -189,8 +188,7 @@ TAFree.asset.Polygon = {
         rect1.setAttribute('stroke', '#000000');
         rect1.style.fill = '#7ECEFC';
         rect1.onmouseover = function(){
-            this.style.fill = '#FFF6E5'
-            
+	    this.style.fill = '#FFF6E5';
         };
         rect1.onmouseout = function(){
             this.style.fill = '#7ECEFC';
@@ -202,12 +200,10 @@ TAFree.asset.Polygon = {
         rect2.setAttribute('stroke', '#000000');
         rect2.style.fill = '#7ECEFC';
         rect2.onmouseover = function(){
-            this.style.fill = '#FFF6E5'
-            
+            this.style.fill = '#FFF6E5';    
         };
         rect2.onmouseout = function(){
-            this.style.fill = '#7ECEFC';
-            
+            this.style.fill = '#7ECEFC'; 
         };
 
         // Set text
