@@ -7,16 +7,19 @@
 	margin: auto 5vh;
 }
 
-#SNEAKER_P {
+#SNEAKER_DIV {
+	text-align: center;
 	margin: 200px;
 }
 
-#WRONG_PERSON_P {
+#WRONG_PERSON_DIV {
+	text-align: center;
 	margin: 200px;
 }
 
-#MSG_P {
+#MSG_DIV {
 	margin: 200px;
+	text-align: center;
 }
 
 #ABOUT_TABLE {
@@ -66,18 +69,17 @@
     color: #FFF6E5;
 }
 
-#FAC_ASSIGN_DIV{
-	margin: 30px auto;
-	text-align: center;
-	margin-bottom: 0;
+.CONTENT_PRE_TD {
+	background-color: #FFF6E5;
+	text-align: left;
+	white-space: pre;
 }
 
 #PROBLEM_TABLE {
     margin: 0 auto;
     margin-top: 30px;
     margin-bottom: 30px;
-    width: 50%;
-    height: 50%;
+    width: 90%;
 }
 
 #OTHER_INPUT {
@@ -86,15 +88,13 @@
 #SOLUTION_TABLE {
     margin: 0 auto;
     margin-bottom: 30px;
-    width: 50%;
-    height: 50%;
+    width: 90%;
 }
 
 #TESTDATA_TABLE {
     margin: 0 auto;
-    width: 50%;
-    height: 50%;
     margin-bottom: 100px;
+    width: 90%;
 }
 
 .HIDDEN_TR {
@@ -111,8 +111,13 @@
     color: #FFF6E5;
 }
 
+.ADMIN_BUTTON_TD {
+    width: 30px;
+}
+
 .ADMIN_TABLE {
     margin: 30px auto;
+    width: 80vw;
 }
 
 .HIDDEN_PROB {
@@ -165,18 +170,14 @@
 
 .CLICKABLE {
     display: block;
-    background-color: #FFF6E5;
+    background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
     color: #000000;
     text-decoration: none;
     width: 100px;
-    padding: 3px;
-    border-radius: 4%;
-    border : 2px solid #3F464C;
+    padding: 2px 1px;
+    border-radius: 5%;
+    border : 1px solid #3F464C;
     margin: 0 auto;
-}
-
-.CLICKABLE:hover {
-    color: #3F464C;
 }
 
 #ALL_INPUT {
@@ -381,6 +382,7 @@
 .PRESENT_TABLE {
     width: 1000px;
     margin-top: 50px;
+    text-align: center;
 }
 
 #STU_CHOOSER_TABLE {
@@ -543,19 +545,14 @@
 
 .SETUP_BUTTON {
     display: block;
-    background-color: #FFF6E5;
+    background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
     color: #000000;
     text-decoration: none;
     width: 100px;
-    padding: 3px;
-    border-radius: 4%;
-    border : 2px solid #3F464C;
+    padding: 2px 1px;
+    border-radius: 5%;
+    border : 1px solid #3F464C;
     margin: 0 auto;
-    display: block;
-}
-
-.SETUP_BUTTON:hover {
-    color: #3F464C;	
 }
 
 .ITEM_TR {
@@ -565,4 +562,16 @@
 
 .PRESENT_TH {
 	height: 5vh;
+}
+
+.PUT_BUTTON_DIV {
+	text-align: center;
+}
+
+#UPLOAD_INPUT {
+	display: inline;
+}
+
+#DELETE_LABEL {
+	display: inline;
 }

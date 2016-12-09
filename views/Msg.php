@@ -21,7 +21,7 @@ class Msg implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->contentProduct .= '<p id=\'MSG_P\'>' . $this->content . '</p>';
+		$this->contentProduct .= '<div id=\'MSG_DIV\'>' . $this->content . '</p>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		

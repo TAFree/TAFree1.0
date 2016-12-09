@@ -33,10 +33,10 @@ class Fac_assign implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
-<h1>{$this->item}_{$this->subitem}</h1>
 <form method='POST' action='../controllers/Upload.php' enctype='multipart/form-data'>
-<div class='FAC_ASSIGN_DIV'>
-<input type='submit' class='CLICKABLE' value='Upload >>'>
+<div class='PUT_BUTTON_DIV'>
+<h1>{$this->item}_{$this->subitem}</h1>
+<input type='submit' class='CLICKABLE' value='Upload' id='UPLOAD_INPUT'>
 EOF;
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
@@ -46,7 +46,7 @@ EOF;
 			$row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
 			if ($row['number'] !== '1' && $this->subitem === $row['number']) {
-				$this->contentProduct .= '<label for=\'DELETE_INPUT\'><input type=\'checkbox\' id=\'DELETE_INPUT\' name=\'delete\' value=\'\'>Delete</label>';
+				$this->contentProduct .= '<label id=\'DELETE_LABEL\' for=\'DELETE_INPUT\'><input type=\'checkbox\' id=\'DELETE_INPUT\' name=\'delete\' value=\'\'>Delete</label>';
 			}
 
 			$this->hookup = null;
@@ -64,15 +64,15 @@ EOF;
 <th colspan='2' class='TITLE_TD'>Problem</th>
 </tr>
 <tr>
-<td class='CONTENT_TD'>Problem Description</td>
+<td class='CONTENT_PRE_TD'>Problem Description</td>
 <td class='CONTENT_TD'><input type='file' name='description'></td>
 </tr>
 <tr>
-<td class='CONTENT_TD'>Hint</td>
+<td class='CONTENT_PRE_TD'>Hint</td>
 <td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='hint'></textarea></td>
 </tr>
 <tr>
-<td class='CONTENT_TD'>Judge Script</td>
+<td class='CONTENT_PRE_TD'>Judge Script</td>
 <td class='CONTENT_TD'>
 <select id='JUDGE_SELECT' name='judge'>
 EOF;
@@ -98,7 +98,7 @@ EOF;
 </td>
 </tr>
 <tr>
-<td class='CONTENT_TD'>Safe Mode</td>
+<td class='CONTENT_PRE_TD'>Safe Mode</td>
 <td class='CONTENT_TD'>
 <input type='checkbox' id='SAFE_INPUT' value='isolate' checked name='safe'><p class='WARN_P'>(Do not deselect safe mode if your judge script does not concern about security !)</p>
 </td>
@@ -110,18 +110,18 @@ EOF;
 <th colspan='2' class='TITLE_TD'>Solution</th>
 </tr>
 <tr>
-<td><button class='ADD_BUTTON' type='button'><b>+</b></button></td>
+<td class='ADMIN_BUTTON_TD'><button class='ADD_BUTTON' type='button'><b>+</b></button></td>
 <td class='TITLE_TD'>Filename (.java)</td>
 <td class='TITLE_TD'>Upload</td>
 </tr>
 <tr class='HIDDEN_TR'>
-<td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='solution_filename[]'></td>
+<td class='ADMIN_BUTTON_TD'><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
+<td class='CONTENT_TD'><input type='text' name='solution_filename[]'></td>
 <td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='solution_content[]'></textarea></td>
 </tr>
 <tr class='SHOW_TR'>
-<td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='solution_filename[]'></td>
+<td class='ADMIN_BUTTON_TD'><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
+<td class='CONTENT_TD'><input type='text' name='solution_filename[]'></td>
 <td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='solution_content[]'>// This block must include main function</textarea></td>
 </tr>
 </table>
@@ -131,18 +131,18 @@ EOF;
 <th colspan='2' class='TITLE_TD'>Test Data</th>
 </tr>
 <tr>
-<td><button class='ADD_BUTTON' type='button'><b>+</b></button></td>
+<td class='ADMIN_BUTTON_TD'><button class='ADD_BUTTON' type='button'><b>+</b></button></td>
 <td class='TITLE_TD'>Filename (.in)</td>
 <td class='TITLE_TD'>Separate by Space</td>
 </tr>
 <tr class='HIDDEN_TR'>
-<td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='testdata_filename[]'></td>
+<td class='ADMIN_BUTTON_TD'><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
+<td class='CONTENT_TD'><input type='text' name='testdata_filename[]'></td>
 <td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='testdata_content[]'></textarea></td>
 </tr>
 <tr class='SHOW_TR'>
-<td><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input type='text' class='FILL_INPUT' name='testdata_filename[]'></td>
+<td class='ADMIN_BUTTON_TD'><button class='DEL_BUTTON' type='button'><b>-</b></button></td>
+<td class='CONTENT_TD'><input type='text' name='testdata_filename[]'></td>
 <td class='CONTENT_TD'><textarea class='FILL_TEXTAREA' name='testdata_content[]'></textarea></td>
 </tr>
 </table>

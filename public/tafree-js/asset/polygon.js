@@ -12,7 +12,7 @@ TAFree.asset.Polygon = {
         x = 250;
         y = 250;
         r = 150;
-        c = 30;
+        c = 15;
         
         // Set circle
         circle = document.createElementNS(svg_ns, 'circle');
@@ -41,7 +41,7 @@ TAFree.asset.Polygon = {
         }
         else { // Not for problem, but just for item
             
-            circle.setAttribute('r', 55); // Compact circle
+            circle.setAttribute('r', 50); // Compact circle
             
             url = null;
             

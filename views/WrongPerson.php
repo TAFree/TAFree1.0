@@ -17,7 +17,7 @@ class WrongPerson implements Product{
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
-		$this->contentProduct .= '<p id=\'WRONG_PERSON_P\'>' . $this->content . '</p>';
+		$this->contentProduct .= '<div id=\'WRONG_PERSON_DIV\'>' . $this->content . '</div>';
 
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		

@@ -17,7 +17,9 @@ class Admin implements Product{
 		$this->contentProduct .=<<<EOF
 
 <form method='POST' action='../controllers/Initial.php' enctype='multipart/form-data'>
-<input name='submit' type='submit' value='Save >>'><br><br>
+<div class='PUT_BUTTON_DIV'>
+<input class='CLICKABLE' name='submit' type='submit' value='Save'>
+</div>
 <table class='ADMIN_TABLE'>
 <tr><th class='TITLE_TD'>Student Account List</th></tr>
 <tr>
@@ -28,50 +30,51 @@ File(.csv) format is like:
 [student name], [student account], [student password]
 </pre>
 </td>
-<tr><td class='CONTENT_TD'><input name='stu_list' type='file'></td></tr>
+</tr>
+<tr><td class='CONTENT_TD'><input class='FILL_INPUT' name='stu_list' type='file'></td></tr>
 </table>
 <table class='ADMIN_TABLE'>
 <tr>
-<td><button id='ADMIN_PROB_BUTTON' class='ADMIN_BUTTON' type='button'><b>+</b></button></td>
+<td class='ADMIN_BUTTON_TD'><button id='ADMIN_PROB_BUTTON' class='ADMIN_BUTTON' type='button'><b>+</b></button></td>
 <th class='TITLE_TD'>Item</th>
 <th class='TITLE_TD'>Number of subitems</th>
 </tr>
 <tr class='HIDDEN_PROB'>
-<td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
+<td class='ADMIN_BUTTON_TD'><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'>
-<input name='item[]' type='text'>
+<input class='FILL_INPUT' name='item[]' type='text' maxlength='7'>
 </td>
-<td class='CONTENT_TD'><input name='item_num[]' type='text' value='Only integer'></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='item_num[]' type='text' value='Only integer' maxlength='1'></td>
 </tr>
 <tr>
-<td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
+<td class='ADMIN_BUTTON_TD'><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
 <td class='CONTENT_TD'>
-<input name='item[]' type='text'>
+<input class='FILL_INPUT' name='item[]' type='text' maxlength='7'>
 </td>
-<td class='CONTENT_TD'><input name='item_num[]' type='text' value='Only integer'></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='item_num[]' type='text' value='Only integer' maxlength='1'></td>
 </tr>
 </table>
 <table class='ADMIN_TABLE'>
 <tr>
-<td><button id='ADMIN_FAC_BUTTON' class='ADMIN_BUTTON' type='button'><b>+</b></button></td>
+<td class='ADMIN_BUTTON_TD'><button id='ADMIN_FAC_BUTTON' class='ADMIN_BUTTON' type='button'><b>+</b></button></td>
 <th class='TITLE_TD'>Faculty Name</th>
 <th class='TITLE_TD'>Account</th>
 <th class='TITLE_TD'>Password</th>
 <th class='TITLE_TD'>Email</th>
 </tr>
 <tr class='HIDDEN_FAC'>
-<td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input name='fac_name[]' type='text' value=''></td>
-<td class='CONTENT_TD'><input name='fac_acc[]' type='text' value='Only alphabet or number '></td>
-<td class='CONTENT_TD'><input name='fac_pass[]' type='text' value='Only alphabet or number'></td>
-<td class='CONTENT_TD'><input name='fac_email[]' type='text' value='Email with @'></td>
+<td class='ADMIN_BUTTON_TD'><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='fac_name[]' type='text' value=''></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='fac_acc[]' type='text' value='Only alphabet or number '></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='fac_pass[]' type='text' value='Only alphabet or number'></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='fac_email[]' type='text' value='Email with @'></td>
 </tr>
 <tr>
-<td><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
-<td class='CONTENT_TD'><input name='fac_name[]' type='text' value=''></td>
-<td class='CONTENT_TD'><input name='fac_acc[]' type='text' value='Only alphabet or number '></td>
-<td class='CONTENT_TD'><input name='fac_pass[]' type='text' value='Only alphabet or number'></td>
-<td class='CONTENT_TD'><input name='fac_email[]' type='text' value='Email with @'></td>
+<td class='ADMIN_BUTTON_TD'><button class='ADMIN_BUTTON' type='button'><b>-</b></button></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='fac_name[]' type='text' value=''></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='fac_acc[]' type='text' value='Only alphabet or number '></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='fac_pass[]' type='text' value='Only alphabet or number'></td>
+<td class='CONTENT_TD'><input class='FILL_INPUT' name='fac_email[]' type='text' value='Email with @'></td>
 </tr>
 </table>
 </form>
