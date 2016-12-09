@@ -575,3 +575,14 @@
 #DELETE_LABEL {
 	display: inline;
 }
+
+.FILENAME_INPUT {
+    border: none;
+    background: repeating-linear-gradient(
+        135deg,
+        #D8D8D8,
+        #D8D8D8 2.5px,
+        #FFF6E5 2.5px,
+        #FFF6E5 5px
+    );
+}
