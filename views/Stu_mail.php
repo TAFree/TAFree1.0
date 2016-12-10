@@ -27,14 +27,10 @@ class Stu_mail implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		$this->contentProduct .=<<<EOF
 <form method='POST' action='../controllers/Apply.php'>
+<div class='PUT_BUTTON_DIV'>
+<input class='CLICKABLE' type='submit' name='submit' value='Apply'>
+</div>
 <table id='STU_LEAVE_TABLE'>
-<tr>
-<td colspan='7'>
-<input type='submit' name='submit' value='Apply >>'>
-<br>
-<br>
-</td>
-</tr>
 <tr>
 <th class='TITLE_TD'>Name</th>
 <th class='TITLE_TD'>Account</th>
@@ -54,9 +50,9 @@ EOF;
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_name'] . '</td>';
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_account'] . '</td>';
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['item'] . '</td>';
-				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['reason'] . '</td>';
-				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['expected_deadline'] . '</td>';
-				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['allowed_deadline'] . '</td>';
+				$this->contentProduct .= '<td class=\'CONTENT_REASON_TD\'>' . $row['reason'] . '</td>';
+				$this->contentProduct .= '<td class=\'CONTENT_DEADLINE_TD\'>' . $row['expected_deadline'] . '</td>';
+				$this->contentProduct .= '<td class=\'CONTENT_DEADLINE_TD\'>' . $row['allowed_deadline'] . '</td>';
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['reply'] . '</td>';
 				$this->contentProduct .= '</tr>';
 			} 
@@ -77,13 +73,12 @@ EOF;
 			$this->contentProduct .=<<<EOF
 </select>
 </td>
-<td class='CONTENT_TD'><textarea name='reason' row='30' cols='50'></textarea></td>
-<td class='CONTENT_TD'>
-<input type='date' name='date'><br>
-<input type='number' name='hour' min='0' max='23' value='00'>&nbsp;:&nbsp;
-<input type='number' name='minute' min='0' max='59' value='00'>
+<td class='CONTENT_REASON_TD'><textarea name='reason' class='REASON_TEXTAREA'></textarea></td>
+<td class='CONTENT_DEADLINE_TD'>
+<input type='date' name='date'>
+<input type='number' name='hour' min='0' max='23' value='00'>&nbsp;&nbsp;:&nbsp;&nbsp;<input type='number' name='minute' min='0' max='59' value='00'>
 </td>
-<td class='CONTENT_TD'>
+<td class='CONTENT_DEADLINE_TD'>
 </td>
 <td class='CONTENT_TD'>
 </td>

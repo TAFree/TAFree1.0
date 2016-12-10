@@ -17,7 +17,7 @@ class Discussion implements Product{
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
-		$this->contentProduct .= '<div id=\'DISCUSSION_DIV\'><div id=\'RECORD_DIV\'></div><div id=\'TALK_DIV\'>';
+		$this->contentProduct .= '<div id=\'DISCUSSION_DIV\'><div id=\'BLUR_DIV\'></div><div id=\'RECORD_DIV\'></div><div id=\'TALK_DIV\'>';
 		$this->contentProduct .=<<<EOF
 <select id='SUBJECT_SELECT'>
 <option value='Comment'>Comment</option>
@@ -25,9 +25,9 @@ class Discussion implements Product{
 <option value='News'>News</option>
 <option value='Bug'>Bug</option>
 </select>
-<input type='text' id='TALK_INPUT'>
+<input type='text' class='FILENAME_INPUT' id='TALK_INPUT'>
 EOF;
-		$this->contentProduct .= '<button id=\'TALK_BUTTON\'>Talk</button></div></div>';	
+		$this->contentProduct .= '<button class=\'CLICKABLE\' id=\'TALK_BUTTON\'>Talk</button></div></div>';	
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		return $this->contentProduct;
 	}	 

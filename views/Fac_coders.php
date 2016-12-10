@@ -50,8 +50,8 @@ EOF;
 			$stmt_stu = $this->hookup->prepare('SELECT student_name, student_account FROM student');
 			$stmt_stu->execute();
 			while($row_stu = $stmt_stu->fetch(\PDO::FETCH_ASSOC)) {
-				$this->contentProduct .= '<tr><td class=\'CONTENT_TD\'>' . $row_stu['student_name'] . '</td>';
-				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row_stu['student_account'] . '</td>';
+				$this->contentProduct .= '<tr><td class=\'CONTENT_STU_INFO_TD\'>' . $row_stu['student_name'] . '</td>';
+				$this->contentProduct .= '<td class=\'CONTENT_STU_INFO_TD\'>' . $row_stu['student_account'] . '</td>';
 				
 				$stmt_item = $this->hookup->prepare('SELECT ' . $row_stu['student_account'] . ' FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
 				$stmt_item->execute();

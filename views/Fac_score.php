@@ -46,8 +46,8 @@ EOF;
 				$stmt_stu = $this->hookup->prepare('SELECT student_name, student_account FROM student');
 				$stmt_stu->execute();
 				while($row_stu = $stmt_stu->fetch(\PDO::FETCH_ASSOC)) {
-					$this->contentProduct .= '<tr><td class=\'CONTENT_TD\'>' . $row_stu['student_name'] . '</td>';
-					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row_stu['student_account'] . '</td>';
+					$this->contentProduct .= '<tr><td class=\'CONTENT_STU_INFO_TD\'>' . $row_stu['student_name'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_STU_INFO_TD\'>' . $row_stu['student_account'] . '</td>';
 					for ($i = 1; $i <= $row_prob['number']; $i += 1){			
 						
 						$stmt_item = $this->hookup->prepare('SELECT ' . $row_stu['student_account'] . ' FROM ' . $row_prob['item'] . ' WHERE subitem=\'' . $i . '\'');

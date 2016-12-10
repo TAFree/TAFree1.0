@@ -22,14 +22,10 @@ class Fac_mail implements Product {
 		$this->contentProduct .= $this->formatHelper->addTop();
 		$this->contentProduct .=<<<EOF
 <form method='POST' action='../controllers/Ratify.php'>
+<div class='PUT_BUTTON_DIV'>
+<input class='CLICKABLE' type='submit' name='submit' value='Ratify'>
+</div>
 <table id='FAC_LEAVE_TABLE'>
-<tr>
-<td colspan='8'>
-<input type='submit' name='submit' value='Ratify >>'>
-<br>
-<br>
-</td>
-</tr>
 <tr>
 <th class='TITLE_TD'>Timestamp</th>
 <th class='TITLE_TD'>Name</th>
@@ -53,7 +49,7 @@ EOF;
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_name'] . '</td>';
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_account'] . '</td>';
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['item'] . '</td>';
-					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['reason'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_REASON_DISPLAY_TD\'>' . $row['reason'] . '</td>';
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['expected_deadline'] . '</td>';
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['allowed_deadline'] . '</td>';
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['reply'] . '</td>';
@@ -70,14 +66,13 @@ EOF;
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_name'] . '</td>';
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_account'] . '</td>';
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['item'] . '</td>';
-					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['reason'] . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_REASON_DISPLAY_TD\'>' . $row['reason'] . '</td>';
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['expected_deadline'] . '</td>';
 
 					$this->contentProduct .=<<<EOF
-<td class='CONTENT_TD'>
-<input type='date' name='date[]'><br> 
-<input type='number' name='hour[]' min='0' max='23' value='00'>&nbsp;:&nbsp;
-<input type='number' name='minute[]' min='0' max='59' value='00'> 
+<td class='CONTENT_DEADLINE_TD'>
+<input type='date' name='date[]'> 
+<input type='number' name='hour[]' min='0' max='23' value='00'>&nbsp;&nbsp;:&nbsp;&nbsp;<input type='number' name='minute[]' min='0' max='59' value='00'> 
 </td>
 <td class='CONTENT_TD'>
 <select name='reply[]'>

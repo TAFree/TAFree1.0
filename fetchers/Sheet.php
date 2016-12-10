@@ -31,8 +31,8 @@ class Sheet implements Product {
 <input type='hidden' value='{$this->subitem}' name='subitem'>
 <input type='hidden' value='{$this->stu_account}' name='stu_account'>
 </div>
-<div class='STU_WRITE_DIV'>
-<input type='button' id='HANDIN_INPUT' class='CLICKABLE' value='Handin >>'>
+<div class='PUT_BUTTON_DIV'>
+<input type='button' id='HANDIN_INPUT' class='CLICKABLE' value='Handin'>
 </div>
 EOF;
 		

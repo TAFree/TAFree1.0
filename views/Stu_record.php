@@ -40,11 +40,11 @@ class Stu_record implements Product {
 <table class='STU_RECORD_TABLE'>
 <tr><th class='TITLE_TD' colspan='$colspan'>{$row_prob['item']}</tr>
 EOF;
-				$this->contentProduct .= '<tr><td class=\'TITLE_TD\'>Open</td>';
+				$this->contentProduct .= '<tr><td class=\'TITLE_STU_INFO_TD\'>Open</td>';
 				$this->contentProduct .= '<td colspan=\'2\' class=\'CONTENT_TD\'>' . $row_prob['showup'] . '</td></tr>';
 				
 				for ($i = 1; $i <= $row_prob['number']; $i += 1){
-					$this->contentProduct .= '<tr><td class=\'TITLE_TD\'>' . $i . '</td>';
+					$this->contentProduct .= '<tr><td class=\'TITLE_STU_INFO_TD\'>' . $i . '</td>';
 					$stmt_item = $this->hookup->prepare('SELECT ' . $this->stu_account . ' FROM ' . $row_prob['item'] . ' WHERE subitem=\'' . $i . '\'');
 					$stmt_item->execute();
 					$row_item = $stmt_item->fetch(\PDO::FETCH_ASSOC);

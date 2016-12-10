@@ -31,7 +31,7 @@ class StudentQuery implements IStrategy {
 				SessionManager::setParameter('guest', 'student'); 
 				SessionManager::setParameter('nickname', $row['student_name']);
 				SessionManager::setParameter('account', $row['student_account']);
-				new Viewer('Stu_problems');
+				header('location: ../views/Stu_problems.php');
 				$this->hookup = null;
 			}
 			else{

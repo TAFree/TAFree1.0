@@ -33,7 +33,7 @@ class FacultyQuery implements IStrategy {
 				SessionManager::setParameter('guest', 'faculty'); 
 				SessionManager::setParameter('nickname', $row['faculty_name']);
 				SessionManager::setParameter('account', $row['faculty_account']);
-				new Viewer('Fac_problems');
+				header('location: ../views/Fac_problems.php');
 				$this->hookup = null;
 				exit();
 			}

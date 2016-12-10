@@ -40,30 +40,22 @@ TAFree.page.Hash = (function () {
             	},
                 
                 'modify': function () {
-			addon.codeLeft();
                  	init.enableZoom();
 			init.enableModify();
 			init.handout();
             	},	
 
                 'stu_problem': function () {
-                    	addon.codeLeft();
                     	init.enableZoom();
 			addon.clearModify();
 			init.handin();
             	},
 		
 		'result': function () {
-			addon.codeLeft();
 			init.switchLayer();
 		},
 
-                'sourcewatch': function () {
-                    	addon.codeLeft();
-		},
-
 		'fac_display': function () {
-			addon.codeLeft();
                     	init.enableZoom();
 			addon.clearModify();
             	},
@@ -72,22 +64,9 @@ TAFree.page.Hash = (function () {
 			process.countStatus();
 		},
 		
-		'instruction': function () {	
-                        addon.codeLeft();
-		},
-
-		'support': function () {	
-                        addon.codeLeft();
-		},
-		
 		'discussion': function () {	
-			addon.codeLeft();
 			init.talk();
                         init.pullMsg();
-		},
-		
-		'about': function () {
-                        addon.codeLeft();
 		}
 
 	    },
