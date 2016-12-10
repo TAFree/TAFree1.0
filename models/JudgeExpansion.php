@@ -58,7 +58,7 @@ class JudgeExpansion implements IStrategy {
 			// Manipulate file
 			
 			// Add general judge file
-			if (!empty($this->add_judge['tmp'])) {
+			if (!empty($this->add_judge['tmp_name'])) {
 				$this->addJudge();
 			}
 
@@ -90,8 +90,7 @@ class JudgeExpansion implements IStrategy {
 	
 	}
 		
-	public function addJudge () {	
-		
+	public function addJudge () {		
 		// Upload to ../judge directory 
 		$tmpname = $this->add_judge['tmp_name'];
 		$basename = date('Ymd') . '_' . basename($this->add_judge['name']);				

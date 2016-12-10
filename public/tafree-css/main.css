@@ -9,24 +9,17 @@
 
 #SNEAKER_DIV {
 	text-align: center;
-	margin: 200px;
+	margin-top: 30%;
 }
 
 #WRONG_PERSON_DIV {
 	text-align: center;
-	margin: 200px;
+	margin-top: 30%;
 }
 
 #MSG_DIV {
-	margin: 200px;
+	margin-top: 30%;
 	text-align: center;
-}
-
-#ABOUT_TABLE {
-	margin: 30px auto;
-	table-layout: fixed;
-	width: 800px;
-	word-break: break-all; 
 }
 
 .TITLE_TD {
@@ -77,7 +70,7 @@
 
 #PROBLEM_TABLE {
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 5vh;
     margin-bottom: 30px;
     width: 90%;
 }
@@ -116,7 +109,7 @@
 }
 
 .ADMIN_TABLE {
-    margin: 30px auto;
+    margin: 5vh auto;
     width: 80vw;
 }
 
@@ -238,11 +231,6 @@
     margin-bottom: 50px;
 }
 
-#ALL_TABLE {
-    margin: 50px auto;
-    width: 800px;
-}
-
 .FAC_SCORE_TABLE {
     margin: 5vh auto;
     width: 80%;
@@ -276,7 +264,7 @@
 }
 
 .CODES_TABLE { 
-    	margin: 30px auto;
+    	margin: 5vh auto;
 	margin-bottom: 50px;
 }
 
@@ -392,14 +380,6 @@
 .MODIFY_LOCK_DIV {
 }
 
-#FAC_VERIFY_DIV {  
-	margin: 30px auto;
-}
-
-#VERIFY_TABLE {
-	width: 70vw;
-}
-
 #SAFE_INPUT {
 	display: inline;
 }
@@ -411,7 +391,7 @@
 
 #FAC_CHOOSER_TABLE {
     margin: auto;
-    margin-top: 30px;
+    margin-top: 5vh;
     margin-bottom: 50px;
 }
 
@@ -498,9 +478,8 @@
 
 #TALK_INPUT {
 	display: inline;
-	width: 82%;
+	width: 75%;
 	height: 80%;
-	margin-left: 5px;
 }
 
 #TALK_BUTTON {

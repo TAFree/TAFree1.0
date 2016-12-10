@@ -213,8 +213,20 @@ class ProblemEntry implements IStrategy {
 	}
 
 	public function updateItem () {
+		$describe;
+		$hint;
+		$judge;
+		$safe;
 		$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET description=:describe, hint=:hint, judgescript=:judge, safe=:safe WHERE subitem=\'' . $this->subitem . '\'');
-		$stmt->execute(array(':describe' => $this->describe, ':hint' => $this->hint, ':judge' => $this->judge, ':safe' => $this->safe));	
+		$stmt->bindParam(':describe', $describe);
+		$stmt->bindParam(':hint', $hint);
+		$stmt->bindParam(':judge', $judge);
+		$stmt->bindParam(':safe', $safe);
+		$describe = $this->describe;
+		$hint = $this->hint;
+		$judge = $this->judge;
+		$safe = $this->safe;
+		$stmt->execute();
 	}
 	
 	public function clearSubitem () {
