@@ -614,6 +614,10 @@
 	display: inline;
 }
 
+#ADD_LABEL {
+	display: inline;
+}
+
 .FILENAME_INPUT {
     border: none;
     background: repeating-linear-gradient(

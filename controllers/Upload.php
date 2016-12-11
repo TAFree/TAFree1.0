@@ -14,7 +14,10 @@ class Upload {
 			
 		$trigger = new DBOperator();
 
-		if (isset($_POST['delete'])) {
+		if (isset($_POST['add']))  {
+			$trigger->increase();
+		}
+		else if (isset($_POST['delete'])) {
 			$trigger->reduce();
 		}
 		else {

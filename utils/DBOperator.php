@@ -56,6 +56,11 @@ class DBOperator {
 		$context->algorithm();
 	}
 	
+	public function increase() {
+		$context = new Context(new models\ProblemIncrease());
+		$context->algorithm();
+	}
+	
 	public function reduce() {
 		$context = new Context(new models\ProblemReduce());
 		$context->algorithm();

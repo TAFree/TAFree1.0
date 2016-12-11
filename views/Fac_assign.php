@@ -46,8 +46,12 @@ EOF;
 			$stmt->execute();
 			$row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-			if ($row['number'] !== '1' && $this->subitem === $row['number']) {
+			if ($row['number'] === 1) {
+				$this->contentProduct .= '<label id=\'ADD_LABEL\' for=\'ADD_INPUT\'><input type=\'checkbox\' id=\'ADD_INPUT\' name=\'add\' value=\'\'>Add</label>';
+			}
+			else if ($this->subitem === $row['number']) {
 				$this->contentProduct .= '<label id=\'DELETE_LABEL\' for=\'DELETE_INPUT\'><input type=\'checkbox\' id=\'DELETE_INPUT\' name=\'delete\' value=\'\'>Delete</label>';
+				$this->contentProduct .= '<label id=\'ADD_LABEL\' for=\'ADD_INPUT\'><input type=\'checkbox\' id=\'ADD_INPUT\' name=\'add\' value=\'\'>Add</label>';
 			}
 
 			$this->hookup = null;
