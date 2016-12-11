@@ -49,12 +49,12 @@ EOF;
 					$stmt_item->execute();
 					$row_item = $stmt_item->fetch(\PDO::FETCH_ASSOC);
 					$status = $row_item[$this->stu_account];
-					$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $status . '</td>';
+					$this->contentProduct .= '<td class=\'CONTENT_STU_INFO_TD\'>' . $status . '</td>';
 					if ($status !== 'NULL') {
-						$this->contentProduct .= '<td class=\'CONTENT_TD\'><a href=\'../views/SourceWatch.php?stu_account=' . $this->stu_account . '&fullitem=' . $row_prob['item'] . '_' . $i . '\' class=\'CLICKABLE\'>Watch</a></td>';
+						$this->contentProduct .= '<td class=\'CONTENT_STU_INFO_TD\'><a href=\'../views/SourceWatch.php?stu_account=' . $this->stu_account . '&fullitem=' . $row_prob['item'] . '_' . $i . '\' class=\'CLICKABLE\'>Watch</a></td>';
 					}
 					else {
-						$this->contentProduct .='<td class=\'CONTENT_TD\'></td>';
+						$this->contentProduct .='<td class=\'CONTENT_STU_INFO_TD\'></td>';
 					}
 					$this->contentProduct .= '</tr>';
 				
