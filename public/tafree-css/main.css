@@ -341,11 +341,13 @@
 	font-size: 14px;
 }
 
-.MODIFY_LINE_PRE {
+.MODIFY_LINE_PLAIN_INPUT {
     border: 1px dotted #3196C4;
+    background-color: transparent;
+    width: 100%;
 }
 
-.MODIFY_LINE_PRE:hover {
+.MODIFY_LINE_PLAIN_INPUT:hover {
     background-color: #7ECEFC;
 }
 	
@@ -431,8 +433,10 @@
 	color: #3F464C;
 }
 
-.LOOK_LINE_PRE {
-	
+.LOOK_LINE_PLAIN_INPUT {
+    border: none;
+    background-color: transparent;
+    width: 100%;
 }
 
 #DISCUSSION_DIV {

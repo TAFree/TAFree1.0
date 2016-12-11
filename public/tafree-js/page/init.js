@@ -255,12 +255,12 @@ TAFree.page.Init = {
 	titles = dom.getClass('TITLE_DIV'); 
 	codes = dom.getClass('CODE_DIV');
 	for (j = 0; j < codes.length; j += 1) {
-		code = codes[j].children[1].value;
+		code = codes[j].children[0].value;
 		content = '';
 		title = titles[j].children[0].innerHTML;
 		lines = code.split('\n');
     		for (k = 0; k < lines.length; k += 1) {
-			lines[k] = '<pre class=\'MODIFY_LINE_PRE\'>' + lines[k] + '</pre>';
+			lines[k] = '<input type=\'text\' class=\'MODIFY_LINE_PLAIN_INPUT\' value=\''+ lines[k] + '\'><br>';
 			content += lines[k];
 		}	
 		// Add onclick event listener on each line
@@ -268,7 +268,6 @@ TAFree.page.Init = {
 		for (l = 0; l < codes[j].children.length; l += 1) {
 			codes[j].children[l].addEventListener('click', addon.diggable);
 		}
-		console.log(codes[j].innerHTML);
 		// Store original source
 		data.storeSource(title, content);
 	} 

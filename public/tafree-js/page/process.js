@@ -73,13 +73,14 @@ TAFree.page.Process = {
 					switch (lines[j].tagName) {
 						case 'TEXTAREA':
 							container.push(lines[j].value);	
-						break;
+							break;
 						case 'INPUT':
 							container.push(lines[j].value);	
-						break;
-						case 'PRE':
-							container.push(lines[j].innerHTML);
-						break;
+							break;
+						case 'BR':
+							break;
+						default:
+							break;
 					}
 				}
 				pkg.source = container;

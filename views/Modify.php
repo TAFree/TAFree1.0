@@ -58,7 +58,7 @@ EOF;
 <td>
 <div class='BLOCK_DIV'>
 <div class='TITLE_DIV'><p class='TITLE_P'>{$row['classname']}</p><img class='ZOOM_IMG'></div>
-<div class='CODE_DIV'><pre class='MODIFY_ORIGINAL_PRE'>{$row['original_source']}</pre><input type='hidden' value='{$row['original_source']}'></div>
+<div class='CODE_DIV'><input type='hidden' value='{$row['original_source']}'></div>
 <div class='MODIFY_BAR_DIV'>
 <table class='MODIFY_TABLE'>
 <tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/line.svg' title='Cut out line'></td></tr>
