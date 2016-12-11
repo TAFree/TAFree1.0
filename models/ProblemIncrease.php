@@ -4,6 +4,7 @@ namespace TAFree\models;
 use TAFree\classes\IStrategy;
 use TAFree\utils\Viewer;
 use TAFree\database\UniversalConnect;
+use TAFree\routes\SessionManager;
 
 require_once('../composers/Autoloader.php');
 
@@ -18,9 +19,10 @@ class ProblemIncrease implements IStrategy {
 	public function algorithm () {
 		
 		// Get item, subitem
-		$this->item = $_POST['item'];
-		$this->subitem = $_POST['subitem'];
-		$this->number = intval($this->subitem) - 1;
+		$this->item = SessionManager::getParameter('item');
+		$this->subitem = SessionManager::getParameter('subitem');
+		$this->number = intval($this->subitem) + 1;
+		$this->subitem = $this->number;
 
 		try {
 			// Connect to database
@@ -29,39 +31,36 @@ class ProblemIncrease implements IStrategy {
 			
 			// Manipulate tables					
 			
-			// Reduce problem table
-			$this->reduceProblem();
+			// Increase problem table
+			$this->increaseProblem();
 			
-			// Reduce item table
-			$this->reduceItem();
+			// Increase item table
+			$this->increaseItem();
 	
-			// Delete subitem table
-			$this->deleteSubitem();
+			// Increase subitem table
+			$this->increaseSubitem();
 			
-			// Delete ../problem/judge/[item]/[subitem]
-			$delete_file_msg = System('rm -rf ../problem/judge/' . $this->item . '/' . $this->subitem, $retval);
-			if ($retval !== 0) {
-				new Viewer('Msg', $delete_file_msg);
+			// Create ../problem/judge/[item]/[subitem]
+			if(!mkdir('../problem/judge/' . $this->item . '/' . $this->subitem)){
+				new Viewer('Msg', 'Failed to create ../problem/judge/' . $this->item . '/' . $this->subitem);
 				exit();
 			}
 			
-			// Delete ../problem/judge/[item]/[subitem]
-			$delete_file_msg = System('rm -rf ../problem/testdata/' . $this->item . '/' . $this->subitem, $retval);
-			if ($retval !== 0) {
-				new Viewer('Msg', $delete_file_msg);
+			// Create ../problem/testdata/[item]/[subitem]
+			if(!mkdir('../problem/testdata/' . $this->item . '/' . $this->subitem)){
+				new Viewer('Msg', 'Failed to create ../problem/testdata/' . $this->item . '/' . $this->subitem);
 				exit();
 			}
 			
-			// Delete ../problem/judge/[item]/[subitem]
-			$delete_file_msg = System('rm -rf ../problem/description/' . $this->item . '/' . $this->subitem, $retval);
-			if ($retval !== 0) {
-				new Viewer('Msg', $delete_file_msg);
+			// Create ../problem/description/[item]/[subitem]
+			if(!mkdir('../problem/description/' . $this->item . '/' . $this->subitem)){
+				new Viewer('Msg', 'Failed to create ../problem/description/' . $this->item . '/' . $this->subitem);
 				exit();
 			}
-
+			
 			$this->hookup = null;
 			
-			new Viewer('Msg', 'Already delete ' . $this->item . '_' . $this->subitem . ' ! ');
+			new Viewer('Msg', 'Already create ' . $this->item . '_' . $this->subitem . ' ! ');
 	
 		}
 		catch (\PDOException $e) {
@@ -70,19 +69,38 @@ class ProblemIncrease implements IStrategy {
 	
 	}
 
-	public function reduceProblem () {
+	public function increaseProblem () {
 		$stmt = $this->hookup->prepare('UPDATE problem SET number=:number WHERE item=\'' . $this->item . '\'');
 		$stmt->execute(array(':number' => $this->number));	
 	}
 	
-	public function reduceItem () {	
-		$stmt = $this->hookup->prepare('DELETE FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
-		$stmt->execute();	
+	public function increaseItem () {	
+		$stmt = $this->hookup->prepare('INSERT INTO ' . $this->item . '(subitem) VALUES(:subitem)');
+		$stmt->bindParam(':subitem', $this->subitem);
+		$stmt->execute();
 	}
 	
-	public function deleteSubitem () {
-		$stmt = $this->hookup->prepare('DROP TABLE ' . $this->item . '_' . $this->subitem);
-		$stmt->execute();
+	public function increaseSubitem () {
+		$stmt_stu = $this->hookup->prepare('SELECT student_account FROM student');
+		$stmt_stu->execute();
+		$stu_accs = array();
+		while ($row_stu = $stmt_stu->fetch(\PDO::FETCH_ASSOC)) {
+			array_push($stu_accs, $row_stu['student_account']);
+		}
+		$sql = 'CREATE TABLE ' . $this->item . '_' . $this->number . '(
+			classname VARCHAR(100),
+			main CHAR(1),
+			original_source TEXT,
+			modified_source TEXT,';
+		for ($j = 0; $j < count($stu_accs); $j += 1) {
+			$sql .= $stu_accs[$j] . ' TEXT';
+			if ($j < count($stu_accs) - 1) {
+				$sql .= ',';
+			}
+		}
+		$sql .= ', PRIMARY KEY(classname));';
+		$stmt_subitem = $this->hookup->prepare($sql);
+		$stmt_subitem->execute();
 	}
 
 }

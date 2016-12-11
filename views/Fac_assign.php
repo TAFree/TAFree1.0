@@ -46,7 +46,7 @@ EOF;
 			$stmt->execute();
 			$row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-			if ($row['number'] === 1) {
+			if ($row['number'] === '1') {
 				$this->contentProduct .= '<label id=\'ADD_LABEL\' for=\'ADD_INPUT\'><input type=\'checkbox\' id=\'ADD_INPUT\' name=\'add\' value=\'\'>Add</label>';
 			}
 			else if ($this->subitem === $row['number']) {
