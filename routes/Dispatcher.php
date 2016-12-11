@@ -186,6 +186,15 @@ $router->match('GET', 'Fac_display.php', function() {
 	}
 });
 
+$router->match('POST', 'SourceFetch.php', function() {
+	if (SessionManager::getParameter('guest') === 'faculty' || SessionManager::getParameter('guest') === 'student') {
+		new fetchers\SourceFetch();
+	} 
+	else {
+		new Viewer('Sneaker');
+	}
+});
+
 $router->match('GET', 'Fac_coders.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		new viewer('Fac_coders');

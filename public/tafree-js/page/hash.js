@@ -47,6 +47,7 @@ TAFree.page.Hash = (function () {
 
                 'stu_problem': function () {
                     	init.enableZoom();
+			init.fetchBlur();
 			addon.clearModify();
 			init.handin();
             	},
@@ -57,6 +58,7 @@ TAFree.page.Hash = (function () {
 
 		'fac_display': function () {
                     	init.enableZoom();
+			init.fetchBlur();
 			addon.clearModify();
             	},
 		

@@ -274,6 +274,45 @@ TAFree.page.Init = {
 	 
     },
     
+    fetchBlur: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+	    blur_blocks, classnames, i, obj;
+	    
+	    blur_blocks = dom.getClass('MODIFY_BLUR_DIV');
+	    classnames = [];
+
+	    if (blur_blocks !== null) {
+		for (i = 0; i < blur_blocks.length; i += 1) {
+		    classnames.push(blur_blocks[i].parentNode.parentNode.children[0].children[0].innerHTML);
+		}
+
+	    	// Fetch blurred sources on server side
+	    	xhr = new XMLHttpRequest();
+	        xhr.onreadystatechange = function () {
+		    if (this.readyState === 4 && this.status === 200) {
+		        var dom = TAFree.util.Dom,
+			    blur_blocks, j, blur_sources, classname_db, classname_dom;
+
+	    		    blur_blocks = dom.getClass('MODIFY_BLUR_DIV');
+			    blur_sources = JSON.parse(this.responseText);
+			    for (j = 0; j < blur_blocks.length; j += 1) {
+				classname_dom = blur_blocks[j].parentNode.parentNode.children[0].children[0].innerHTML;
+				for (classname_db in blur_sources) {
+					if (classname_dom === classname_db){
+						blur_blocks[j].innerHTML = blur_sources[classname_db];
+					}
+				}
+			    }
+		    }
+	        };
+		obj = classnames;
+	        xhr.open('POST', '../fetchers/SourceFetch.php', true);
+		xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+		xhr.send(JSON.stringify(obj)); 
+	    }
+    },
+    
     handout: function () {
         // Dependencies
         var dom = TAFree.util.Dom,

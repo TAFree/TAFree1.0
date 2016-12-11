@@ -382,6 +382,10 @@
 .MODIFY_LOCK_DIV {
 }
 
+.MODIFY_BLUR_DIV {
+	filter: blur(3px);
+}
+
 #SAFE_INPUT {
 	display: inline;
 }

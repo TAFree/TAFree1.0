@@ -383,8 +383,9 @@ TAFree.page.Feature = {
         var dom = TAFree.util.Dom,
 	    addon = TAFree.page.Addon,
 	    data = TAFree.page.Data,
+	    init = TAFree.page.Init,
 			
-            img, code, modify, title, k, modi_table;
+            img, code, modify, title, k, modi_table, pure_code, i;
             
 	    // Change pattern
 	    img = e.srcElement;
@@ -422,6 +423,12 @@ TAFree.page.Feature = {
 	    case 'lock.svg':
 		code.style.cursor='auto';
 		code.innerHTML = '<div class=\'MODIFY_LOCK_DIV\'><img height=\'50\' width=\'50\' src=\'../public/tafree-svg/lock.svg\'>We already prepared for you.</div>';
+		addon.pattern = null;
+	    	break;
+	    case 'blur.svg':
+		code.style.cursor='auto';
+		code.innerHTML = '<div class=\'MODIFY_BLUR_DIV\'></div>';
+		init.fetchBlur();
 		addon.pattern = null;
 	    	break;
 	    case 'all.svg':

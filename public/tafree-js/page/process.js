@@ -62,7 +62,7 @@ TAFree.page.Process = {
 			pkg.classname = classname;
 			
 			// Package source 
-			if (code_blocks[i].children[0].tagName === 'DIV') {
+			if (code_blocks[i].children[0].tagName === 'DIV') { // blur_source or lock_source
 				pkg.source = 'Locked';
 			} 
 			else {

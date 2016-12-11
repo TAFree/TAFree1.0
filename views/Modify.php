@@ -67,6 +67,7 @@ EOF;
 <tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/rubber.svg' title='Remove line'></td></tr>
 <tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/undo.svg' title='Restore'></td></tr>
 <tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/lock.svg' title='Lock all'></td></tr>
+<tr><td><img class='MODIFY_BUTTON_IMG' src='../public/tafree-svg/blur.svg' title='Blur all'></td></tr>
 </table>
 </div>
 </div>
