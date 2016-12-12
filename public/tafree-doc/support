@@ -93,7 +93,7 @@ sudo apt-get install make
 <h4>1. 不勾選Safe Mode</h4>
 <p>如果你知道如何在腳本裡安排適當的計算資源，在出題時請不要勾選安全模式。</p>
 <h4>2. 勾選Safe Mode</h4>
-<p>為了降低撰寫一份完整的批改腳本的門檻，TAFree組織也提供了一個客戶端跨平台服務程式<a class='DOC_A' href='http://github.com/TAFree/Ghassho'>Ghassho</a>，你可以在多台機器上安裝它，讓批改過程更順暢，就不用考慮上述議題，但是請留意它在計算資源方面的限制。</p>
+<p>為了降低撰寫一份完整的批改腳本的門檻，TAFree組織也提供了一個客戶端跨平台批改服務程式<a class='DOC_A' href='http://github.com/TAFree/Ghassho'>Ghassho</a>，你可以在多台機器上安裝它，讓批改過程更順暢，就不用考慮上述議題，但是請留意它在計算資源方面的限制。</p>
 <p>如果程式作業需要用到特殊的分散式資源，那麼請你另訂一套方案而不要勾選這個項目，你的方案裡面應該要包含上傳到TAFree的批改腳本。</p>
 <br>
 <h3>參考範例</h3>
