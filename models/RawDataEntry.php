@@ -243,6 +243,14 @@ class RawDataEntry implements IStrategy {
 			cmd VARCHAR(100),
 			PRIMARY KEY(ext)	
 		);';		
+		$sql .= 'CREATE TABLE process(
+			id VARCHAR(50),
+			item VARCHAR(50),
+			subitem TINYINT(20) UNSIGNED,
+			student_account VARCHAR(20),
+			view TEXT,
+			PRIMARY KEY(id)	
+		);';
 		$sql .= 'CREATE TABLE apply(
 			id INT NOT NULL AUTO_INCREMENT,
 			timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
