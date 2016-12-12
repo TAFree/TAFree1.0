@@ -387,6 +387,16 @@ $router->match('GET', 'Stu_mail.php', function() {
 	}
 });
 
+$router->match('POST', 'HandinRejector.php', function() {
+	if (SessionManager::getParameter('guest') === 'student') { 
+		new controllers\HandinRejector();
+	} 
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
 $router->match('GET', 'JudgeAdapter.php', function() {
 	if (SessionManager::getParameter('guest') === 'student') { 
 		new controllers\JudgeAdapter();

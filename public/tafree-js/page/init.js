@@ -440,15 +440,36 @@ TAFree.page.Init = {
     handin: function () {
         // Dependencies
         var dom = TAFree.util.Dom,
-            process = TAFree.page.Process,
 
 	    but;
 	
 	but = dom.getId('HANDIN_INPUT');
         but.addEventListener('click', function(e) {
-	        var process = TAFree.page.Process;	
-		// Refactor data and send to server side
-		process.refactorData();	
+		var xhr;
+		// Check judge status on server side
+	    	xhr = new XMLHttpRequest();
+	        xhr.onreadystatechange = function () {
+		    if (this.readyState === 4 && this.status === 200) {
+        		// Dependencies
+	                var process = TAFree.page.Process,
+				
+			    dump;
+
+			dump = this.response;
+
+			if (dump === true) {
+				confirm('Rejuct ! Another judge process is still handling last submission');
+				return;
+			}
+			else {
+				// Refactor data and send to server side
+		  	  	process.refactorData();	
+			}
+		    }
+	        };
+		xhr.open('POST', '../controllers/HandinRejector.php', true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.send();
 	}); 
     },
 
@@ -473,7 +494,7 @@ TAFree.page.Init = {
 	    
     },
 
-    start: new Date('1990-01-01 00:00:00'),
+    start: new Date('2016-01-01 00:00:00'),
 
     switchLayer: function () {
         // Dependencies

@@ -8,7 +8,7 @@
 	It is not necessary to use file already provided.
 	Any related file can be uploaded via testdata field.
 	Then how to apply specific file uploaded to ../problem/testdata/[item]/[subitem] 
-	completely depends on by how the judge file is defined.
+	completely depends on how the judge file is defined.
  */
 
 // Error report mechanism of this script
