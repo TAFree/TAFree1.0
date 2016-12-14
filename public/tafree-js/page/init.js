@@ -542,9 +542,9 @@ TAFree.page.Init = {
     },
 
     pending: function () {
-        // Dependencies
-        var gamelife = TAFree.asset.GameLife;
-            gamelife.init();
+	// Dependencies
+	var gamelife = TAFree.asset.GameLife;
+	    gamelife.play();
     }
 
 };

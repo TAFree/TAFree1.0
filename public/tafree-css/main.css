@@ -631,15 +631,6 @@
     margin: 1px;
 }
 
-#PENDING_DIV {
-	text-align: center;
-}
-
-#PENDING_SVG {
-	height: 100px;
-	width: 100px;
-}
-
 #FAC_DASHBOARD_TABLE {
     margin: 0 auto;
     margin-top: 5vh;

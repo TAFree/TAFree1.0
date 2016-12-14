@@ -48,41 +48,56 @@ TAFree.asset.GameLife = {
 		    });
 		});
 	    };
-    },
+    }(),
 
     create: function(cells) {
          // Dependencies
 	 var dom = TAFree.util.Dom,
 
-	 row, column, svg_ns, svg, frag;
+	 row, column, svg_ns, content, svg, frag, id, dx, dy, h, w;
    
+	 content = dom.getTag('CONTENT');
+	 content.style.textAlign = 'center';
+	 content.innerHTML = '<h1>Wait...</h1>';
+	 
 	 svg_ns = 'http://www.w3.org/2000/svg';
-	 svg = dom.getTag('SVG');
+	 
+	 svg = document.createElementNS(svg_ns, 'svg');
+	 h = 0.4 * document.documentElement.clientWidth;
+	 w = 0.4 * document.documentElement.clientWidth;
+	 svg.setAttribute('height', h);
+	 svg.setAttribute('width', w);
+	 dx = w / cells[0].length;
+	 dy = h / cells.length;
+
 	 frag = document.createDocumentFragment();
 
 	 for(row = 0; row < cells.length; row += 1) {
 		for(column = 0; column < cells[0].length; column += 1) {
 			// Set rectangle
 			rect = document.createElementNS(svg_ns, 'rect');
-			rect.setAttribute('id', 'C' + row * cells.length + column);
-			rect.setAttribute('x', row * 10);
-			rect.setAttribute('y', column * 10);
-			rect.setAttribute('width', 10);	
-			rect.setAttribute('height', 10);	
+			id = Number(row * cells.length + column);
+			rect.setAttribute('id', 'C' + id);
+			rect.setAttribute('x', column * dx);
+			rect.setAttribute('y', row * dy);
+			rect.setAttribute('width', dx);	
+			rect.setAttribute('height', dy);	
 			rect.setAttribute('stroke-width', 1);
-			rect.setAttribute('stroke', '#3196C4');
+			rect.setAttribute('stroke', '#3F464C');
 			rect.style.fill = '#000000';
 			frag.appendChild(rect);
 		}
 	}
+	
 	svg.appendChild(frag);
+	content.appendChild(svg);
 		 
     },
 
     isDifferent: function(current, next) {
 	    var row,
 	        column;
-
+	
 	    for(row = 0; row < current.length; row += 1) {
 		for(column = 0; column < current[0].length; column += 1) {
 		    if(current[row][column] !== next[row][column]) {
@@ -100,9 +115,9 @@ TAFree.asset.GameLife = {
 
 	     for(row = 0; row < current.length; row += 1) {
 		for(column = 0; column < current[0].length; column += 1) {
-	     		id = row * current[0].length + column;
+	     		id = Number(row * current[0].length + column);
 			rect = dom.getId('C' + id);
-			rect.style.fill = (current[id] === 0) ? '#000000' : '#3196C4';		
+			rect.style.fill = (current[row][column] === 0) ? '#000000' : '#3196C4';		
 		}
 	     } 
     },
@@ -112,30 +127,60 @@ TAFree.asset.GameLife = {
 	     var dom = TAFree.util.Dom,
 		 gamelife = TAFree.asset.GameLife,
 		 
-		 current, next, i, j, row;
+		 current, next, i, j, row, size, play;
+
+		// Set size
+		size = 50;
                  
 		 // Randomly generate 2D array
 		 current = [];
-		 for (i = 0; i < 10; i += 1) {
+		 for (i = 0; i < size; i += 1) {
 			row = [];
-			for (j = 0; j < 10; j += 1) {
+			for (j = 0; j < size; j += 1) {
 				row.push((Math.random() >= 0.5) ? 1 : 0);
 			}
+			current.push(row);
 		 }
 		 
 		 // Create Rect elements
                  gamelife.create(current);
+		 
+                 // Draw color on cells
                  gamelife.draw(current);
                  
 		 // Compute next generation from current generation
 		 next = gamelife.produce(current);
 
-		 // Change colors of Rect elements
-                 while(gamelife.isDifferent(current, next)) {
-                     current = next;
-                     gamelife.draw(current);
-                     next = gamelife.produce(next);
-                 }
+		return [current, next];
+
+    },
+
+    play: function () {
+	     
+         // Dependencies
+	 var gamelife = TAFree.asset.GameLife,
+             play, evolution, current, next, twogen;
+
+	 twogen = gamelife.init();
+	 current = twogen[0];
+	 next = twogen[1];
+	
+	 evolution = function () {
+		// Change colors of Rect elements if two generation are different 
+		 if(gamelife.isDifferent(current, next)) {
+		     
+		     // Draw color on cells
+		     current = next;
+		     gamelife.draw(current);
+		     next = gamelife.produce(next);
+		 }
+		 else { 
+		     clearInterval(play);
+		 }
+	 },
+
+         play = setInterval(evolution, 1000);
+
     }
 
 };

@@ -14,9 +14,6 @@ class Pending implements Product{
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
-		
-		$this->contentProduct .= '<div id=\'PENDING_DIV\'>Pending<svg id=\'PENDING_SVG\'></svg></div>';
-
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
 		return $this->contentProduct;

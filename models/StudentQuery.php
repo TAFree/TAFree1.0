@@ -23,13 +23,13 @@ class StudentQuery implements IStrategy {
 		// Get account, password, ip
 		$this->account = Util::fixInput($_POST['account']);
 		$this->password = Util::fixInput($_POST['password']);
-		if (Util::ipFilter($_SERVER['HTTP_CLIENT_IP'])) {
+		if (isset($_SERVER['HTTP_CLIENT_IP']) && Util::ipFilter($_SERVER['HTTP_CLIENT_IP'])) {
 			$this->ip = $_SERVER['HTTP_CLIENT_IP'];
 		}
-		else if(Util::ipFilter($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && Util::ipFilter($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 			$this->ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 		}
-		else if(Util::ipFilter($_SERVER['REMOTE_ADDR'])){
+		else if(isset($_SERVER['REMOTE_ADDR']) && Util::ipFilter($_SERVER['REMOTE_ADDR'])){
 			$this->ip = $_SERVER['REMOTE_ADDR'];
 		}
 		else {

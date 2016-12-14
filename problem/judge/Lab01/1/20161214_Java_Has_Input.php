@@ -26,6 +26,7 @@ class Java_Has_Input {
 	private $stu_account;
 	private $item;
 	private $subitem;
+	private $id;
 	private $main;
 	private $dir_name;
 	private $status;
@@ -33,15 +34,17 @@ class Java_Has_Input {
 	private $student_output = array();
 	private $testdata = array();
 	private $result = array();
+	private $view;
 
 	private $hookup;
 
 	public function __construct () {
 		
-		// Arguments: student account, item, subitem
+		// Arguments: student account, item, subitem, id
 		$this->stu_account = $_SERVER['argv'][1];
 		$this->item = $_SERVER['argv'][2];
 		$this->subitem = $_SERVER['argv'][3];
+		$this->id = $_SERVER['argv'][4];
 
 		try {
 			// Connect to MySQL database TAFreeDB
@@ -128,6 +131,9 @@ class Java_Has_Input {
 			// Configure result that will response to client side
 			$error_msg = '<h1>Solution has compiler error</h1>' . '<pre><code>' . $solution_CE . '</code></pre>';
 			$this->configureView($error_msg);
+			
+			// Sava view
+			$this->saveView();
 		
 			// System error
 			$this->status = 'SE';
@@ -140,6 +146,9 @@ class Java_Has_Input {
 			// Configure result that will response to client side
 			$error_msg = '<h1>Your source code has compiler error</h1>' . '<pre><code>' . $student_CE . '</code></pre>';
 			$this->configureView($error_msg);
+			
+			// Sava view
+			$this->saveView();
 		
 			// Compiler error
 			$this->status = 'CE';
@@ -157,6 +166,9 @@ class Java_Has_Input {
 				$error_msg = '<h1>Solution has runtime error</h1>' . '<pre><code>' . $solution_RE . '</code></pre>';
 				$this->configureView($error_msg);
 			
+				// Sava view
+				$this->saveView();
+			
 				// System error
 				$this->status = 'SE';
 				return;
@@ -169,6 +181,9 @@ class Java_Has_Input {
 				$error_msg = '<h1>Your source code has runtime error</h1>' . '<pre><code>' . $student_RE . '</code></pre>';
 				$this->configureView($error_msg);
 
+				// Sava view
+				$this->saveView();
+	
 				// Runtime error
 				$this->status = 'RE';
 				return;
@@ -206,6 +221,9 @@ class Java_Has_Input {
 		// Configure result that will response to client side
 		$error_msg = null;
 		$this->configureView($error_msg);
+		
+		// Sava view
+		$this->saveView();
 		
 		return;
 		
@@ -272,7 +290,7 @@ class Java_Has_Input {
 		fclose($pipes[0]);
 		
 		// Wait seconds
-		sleep(1);
+		usleep(1000000);
 		
 		// Kill execution process
 		posix_kill($pid, SIGTERM);
@@ -294,7 +312,7 @@ class Java_Has_Input {
 
 	public function configureView ($error_msg) {
 		if (!is_null($error_msg)) {
-			echo $error_msg;
+			 $this->view = $error_msg;
 		}
 		else {
 			$result = '';
@@ -307,10 +325,10 @@ class Java_Has_Input {
 			if ($this->status === 'NA') {
 				$result = 'Not Accept';
 			}
-			echo '<h1>' . $result . '</h1>';
+			$this->view .= '<h1>' . $result . '</h1>';
 
 			for ($i = 0; $i < count($this->testdata); $i += 1) {
-				echo<<<EOF
+				$this->view .=<<<EOF
 <h2>Input: {$this->testdata[$i]}</h2>
 <div class='WHOSE_DIV'>
 <img class='UP_DOWN_IMG' src='../public/tafree-svg/attention.svg'>
@@ -325,6 +343,13 @@ EOF;
 
 		}
 		return;
+	}
+	
+	public function saveView () {
+		$stmt = $this->hookup->prepare('UPDATE process SET view=:view WHERE id=\'' . $this->id . '\'');
+		$stmt->bindParam(':view', $this->view);
+		$stmt->execute();
+
 	}
 
 }

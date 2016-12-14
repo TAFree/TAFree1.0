@@ -46,16 +46,20 @@ class JudgeAdapter {
 			$this->safe = $row['safe'];
 
 			// Create id
-			$this->id = '#' . uniqid();
+			$this->id = uniqid();
 
 			// Add judge process row in process table
-			$stmt = $this->hookup->prepare('INSERT INTO process (id, submitter, judger, student_account, student_name, item, subitem) VALUES (:id, :submitter, :judger, :student_account, :student_name, :item, :subitem)');
+			$stmt = $this->hookup->prepare('INSERT INTO process (id, submitter, student_account, student_name, item, subitem) VALUES (:id, :submitter, :student_account, :student_name, :item, :subitem)');
 			$stmt->bindParam(':id', $this->id);
-			$stmt->bindParam(':student_account', $this->student_account);
-			$stmt->bindParam(':student_name', $this->student_name);
+			$stmt->bindParam(':student_account', $this->stu_account);
+			$stmt->bindParam(':student_name', $this->stu_name);
 			$stmt->bindParam(':submitter', $this->submitter);
 			$stmt->bindParam(':item', $this->item);
 			$stmt->bindParam(':subitem', $this->subitem);
+			$stmt->execute();
+
+			// Update judge status as 'Pending'
+			$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'Pending\' WHERE subitem=\'' . $this->subitem . '\'');
 			$stmt->execute();
 
 			// Directly execute judge script in free mode
@@ -75,8 +79,6 @@ class JudgeAdapter {
 				$stmt->execute();
 				$row = $stmt->fetch(\PDO::FETCH_ASSOC);
 				$this->judge_cmd = $row['cmd'];
-				
-				$this->hookup = null;
 
 				// Start external judge process
 				$desc = array (
@@ -85,6 +87,7 @@ class JudgeAdapter {
 					2 => array ('pipe', 'w')
 				);
 				$cmd = $this->judge_cmd . ' ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/' . $this->judge_script . ' ' . $this->stu_account . ' ' . $this->item . ' ' . $this->subitem . ' ' . $this->id;
+				
 				$process = proc_open($cmd, $desc, $pipes);
 				
 				// Close STDIN pipe
@@ -99,30 +102,31 @@ class JudgeAdapter {
 				// Close external judge process
 				proc_close($process);
 
-				// Fetch view of judge result
-				$stmt_result = $this->hookkup->prepare('SELECT view FROM process WHERE id=\'' . $this->id . '\'');
-				$stmt_result->execute();
-				$row_result = $stmt_result->fetch(\PDO::FETCH_ASSOC);
-				$this->result = $row_result['view'];
-				
 				// Output view of judge result
 				if (!empty($error_output)) {
-					new Viewer('Msg', 'Judge process error...' . '<br>' . $error_output);
+					// Output error message if error occurred on external judge process
+					new Viewer('Msg', 'Judge process ' . $this->id . ' occurred error: <br>' . $error_output . '<br> Please inform administer ! ');
+					
+					$this->hookup = null;
 					exit();
 				}
 				else {
+					// Fetch view of judge result
+					$stmt_result = $this->hookup->prepare('SELECT view FROM process WHERE id=\'' . $this->id . '\'');
+					$stmt_result->execute();
+					$row_result = $stmt_result->fetch(\PDO::FETCH_ASSOC);
+					$this->result = $row_result['view'];
+					
 					new Viewer('Result', $this->result);
+					
+					$this->hookup = null;
 					exit();
 				}
 			}
 			else if ($this->safe === 'isolate') { // Isolate judge process in isolate mode
 				
-				// Update judge status as pending
-				$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'Pending\' WHERE subitem=\'' . $this->subitem . '\'');
-				$stmt->execute();
-			
 				// Output pending view
-				new Viewer('Pending'); exit();
+				new Viewer('Pending'); 
 			
 			        // Poll database during judge status is pending	
 				for ($i = 0; $i < 5; $i += 1) {
@@ -133,7 +137,7 @@ class JudgeAdapter {
 					if ($row_judge[$this->stu_account] !== 'Pending') { 
 						
 						// Fetch view of judge result
-						$stmt_result = $this->hookkup->prepare('SELECT view FROM process WHERE id=\'' . $this->id . '\'');
+						$stmt_result = $this->hookup->prepare('SELECT view FROM process WHERE id=\'' . $this->id . '\'');
 						$stmt_result->execute();
 						$row_result = $stmt_result->fetch(\PDO::FETCH_ASSOC);
 						$this->result = $row_result['view'];
@@ -151,7 +155,8 @@ class JudgeAdapter {
 				// Judge process exceeding time is regarded as system error
 				$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'SE\' WHERE subitem=\'' . $this->subitem . '\'');
 				$stmt->execute();
-				
+					
+				// Output error message if judge process exceeded time on other machine
 				new Viewer('Msg', 'Judge process ' . $this->id . ' exceeded time. Please inform administer ! ');
 				
 				$this->hookup = null;
