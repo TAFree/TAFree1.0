@@ -69,6 +69,10 @@ TAFree.page.Hash = (function () {
 		'discussion': function () {	
 			init.talk();
                         init.pullMsg();
+		},
+		
+		'pending': function () {
+			init.pending();
 		}
 
 	    },

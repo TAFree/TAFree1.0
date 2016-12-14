@@ -539,6 +539,12 @@ TAFree.page.Init = {
 	    }
 	    
 	    setInterval(feature.fetchMail, 7000);	
+    },
+
+    pending: function () {
+        // Dependencies
+        var gamelife = TAFree.asset.GameLife;
+            gamelife.init();
     }
 
 };

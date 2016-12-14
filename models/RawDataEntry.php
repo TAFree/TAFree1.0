@@ -245,10 +245,14 @@ class RawDataEntry implements IStrategy {
 		);';		
 		$sql .= 'CREATE TABLE process(
 			id VARCHAR(50),
+			timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			item VARCHAR(50),
 			subitem TINYINT(20) UNSIGNED,
 			student_account VARCHAR(20),
+			student_name VARCHAR(30),
 			view TEXT,
+			submitter VARCHAR(50),
+			judger VARCHAR(50),
 			PRIMARY KEY(id)	
 		);';
 		$sql .= 'CREATE TABLE apply(

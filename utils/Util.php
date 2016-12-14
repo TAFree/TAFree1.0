@@ -37,6 +37,15 @@ class Util {
 		}	
 	}
 
+	public static function ipFilter ($ip) {
+		if (!filter_var($ip, \FILTER_VALIDATE_IP) === false) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 }
 
 ?>

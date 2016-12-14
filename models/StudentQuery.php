@@ -13,14 +13,28 @@ class StudentQuery implements IStrategy {
 
 	private $account;
 	private $password;
+	private $ip;
 	private $result;
 	
 	private $hookup;
 
 	public function algorithm() {
 		
+		// Get account, password, ip
 		$this->account = Util::fixInput($_POST['account']);
 		$this->password = Util::fixInput($_POST['password']);
+		if (Util::ipFilter($_SERVER['HTTP_CLIENT_IP'])) {
+			$this->ip = $_SERVER['HTTP_CLIENT_IP'];
+		}
+		else if(Util::ipFilter($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+			$this->ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		}
+		else if(Util::ipFilter($_SERVER['REMOTE_ADDR'])){
+			$this->ip = $_SERVER['REMOTE_ADDR'];
+		}
+		else {
+			$this->ip = 'Fish';
+		}
 		
 		try {
 			$this->hookup = UniversalConnect::doConnect();
@@ -31,6 +45,7 @@ class StudentQuery implements IStrategy {
 				SessionManager::setParameter('guest', 'student'); 
 				SessionManager::setParameter('nickname', $row['student_name']);
 				SessionManager::setParameter('account', $row['student_account']);
+				SessionManager::setParameter('ip', $this->ip);
 				header('location: ../views/Stu_problems.php');
 				$this->hookup = null;
 			}

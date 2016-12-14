@@ -12,12 +12,15 @@ require_once('../composers/Autoloader.php');
 
 class JudgeAdapter {
 	
+	private $id;
+	private $submitter;
+	private $judger;
+	private $stu_account;
+	private $stu_name;	
 	private $item;
 	private $subitem;
-	private $stu_account;
 	private $safe;
 	private $result;
-	private $id;
 	private $judge_script;
 	private $judge_ext;
 	private $judge_cmd;
@@ -30,7 +33,8 @@ class JudgeAdapter {
 		$this->item = SessionManager::getParameter('item');
 		$this->subitem = SessionManager::getParameter('subitem');
 		$this->stu_account = SessionManager::getParameter('account');
-
+		$this->stu_name = SessionManager::getParameter('nickname');
+		$this->submitter = SessionManager::getParameter('ip');
 	
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
@@ -45,9 +49,11 @@ class JudgeAdapter {
 			$this->id = '#' . uniqid();
 
 			// Add judge process row in process table
-			$stmt = $this->hookup->prepare('INSERT INTO process (id, student_account, item, subitem) VALUES (:id, :student_account, :item, :subitem)');
+			$stmt = $this->hookup->prepare('INSERT INTO process (id, submitter, judger, student_account, student_name, item, subitem) VALUES (:id, :submitter, :judger, :student_account, :student_name, :item, :subitem)');
 			$stmt->bindParam(':id', $this->id);
 			$stmt->bindParam(':student_account', $this->student_account);
+			$stmt->bindParam(':student_name', $this->student_name);
+			$stmt->bindParam(':submitter', $this->submitter);
 			$stmt->bindParam(':item', $this->item);
 			$stmt->bindParam(':subitem', $this->subitem);
 			$stmt->execute();
@@ -116,7 +122,7 @@ class JudgeAdapter {
 				$stmt->execute();
 			
 				// Output pending view
-				new Viewer('Pending');
+				new Viewer('Pending'); exit();
 			
 			        // Poll database during judge status is pending	
 				for ($i = 0; $i < 5; $i += 1) {

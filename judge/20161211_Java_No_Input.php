@@ -26,11 +26,13 @@ class Java_No_Input {
 	private $stu_account;
 	private $item;
 	private $subitem;
+	private $id;
 	private $main;
 	private $dir_name;
 	private $status;
 	private $solution_output;
 	private $student_output;
+	private $view;
 
 	private $hookup;
 
@@ -116,7 +118,10 @@ class Java_No_Input {
 			// Configure result that will response to client side
 			$error_msg = '<h1>Solution has compiler error</h1>' . '<pre><code>' . $solution_CE . '</code></pre>';
 			$this->configureView($error_msg);
-		
+	
+			// Sava view
+			$this->saveView();
+			
 			// System error
 			$this->status = 'SE';
 			return;
@@ -129,6 +134,9 @@ class Java_No_Input {
 			$error_msg = '<h1>Your source code has compiler error</h1>' . '<pre><code>' . $student_CE . '</code></pre>';
 			$this->configureView($error_msg);
 		
+			// Sava view
+			$this->saveView();
+			
 			// Compiler error
 			$this->status = 'CE';
 			return;
@@ -143,6 +151,9 @@ class Java_No_Input {
 			$error_msg = '<h1>Solution has runtime error</h1>' . '<pre><code>' . $solution_RE . '</code></pre>';
 			$this->configureView($error_msg);
 		
+			// Sava view
+			$this->saveView();
+			
 			// System error
 			$this->status = 'SE';
 			return;
@@ -155,6 +166,9 @@ class Java_No_Input {
 			$error_msg = '<h1>Your source code has runtime error</h1>' . '<pre><code>' . $student_RE . '</code></pre>';
 			$this->configureView($error_msg);
 
+			// Sava view
+			$this->saveView();
+			
 			// Runtime error
 			$this->status = 'RE';
 			return;
@@ -177,6 +191,9 @@ class Java_No_Input {
 		// Configure result that will response to client side
 		$error_msg = null;
 		$this->configureView($error_msg);
+		
+		// Sava view
+		$this->saveView();
 		
 		return;
 		
@@ -241,7 +258,7 @@ class Java_No_Input {
 		fclose($pipes[0]);
 		
 		// Wait seconds
-		sleep(1);
+		usleep(10000);
 		
 		// Kill execution process
 		posix_kill($pid, SIGTERM);
@@ -263,7 +280,7 @@ class Java_No_Input {
 
 	public function configureView ($error_msg) {
 		if (!is_null($error_msg)) {
-			echo $error_msg;
+			$this->view = $error_msg;
 		}
 		else {
 			$result = '';
@@ -273,7 +290,7 @@ class Java_No_Input {
 			if ($this->status === 'AC') {
 				$result = 'Accept';
 			}
-			echo<<<EOF
+			$this->view =<<<EOF
 <h1>$result</h1>
 <div class='WHOSE_DIV'>
 <img class='UP_DOWN_IMG' src='../public/tafree-svg/attention.svg'>
@@ -289,6 +306,12 @@ EOF;
 	}
 
 }
+	
+	public function saveView () {
+		$stmt = $this->hookup->prepare('UPDATE process SET view=\'' . $this->view . '\' WHERE id=\'' . $this->id . '\'');
+		$stmt->execute();
+
+	}
 
 $judger = new Java_No_Input();
 

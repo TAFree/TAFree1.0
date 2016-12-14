@@ -205,6 +205,16 @@ $router->match('GET', 'Fac_coders.php', function() {
 	}
 });
 
+$router->match('GET', 'Fac_dashboard.php', function() {
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		new viewer('Fac_dashboard');
+	} 
+	else {
+		new viewer('Sneaker');
+		exit();
+	}
+});
+
 $router->match('GET', 'Fac_assign.php', function() {
 
 	// Set session variables of item and subitem
