@@ -27,6 +27,7 @@ class Java_Has_Input {
 	private $item;
 	private $subitem;
 	private $id;
+	private $ip;
 	private $main;
 	private $dir_name;
 	private $status;
@@ -50,6 +51,10 @@ class Java_Has_Input {
 			// Connect to MySQL database TAFreeDB
 			$this->hookup = UniversalConnect::doConnect();						
 			
+			// Sign in IP from judger
+			$this->ip = gethostname();
+			$this->signInIP();
+
 			// Create directory to put source codes temporarily
 			$this->createDir();
 			
@@ -75,6 +80,13 @@ class Java_Has_Input {
 		catch (PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
+
+	}
+	
+	public function signInIP () {
+		$stmt = $this->hookup->prepare('UPDATE process SET judger=:judger WHERE id=\'' . $this->id . '\'');
+		$stmt->bindParam(':judger', $this->ip);
+		$stmt->execute();
 
 	}
 
@@ -351,7 +363,7 @@ EOF;
 		$stmt->execute();
 
 	}
-
+	
 }
 
 $judger = new Java_Has_Input();

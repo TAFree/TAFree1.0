@@ -252,7 +252,7 @@ class RawDataEntry implements IStrategy {
 			student_name VARCHAR(30),
 			view TEXT,
 			submitter VARCHAR(50),
-			judger VARCHAR(50),
+			judger TEXT(500),
 			PRIMARY KEY(id)	
 		);';
 		$sql .= 'CREATE TABLE apply(
