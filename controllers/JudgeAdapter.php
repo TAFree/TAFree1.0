@@ -29,7 +29,7 @@ class JudgeAdapter {
 	
 	public function __construct () {
 		
-		// Get item, subitem, stu_account
+		// Get item, subitem, stu_account, stu_name, ip
 		$this->item = SessionManager::getParameter('item');
 		$this->subitem = SessionManager::getParameter('subitem');
 		$this->stu_account = SessionManager::getParameter('account');
@@ -45,8 +45,9 @@ class JudgeAdapter {
 			$row = $stmt->fetch(\PDO::FETCH_ASSOC);
 			$this->safe = $row['safe'];
 
-			// Create id
+			// Create id & set id as session variable
 			$this->id = uniqid();
+			SessionManager::getParameter('id', $this->id);
 
 			// Add judge process row in process table
 			$stmt = $this->hookup->prepare('INSERT INTO process (id, submitter, student_account, student_name, item, subitem) VALUES (:id, :submitter, :student_account, :student_name, :item, :subitem)');
@@ -128,37 +129,6 @@ class JudgeAdapter {
 				// Output pending view
 				new Viewer('Pending'); 
 			
-			        // Poll database during judge status is pending	
-				for ($i = 0; $i < 5; $i += 1) {
-					$stmt_judge = $this->hookup->prepare('SELECT ' . $this->stu_account . ' FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');	
-					$stmt_judge->execute();
-					$row_judge = $stmt_judge->fetch(\PDO::FETCH_ASSOC);
-					
-					if ($row_judge[$this->stu_account] !== 'Pending') { 
-						
-						// Fetch view of judge result
-						$stmt_result = $this->hookup->prepare('SELECT view FROM process WHERE id=\'' . $this->id . '\'');
-						$stmt_result->execute();
-						$row_result = $stmt_result->fetch(\PDO::FETCH_ASSOC);
-						$this->result = $row_result['view'];
-						
-						// Output view of judge result 
-						new Viewer('Result', $this->result);
-					
-						$this->hookup = null;
-						exit();			
-					
-					}
-					sleep(1);
-				}
-				
-				// Judge process exceeding time is regarded as system error
-				$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'SE\' WHERE subitem=\'' . $this->subitem . '\'');
-				$stmt->execute();
-					
-				// Output error message if judge process exceeded time on other machine
-				new Viewer('Msg', 'Judge process ' . $this->id . ' exceeded time. Please inform administer ! ');
-				
 				$this->hookup = null;
 				exit();
 			}

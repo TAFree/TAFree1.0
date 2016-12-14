@@ -17,6 +17,7 @@ class HandinRejector {
 	private $safe;
 	private $judge_status;
 	private $reject = false;
+	private $result = array();
 	
 	public function __construct () {
 		
@@ -39,7 +40,12 @@ class HandinRejector {
 			if ($this->safe === 'isolate' && $this->judge_status === 'Pending') {
 				$this->reject = true;
 			}
-			return $this->reject;
+			
+			// Response result by json format
+			$this->result['reject'] = $this->reject;
+			header ('Content-Type: application/json; charset=utf-8');
+			$json_obj = json_encode($this->result);
+			echo $json_obj;
 				
 		}
 		catch (\PDOException $e) {

@@ -54,17 +54,17 @@ TAFree.asset.GameLife = {
          // Dependencies
 	 var dom = TAFree.util.Dom,
 
-	 row, column, svg_ns, content, svg, frag, id, dx, dy, h, w;
+	 row, column, svg_ns, body, svg, frag, id, dx, dy, h, w;
    
-	 content = dom.getTag('CONTENT');
-	 content.style.textAlign = 'center';
-	 content.innerHTML = '<h1>Wait...</h1>';
+	 body = dom.getTag('BODY');
+	 body.style.margin = '0';
+	 body.innerHTML = '';
 	 
 	 svg_ns = 'http://www.w3.org/2000/svg';
 	 
 	 svg = document.createElementNS(svg_ns, 'svg');
-	 h = 0.4 * document.documentElement.clientWidth;
-	 w = 0.4 * document.documentElement.clientWidth;
+	 h = document.documentElement.clientHeight;
+	 w = document.documentElement.clientWidth;
 	 svg.setAttribute('height', h);
 	 svg.setAttribute('width', w);
 	 dx = w / cells[0].length;
@@ -90,7 +90,7 @@ TAFree.asset.GameLife = {
 	}
 	
 	svg.appendChild(frag);
-	content.appendChild(svg);
+	body.appendChild(svg);
 		 
     },
 
@@ -130,7 +130,7 @@ TAFree.asset.GameLife = {
 		 current, next, i, j, row, size, play;
 
 		// Set size
-		size = 50;
+		size = 150;
                  
 		 // Randomly generate 2D array
 		 current = [];
@@ -179,7 +179,7 @@ TAFree.asset.GameLife = {
 		 }
 	 },
 
-         play = setInterval(evolution, 1000);
+         play = setInterval(evolution, 300);
 
     }
 

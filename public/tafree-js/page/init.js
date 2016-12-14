@@ -453,12 +453,12 @@ TAFree.page.Init = {
         		// Dependencies
 	                var process = TAFree.page.Process,
 				
-			    dump;
+			    result;
 
-			dump = this.response;
-
-			if (dump === true) {
-				confirm('Rejuct ! Another judge process is still handling last submission');
+			result = JSON.parse(this.response);
+			
+			if (result.reject === true) {
+				confirm('Reject ! Another judge process is still handling last submission.');
 				return;
 			}
 			else {
@@ -545,6 +545,20 @@ TAFree.page.Init = {
 	// Dependencies
 	var gamelife = TAFree.asset.GameLife;
 	    gamelife.play();
+    },
+
+    pollStatus: function () {
+	var xhr;
+	// Poll status on server side
+	xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function () {
+	    if (this.readyState === 4 && this.status === 200) {
+	    	window.location = this.response;
+	    }
+	};
+	xhr.open('POST', '../pollers/StatusPoll.php', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send();
     }
 
 };

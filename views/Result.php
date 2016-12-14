@@ -30,5 +30,7 @@ class Result implements Product{
 
 }
 
+require_once('../routes/Dispatcher.php');
+
 ?>
 

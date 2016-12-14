@@ -30,5 +30,7 @@ class Msg implements Product{
 
 }
 
+require_once('../routes/Dispatcher.php');
+
 ?>
 

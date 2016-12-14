@@ -72,6 +72,7 @@ TAFree.page.Hash = (function () {
 		},
 		
 		'pending': function () {
+			init.pollStatus();
 			init.pending();
 		}
 

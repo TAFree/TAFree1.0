@@ -5,6 +5,7 @@ use TAFree\routes\SessionManager;
 use TAFree\utils\Viewer;
 use TAFree\controllers as controllers;
 use TAFree\fetchers as fetchers;
+use TAFree\pollers as pollers;
 
 ini_set('display_errors', '1');
 ERROR_REPORTING(E_ALL);
@@ -410,6 +411,35 @@ $router->match('POST', 'HandinRejector.php', function() {
 $router->match('GET', 'JudgeAdapter.php', function() {
 	if (SessionManager::getParameter('guest') === 'student') { 
 		new controllers\JudgeAdapter();
+	} 
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
+$router->match('POST', 'StatusPoll.php', function() {
+	if (SessionManager::getParameter('guest') === 'student') {
+		new pollers\StatusPoll();
+	} 
+	else {
+		new Viewer('Sneaker');
+	}
+});
+
+$router->match('GET', 'Result.php', function() {
+	if (SessionManager::getParameter('guest') === 'student') { 
+		new Viewer('Result', $_GET['view']);
+	} 
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
+$router->match('GET', 'Msg.php', function() {
+	if (SessionManager::getParameter('guest') === 'student') { 
+		new Viewer('Msg', $_GET['view']);
 	} 
 	else {
 		new Viewer('Sneaker');
