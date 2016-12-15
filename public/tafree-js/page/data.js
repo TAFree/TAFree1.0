@@ -14,7 +14,7 @@ TAFree.page.Data = (function () {
                 	About: '../views/About.php',
 			Instruction: '../views/Instruction.php',
 			Support: '../views/Support.php',
-			Discussion: '../views/Discussion.php'
+			Help: '../views/Help.php'
             	},
 
 		home: '../views/Login.php',

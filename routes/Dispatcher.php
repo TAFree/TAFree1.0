@@ -34,20 +34,13 @@ $router->match('GET', 'Support.php', function () {
 	new Viewer('Support');
 });
 
-$router->match('GET', 'Discussion.php', function () {
-	new Viewer('Discussion');
-});
-
 $router->match('POST', 'MailUpdater.php', function () {
-	new controllers\MailUpdater();
-});
-
-$router->match('POST', 'MessagePull.php', function () {
-	new controllers\MessagePull();
-});
-
-$router->match('POST', 'MessagePush.php', function () {
-	new controllers\MessagePush();
+	if (SessionManager::getParameter('guest') === 'faculty' || SessionManager::getParameter('guest') === 'student') {
+		new controllers\MailUpdater();
+	}
+	else {
+		echo 0;
+	}
 });
 
 $router->match('POST', 'Index.php', function() {

@@ -86,16 +86,6 @@ class DBOperator {
 		$context->algorithm();
 	}
 	
-	public function pullMessage() {		
-		$context = new Context(new models\MessageQuery());
-		$context->algorithm();
-	}
-
-	public function pushMessage($subject, $message) {
-		$context = new Context(new models\MessageEntry($subject, $message));
-		$context->algorithm();
-	}
-
 	public function expand() {
 		$context = new Context(new models\JudgeExpansion());
 		$context->algorithm();

@@ -207,7 +207,7 @@ class RawDataEntry implements IStrategy {
 
 	public function createTable () {
 
-		// student, faculty, problem, apply, support, discussion
+		// student, faculty, problem, apply, support
 		$sql = '';
 		$sql .= 'CREATE TABLE student(
 			student_name VARCHAR(30),
@@ -231,13 +231,6 @@ class RawDataEntry implements IStrategy {
 			unique_key VARCHAR(50),
 			PRIMARY KEY(item)	
 		);';
-		$sql .= 'CREATE TABLE discussion(
-			id INT NOT NULL AUTO_INCREMENT,
-			timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-			subject VARCHAR(50),
-			message TEXT(500),	
-			PRIMARY KEY(id)
-		);';		
 		$sql .= 'CREATE TABLE support(
 			ext VARCHAR(50),
 			cmd VARCHAR(100),

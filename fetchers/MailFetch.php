@@ -8,7 +8,7 @@ require_once('../composers/Autoloader.php');
 
 class MailFetch {
 	
-	private $newer;
+	private $newer = 0;
 	private $guest;
 
 	private $hookup;
@@ -50,18 +50,14 @@ class MailFetch {
 		$stmt = $this->hookup->prepare('SELECT reply FROM apply WHERE reply=\'Wait\'');
 		$stmt->execute();
 		$result = $stmt->rowCount();
-		if ($result !== 0) {
-			$this->newer = true;
-		}
+		$this->newer = ($result !== 0) ? 1 : 0;
 	}
 	
 	public function fetchRatify () {	
 		$stmt = $this->hookup->prepare('SELECT reply FROM apply WHERE student_account=\'' . SessionManager::getParameter('account') . '\' AND reply<>\'Wait\' AND  expected_deadline>=NOW()');
 		$stmt->execute();
 		$result = $stmt->rowCount();
-		if ($result !== 0) {
-			$this->newer = true;
-		}
+		$this->newer = ($result !== 0) ? 1 : 0;
 	}
 
 }

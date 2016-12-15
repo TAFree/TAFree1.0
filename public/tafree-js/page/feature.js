@@ -461,74 +461,6 @@ TAFree.page.Feature = {
 	    confirm(item + ' assigning status has become in used. It will not be changed before finishing whole ' + item + ' problems. Please finish process ! ');
 	},
 
-	sendBackward: function () {
-        
-	var init = TAFree.page.Init,
-	    feature = TAFree.page.Feature,
-    
-	    xhr, starttime, yyyy, mm, dd, hh, MM, ss;
-
-	    // Query message on server side
-	    xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-		// Print message when server response is ready
-		if (this.readyState === 4 && this.status === 200) {
-			var dom = TAFree.util.Dom,
-			    init = TAFree.page.Init,
-			    
-			    response, block, del_pos;
-
-			    response = this.responseText;
-			    del_pos = response.indexOf('#');
-			    init.start = new Date(response.substring(0, del_pos));
-			    block = dom.getId('RECORD_DIV');
-			    block.innerHTML += response.substring(del_pos + 1);
-		}
-	    };
-
-	    xhr.open('POST', '../controllers/MessagePull.php', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    
-	    starttime = init.start;
-	    yyyy = starttime.getFullYear();
-	    mm = starttime.getMonth() + 1;
-	    mm = feature.leftPad(mm);
-            dd = starttime.getDate();
-	    dd = feature.leftPad(dd);	  
- 	    hh = starttime.getHours();
-	    hh = feature.leftPad(hh);
- 	    MM = starttime.getMinutes();
-	    MM = feature.leftPad(MM);
- 	    ss = starttime.getSeconds();
-	    ss = feature.leftPad(ss);
-
-	    xhr.send('starttime=' + yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + MM + ':' + ss);
-
-	},
-
-	leftPad: function (num) {
-		return (num < 10 ? '0': '') + num;
-	},
-
-	sendForward: function () {
-        
-	var dom = TAFree.util.Dom,
-	
-	    xhr, subject, message, select;
-           
-	    // Get subject, talk
-	    select = dom.getId('SUBJECT_SELECT');
-	    subject = select.options[select.selectedIndex].value;
-	    message = dom.getId('TALK_INPUT').value;
-	    
-	    // Send message on server side
-	    xhr = new XMLHttpRequest();
-	    xhr.open('POST', '../controllers/MessagePush.php', true);
-	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	    xhr.send('subject=' + subject + '&message=' + message);
-
-	},
-
 	fetchMail: function () {
         
 	var xhr;
@@ -539,7 +471,7 @@ TAFree.page.Feature = {
 		//  Show flag if there is an unchecked mail
 		if (this.readyState === 4 && this.status === 200) {
 			var dom = TAFree.util.Dom,
-			    flag;
+			    flag, result;
 		
 			    flag = dom.getId('FLAG_IMG');
 			    if (this.response >= 1) {

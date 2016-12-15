@@ -473,29 +473,6 @@ TAFree.page.Init = {
 	}); 
     },
 
-    talk: function () {
-        // Dependencies
-        var dom = TAFree.util.Dom,
-            feature = TAFree.page.Feature,
-           
-	    talk;
-
-	    talk = dom.getId('TALK_BUTTON');
-	   
-	    talk.addEventListener('click', feature.sendForward);
-
-    },
-
-    pullMsg: function () {
-        // Dependencies
-        var feature = TAFree.page.Feature;
-
-	    setInterval(feature.sendBackward, 3000);
-	    
-    },
-
-    start: new Date('2016-01-01 00:00:00'),
-
     switchLayer: function () {
         // Dependencies
         var dom = TAFree.util.Dom,
@@ -526,6 +503,7 @@ TAFree.page.Init = {
         // Dependencies
         var dom = TAFree.util.Dom,
 	    feature = TAFree.page.Feature,
+	    
 	    link;
 
 	    link = dom.getId('MAIL_A');
@@ -538,7 +516,9 @@ TAFree.page.Init = {
 		    });
 	    }
 	    
-	    setInterval(feature.fetchMail, 7000);	
+	    // Query mail every 5 minutes
+            setInterval(feature.fetchMail(), 5 * 60 * 1000); 
+	    	
     },
 
     pending: function () {
