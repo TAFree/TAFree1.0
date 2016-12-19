@@ -116,49 +116,63 @@ const PW = '[密碼]';
 <h3>設定Apache2</h3>
 <p>這個過程比較繁瑣，請不要打錯字。</p>
 <br>
-<h4>1. 客製化網站代理人</h4>
+<h4>1. 安裝額外的suexec模組</h4>
 <pre class='bash'><code>
-sudo vi /etc/apache2/envvars
-</code></pre>
-<p>修改環境變數</p>
-<pre class='apache'><code>
-#export APACHE_RUN_USER=www-data
-export APACHE_RUN_USER=[tafree代理人帳號]
-#export APACHE_RUN_GROUP=www-data
-export APACHE_RUN_GROUP=[tafree代理人帳號]
-</code></pre>
-<p>更新環境變數</p>
-<pre class='bash'><code>
-source /etc/apache2/envvars
-</code></pre>
+sudo apt-get install apache2-suexec-custom
+sudo a2enmod suexec
+</pre></code>
 <br>
-<h4>2. 客製化網站目錄</h4>
+<h4>2. 撰寫網站設定檔</h4>
 <pre class='bash'><code>
 cd /etc/apache2/sites-available
-sudo mv 000-default.conf 001-default.conf
-sudo cp 001-default.conf 000-tafree.conf
 sudo vi 000-tafree.conf
-</code></pre>
-<p>修改根目錄</p>
+</pre></code>
+<p>它的內容長這樣：</p>
 <pre class='apache'><code>
-DocumentRoot /home/tafree/TAFree1.0
+&lt;VirtualHost *:80&gt;
+	# The ServerName directive sets the request scheme, hostname and port that
+	# the server uses to identify itself. This is used when creating
+	# redirection URLs. In the context of virtual hosts, the ServerName
+	# specifies what hostname must appear in the request's Host: header to
+	# match this virtual host. For the default virtual host (this file) this
+	# value is not decisive as it is used as a last resort host regardless.
+	# However, you must set it for any further virtual host explicitly.
+	#ServerName www.example.com
+
+	ServerAdmin webmaster@localhost
+	DocumentRoot /home/tafree/TAFree1.0
+	SuExecUserGroup tafree tafree
+	
+	&lt;Directory "/home/tafree/TAFree1.0"&gt;
+		Options Indexes FollowSymLinks
+		AllowOverride None
+		Require all granted
+	&lt;/Directory&gt;
+
+	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+	# error, crit, alert, emerg.
+	# It is also possible to configure the loglevel for particular
+	# modules, e.g.
+	#LogLevel info ssl:warn
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+	# For most configuration files from conf-available/, which are
+	# enabled or disabled at a global level, it is possible to
+	# include a line for only one particular virtual host. For example the
+	# following line enables the CGI configuration for this host only
+	# after it has been globally disabled with "a2disconf".
+	#Include conf-available/serve-cgi-bin.conf
+	
+&lt;/VirtualHost&gt;
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 </code></pre>
-<p>取消/採用虛擬主機設定檔</p>
+<p>取消預設的/採用目前的虛擬主機設定檔</p>
 <pre class='bash'><code>
 sudo a2dissite 000-default.conf
 sudo a2ensite 000-tafree.conf
-</code></pre>
-<p>修改Apache2設定檔</p>
-<pre class='bash'><code>
-sudo vi /etc/apache2/apache2.conf
-</code></pre>
-<pre class='apache'><code>
-// Add this snippet
-&lt;Directory /home/tafree/TAFree1.0/&gt;
-	Options FollowSymLinks
-	AllowOverride None
-	Require all granted
-&lt;/Directory&gt;
 </code></pre>
 <br>
 <h4>3. 重啟Apache2</h4>
