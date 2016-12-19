@@ -143,7 +143,7 @@ sudo vi 000-tafree.conf
 	DocumentRoot /home/tafree/TAFree1.0
 	SuExecUserGroup tafree tafree
 	
-	&lt;Directory "/home/tafree/TAFree1.0"&gt;
+	&lt;Directory /home/tafree/TAFree1.0&gt;
 		Options Indexes FollowSymLinks
 		AllowOverride None
 		Require all granted
