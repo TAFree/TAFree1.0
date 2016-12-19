@@ -149,7 +149,7 @@ sudo vi 000-tafree.conf
 		Require all granted
 	&lt;/Directory&gt;
 	
-    ErrorDocument 403 /views/Err_403.php
+	ErrorDocument 403 /views/Err_403.php
 	ErrorDocument 404 /views/Err_404.php
 	ErrorDocument 500 /views/Err_500.php
 
