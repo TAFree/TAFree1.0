@@ -516,8 +516,8 @@ TAFree.page.Init = {
 		    });
 	    }
 	    
-	    // Query mail every 5 minutes
-            setInterval(feature.fetchMail(), 5 * 60 * 1000); 
+	    // Query mail 
+            feature.fetchMail(); 
 	    	
     },
 
