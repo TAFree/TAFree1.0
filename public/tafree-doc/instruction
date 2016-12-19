@@ -122,7 +122,7 @@ sudo apt-get install apache2-suexec-custom
 sudo a2enmod suexec
 </pre></code>
 <br>
-<h4>2. 撰寫網站設定檔</h4>
+<h4>2. 撰寫虛擬主機設定檔</h4>
 <pre class='bash'><code>
 cd /etc/apache2/sites-available
 sudo vi 000-tafree.conf
@@ -144,10 +144,14 @@ sudo vi 000-tafree.conf
 	SuExecUserGroup tafree tafree
 	
 	&lt;Directory /home/tafree/TAFree1.0&gt;
-		Options Indexes FollowSymLinks
+		Options FollowSymLinks
 		AllowOverride None
 		Require all granted
 	&lt;/Directory&gt;
+	
+    ErrorDocument 403 /views/Err_403.php
+	ErrorDocument 404 /views/Err_404.php
+	ErrorDocument 500 /views/Err_500.php
 
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 	# error, crit, alert, emerg.
