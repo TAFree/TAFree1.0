@@ -113,15 +113,11 @@ sudo crontab -e
 sudo cd /home/tafree
 sudo git clone http://github.com/TAFree/TAFree1.0.git
 </code></pre>
-<h3>修改TAFree1.0權限</h3>
-<pre class='bash'><code>
-sudo chown -R tafree:tafree /home/tafree/TAFree1.0
-</code></pre>
 <h3>修改TAFree的Administer的帳號密碼</h3>
 <pre class='bash'><code>
 sudo cd /home/tafree/TAFree1.0
 </code></pre>
-<p>找到IConnectInfo.php.example，修改成設定MySQL時新增的使用者的帳密</p>
+<p>找到IConnectInfo.php.example，修改成設定MySQL時新增的使用者的帳密，再把它改名為IConnectInfo.php</p>
 <pre class='php'><code>
 <?php
 namespace TAFree\secrete;
@@ -139,6 +135,10 @@ interface IConnectInfo {
 ?>
 </code></pre>
 <p>如果你不滿意Administer的帳密必須跟這個使用者相同這樣的設計，那麼請找到Administer.php然後修改它。</p>
+<h3>修改TAFree1.0權限</h3>
+<pre class='bash'><code>
+sudo chown -R tafree:tafree /home/tafree/TAFree1.0
+</code></pre>
 <h3>設定Apache2</h3>
 <p>這個過程比較繁瑣，請不要打錯字。</p>
 <br>
