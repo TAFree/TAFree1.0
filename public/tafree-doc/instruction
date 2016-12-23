@@ -210,8 +210,7 @@ sudo git clone --branch release-5.0-stable http://github.com/bugzilla/bugzilla b
 cd /var/www/html/bugzilla
 sudo ./checksetup.pl --check-modules
 sudo perl install-module.pl [必要的模組]
-sudo perl install-module.pl 
-Email::Reply 
+sudo perl install-module.pl Email::Reply 
 sudo apt-get install libmysqlclient-dev
 sudo perl install-module.pl DBD::mysql
 </code></pre>
@@ -242,10 +241,10 @@ sudo vi 000-bugzilla.conf
 	DocumentRoot /var/www/html/bugzilla
 	
 	&lt;directory /var/www/html/bugzilla&gt;
-        AddHandler cgi-script .cgi
-        Options +ExecCGI
-        DirectoryIndex index.cgi index.html
-        AllowOverride All
+        	AddHandler cgi-script .cgi
+        	Options +ExecCGI
+        	DirectoryIndex index.cgi index.html
+        	AllowOverride All
 	&lt;/Directory&gt;
 
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
@@ -285,7 +284,7 @@ Listen 81
 sudo /etc/init.d/apache2 restart
 </code></pre>
 <h3>編輯本地端設定檔</h3>
-<p>第一次執行./checksetup.pl，它用來產生本地端設定檔./localconfig</p>
+<p>第一次執行checksetup.pl，它用來產生本地端設定檔localconfig</p>
 <pre class='bash'><code>
 cd /var/www/html/bugzilla
 sudo ./checksetup.pl
@@ -300,7 +299,7 @@ $db_name = 'bugs';
 $db_user = '帳號';
 $db_pass = '密碼';
 </pre></code>
-<p>第二次執行./checksetup.pl，它會根據你設定的./localconfig，來設定資料庫</p>
+<p>第二次執行checksetup.pl，它會根據你設定的localconfig，來設定資料庫</p>
 <pre class='bash'><code>
 sudo ./checksetup.pl
 </code></pre>
@@ -364,7 +363,7 @@ sudo vi 000-awstats.conf
 	
 	Alias /awstatsclasses "/usr/share/awstats/lib/"
 	Alias /awstats-icon "/usr/share/awstats/icon/"
-	Alias /awstatscss "/usr/share/doc/awstats/examples/css"
+	Alias /awstatscss "/usr/share/doc/awstats/examples/css/"
 	ScriptAlias /awstats/ /usr/lib/cgi-bin/
 	Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
 
@@ -408,7 +407,7 @@ sudo /etc/init.d/apache2 restart
 <p>每隔3小時更新一次</p>
 <pre class='bash'><code>
 sudo crontab -e
-0 0-23/3 * * * /usr/lib/cgi-bin/awstats.pl -config=yourdomain.ext -update > /dev/null
+0 0-23/3 * * * /usr/lib/cgi-bin/awstats.pl -config=tafree.org -update > /dev/null
 </code></pre>
 <br>
 <h2>完成安裝TAFree</h2>

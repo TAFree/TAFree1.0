@@ -1,0 +1,11 @@
+# Ignore MySQL's user information
+IConnectInfo.php
+
+# Ignore judge, problem directory that is used to place files from client's upload
+judge/*
+problem/*
+
+# Ignore process, tar, tmp directory that is used to place temporary files
+tar/*
+tmp/*
+process/*
