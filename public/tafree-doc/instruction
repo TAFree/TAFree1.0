@@ -95,7 +95,7 @@ sudo vi /etc/at.deny
 sudo adduser [tafree代理人帳號]
 </code></pre>
 <h3>建立網站紀錄檔目錄</h3>
-<pre class='bash'>
+<pre class='bash'></code>
 sudo cd /home/tafree
 sudo mkdir log
 sudo cd /home/tafree/log
@@ -199,7 +199,7 @@ sudo /etc/init.d/apache2 restart
 <br>
 <h2>安裝Bugzilla(可選)</h2>
 <p>Bugzilla是很完備的缺陷追蹤系統(Bug Tracing System)，我們用它來追蹤及回應用戶們發現的TAFree臭蟲，以確保有人在處理當中的問題。</p>
-<p>如果你不是按照接下來的方式安排Bugzilla，那麼點擊Bugs連結時就會顯示錯誤。</p>
+<p>如果你不是按照接下來的方式配置Bugzilla，那麼點擊Bugs連結時就會顯示錯誤。</p>
 <pre class='bash'><code>
 cd /var/www/html
 sudo git clone --branch release-5.0-stable http://github.com/bugzilla/bugzilla bugzilla
@@ -244,7 +244,7 @@ sudo vi 000-bugzilla.conf
         Options +ExecCGI
         DirectoryIndex index.cgi index.html
         AllowOverride All
-    &lt;/Directory&gt;
+	&lt;/Directory&gt;
 
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 	# error, crit, alert, emerg.
@@ -272,7 +272,7 @@ sudo a2ensite 000-bugzilla.conf
 </code></pre>
 <p>增加Apache2監聽port</p>
 <pre class='bash'><code>
-vi /etc/apache2/ports.conf
+sudo vi /etc/apache2/ports.conf
 </code></pre>
 <p>增加81埠號</p>
 <pre class='apache'><code>
@@ -310,15 +310,13 @@ sudo ./testserver.pl http://localhost:81
 <h3>設定參數</h3>
 <p>打開瀏覽器前往http://140.112.12.112:81到Bugzilla首頁</p>
 <p>以管理員身份登入，找到Administration超連結，修改下列參數</p>
-<pre>
-urlbase=http://140.112.12.112:81/
-mail_delivery_method=Sendmail
-mailfrom=bugzilla-daemon@localhost
-</pre>
+<h4>1. urlbase=http://140.112.12.112:81/</h4>
+<h4>2. mail_delivery_method=Sendmail</h4>
+<h4>3. mailfrom=bugzilla-daemon@localhost</h4>
 <br>
 <h2>安裝AWStats(可選)</h2>
 <p>AWStats是一個網站紀錄分析工具，它有很棒的視覺化圖表，我們用它來觀察TAFree客戶們的使用情形。</p>
-<p>如果你不是按照接下來的方式安排AWStats，那麼點擊Statistics連結時就會顯示錯誤。</p>
+<p>如果你不是按照接下來的方式配置AWStats，那麼點擊Statistics連結時就會顯示錯誤。</p>
 <pre class='bash'><code>
 sudo apt-get install awstats
 </code></pre>
@@ -362,11 +360,11 @@ sudo vi 000-awstats.conf
 	ServerAdmin webmaster@localhost
 	DocumentRoot /var/www/html
 	
-    Alias /awstatsclasses "/usr/share/awstats/lib/"
-    Alias /awstats-icon "/usr/share/awstats/icon/"
-    Alias /awstatscss "/usr/share/doc/awstats/examples/css"
-    ScriptAlias /awstats/ /usr/lib/cgi-bin/
-    Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+	Alias /awstatsclasses "/usr/share/awstats/lib/"
+	Alias /awstats-icon "/usr/share/awstats/icon/"
+	Alias /awstatscss "/usr/share/doc/awstats/examples/css"
+	ScriptAlias /awstats/ /usr/lib/cgi-bin/
+	Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
 
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 	# error, crit, alert, emerg.
@@ -394,7 +392,7 @@ sudo a2ensite 000-awstats.conf
 </code></pre>
 <p>增加Apache2監聽port</p>
 <pre class='bash'><code>
-vi /etc/apache2/ports.conf
+sudo vi /etc/apache2/ports.conf
 </code></pre>
 <p>增加82埠號</p>
 <pre class='apache'><code>
@@ -411,7 +409,7 @@ sudo vi /etc/crontab
 </code></pre>
 <br>
 <h2>完成安裝TAFree</h2>
-<p>在瀏覽器送出伺服器的IP，進入你自己的TAFree網站。</p>
+<p>從瀏覽器送出伺服器的IP，進入你自己的TAFree網站。</p>
 <h3>有公開IP</></h3>
 <p>指的是你有像我們一樣的140.112.12.112，對外網段可以連進來你自己的TAFree。</p>
 <h3>沒有公開IP</h3>
