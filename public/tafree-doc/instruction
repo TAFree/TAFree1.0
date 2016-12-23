@@ -121,10 +121,22 @@ sudo chown -R tafree:tafree /home/tafree/TAFree1.0
 <pre class='bash'><code>
 sudo cd /home/tafree/TAFree1.0
 </code></pre>
-<p>找到IConnectInfo.php，修改成設定MySQL時新增的使用者的帳密</p>
+<p>找到IConnectInfo.php.example，修改成設定MySQL時新增的使用者的帳密</p>
 <pre class='php'><code>
-const UNAME = '[帳號]';
-const PW = '[密碼]';
+<?php
+namespace TAFree\secrete;
+
+interface IConnectInfo {
+
+	const HOST = 'localhost';
+	const UNAME = '[帳號]';
+	const PW = '[密碼]';
+	const DBNAME = 'TAFreeDB';
+
+	public static function doConnect();
+}
+
+?>
 </code></pre>
 <p>如果你不滿意Administer的帳密必須跟這個使用者相同這樣的設計，那麼請找到Administer.php然後修改它。</p>
 <h3>設定Apache2</h3>
