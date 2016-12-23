@@ -95,7 +95,7 @@ sudo vi /etc/at.deny
 sudo adduser [tafree代理人帳號]
 </code></pre>
 <h3>建立網站紀錄檔目錄</h3>
-<pre class='bash'></code>
+<pre class='bash'><code>
 sudo cd /home/tafree
 sudo mkdir log
 sudo cd /home/tafree/log
