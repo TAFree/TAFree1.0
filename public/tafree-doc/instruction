@@ -121,7 +121,7 @@ sudo chown -R tafree:tafree /home/tafree/TAFree1.0
 sudo cd /home/tafree/TAFree1.0
 </code></pre>
 <p>找到IConnectInfo.php，修改成設定MySQL時新增的使用者的帳密</p>
-<pre class='bash'><code>
+<pre class='php'><code>
 const UNAME = '[帳號]';
 const PW = '[密碼]';
 </code></pre>
