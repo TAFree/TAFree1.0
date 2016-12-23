@@ -102,11 +102,12 @@ sudo cd /home/tafree/log
 sudo mkdir tafree bugzilla awstats
 sudo chown -R tafree:tafree /home/tafree/log
 </code></pre>
-<h3>定時清理紀錄檔</h3>
-<pre class='bash'><code></code></pre>
-
-
-
+<h3>定時清理網站紀錄檔</h3>
+<p>每月1號的凌晨整點清理一次</p>
+<pre class='bash'><code>
+sudo crontab -e
+0 0 1 * * /bin/rm /home/tafree/log/tafree/* /home/tafree/log/bugzilla/* /home/tafree/log/awstats/* > /dev/null
+</code></pre>
 <h3>取得TAFree1.0</h3>
 <pre class='bash'><code>
 sudo cd /home/tafree
@@ -209,7 +210,8 @@ sudo git clone --branch release-5.0-stable http://github.com/bugzilla/bugzilla b
 cd /var/www/html/bugzilla
 sudo ./checksetup.pl --check-modules
 sudo perl install-module.pl [必要的模組]
-sudo perl install-module.pl Email::Reply 
+sudo perl install-module.pl 
+Email::Reply 
 sudo apt-get install libmysqlclient-dev
 sudo perl install-module.pl DBD::mysql
 </code></pre>
@@ -403,9 +405,10 @@ Listen 82
 sudo /etc/init.d/apache2 restart
 </code></pre>
 <h3>加入例行性排程</h3>
+<p>每隔3小時更新一次</p>
 <pre class='bash'><code>
-sudo vi /etc/crontab
-0 */3 * * * /usr/lib/cgi-bin/awstats.pl -config=yourdomain.ext -update > /dev/null
+sudo crontab -e
+0 0-23/3 * * * /usr/lib/cgi-bin/awstats.pl -config=yourdomain.ext -update > /dev/null
 </code></pre>
 <br>
 <h2>完成安裝TAFree</h2>
