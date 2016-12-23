@@ -171,6 +171,7 @@ sudo vi 000-tafree.conf
 	
 	&lt;Directory /home/tafree/TAFree1.0&gt;
 		Options FollowSymLinks
+		DirectoryIndex views/Login.php
 		AllowOverride None
 		Require all granted
 	&lt;/Directory&gt;
