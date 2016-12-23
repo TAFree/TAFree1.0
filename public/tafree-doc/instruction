@@ -94,6 +94,19 @@ sudo vi /etc/at.deny
 <pre class='bash'><code>
 sudo adduser [tafree代理人帳號]
 </code></pre>
+<h3>建立網站紀錄檔目錄</h3>
+<pre class='bash'>
+sudo cd /home/tafree
+sudo mkdir log
+sudo cd /home/tafree/log
+sudo mkdir tafree bugzilla awstats
+sudo chown -R tafree:tafree /home/tafree/log
+</code></pre>
+<h3>定時清理紀錄檔</h3>
+<pre class='bash'><code></code></pre>
+
+
+
 <h3>取得TAFree1.0</h3>
 <pre class='bash'><code>
 sudo cd /home/tafree
@@ -159,8 +172,8 @@ sudo vi 000-tafree.conf
 	# modules, e.g.
 	#LogLevel info ssl:warn
 
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+	ErrorLog /home/tafree/log/tafree/error.log
+	CustomLog /home/tafree/log/tafree/access.log combined
 
 	# For most configuration files from conf-available/, which are
 	# enabled or disabled at a global level, it is possible to
@@ -182,6 +195,219 @@ sudo a2ensite 000-tafree.conf
 <h4>3. 重啟Apache2</h4>
 <pre class='bash'><code>
 sudo /etc/init.d/apache2 restart
+</code></pre>
+<br>
+<h2>安裝Bugzilla(可選)</h2>
+<p>Bugzilla是很完備的缺陷追蹤系統(Bug Tracing System)，我們用它來追蹤及回應用戶們發現的TAFree臭蟲，以確保有人在處理當中的問題。</p>
+<p>如果你不是按照接下來的方式安排Bugzilla，那麼點擊Bugs連結時就會顯示錯誤。</p>
+<pre class='bash'><code>
+cd /var/www/html
+sudo git clone --branch release-5.0-stable http://github.com/bugzilla/bugzilla bugzilla
+</code></pre>
+<h3>檢查缺少的Perl模組</h3>
+<pre class='bash'><code>
+cd /var/www/html/bugzilla
+sudo ./checksetup.pl --check-modules
+sudo perl install-module.pl [必要的模組]
+sudo perl install-module.pl Email::Reply 
+sudo apt-get install libmysqlclient-dev
+sudo perl install-module.pl DBD::mysql
+</code></pre>
+<h3>安裝Sendmail</h3>
+<pre class='bash'><code>
+sudo apt-get install sendmail
+sudo sendmailconfig
+sudo /etc/init.d/sendmail start
+</code></pre>
+<h3>撰寫Apache2虛擬主機設定檔</h3>
+<pre class='bash'><code>
+cd /etc/apache2/sites-available
+sudo vi 000-bugzilla.conf
+</pre></code>
+<p>它的內容長這樣：</p>
+<pre class='apache'><code>
+&lt;VirtualHost *:81&gt;
+	# The ServerName directive sets the request scheme, hostname and port that
+	# the server uses to identify itself. This is used when creating
+	# redirection URLs. In the context of virtual hosts, the ServerName
+	# specifies what hostname must appear in the request's Host: header to
+	# match this virtual host. For the default virtual host (this file) this
+	# value is not decisive as it is used as a last resort host regardless.
+	# However, you must set it for any further virtual host explicitly.
+	#ServerName www.example.com
+
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/html/bugzilla
+	
+	&lt;directory /var/www/html/bugzilla&gt;
+        AddHandler cgi-script .cgi
+        Options +ExecCGI
+        DirectoryIndex index.cgi index.html
+        AllowOverride All
+    &lt;/Directory&gt;
+
+	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+	# error, crit, alert, emerg.
+	# It is also possible to configure the loglevel for particular
+	# modules, e.g.
+	#LogLevel info ssl:warn
+
+	ErrorLog /home/tafree/log/bugzilla/error.log
+	CustomLog /home/tafree/log/bugzilla/access.log combined
+
+	# For most configuration files from conf-available/, which are
+	# enabled or disabled at a global level, it is possible to
+	# include a line for only one particular virtual host. For example the
+	# following line enables the CGI configuration for this host only
+	# after it has been globally disabled with "a2disconf".
+	#Include conf-available/serve-cgi-bin.conf
+	
+&lt;/VirtualHost&gt;
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+</code></pre>
+<p>採用這份虛擬主機設定檔</p>
+<pre class='bash'><code>
+sudo a2ensite 000-bugzilla.conf
+</code></pre>
+<p>增加Apache2監聽port</p>
+<pre class='bash'><code>
+vi /etc/apache2/ports.conf
+</code></pre>
+<p>增加81埠號</p>
+<pre class='apache'><code>
+Listen 81
+</code></pre>
+<p>重啟Apache2</p>
+<pre class='bash'><code>
+sudo /etc/init.d/apache2 restart
+</code></pre>
+<h3>編輯本地端設定檔</h3>
+<p>第一次執行./checksetup.pl，它用來產生本地端設定檔./localconfig</p>
+<pre class='bash'><code>
+cd /var/www/html/bugzilla
+sudo ./checksetup.pl
+sudo vi ./localconfig
+</code></pre>
+<p>改下列參數，建議和設定MySQL時新增的資料庫使用者一樣</p>
+<pre class='apache'><code>
+$webservergroup = 'www-data'; 
+$use_suexec = 1;
+$db_host = 'localhost';
+$db_name = 'bugs';
+$db_user = '帳號';
+$db_pass = '密碼';
+</pre></code>
+<p>第二次執行./checksetup.pl，它會根據你設定的./localconfig，來設定資料庫</p>
+<pre class='bash'><code>
+sudo ./checksetup.pl
+</code></pre>
+<h3>測試</h3>
+<pre class='bash'><code>
+cd /var/www/html/bugzilla
+sudo ./testserver.pl http://localhost:81
+</code></pre>
+<h3>設定參數</h3>
+<p>打開瀏覽器前往http://140.112.12.112:81到Bugzilla首頁</p>
+<p>以管理員身份登入，找到Administration超連結，修改下列參數</p>
+<pre>
+urlbase=http://140.112.12.112:81/
+mail_delivery_method=Sendmail
+mailfrom=bugzilla-daemon@localhost
+</pre>
+<br>
+<h2>安裝AWStats(可選)</h2>
+<p>AWStats是一個網站紀錄分析工具，它有很棒的視覺化圖表，我們用它來觀察TAFree客戶們的使用情形。</p>
+<p>如果你不是按照接下來的方式安排AWStats，那麼點擊Statistics連結時就會顯示錯誤。</p>
+<pre class='bash'><code>
+sudo apt-get install awstats
+</code></pre>
+<h3>撰寫設定檔</h3>
+<pre class='bash'><code>
+sudo cp /etc/awstats/awstats.conf /etc/awstats/awstats.tafree.org.conf
+sudo rm /etc/awstats/awstats.conf
+sudo vi /etc/awstats/awstats.tafree.org.conf
+</code></pre>
+<p>修改下列參數</p>
+<pre class='apache'><code>
+LogFile="/home/tafree/log/tafree/access.log" 
+SiteDomain="tafree.org"
+HostAliases="localhost 127.0.0.1 tafree.org"
+</code></pre>
+<p>基於已有的access.log，產生統計結果</p>
+<pre class='bash'><code>
+ sudo /usr/lib/cgi-bin/awstats.pl -config=tafree.org -update
+</pre></code>
+<h3>啟動Apache2的cgi模組</h3>
+<pre class='bash'><code>
+sudo a2enmod cgi
+</code></pre>
+<h3>撰寫Apache2虛擬主機設定檔</h3>
+<pre class='bash'><code>
+cd /etc/apache2/sites-available
+sudo vi 000-awstats.conf
+</pre></code>
+<p>它的內容長這樣：</p>
+<pre class='apache'><code>
+&lt;VirtualHost *:82&gt;
+	# The ServerName directive sets the request scheme, hostname and port that
+	# the server uses to identify itself. This is used when creating
+	# redirection URLs. In the context of virtual hosts, the ServerName
+	# specifies what hostname must appear in the request's Host: header to
+	# match this virtual host. For the default virtual host (this file) this
+	# value is not decisive as it is used as a last resort host regardless.
+	# However, you must set it for any further virtual host explicitly.
+	#ServerName www.example.com
+
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/html
+	
+    Alias /awstatsclasses "/usr/share/awstats/lib/"
+    Alias /awstats-icon "/usr/share/awstats/icon/"
+    Alias /awstatscss "/usr/share/doc/awstats/examples/css"
+    ScriptAlias /awstats/ /usr/lib/cgi-bin/
+    Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+
+	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+	# error, crit, alert, emerg.
+	# It is also possible to configure the loglevel for particular
+	# modules, e.g.
+	#LogLevel info ssl:warn
+
+	ErrorLog /home/tafree/log/awstats/error.log
+	CustomLog /home/tafree/log/awstats/access.log combined
+
+	# For most configuration files from conf-available/, which are
+	# enabled or disabled at a global level, it is possible to
+	# include a line for only one particular virtual host. For example the
+	# following line enables the CGI configuration for this host only
+	# after it has been globally disabled with "a2disconf".
+	#Include conf-available/serve-cgi-bin.conf
+	
+&lt;/VirtualHost&gt;
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+</code></pre>
+<p>採用這份虛擬主機設定檔</p>
+<pre class='bash'><code>
+sudo a2ensite 000-awstats.conf
+</code></pre>
+<p>增加Apache2監聽port</p>
+<pre class='bash'><code>
+vi /etc/apache2/ports.conf
+</code></pre>
+<p>增加82埠號</p>
+<pre class='apache'><code>
+Listen 82
+</code></pre>
+<p>重啟Apache2</p>
+<pre class='bash'><code>
+sudo /etc/init.d/apache2 restart
+</code></pre>
+<h3>加入例行性排程</h3>
+<pre class='bash'><code>
+sudo vi /etc/crontab
+0 */3 * * * /usr/lib/cgi-bin/awstats.pl -config=yourdomain.ext -update > /dev/null
 </code></pre>
 <br>
 <h2>完成安裝TAFree</h2>
