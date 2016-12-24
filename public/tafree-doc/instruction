@@ -108,10 +108,10 @@ sudo chmod -R g+w /home/tafree/log
 sudo crontab -e
 0 0 1 * * /bin/rm /home/tafree/log/tafree/* /home/tafree/log/bugzilla/* /home/tafree/log/awstats/* > /dev/null
 </code></pre>
-<h3>取得TAFree1.0</h3>
+<h3>取得最新版TAFree1.0</h3>
 <pre class='bash'><code>
 sudo cd /home/tafree
-sudo git clone http://github.com/TAFree/TAFree1.0.git
+sudo git clone -b master http://github.com/TAFree/TAFree1.0.git
 </code></pre>
 <h3>修改TAFree的Administer的帳號密碼</h3>
 <pre class='bash'><code>
