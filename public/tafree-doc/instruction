@@ -82,7 +82,6 @@ mysql > EXIT;
 sudo apt-get install mailutils
 </code></pre>
 <h3>設定排程工具： at</h3>
-<p>把www-data(和其他代表TAFree的伺服器使用者)從at的黑名單裡刪掉</p>
 <pre class='bash'><code>
 sudo vi /etc/at.deny
 </code></pre>
