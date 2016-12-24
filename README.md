@@ -7,14 +7,14 @@ The first generation of online judge system for NTUCE.
 * [Bugs](http://140.112.12.112:81)
 
 # Build
-* Latest Version
-  sudo git clone -b master http://github.com/TAFree/TAFree1.0.git
-* Specified Version
-  sudo wget http://github.com/tafree/TAFree1.0/archive/x.x.x.tar.gz
+* Latest Version  
+  sudo git clone -b master http://github.com/TAFree/TAFree1.0.git  
+* Specified Version  
+  sudo wget http://github.com/tafree/TAFree1.0/archive/x.x.x.tar.gz  
   sudo tar zxvf x.x.x.tar.gz
 
 # Contribute
-Please follow rules both of:
+Please follow rules:
 *  [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/) and
 *  [Semantic Versioning 2.0.0](http://semver.org/)
 
