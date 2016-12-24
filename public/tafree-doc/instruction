@@ -216,6 +216,7 @@ sudo git clone --branch release-5.0-stable http://github.com/bugzilla/bugzilla b
 <pre class='bash'><code>
 cd /var/www/html/bugzilla
 sudo ./checksetup.pl --check-modules
+sudo apt-get install build-essential
 sudo perl install-module.pl [必要的模組]
 sudo perl install-module.pl Email::Reply 
 sudo apt-get install libmysqlclient-dev
@@ -306,6 +307,10 @@ $db_name = 'bugs';
 $db_user = '帳號';
 $db_pass = '密碼';
 </pre></code>
+<p>設定MySQL使用者對Bugzilla的權限</p>
+<pre class='bash'><code>
+mysql -u root -p -e "GRANT ALL PRIVILEGES ON bugs.* TO '帳號'@'localhost' IDENTIFIED BY '密碼'"
+</code></pre>
 <p>第二次執行checksetup.pl，它會根據你設定的localconfig，來設定資料庫</p>
 <pre class='bash'><code>
 sudo ./checksetup.pl
