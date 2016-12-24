@@ -89,7 +89,6 @@ class ProblemEntry implements IStrategy {
 					exit();
 				}
 				$this-> uploadJudge();
-			
 			}
 			else {
 				// Clone judge file if it is already on machine
@@ -128,9 +127,9 @@ class ProblemEntry implements IStrategy {
 	public function uploadDescription () {	
 		
 		// Clear previous files
-		$delete_file_msg = system('rm -rf ' . '../problem/description/' . $this->item . '/' . $this->subitem . '/*', $retval);
+		system('rm -rf ' . '../problem/description/' . $this->item . '/' . $this->subitem . '/*', $retval);
 		if ($retval !== 0) {
-			new Viewer ('Msg', $delete_file_msg);
+			new Viewer ('Msg', 'Can not remove ' . '../problem/description/' . $this->item . '/' . $this->subitem . '/*');
 			exit();
 		}
 		
@@ -149,9 +148,9 @@ class ProblemEntry implements IStrategy {
 	public function uploadJudge () {
 		
 		// Clear previous files
-		$delete_file_msg = system('rm -rf ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
+		system('rm -rf ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
 		if ($retval !== 0) {
-			new Viewer ('Msg', $delete_file_msg);
+			new Viewer ('Msg', 'Can not remove ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*');
 			exit();
 		}
 		
@@ -170,12 +169,12 @@ class ProblemEntry implements IStrategy {
 	public function cloneJudge () {
 		
 		// Clear previous files
-		$delete_file_msg = system('rm -rf ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
+		system('rm -rf ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
 		if ($retval !== 0) {
-			new Viewer ('Msg', $delete_file_msg);
+			new Viewer ('Msg', 'Can not remove ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*');
 			exit();
 		}
-		
+			
 		// Copy to ../problem/judge/[item]/[subitem] directory 
 		if (!copy ('../judge/' . $this->judge, '../problem/judge/' . $this->item . '/' . $this->subitem . '/' . $this->judge)) {
 			new Viewer ('Msg', 'Judge script copy failed...');
@@ -197,10 +196,11 @@ class ProblemEntry implements IStrategy {
 	}
 	
 	public function uploadTestdata () {
+		
 		// Clear previous files
-		$delete_file_msg = system('rm -rf ' . '../problem/testdata/' . $this->item . '/' . $this->subitem . '/*', $retval);
+		system('rm -rf ' . '../problem/testdata/' . $this->item . '/' . $this->subitem . '/*', $retval);
 		if ($retval !== 0) {
-			new Viewer ('Msg', $delete_file_msg);
+			new Viewer ('Msg', 'Can not remove ' . '../problem/testdata/' . $this->item . '/' . $this->subitem . '/*');
 			exit();
 		}
 		
