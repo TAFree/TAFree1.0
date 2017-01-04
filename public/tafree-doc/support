@@ -1,14 +1,42 @@
 <h1>擴充TAFree的支援</h1>
-<p>TAFree可以作為批改任何程式作業的平台，只要你知道如何<strong>安裝相關的程式語言套件</strong>。</p>
-<p>同時，TAFree也可被擴充為能夠接受任何批改腳本(不限腳本語言)的平台，只要你知道如何<strong>擴充你習慣的批改腳本支援</strong>。</p>
-<p>稍後會說明<strong>批改腳本必要執行的基本任務</strong>，以及提供已經存在的那些腳本當作參考範例。</p>
-<p>你只要會以你習慣的腳本語言撰寫那些任務，就可以了。</p>
+<p>TAFree可以作為批改任何程式作業的平台，也可以被擴充為能夠接受任何批改腳本(不限腳本語言)的平台。</p>
+<p>你需要做兩件事：</p>
+<p>1. 在批改環境<strong>安裝相關的程式語言套件</strong>及<strong>擴充你習慣的批改腳本支援</strong>。</p>
+<p>2. 如果你要跟隨Ghassho方案創造你的批改環境，那麼TAFree網站上的對應操作是以Faculty身份登入，點選Expansion，為你習慣的批改腳本Plug in命令列支援。</p>
 <br>
-<h2>安裝相關的程式語言套件</h2>
-<p>請根據作業內容安裝需要的程式語言套件。</p>
-<p>這段內容是在Ubuntu 16.04.1 LTS安裝程式語言套件的方法。</p>
-<p>換句話說，其他作業系統的使用者必須自行查詢如何在你們的作業系統安裝需要的程式語言套件。</p>
-<p>安裝完成後，請務必確認套件版本是否支援作業會用到的功能。</p>
+<h2>安裝Ghassho(建議)</h2>
+<p>TAFree作為出題和繳交程式作業的平台網站，我們不負責處理記憶體用量，腳本執行時間，執行緒的安全性等議題，負責撰寫批改腳本的教職人員必須斟酌考慮這些要點。</p>
+<p>常見的方式是把Judge Client(也就是負責執行批改腳本以及學生(解答)程式作業的)的工作放在一個隔離的環境中，使得主機上的其他系統(應用)程式及檔案結構不會受到干擾或破壞。</p>
+<p>對此，TAFree組織提供了一個可以跨平台的批改服務方案<a class='DOC_A' href='http://github.com/TAFree/Ghassho'>Ghassho</a>，它是一個執行於Docker Container的守護進程，專門聽取TAFree資料庫中是否有尚未批改的作業，如果有就執行該次作業的批改腳本以及學生(解答)的程式。</p>
+<p>你可以在多台機器上安裝它，讓批改過程更順暢，就不用考慮上述議題，但是請留意它在計算資源方面的限制。</p>
+<br>
+<h3>新增MySQL使用者</h3>
+<p>我們要新增一個使用者ghassho，他可以從其他的主機連線進來TAFreeDB。</p>
+<pre class='bash'><code>
+mysql -u root -p
+mysql > CREATE user 'ghassho'@'%' IDENTIFIED BY '密碼';
+mysql > GRANT ALL ON TAFreeDB.* TO 'ghassho'@'%';
+</code></pre>
+<p>修改MySQL安全限制</p>
+<pre class='bash'><code>
+sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+</code></pre>
+<p>請註解掉bind-address = 127.0.0.1</p>
+<p>重啟MySQL</p>
+<pre class='bash'><code>
+sudo /etc/init.d/mysql restart
+</code></pre>
+<p>重啟Apache2</p>
+<pre class='bash'><code>
+sudo /etc/init.d/apache2 restart
+</code></pre>
+<br>
+
+
+<h2>安裝相關的程式語言套件(預設批改環境：Ghassho)</h2>
+<p>如果你把批改環境放在其他可信任的主機或是虛擬機器上，請跳過這段。</p>
+<p>這段是在講解如何運用Dockerfile維護你們的作業會用到的程式套件。</p>
+
 <h3>安裝Oracle JDK 9</h3>
 <pre class='bash'><code>
 sudo apt-get install python-software-properties
@@ -18,24 +46,12 @@ sudo apt-get install oracle-java9-installer
 sudo java -version
 </code></pre>
 <p><a class='DOC_A' href='http://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get'>其他JDK</a></p>
-<h3>安裝Python 3</h3>
-<pre class='bash'><code>
-sudo apt-get install idle-python3.5
-python3 -V
-</code></pre>
-<h3>安裝g++ 5</h3>
-<pre class='bash'><code>
-sudo apt-get install g++-5
-g++ --version
-</code></pre>
-<h3>安裝make</h3>
-<pre class='bash'><code>
-sudo apt-get install make
-</code></pre>
+
+<h2>擴充你習慣的批改腳本支援(預設批改環境：Ghassho)</h2>
+<p>如果你把批改環境放在其他可信任的主機或是虛擬機器上，請跳過這段。</p>
+<p>這段是在講解如何運用Dockerfile維護你習慣的批改腳本支援。</p>
 <br>
-<h2>擴充你習慣的批改腳本支援</h2>
-<p>這個部份已經納入Faculty的功能了。</p>
-<br>
+
 <h2>批改腳本必要執行的基本任務</h2>
 <h3>認識環境</h3>
 <h4>1. TAFree執行上傳的批改腳本時，預設跟隨3個字串參數：<strong>某個學生的帳號</strong>，<strong>作業項目</strong>，<strong>第幾題</strong>，<strong>批改編號</strong>。</h4>
@@ -90,12 +106,6 @@ sudo apt-get install make
 </table>
 <p>如果批改腳本發生執行錯誤，TAFree會自動返回含有本次批改編號的錯誤訊息給Student，因此把登記批改主機名稱(或IP)當作批改腳本的初期任務將有助於追蹤發生錯誤的機器。</p>
 <p>當批改腳本正確執行時，由於回傳內容完全由批改腳本自訂，因此TAFree也是一個能夠依據不同課程目的而由教職人員設計輔助內容的平台。</p>
-<br>
-<h3>其他議題</h3>
-<p>TAFree作為出題和繳交程式作業的平台網站，我們不負責處理記憶體用量，腳本執行時間，執行緒的安全性等議題，請負責批改腳本的教職人員視需求斟酌考慮這些要點。</p>
-<p>常見的方式是把Judge Client(也就是負責執行批改腳本以及學生(解答)程式作業)的工作放在一個隔離的環境中，使得主機上的其他系統(應用)程式及檔案結構不會受到干擾或破壞。</p>
-<p>對此TAFree組織提供了一個可以跨平台的批改服務方案<a class='DOC_A' href='http://github.com/TAFree/Ghassho'>Ghassho</a>，它是一個執行於Docker Container的守護進程，專門聽取TAFree資料庫中是否有尚未批改的作業，如果有就執行該次作業的批改腳本以及學生(解答)的程式。</p>
-<p>你可以在多台機器上安裝它，讓批改過程更順暢，就不用考慮上述議題，但是請留意它在計算資源方面的限制。</p>
 <br>
 <h3>參考範例</h3>
 <div id='JUDGE_EXAMPLE_DIV'></div>
