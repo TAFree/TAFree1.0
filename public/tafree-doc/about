@@ -17,7 +17,7 @@
 <p>104年暑假，周琪雅，簡翰鈺，林照傑，張如嫻，吳軒竹完成前端的互動功能TAFreeUI。</p>
 <p>105年學期，吳育姿延續TAFreeUI完成第一代平台TAFree1.0。</p>
 <p>105年寒假，為了隔離每份程式作業的批改環境，吳育姿完成一個執行於Docker Container，用來提供批改服務的方案Ghassho。</p>
-<p>105年寒假，吳育姿將需要客製化的批改腳本重構為由PHP撰寫的函式庫JudgeBoy以提供常用的API。</p>
+<p>105年寒假，吳育姿將需要客製化的批改腳本重構為由PHP撰寫的函式庫JudgeBoy以提供常用的APIs。</p>
 <h3>Version</h3>
 <p>TAFree1.0 is available for Google Chrome 54.0.2840.59.</p>
 <br>
