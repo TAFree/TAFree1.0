@@ -33,6 +33,12 @@ sudo /etc/init.d/apache2 restart
 <br>
 
 
+<h3>加密使用者資訊</h3>
+<p>使用mysql_config_editor在家目錄產生包含使用者密碼的二進制檔案.mylogin.cnf</p>
+<pre class='bash'><code>mysql_config_editor set --login-path=TAFreeDB --host=140.112.12.112 --user=ghassho --password
+</code></pre>
+<br>
+
 <h2>安裝相關的程式語言套件(預設批改環境：Ghassho)</h2>
 <p>如果你把批改環境放在其他可信任的主機或是虛擬機器上，請跳過這段。</p>
 <p>這段是在講解如何運用Dockerfile維護你們的作業會用到的程式套件。</p>
