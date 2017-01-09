@@ -18,7 +18,6 @@ class Fac_assign implements Product {
 
 	private $item;
 	private $subitem;
-	private $generalJudges;
 
 	private $hookup;
 
@@ -30,6 +29,7 @@ class Fac_assign implements Product {
 	public function getContent() {
 	
 		$this->formatHelper = new FormatHelper(get_class($this));
+
 		$this->contentProduct .= $this->formatHelper->addTop();
 		
 		$this->contentProduct .=<<<EOF
@@ -42,9 +42,9 @@ EOF;
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
 			
-			$stmt = $this->hookup->prepare('SELECT number FROM problem WHERE item=\'' . $this->item . '\'');
-			$stmt->execute();
-			$row = $stmt->fetch(\PDO::FETCH_ASSOC);
+			$stmt_problem = $this->hookup->prepare('SELECT number FROM problem WHERE item=\'' . $this->item . '\'');
+			$stmt_problem->execute();
+			$row = $stmt_problem->fetch(\PDO::FETCH_ASSOC);
 
 			if ($row['number'] === '1') {
 				$this->contentProduct .= '<label id=\'ADD_LABEL\' for=\'ADD_INPUT\'><input type=\'checkbox\' id=\'ADD_INPUT\' name=\'add\' value=\'\'>Add</label>';
@@ -54,13 +54,7 @@ EOF;
 				$this->contentProduct .= '<label id=\'ADD_LABEL\' for=\'ADD_INPUT\'><input type=\'checkbox\' id=\'ADD_INPUT\' name=\'add\' value=\'\'>Add</label>';
 			}
 
-			$this->hookup = null;
-		}
-		catch (\PDOException $e) {
-			echo 'Error: ' . $e->getMessage() . '<br>';
-		}
-		
-		$this->contentProduct .=<<<EOF
+			$this->contentProduct .=<<<EOF
 </div>
 <table id='PROBLEM_TABLE'>
 <tr>
@@ -79,31 +73,30 @@ EOF;
 <td class='CONTENT_TD'>
 <select id='JUDGE_SELECT' name='judge'>
 EOF;
-		
-		$generalJudges = glob('../judge/*');
-		foreach ($generalJudges as $file) {
-			$file = (string)$file;
-			$filename = substr($file, strripos($file, '/') + 1);
-			$this->contentProduct .= '<option value=\'' . $filename . '\'>' . $filename . '</option>';
-		}
-		
-		$this->contentProduct .= '<option value=\'other\'>other</option>';
 
-		if (!isset($generalJudges)) {
-			$this->contentProduct .= '<input type=\'file\' name=\'judge_file\'>';
+			$stmt_general = $this->hookup->prepare('SELECT judgescript FROM general');
+			$stmt_general->execute();
+			$num_general = $stmt_general->rowCount();
+			while($row = $stmt_general->fetch(\PDO::FETCH_ASSOC)) {
+				$this->contentProduct .= '<option value=\'' . $row['judgescript'] . '\'>' . $row['judgescript'] . '</option>';
+			}
+			$this->contentProduct .= '<option value=\'other\'>other</option>';
+			if ($num_general === 0) {
+				$this->contentProduct .= '<input type=\'file\' name=\'judge_file\'>';
+			}
+			else {
+				$this->contentProduct .= '<input id=\'OTHER_INPUT\' type=\'file\' name=\'judge_file\'>';
+			}
+
+			$this->hookup = null;
+
 		}
-		else {
-			$this->contentProduct .= '<input id=\'OTHER_INPUT\' type=\'file\' name=\'judge_file\'>';
+		catch (\PDOException $e) {
+			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 		
 		$this->contentProduct .=<<<EOF
 </select>
-</td>
-</tr>
-<tr>
-<td class='CONTENT_PRE_TD'>Safe Mode</td>
-<td class='CONTENT_TD'>
-<input type='checkbox' id='SAFE_INPUT' value='isolate' checked name='safe'><p class='WARN_P'>(Do not deselect safe mode if your judge script does not concern about security !)</p>
 </td>
 </tr>
 </table>
