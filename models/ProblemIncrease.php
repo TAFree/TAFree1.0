@@ -39,18 +39,9 @@ class ProblemIncrease implements IStrategy {
 	
 			// Increase subitem table
 			$this->increaseSubitem();
-			
-			// Create ../problem/judge/[item]/[subitem]
-			if(!mkdir('../problem/judge/' . $this->item . '/' . $this->subitem)){
-				new Viewer('Msg', 'Failed to create ../problem/judge/' . $this->item . '/' . $this->subitem);
-				exit();
-			}
-			
-			// Create ../problem/testdata/[item]/[subitem]
-			if(!mkdir('../problem/testdata/' . $this->item . '/' . $this->subitem)){
-				new Viewer('Msg', 'Failed to create ../problem/testdata/' . $this->item . '/' . $this->subitem);
-				exit();
-			}
+		
+			// Increase testdata table
+			$this->increaseTestdata();
 			
 			// Create ../problem/description/[item]/[subitem]
 			if(!mkdir('../problem/description/' . $this->item . '/' . $this->subitem)){
@@ -101,6 +92,15 @@ class ProblemIncrease implements IStrategy {
 		$sql .= ', PRIMARY KEY(classname));';
 		$stmt_subitem = $this->hookup->prepare($sql);
 		$stmt_subitem->execute();
+	}
+
+	public function increaseTestdata () {
+		$sql = 'CREATE TABLE ' . $this->item . '_' . $this->subitem . '_testdata' . '(
+			testdata VARCHAR(100),
+			content TEXT,
+			PRIMARY KEY(testdata));';
+		$stmt_testdata = $this->hookup->prepare($sql);
+		$stmt_testdata->execute();
 	}
 
 }

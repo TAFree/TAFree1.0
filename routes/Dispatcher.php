@@ -254,10 +254,16 @@ $router->match('POST', 'Upload.php', function() {
 	$looker = new fetchers\KeyQuery($item);
 	
 	// Compare keys from problem table and session variable
-	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_upload') === $looker->findKey()) {
-		SessionManager::deleteParameter('key_to_upload');
-		SessionManager::setParameter('key_to_handout', $looker->findKey());
-		new controllers\Upload();
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		if (SessionManager::getParameter('key_to_upload') === $looker->findKey()) {
+			SessionManager::deleteParameter('key_to_upload');
+			SessionManager::setParameter('key_to_handout', $looker->findKey());
+			new controllers\Upload();
+		}
+		else {
+			new Viewer('Fac_problems');
+			exit();
+		}
 	} 
 	else {
 		new Viewer('Sneaker');
@@ -273,9 +279,15 @@ $router->match('POST', 'Handout.php', function() {
 	$looker = new fetchers\KeyQuery($item);
 	
 	// Compare keys from problem table and session variable
-	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_handout') === $looker->findKey()) {
-		SessionManager::deleteParameter('key_to_handout');
-		new controllers\Handout();
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		if (SessionManager::getParameter('key_to_handout') === $looker->findKey()) {
+			SessionManager::deleteParameter('key_to_handout');
+			new controllers\Handout();
+		}
+		else {
+			new Viewer('Fac_problems');
+			exit();
+		}
 	} 
 	else {
 		new Viewer('Sneaker');

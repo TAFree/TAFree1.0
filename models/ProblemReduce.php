@@ -37,24 +37,10 @@ class ProblemReduce implements IStrategy {
 			// Reduce item table
 			$this->reduceItem();
 	
-			// Delete subitem table
+			// Delete subitem and testdata table
 			$this->deleteSubitem();
 			
-			// Delete ../problem/judge/[item]/[subitem]
-			$delete_file_msg = System('rm -rf ../problem/judge/' . $this->item . '/' . $this->subitem, $retval);
-			if ($retval !== 0) {
-				new Viewer('Msg', $delete_file_msg);
-				exit();
-			}
-			
-			// Delete ../problem/judge/[item]/[subitem]
-			$delete_file_msg = System('rm -rf ../problem/testdata/' . $this->item . '/' . $this->subitem, $retval);
-			if ($retval !== 0) {
-				new Viewer('Msg', $delete_file_msg);
-				exit();
-			}
-			
-			// Delete ../problem/judge/[item]/[subitem]
+			// Delete ../problem/description/[item]/[subitem]
 			$delete_file_msg = System('rm -rf ../problem/description/' . $this->item . '/' . $this->subitem, $retval);
 			if ($retval !== 0) {
 				new Viewer('Msg', $delete_file_msg);
@@ -92,8 +78,11 @@ class ProblemReduce implements IStrategy {
 	}
 	
 	public function deleteSubitem () {
-		$stmt = $this->hookup->prepare('DROP TABLE ' . $this->item . '_' . $this->subitem);
-		$stmt->execute();
+		$stmt_subitem = $this->hookup->prepare('DROP TABLE ' . $this->item . '_' . $this->subitem);
+		$stmt_subitem->execute();
+		$stmt_testdata = $this->hookup->prepare('DROP TABLE ' . $this->item . '_' . $this->subitem . '_testdata');
+		$stmt_testdata->execute();
+	
 	}
 
 }

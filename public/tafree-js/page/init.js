@@ -539,6 +539,26 @@ TAFree.page.Init = {
 	xhr.open('POST', '../pollers/StatusPoll.php', true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send();
+    },
+
+    singleAddDel: function () {
+        // Dependencies
+        var dom = TAFree.util.Dom,
+
+	add, del;
+
+	add = dom.getNameOne('add');
+	del = dom.getNameOne('delete');
+
+	if (typeof del !== 'undefined' && typeof add !== 'undefined') {
+		add.addEventListener('click',function () {
+			del.checked = false;
+		});
+		del.addEventListener('click',function () {
+			add.checked = false;
+		});
+	}
+	
     }
 
 };
