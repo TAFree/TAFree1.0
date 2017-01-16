@@ -446,6 +446,7 @@ TAFree.page.Init = {
 	but = dom.getId('HANDIN_INPUT');
         but.addEventListener('click', function(e) {
 		var xhr;
+
 		// Check judge status on server side
 	    	xhr = new XMLHttpRequest();
 	        xhr.onreadystatechange = function () {

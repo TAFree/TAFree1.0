@@ -14,6 +14,7 @@ class Pending implements Product{
 	public function getContent() {
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
+		$this->contentProduct .= '<div id=\'PENDING_DIV\'>TAFree is now processing your uploads.<br>Please do not touch anything ! </div>';
 		$this->contentProduct .= $this->formatHelper->closeUp();
 		
 		return $this->contentProduct;

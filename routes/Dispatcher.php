@@ -373,11 +373,18 @@ $router->match('GET', 'Stu_problem.php', function() {
 		$watchman = new Janitor($registry);
 		
 		if ($watchman->openDoor()) {
+			
+			// Generate a key to hand in assignment as session variable if there is no key_to_handin session variable
+			if (!SessionManager::getParameter('key_to_handin')) {
+				SessionManager::setParameter('key_to_handin', true);
+			}
+			
 			$info = array (
 				'stu_account' => SessionManager::getParameter('account'),
 				'item' => SessionManager::getParameter('item'),
 				'subitem' => SessionManager::getParameter('subitem')
 			);
+
 			new Viewer('Stu_problem', $info);
 		}
 		else {
@@ -415,7 +422,13 @@ $router->match('POST', 'HandinRejector.php', function() {
 
 $router->match('GET', 'JudgeAdapter.php', function() {
 	if (SessionManager::getParameter('guest') === 'student') { 
-		new controllers\JudgeAdapter();
+		if (SessionManager::getParameter('key_to_handin')) {
+			SessionManager::deleteParameter('key_to_handin');
+			new controllers\JudgeAdapter();
+		}
+		else {
+			new Viewer('Stu_problems');
+		}
 	} 
 	else {
 		new Viewer('Sneaker');
