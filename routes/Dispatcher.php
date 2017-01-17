@@ -224,7 +224,7 @@ $router->match('GET', 'Fac_assign.php', function() {
 	$item = SessionManager::getParameter('item');
 
 	// Generate a key to assign problem and update this key in problem table if there is no key_to_assign session variable
-	if (!SessionManager::getParameter('key_to_assign')) {
+	if (!SessionManager::getParameter('key_to_handout') && !SessionManager::getParameter('key_to_assign')) {
 		$controller = new controllers\AssignControl($item);
 		$key = $controller->getKey();
 		SessionManager::setParameter('key_to_assign', $key);
@@ -240,7 +240,9 @@ $router->match('GET', 'Fac_assign.php', function() {
 		new Viewer('Fac_assign');
 	} 
 	else {
-		new Viewer('Sneaker');
+		// Clear key_to_handout session variable
+		SessionManager::deleteParameter('key_to_handout');
+		new Viewer('Fac_problems');
 		exit();
 	}
 
@@ -257,7 +259,10 @@ $router->match('POST', 'Upload.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		if (SessionManager::getParameter('key_to_upload') === $looker->findKey()) {
 			SessionManager::deleteParameter('key_to_upload');
-			SessionManager::setParameter('key_to_handout', $looker->findKey());
+			// Set key_to_handout session variable only when not selecting add and delete item
+			if (!isset($_POST['add']) && !isset($_POST['delete']) ) {
+				SessionManager::setParameter('key_to_handout', $looker->findKey());
+			}
 			new controllers\Upload();
 		}
 		else {
