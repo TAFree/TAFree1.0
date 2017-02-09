@@ -224,7 +224,7 @@ $router->match('GET', 'Fac_assign.php', function() {
 	$item = SessionManager::getParameter('item');
 
 	// Generate a key to assign problem and update this key in problem table if there is no key_to_assign session variable
-	if (!SessionManager::getParameter('key_to_assign')) {
+	if (!SessionManager::getParameter('key_to_handout') && !SessionManager::getParameter('key_to_assign')) {
 		$controller = new controllers\AssignControl($item);
 		$key = $controller->getKey();
 		SessionManager::setParameter('key_to_assign', $key);
@@ -240,7 +240,9 @@ $router->match('GET', 'Fac_assign.php', function() {
 		new Viewer('Fac_assign');
 	} 
 	else {
-		new Viewer('Sneaker');
+		// Clear key_to_handout session variable
+		SessionManager::deleteParameter('key_to_handout');
+		new Viewer('Fac_problems');
 		exit();
 	}
 
@@ -254,10 +256,19 @@ $router->match('POST', 'Upload.php', function() {
 	$looker = new fetchers\KeyQuery($item);
 	
 	// Compare keys from problem table and session variable
-	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_upload') === $looker->findKey()) {
-		SessionManager::deleteParameter('key_to_upload');
-		SessionManager::setParameter('key_to_handout', $looker->findKey());
-		new controllers\Upload();
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		if (SessionManager::getParameter('key_to_upload') === $looker->findKey()) {
+			SessionManager::deleteParameter('key_to_upload');
+			// Set key_to_handout session variable only when not selecting add and delete item
+			if (!isset($_POST['add']) && !isset($_POST['delete']) ) {
+				SessionManager::setParameter('key_to_handout', $looker->findKey());
+			}
+			new controllers\Upload();
+		}
+		else {
+			new Viewer('Fac_problems');
+			exit();
+		}
 	} 
 	else {
 		new Viewer('Sneaker');
@@ -273,9 +284,15 @@ $router->match('POST', 'Handout.php', function() {
 	$looker = new fetchers\KeyQuery($item);
 	
 	// Compare keys from problem table and session variable
-	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_handout') === $looker->findKey()) {
-		SessionManager::deleteParameter('key_to_handout');
-		new controllers\Handout();
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		if (SessionManager::getParameter('key_to_handout') === $looker->findKey()) {
+			SessionManager::deleteParameter('key_to_handout');
+			new controllers\Handout();
+		}
+		else {
+			new Viewer('Fac_problems');
+			exit();
+		}
 	} 
 	else {
 		new Viewer('Sneaker');
@@ -361,11 +378,18 @@ $router->match('GET', 'Stu_problem.php', function() {
 		$watchman = new Janitor($registry);
 		
 		if ($watchman->openDoor()) {
+			
+			// Generate a key to hand in assignment as session variable if there is no key_to_handin session variable
+			if (!SessionManager::getParameter('key_to_handin')) {
+				SessionManager::setParameter('key_to_handin', true);
+			}
+			
 			$info = array (
 				'stu_account' => SessionManager::getParameter('account'),
 				'item' => SessionManager::getParameter('item'),
 				'subitem' => SessionManager::getParameter('subitem')
 			);
+
 			new Viewer('Stu_problem', $info);
 		}
 		else {
@@ -403,7 +427,13 @@ $router->match('POST', 'HandinRejector.php', function() {
 
 $router->match('GET', 'JudgeAdapter.php', function() {
 	if (SessionManager::getParameter('guest') === 'student') { 
-		new controllers\JudgeAdapter();
+		if (SessionManager::getParameter('key_to_handin')) {
+			SessionManager::deleteParameter('key_to_handin');
+			new controllers\JudgeAdapter();
+		}
+		else {
+			new Viewer('Stu_problems');
+		}
 	} 
 	else {
 		new Viewer('Sneaker');

@@ -20,7 +20,7 @@ TAFree.page.Data = (function () {
 
 		home: '../views/Login.php',
 
-            	copyright: '&copy;2016 TAFree'
+            	copyright: '&copy;2016-2017 TAFree'
 	    },
 
 	    getFrame = function(arg) {

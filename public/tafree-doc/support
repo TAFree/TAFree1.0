@@ -35,7 +35,7 @@ sudo /etc/init.d/apache2 restart
 
 <h3>加密使用者資訊</h3>
 <p>使用mysql_config_editor在家目錄產生包含使用者密碼的二進制檔案.mylogin.cnf</p>
-<pre class='bash'><code>mysql_config_editor set --login-path=TAFreeDB --host=140.112.12.112 --user=ghassho --password
+<pre class='bash'><code>mysql_config_editor set --login-path=gate_ghassho --host=140.112.12.112 --user=ghassho --password
 </code></pre>
 <br>
 
