@@ -64,7 +64,7 @@ wlx74da386a0cb2 Link encap:Ethernet  HWaddr 74:da:38:6a:0c:b2
 <br>
 <h3>安裝剩下的東西</h3>
 <pre class='bash'><code>
-sudo apt-get install update
+sudo apt-get update
 sudo apt-get install apache2
 sudo apt-get install mysql-server
 sudo apt-get install php7.0-mysql
