@@ -14,7 +14,6 @@ class ProblemEntry implements IStrategy {
 	private $hint;
 	private $describe;
 	private $judge;
-	private $safe;
 	private $solution_filenames = array();
 	private $solution_contents = array();
 	private $testdata_filenames = array();
@@ -24,16 +23,10 @@ class ProblemEntry implements IStrategy {
 	
 	public function algorithm () {
 		
-		// Get item, subitem, judge, safe
+		// Get item, subitem, judge
 		$this->item = $_POST['item'];
 		$this->subitem = $_POST['subitem'];
 		$this->judge = $_POST['judge'];
-		if (isset($_POST['safe'])) {
-			$this->safe = $_POST['safe'];
-		}
-		else {
-			$this->safe = 'free';
-		}
 
 		// Get hint
 		if (!empty($_POST['hint'])) {
@@ -83,7 +76,7 @@ class ProblemEntry implements IStrategy {
 			
 			// Fetch judge file 
 			if ($this->judge === 'other') {
-				// Upload judge file if it does not exist on machine
+				// Upload judge file if it does not exist in general table
 				if (!$this->isSupport()) {
 					new Viewer ('Msg', 'TAFree has not supported judge script file uploaded. <a class=\'DOC_A\' href=\'../views/Fac_expansion.php\'>You can expand it</a>.' . '<br>');
 					exit();
@@ -91,15 +84,15 @@ class ProblemEntry implements IStrategy {
 				$this-> uploadJudge();
 			}
 			else {
-				// Clone judge file if it is already on machine
+				// Clone judgescript if it is already in general table
 				$this->cloneJudge();
 			}
 			
 			// Clear and upload description files
 			$this->uploadDescription();
 
-			// Clear and upload testdata files
-			$this->uploadTestdata();
+			// Clear and insert [item]_[subitem]_testdata table
+			$this->insertTestdata();
 			
 			// Manipulate tables					
 			
@@ -147,39 +140,43 @@ class ProblemEntry implements IStrategy {
 		
 	public function uploadJudge () {
 		
-		// Clear previous files
-		system('rm -rf ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
-		if ($retval !== 0) {
-			new Viewer ('Msg', 'Can not remove ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*');
-			exit();
-		}
-		
-		// Upload to ../problem/judge/[item]/[subitem] directory 
+		// Upload to ../tmp directory 
 		$tmpname = $_FILES['judge_file']['tmp_name'];
-		$basename = date('Ymd') . '_' . basename($_FILES['judge_file']['name']);				
-		if (!move_uploaded_file ($tmpname, '../problem/judge/' . $this->item .'/'. $this->subitem . '/' . $basename)) {
+		$uniquename = uniqid(time(), true) . '_' . basename($_FILES['judge_file']['name']);				
+		if (!move_uploaded_file ($tmpname, '../tmp/' . $uniquename)) {
 			new Viewer ('Msg', 'Judge script is not uploaded...');
 			exit();
 		}
+		
+		// Update judge as its filename
+		$this->judge = basename($_FILES['judge_file']['name']);
+
+		// Update judgescript and its content
+		$content = file_get_contents('../tmp/' . $uniquename);
+		$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET judgescript=:judgescript, content=:content WHERE subitem=\'' . $this->subitem . '\'');
+		$stmt->bindParam(':judgescript', $this->judge);
+		$stmt->bindParam(':content', $content);
+		$stmt->execute();
+
+		// Clear judge file
+		unlink('../tmp/' . $uniquename);
 	
-		// Update judge 
-		$this->judge = $basename;
 	}
 	
 	public function cloneJudge () {
 		
-		// Clear previous files
-		system('rm -rf ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*', $retval);
-		if ($retval !== 0) {
-			new Viewer ('Msg', 'Can not remove ' . '../problem/judge/' . $this->item . '/' . $this->subitem . '/*');
-			exit();
-		}
+		// Get content from general table	
+		$stmt_content = $this->hookup->prepare('SELECT content FROM general WHERE judgescript=\'' . $this->judge . '\'');
+		$stmt_content->execute();
+		$row_content = $stmt_content->fetch(\PDO::FETCH_ASSOC);
+		$content = $row_content['content'];
+		
+		// Update judgescript and its content
+		$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET judgescript=:judgescript, content=:content WHERE subitem=\'' . $this->subitem . '\'');
+		$stmt->bindParam(':judgescript', $this->judge);
+		$stmt->bindParam(':content', $content);
+		$stmt->execute();
 			
-		// Copy to ../problem/judge/[item]/[subitem] directory 
-		if (!copy ('../judge/' . $this->judge, '../problem/judge/' . $this->item . '/' . $this->subitem . '/' . $this->judge)) {
-			new Viewer ('Msg', 'Judge script copy failed...');
-			exit();
-		}
 	}
 	
 	public function isSupport () {
@@ -195,37 +192,30 @@ class ProblemEntry implements IStrategy {
 		}
 	}
 	
-	public function uploadTestdata () {
+	public function insertTestdata () {
 		
-		// Clear previous files
-		system('rm -rf ' . '../problem/testdata/' . $this->item . '/' . $this->subitem . '/*', $retval);
-		if ($retval !== 0) {
-			new Viewer ('Msg', 'Can not remove ' . '../problem/testdata/' . $this->item . '/' . $this->subitem . '/*');
-			exit();
-		}
+		// Clear testdata table
+		$stmt = $this->hookup->prepare('DELETE FROM ' . $this->item . '_' . $this->subitem . '_testdata');
+		$stmt->execute();	
 		
-		// Upload to ../problem/testdata/[item]/[subitem] directory 	
+		// Insert testdata table
+		$stmt = $this->hookup->prepare('INSERT INTO ' . $this->item . '_' . $this->subitem . '_testdata (testdata, content) VALUES (:testdata, :content)');
 		for ($i = 0; $i < count($this->testdata_filenames); $i += 1) {
-			$testdata = fopen('../problem/testdata/' . $this->item . '/' . $this->subitem . '/' . $this->testdata_filenames[$i], 'w');
-			fwrite($testdata, $this->testdata_contents[$i]);
-			fclose($testdata); 
+			$stmt->bindParam(':testdata', $this->testdata_filenames[$i]);
+			$stmt->bindParam(':content', $this->testdata_contents[$i]);
+			$stmt->execute();	
 		}
+
 	}
 
 	public function updateItem () {
 		$describe;
 		$hint;
-		$judge;
-		$safe;
-		$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET description=:describe, hint=:hint, judgescript=:judge, safe=:safe WHERE subitem=\'' . $this->subitem . '\'');
+		$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET description=:describe, hint=:hint WHERE subitem=\'' . $this->subitem . '\'');
 		$stmt->bindParam(':describe', $describe);
 		$stmt->bindParam(':hint', $hint);
-		$stmt->bindParam(':judge', $judge);
-		$stmt->bindParam(':safe', $safe);
 		$describe = $this->describe;
 		$hint = $this->hint;
-		$judge = $this->judge;
-		$safe = $this->safe;
 		$stmt->execute();
 	}
 	

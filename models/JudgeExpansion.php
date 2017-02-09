@@ -32,7 +32,7 @@ class JudgeExpansion implements IStrategy {
 		// Get deleted judge and support
 		if (in_array('plugout', $this->services)) {
 			if (isset($_POST['del_judge'])) {
-				$this->judge = $_POST['del_judge'];
+				$this->del_judge = $_POST['del_judge'];
 			}
 			if (isset($_POST['support'])) {
 				$this->supports = $_POST['support'];
@@ -91,27 +91,33 @@ class JudgeExpansion implements IStrategy {
 	}
 		
 	public function addJudge () {		
-		// Upload to ../judge directory 
+		// Upload to ../tmp directory 
 		$tmpname = $this->add_judge['tmp_name'];
-		$basename = date('Ymd') . '_' . basename($this->add_judge['name']);				
-		if (!move_uploaded_file ($tmpname, '../judge/' . $basename)) {
+		$basename = basename($this->add_judge['name']);	
+		$filedir = '../tmp/' . uniqid(time(), true) . '-judge';
+		$filename = $filedir . '/' . $basename;
+		mkdir($filedir);			
+		if (!move_uploaded_file ($tmpname, $filename)) {
 			new Viewer ('Msg', 'Judge script is not uploaded...');
 			exit();
+		}
+		else{
+			$content = file_get_contents($filename);
+			$stmt = $this->hookup->prepare('INSERT INTO general(judgescript, content) VALUES(:judgescript, :content)');
+			$stmt->bindParam(':judgescript', $basename);
+			$stmt->bindParam(':content', $content);
+			$stmt->execute();
+			system('rm -rf ' . $filedir);
 		}
 	
 	}
 
 	public function deleteJudge () {
 		
-		// Delete file in ./judge directory 
-		if (file_exists ('../judge/' . $this->del_judge)) {
-			unlink('../judge/' . $this->del_judge);
-		}
-		else {	
-			new Viewer ('Msg', 'Judge script file is not on machine...');
-			exit();
-		}
-	
+		// Delete general judge script in database
+		$stmt = $this->hookup->prepare('DELETE FROM general WHERE judgescript=\'' . $this->del_judge . '\'');
+		$stmt->execute();
+		
 	}
 	
 	public function addSupport () {

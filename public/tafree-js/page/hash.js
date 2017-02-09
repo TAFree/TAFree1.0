@@ -25,6 +25,7 @@ TAFree.page.Hash = (function () {
             	},
             
             	'fac_assign': function () {
+			init.singleAddDel();
 			feature.beInUsed();
 			init.manGenRow();
 			init.otherJudge();

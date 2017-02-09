@@ -6,18 +6,11 @@
 <h3>安裝有支援apt-get命令的Linux分支版本</h3>
 <p>TAFree是架在<a class='DOC_A' href='http://magiclen.org/ubuntu-server-16-04'>Ubuntu Server 16.04.1 LTS</a>，你可以學它。</p>
 <h3>確認網路是否已連通</h3>
-<p>建議新手暫時把機器接上網路線</p>
+<p>建議新手採用有線網路(無線網路設定可能會超過本說明文件範圍，要另外想辦法Trouble Shooting)。</p>
+<h4>有線網路</h4>
+<p>請把機器接上網路線</p>
 <pre class='bash'><code>
 abby@CP:~$ ifconfig
-
-docker0   Link encap:Ethernet  HWaddr 02:42:96:7d:89:b0  
-          inet addr:172.17.0.1  Bcast:0.0.0.0  Mask:255.255.0.0
-          UP BROADCAST MULTICAST  MTU:1500  Metric:1
-          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-          colh3sions:0 txqueuelen:0 
-          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
-
 ens32     Link encap:Ethernet  HWaddr 00:0c:29:7f:8f:81  
           inet addr:140.112.12.112  Bcast:140.112.12.255  Mask:255.255.255.0
           inet6 addr: fe80::20c:29ff:fe7f:8f81/64 Scope:Link
@@ -26,19 +19,49 @@ ens32     Link encap:Ethernet  HWaddr 00:0c:29:7f:8f:81
           TX packets:810154 errors:0 dropped:0 overruns:0 carrier:0
           colh3sions:0 txqueuelen:1000 
           RX bytes:6628717779 (6.6 GB)  TX bytes:132869445 (132.8 MB)
-
-lo        Link encap:Local Loopback  
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:65536  Metric:1
-          RX packets:2420 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:2420 errors:0 dropped:0 overruns:0 carrier:0
-          colh3sions:0 txqueuelen:1 
-          RX bytes:234332 (234.3 KB)  TX bytes:234332 (234.3 KB)
 </code></pre>
-<p>於是你應該要有<strong>e</strong>開頭的有線網路介面卡，像我們的是<strong>ens32</strong>, 而IP是<strong>140.112.12.112</strong>, 所以可以上網。
+<p>你應該要有<strong>e</strong>開頭的有線網路介面卡，像我們的是<strong>ens32</strong>, 而IP是<strong>140.112.12.112</strong>, 就可以上網了。</p>
+<h4>無線網路</h4>
+<p>找到你的無線網路介面卡</p>
+<pre class='bash'><code>
+lshw -c network
+  *-network
+       description: Wireless interface
+       physical id: 1
+       bus info: usb@1:1.4
+       logical name: wlx74da386a0cb2
+       serial: 74:da:38:6a:0c:b2
+       capabilities: ethernet physical wireless
+       configuration: broadcast=yes driver=rt2800usb driverversion=4.4.0-57-generic firmware=0.29 ip=192.168.11.5 link=yes multicast=yes wireless=IEEE 802.11bgn
+</code></pre>
+<p>啟動無線網路介面卡</p>
+<pre class='bash'><code>
+ifconfig [網卡名稱] up
+</code></pre>
+<p>手動連上無線網路，請閱讀<a class='DOC_A' href='http://b8807053.pixnet.net/blog/post/265722439-ubuntu-%E4%B8%8A%E8%A8%AD%E5%AE%9A%E7%84%A1%E7%B7%9A%E7%B6%B2%E8%B7%AF'>Ubuntu 上設定無線網路</a></p>
+<p>開機自動連上無線網路(預設使用wpa_supplicant)，請編輯/etc/network/interfaces</p>
+<pre class='bash'><code>
+vi /etc/network/interfaces
+# The wireless network interface
+auto [網卡名稱]
+iface [網卡名稱] inet dhcp
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+</code></pre>
+<p>重新開機確認網路</p>
+<pre class='bash'><code>
+reboot
+ifconfig
+wlx74da386a0cb2 Link encap:Ethernet  HWaddr 74:da:38:6a:0c:b2  
+          inet addr:192.168.11.5  Bcast:192.168.11.255  Mask:255.255.255.0
+          inet6 addr: fe80::76da:38ff:fe6a:cb2/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2155 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:448 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:673501 (673.5 KB)  TX bytes:269201 (269.2 KB)
+</code></pre>
+<p>你應該要有<strong>w</strong>開頭的無線網路介面卡，像我們的是<strong>wlx74da386a0cb2</strong>, 而IP是<strong>192.168.11.5</strong>, 就可以上網了。</p>
 <br>
-如果你想要用無線網路的方式，那你必須要額外閱讀<a class='DOC_A' href='http://b8807053.pixnet.net/blog/post/265722439-ubuntu-%E4%B8%8A%E8%A8%AD%E5%AE%9A%E7%84%A1%E7%B7%9A%E7%B6%B2%E8%B7%AF'>Ubuntu 上設定無線網路</a>。</p>
 <h3>安裝剩下的東西</h3>
 <pre class='bash'><code>
 sudo apt-get install update

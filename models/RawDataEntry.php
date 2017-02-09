@@ -33,23 +33,11 @@ class RawDataEntry implements IStrategy {
 			if (!file_exists('../tar')) {
 				mkdir('../tar');
 			}
-			if (!file_exists('../process')) {
-				mkdir('../process');
-			}
 			if (!file_exists('../problem')) {
 				mkdir('../problem');
 			}
-			if (!file_exists('../problem/judge')) {
-				mkdir('../problem/judge');
-			}
-			if (!file_exists('../problem/testdata')) {
-				mkdir('../problem/testdata');
-			}
 			if (!file_exists('../problem/description')) {
 				mkdir('../problem/description');
-			}
-			if (!file_exists('../judge')) {
-				mkdir('../judge');
 			}
 
 			// Get items
@@ -173,7 +161,7 @@ class RawDataEntry implements IStrategy {
 					$this->hookup = null;
 
 					// Delete problem directories	
-					$delete_dir_msg = system('rm -rf ../problem/description/* ../problem/judge/* ../problem/testdata/*', $retval);
+					$delete_dir_msg = system('rm -rf ../problem/description/*', $retval);
 					if ($retval !== 0) {
 						new Viewer ('Msg', $delete_dir_msg);
 						exit();
@@ -181,12 +169,8 @@ class RawDataEntry implements IStrategy {
 					// Create problem directories
 					for ($i = 0; $i < count($this->items); $i += 1) {
 						mkdir('../problem/description/' . $this->items[$i]);
-						mkdir('../problem/judge/' . $this->items[$i]);
-						mkdir('../problem/testdata/' . $this->items[$i]);
 						for ($j = 1; $j <= $this->item_nums[$i]; $j += 1) {
 							mkdir('../problem/description/' . $this->items[$i] . '/' . $j);
-							mkdir('../problem/judge/' . $this->items[$i] . '/' . $j);
-							mkdir('../problem/testdata/' . $this->items[$i] . '/' . $j);
 						}
 					}
 
@@ -207,7 +191,7 @@ class RawDataEntry implements IStrategy {
 
 	public function createTable () {
 
-		// student, faculty, problem, apply, support
+		// student, faculty, problem, apply, support, general, process
 		$sql = '';
 		$sql .= 'CREATE TABLE student(
 			student_name VARCHAR(30),
@@ -235,6 +219,11 @@ class RawDataEntry implements IStrategy {
 			ext VARCHAR(50),
 			cmd VARCHAR(100),
 			PRIMARY KEY(ext)	
+		);';		
+		$sql .= 'CREATE TABLE general(
+			judgescript VARCHAR(100),
+			content TEXT,
+			PRIMARY KEY(judgescript)	
 		);';		
 		$sql .= 'CREATE TABLE process(
 			id VARCHAR(50),
@@ -286,8 +275,8 @@ class RawDataEntry implements IStrategy {
 				subitem TINYINT(20) UNSIGNED DEFAULT 1,
 				description VARCHAR(100),
 				judgescript VARCHAR(100),
-				hint TEXT,
-				safe VARCHAR(100) NOT NULL DEFAULT "free",';
+				content TEXT,
+				hint TEXT,';
 			for ($j = 0; $j < $stu_len; $j += 1) {
 				$sql .= $this->stu_accs[$j] . ' VARCHAR(30) NOT NULL DEFAULT "NULL"';
 				if ($j < $stu_len - 1) {
@@ -319,6 +308,20 @@ class RawDataEntry implements IStrategy {
 				$stmt->execute();
 			}
 		}
+
+		// testdata of subitems					
+		$item_nums_len = count($this->item_nums);
+		for ($i = 0; $i < $item_nums_len; $i += 1) {
+			for ($k = 1; $k <= $this->item_nums[$i]; $k += 1) {
+				$sql = 'CREATE TABLE ' . $this->items[$i] . '_' . $k . '_testdata' . '(
+					testdata VARCHAR(100),
+					content TEXT,
+					PRIMARY KEY(testdata));';
+				$stmt = $this->hookup->prepare($sql);
+				$stmt->execute();
+			}
+		}
+
 	}
 
 	public function insertTable () {

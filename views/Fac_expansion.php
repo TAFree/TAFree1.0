@@ -17,6 +17,7 @@ class Fac_expansion implements Product {
 	private $generalJudges;
 	private $exts = array();
 	private $cmds = array();
+	private $judgescripts = array();
 	private $hookup;
 
 	public function getContent() {
@@ -51,39 +52,30 @@ class Fac_expansion implements Product {
 <tr>
 <th colspan='2' class='TITLE_TD'><input type='checkbox' name='service[]' value='plugout'>Plug Out</th>
 </tr>
-<tr>
-<td class='CONTENT_TD'>Judge Script</td>
-<td class='CONTENT_TD'>
-<select id='JUDGE_SELECT' name='del_judge'>
-<option value='no'>No</option>
 EOF;
-		
-		$generalJudges = glob('../judge/*');
-		foreach ($generalJudges as $file) {
-			$file = (string)$file;
-			$filename = substr($file, strripos($file, '/') + 1);
-			$this->contentProduct .= '<option value=\'' . $filename . '\'>' . $filename . '</option>';
-		}
-		
-		$this->contentProduct .=<<<EOF
-</select>
-</td>
-</tr>
-EOF;
-				
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
-
-			$stmt = $this->hookup->prepare('SELECT ext, cmd FROM support');
-			$stmt->execute();
-
-			while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+			
+			// Get general judge script
+			$stmt_judgescript = $this->hookup->prepare('SELECT judgescript FROM general');
+			$stmt_judgescript->execute();
+			while($row = $stmt_judgescript->fetch(\PDO::FETCH_ASSOC)) {
+				array_push($this->judgescripts, $row['judgescript']);
+			}
+			$this->contentProduct .= '<tr><td class=\'CONTENT_TD\'>General Judge Script</td><td class=\'CONTENT_TD\'><select id=\'JUDGE_SELECT\' name=\'del_judge\'><option value=\'no\'>No</option>';
+			for ($i = 0; $i < count($this->judgescripts); $i += 1) {
+				$this->contentProduct .= '<option value=\'' . $this->judgescripts[$i] . '\'>' . $this->judgescripts[$i] . '</option>';
+			}
+			$this->contentProduct .= '</select></td></tr>';
+		
+			// Get script language support
+			$stmt_support = $this->hookup->prepare('SELECT ext, cmd FROM support');
+			$stmt_support->execute();
+			while($row = $stmt_support->fetch(\PDO::FETCH_ASSOC)) {
 				array_push($this->exts, $row['ext']);
 				array_push($this->cmds, $row['cmd']);
 			}
-				
-			$this->contentProduct .= '<tr><td class=\'CONTENT_TD\' rowspan=\'' . count($this->exts) . '\'>Language Support</td>';
-			
+			$this->contentProduct .= '<tr><td class=\'CONTENT_TD\' rowspan=\'' . count($this->exts) . '\'>Script Language Support</td>';
 			for ($i = 0; $i < count($this->exts); $i += 1) {
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'><pre><input type=\'checkbox\' name=\'support[]\' value=\'' . $this->exts[$i] . '\'>' . $this->cmds[$i]. ' Hello.' . $this->exts[$i] . '</pre></td></tr>';
 			}
