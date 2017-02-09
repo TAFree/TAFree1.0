@@ -14,10 +14,8 @@ class HandinRejector {
 	private $item;
 	private $subitem;
 	private $stu_account;
-	private $safe;
 	private $judge_status;
-	private $reject = false;
-	private $result = array();
+	private $reject = 'false';
 	
 	public function __construct () {
 		
@@ -29,29 +27,25 @@ class HandinRejector {
 		try {
 			$this->hookup = UniversalConnect::doConnect();						
 			
-			// Get safe, judge_status
-			$stmt = $this->hookup->prepare('SELECT safe, ' . $this->stu_account . ' FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
+			// Get judge_status
+			$stmt = $this->hookup->prepare('SELECT ' . $this->stu_account . ' FROM ' . $this->item . ' WHERE subitem=\'' . $this->subitem . '\'');
 			$stmt->execute();
 			$row = $stmt->fetch(\PDO::FETCH_ASSOC);
-			$this->safe = $row['safe'];
 			$this->judge_status = $row[$this->stu_account];
 
-			// Rejuct if judge status is pending
-			if ($this->safe === 'isolate' && $this->judge_status === 'Pending') {
-				$this->reject = true;
-			}
-			
-			// Response result by json format
-			$this->result['reject'] = $this->reject;
-			header ('Content-Type: application/json; charset=utf-8');
-			$json_obj = json_encode($this->result);
-			echo $json_obj;
-				
+			$this->hookup = null;		
 		}
 		catch (\PDOException $e) {
 			echo 'Error: ' . $e->getMessage() . '<br>';
 		}
 		
+		// Rejuct if judge status is pending
+		if ($this->judge_status === 'Pending') {
+			$this->reject = 'true';
+		}
+
+		echo $this->reject;
+			
 	}
 
 }

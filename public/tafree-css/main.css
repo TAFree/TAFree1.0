@@ -3,6 +3,11 @@
 	text-align: center;
 }
 
+#REJUDGE_TABLE {
+	margin: 30vh auto;
+	text-align: center;
+}
+
 .DOC_DIV {
 	margin: auto 5vh;
 }

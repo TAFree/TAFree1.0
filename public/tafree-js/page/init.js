@@ -453,12 +453,11 @@ TAFree.page.Init = {
 		    if (this.readyState === 4 && this.status === 200) {
         		// Dependencies
 	                var process = TAFree.page.Process,
-				
-			    result;
+			    reject;
 
-			result = JSON.parse(this.response);
+			reject = this.response;
 			
-			if (result.reject === true) {
+			if (reject === 'true') {
 				confirm('Reject ! Another judge process is still handling last submission.');
 				return;
 			}

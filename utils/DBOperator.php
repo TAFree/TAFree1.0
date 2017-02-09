@@ -91,6 +91,11 @@ class DBOperator {
 		$context->algorithm();
 	}
 
+	public function rejudge() {
+		$context = new Context(new models\ProblemRejudge());
+		$context->algorithm();
+	}
+
 }
 
 ?>
