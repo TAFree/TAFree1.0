@@ -20,7 +20,7 @@ TAFree.namespace = function (ns_string) {
 	
 	return father;
 
-}
+};
 
 TAFree.require = function (file, callback) {
     
