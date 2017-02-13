@@ -428,6 +428,38 @@
     text-align: center;
 }
 
+#NEWEST_TABLE {
+    margin: 50px auto;
+    width: 90%;
+}
+
+#NEWEST_IMG {
+	height: 2.3vh;
+	display: inline;
+	margin-left: 1vw;
+	margin-right: 0;
+}
+
+.NEWEST_A {
+	text-shadow: 1px 1px #808080;
+	text-decoration: none;
+	color: #000000;
+} 
+
+.NEWEST_A:hover {
+	color: #3F464C;
+}
+
+#APPLY_A {
+	text-shadow: 1px 1px #808080;
+	text-decoration: none;
+	color: #000000;
+} 
+
+#APPLY_A:hover {
+	color: #3F464C;
+}
+
 #STU_CHOOSER_TABLE {
     margin: 50px auto;
 }

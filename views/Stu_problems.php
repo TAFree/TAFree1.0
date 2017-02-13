@@ -21,11 +21,19 @@ class Stu_problems implements Product {
 		
 		$this->formatHelper = new FormatHelper(get_class($this));
 		$this->contentProduct .= $this->formatHelper->addTop();
-				
-		$this->contentProduct .= '<table id=\'STU_CHOOSER_TABLE\'>';
 		
 		try {
-			$this->hookup = UniversalConnect::doConnect();
+			$this->hookup = UniversalConnect::doConnect();				
+			
+			$stmt_newest = $this->hookup->prepare('SELECT item, number FROM problem WHERE showup=(SELECT MAX(showup) FROM problem)');
+			$stmt_newest->execute();
+			$row_newest = $stmt_newest->fetch(\PDO::FETCH_ASSOC);
+			$this->contentProduct .= '<table id=\'NEWEST_TABLE\'><tr><th class=\'TITLE_TD\' colspan=\'' . $row_newest['number'] . '\'>' . $row_newest['item'] . '<img id=\'NEWEST_IMG\' src=\'../public/tafree-svg/flag.svg\'><br>(Today\'s lab assignment !)</th></tr><tr>';
+			for ($i = 1; $i <= intval($row_newest['number']); $i += 1) {
+				$this->contentProduct .= '<td class=\'CONTENT_TD\'><a class=\'NEWEST_A\' href=\'../views/Stu_problem.php?item=' . $row_newest['item'] . '&subitem=' . $i . '\'>' . $i . '</a></td>';
+			}
+			$this->contentProduct .= '</tr></table>';
+			$this->contentProduct .= '<table id=\'STU_CHOOSER_TABLE\'>';
 			$stmt = $this->hookup->prepare('SELECT item, number FROM problem');	
 			$stmt->execute();
 			while ($row_item = $stmt->fetch(\PDO::FETCH_ASSOC)) {
