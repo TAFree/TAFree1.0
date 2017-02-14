@@ -13,8 +13,8 @@ sudo git clone -b master http://github.com/TAFree/TAFree1.0.git
 ```
 * Specified Version  
 ```
-sudo wget http://github.com/tafree/TAFree1.0/archive/2.0.0-alpha.tar.gz  
-sudo tar zxvf 2.0.0-alpha.tar.gz
+sudo wget http://github.com/tafree/TAFree1.0/archive/2.0.0.tar.gz  
+sudo tar zxvf 2.0.0.tar.gz
 ```
 # Contribute
 Please follow rules:
