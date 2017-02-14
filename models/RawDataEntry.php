@@ -176,7 +176,6 @@ class RawDataEntry implements IStrategy {
 
 					new Viewer ('Msg', 'Successful initialization !' . '<br>');
 
-					
 				}
 				catch (\PDOException $e) {
 					echo 'Error: ' . $e->getMessage() . '<br>';
@@ -235,6 +234,7 @@ class RawDataEntry implements IStrategy {
 			view TEXT,
 			submitter VARCHAR(50),
 			judger TEXT(500),
+			status VARCHAR(30) NOT NULL DEFAULT "NULL",
 			PRIMARY KEY(id)	
 		);';
 		$sql .= 'CREATE TABLE apply(

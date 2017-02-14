@@ -31,6 +31,7 @@ class Fac_dashboard implements Product {
 <th class='TITLE_TD'>Student Name</th>
 <th class='TITLE_TD'>Item</th>
 <th class='TITLE_TD'>Subitem</th>
+<th class='TITLE_TD'>Status</th>
 </tr>
 EOF;
 		try {
@@ -48,6 +49,7 @@ EOF;
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['student_name'] . '</td>';
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['item'] . '</td>';
 				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['subitem'] . '</td>';
+				$this->contentProduct .= '<td class=\'CONTENT_TD\'>' . $row['status'] . '</td>';
 				$this->contentProduct .= '</tr>';
 			} 
 			

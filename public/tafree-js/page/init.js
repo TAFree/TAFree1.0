@@ -453,12 +453,11 @@ TAFree.page.Init = {
 		    if (this.readyState === 4 && this.status === 200) {
         		// Dependencies
 	                var process = TAFree.page.Process,
-				
-			    result;
+			    reject;
 
-			result = JSON.parse(this.response);
+			reject = this.response;
 			
-			if (result.reject === true) {
+			if (reject === 'true') {
 				confirm('Reject ! Another judge process is still handling last submission.');
 				return;
 			}
@@ -472,32 +471,6 @@ TAFree.page.Init = {
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		xhr.send();
 	}); 
-    },
-
-    switchLayer: function () {
-        // Dependencies
-        var dom = TAFree.util.Dom,
-            buts, i;
-
-	    buts = dom.getClass('UP_DOWN_IMG');
-	    for (i = 0; i < buts.length; i += 1){
-		buts[i].addEventListener('click', function(e) {
-			var ele, stu, sol;
-			ele = e.srcElement;
-			stu = ele.parentNode.children[1].children[1];
-			sol = ele.parentNode.children[1].children[0];
-			if (ele.src.includes('attention')) {
-				ele.src = '../public/tafree-svg/undo.svg';
-				sol.style.display = 'block';
-			}
-			else{
-				ele.src = '../public/tafree-svg/attention.svg';
-				sol.style.display = 'none';
-
-			}
-		});
-	    }
-	
     },
 
     queryMail: function () {

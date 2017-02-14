@@ -35,7 +35,7 @@ class JudgeAdapter {
 			
 			// Create id & set id as session variable
 			$this->id = uniqid();
-			SessionManager::getParameter('id', $this->id);
+			SessionManager::setParameter('id', $this->id);
 
 			// Add judge process row in process table
 			$stmt = $this->hookup->prepare('INSERT INTO process (id, submitter, student_account, student_name, item, subitem) VALUES (:id, :submitter, :student_account, :student_name, :item, :subitem)');
