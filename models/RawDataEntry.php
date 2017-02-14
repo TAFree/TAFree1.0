@@ -176,7 +176,6 @@ class RawDataEntry implements IStrategy {
 
 					new Viewer ('Msg', 'Successful initialization !' . '<br>');
 
-					
 				}
 				catch (\PDOException $e) {
 					echo 'Error: ' . $e->getMessage() . '<br>';

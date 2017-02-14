@@ -474,7 +474,7 @@ $router->match('POST', 'StatusPoll.php', function() {
 
 $router->match('GET', 'Result.php', function() {
 	if (SessionManager::getParameter('guest') === 'student') { 
-		new Viewer('Result', $_GET['view']);
+		new Viewer('Result', $_GET['id']);
 	} 
 	else {
 		new Viewer('Sneaker');
