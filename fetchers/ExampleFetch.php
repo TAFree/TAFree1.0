@@ -9,35 +9,19 @@ require_once('../composers/Autoloader.php');
 class ExampleFetch implements Product {
 	
 	private $examples;
-	private $hookup;
 
 	public function getContent() {
 		
 		$this->examples = '';
-			
-		try {
-			
-			$this->hookup = UniversalConnect::doConnect();	
-		
-			// Get judgescript and content from general table	
-			$stmt = $this->hookup->prepare('SELECT * FROM general');
-			$stmt->execute();
-			while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-				$filename = $row['judgescript'];
-				$ext = '';
-				if (preg_match('/[^\.]+$/i', $filename, $matches)) {
-					$ext = $matches[0];
-				}
-				$this->examples .= '<h4>' . $filename . '</h4>';
-				$this->examples .= '<pre><code class=\'' . $ext . '\'>' . htmlspecialchars($row['content']) . '</code></pre><br>';
-			}
-
-			$this->hookup = null;
 	
+		$sources = glob('../public/tafree-php/*');
+	
+		foreach ($sources as $key => $value) {
+			$filename = substr($value, strrpos($value, '/') + 1);
+			$content = file_get_contents($value);
+			$this->examples .= '<h4>' . $filename . '</h4>';
+			$this->examples .= '<pre><code>' . htmlspecialchars($content) . '</code></pre><br>';
 		}
-		catch (\PDOException $e) {
-			echo 'Error: ' . $e->getMessage() . '<br>';
-		}	
 		
 		return $this->examples;
 	

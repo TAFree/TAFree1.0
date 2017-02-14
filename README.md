@@ -2,9 +2,9 @@
 The first generation of online judge system for NTUCE.
 
 # TAFree Online Judge
-* [TAFree](http://140.112.12.112) 
-* [Instruction](http://140.112.12.112/views/Instruction.php)
-* [Bugs](http://140.112.12.112:81)
+* [TAFree](http://45.32.107.147:80) 
+* [Instruction](http://45.32.107.147:80/views/Instruction.php)
+* [Bugs](http://45.32.107.147:81)
 
 # Build
 * Latest Version  
@@ -13,8 +13,8 @@ sudo git clone -b master http://github.com/TAFree/TAFree1.0.git
 ```
 * Specified Version  
 ```
-sudo wget http://github.com/tafree/TAFree1.0/archive/1.0.0-alpha.tar.gz  
-sudo tar zxvf 1.0.0-alpha.tar.gz
+sudo wget http://github.com/tafree/TAFree1.0/archive/2.0.0-alpha.tar.gz  
+sudo tar zxvf 2.0.0-alpha.tar.gz
 ```
 # Contribute
 Please follow rules:
