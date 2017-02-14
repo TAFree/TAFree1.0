@@ -170,6 +170,28 @@ $router->match('POST', 'Expand.php', function() {
 	}
 });
 
+$router->match('GET', 'Fac_rejudge.php', function() {
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		SessionManager::setParameter('key_to_rejudge', true);
+		new Viewer('Fac_rejudge');
+	} 
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
+$router->match('POST', 'Rejudge.php', function() {
+	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_rejudge')) {
+		SessionManager::deleteParameter('key_to_rejudge');
+		new controllers\Rejudge();
+	}
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
 $router->match('GET', 'Fac_display.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		new Viewer('Fac_display');
@@ -452,7 +474,7 @@ $router->match('POST', 'StatusPoll.php', function() {
 
 $router->match('GET', 'Result.php', function() {
 	if (SessionManager::getParameter('guest') === 'student') { 
-		new Viewer('Result', $_GET['view']);
+		new Viewer('Result', $_GET['id']);
 	} 
 	else {
 		new Viewer('Sneaker');

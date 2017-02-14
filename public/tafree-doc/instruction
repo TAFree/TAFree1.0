@@ -332,11 +332,15 @@ $db_pass = '密碼';
 </pre></code>
 <p>設定MySQL使用者對Bugzilla的權限</p>
 <pre class='bash'><code>
-mysql -u root -p -e "GRANT ALL PRIVILEGES ON bugs.* TO '帳號'@'localhost' IDENTIFIED BY '密碼'"
+mysql -u root -p -e "GRANT ALL PRIVILEGES ON bugs.* TO '帳號'@'localhost"
 </code></pre>
 <p>第二次執行checksetup.pl，它會根據你設定的localconfig，來設定資料庫</p>
 <pre class='bash'><code>
 sudo ./checksetup.pl
+</code></pre>
+<h3>啟動Apache2的cgi模組</h3>
+<pre class='bash'><code>
+sudo a2enmod cgi
 </code></pre>
 <h3>測試</h3>
 <pre class='bash'><code>

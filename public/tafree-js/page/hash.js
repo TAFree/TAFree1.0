@@ -53,10 +53,6 @@ TAFree.page.Hash = (function () {
 			init.handin();
             	},
 		
-		'result': function () {
-			init.switchLayer();
-		},
-
 		'fac_display': function () {
                     	init.enableZoom();
 			init.fetchBlur();

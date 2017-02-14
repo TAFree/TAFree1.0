@@ -59,7 +59,7 @@ class LeaveApply implements IStrategy {
 			
 			// Send email to faculty
 			foreach ($this->emails as $email) {
-				$command = 'echo \'This is a student writing apply sent from TAFree. Please reply him/her via http://140.112.12.112\' | mail -s \'Student Writing Apply\' ' . $email;
+				$command = 'echo \'This is a student writing apply sent from TAFree. Please reply him/her via http://' . $_SERVER['SERVER_ADDR'] . '\' | mail -s \'Student Writing Apply\' ' . $email;
 				$handler = popen('at now + 1 minute', 'w');
 				fwrite($handler, $command);
 				fclose($handler);
