@@ -1,69 +1,70 @@
-<h1>擴充TAFree的支援</h1>
-<p>TAFree可以作為批改任何程式作業的平台，也可以被擴充為能夠接受任何批改腳本(不限腳本語言)的平台。</p>
-<p>你需要做兩件事：</p>
-<p>1. 在批改環境<strong>安裝相關的程式語言套件</strong>及<strong>擴充你習慣的批改腳本支援</strong>。</p>
-<p>2. 如果你要跟隨Ghassho方案創造你的批改環境，那麼TAFree網站上的對應操作是以Faculty身份登入，點選Expansion，為你習慣的批改腳本Plug in命令列支援。</p>
+<h1>�游�TAFree���</h1>
+<p>TAFree�臭誑雿�寞隞颱�蝔�雿平�像�堆�銋隞亥◤�游��箄憭�遙雿�寡��(銝��單隤�)�像�啜�</p>
+<p>雿�閬��拐辣鈭�</p>
+<p>1. �冽�寧憓�<strong>摰��賊���撘�閮憟辣</strong>��<strong>�游�雿�����寞�單�舀</strong>��</p>
+<p>2. 憒�雿�頝Ghassho�寞��菟���寧憓���獐TAFree蝬脩�銝�撠����臭誑Faculty頨思遢�餃嚗��睨xpansion嚗雿�����寞�單Plug in�賭誘��氬�</p>
 <br>
-<h2>安裝Ghassho(建議)</h2>
-<p>TAFree作為出題和繳交程式作業的平台網站，我們不負責處理記憶體用量，腳本執行時間，執行緒的安全性等議題，負責撰寫批改腳本的教職人員必須斟酌考慮這些要點。</p>
-<p>常見的方式是把負責執行批改腳本以及學生(解答)程式作業的工作放在一個隔離的環境中，使得主機上其他無關的系統(應用)程式及檔案結構不會受到干擾或破壞。</p>
-<p>對此，TAFree組織提供了一個可以跨平台的批改服務方案<a class='DOC_A' href='http://github.com/TAFree/Ghassho'>Ghassho</a>，它是一個執行於Docker Container的守護進程，專門聽取TAFree的後台資料庫是否還有未批改的作業，如果有就執行該次作業的批改腳本以及學生(解答)的程式。</p>
-<p>你可以在多台機器上安裝它，讓批改過程更順暢，就不用考慮上述議題，但是請留意它在計算資源方面的限制。</p>
-<h3>新增MySQL使用者</h3>
-<p>我們要新增一個使用者ghassho，他可以從其他的主機連線進來TAFreeDB。</p>
+<h2>摰�Ghassho(撱箄降)</h2>
+<p>TAFree雿�粹��像鈭斤�撘�璆剔�撟喳蝬脩�嚗���鞎痊��閮擃���單�瑁���嚗銵����冽抒�霅圈�嚗�鞎祆撖急�寡�祉��鈭箏敹������閬���</p>
+<p>撣貉��撘��鞎砍銵�寡�砌誑�飛��(閫��)蝔�雿平�極雿�其����Ｙ��啣�銝哨�雿踹�銝餅�銝隞��蝟餌絞(�)蝔���獢�瑽����啣僕�暹��游���</p>
+<p>撠迨嚗AFree蝯���鈭��隞亥楊撟喳��寞��獢�<a class='DOC_A' href='http://github.com/TAFree/Ghassho'>Ghassho</a>嚗��臭��銵Docker Container��霅琿脩�嚗���賢�TAFree���啗��澈�臬���芣�寧�雿平嚗���撠勗銵府甈∩�璆剔��寞�單隞亙�摮貊�(閫��)��撘�</p>
+<p>雿隞亙憭璈銝�鋆�嚗��寞���湧��ｇ�撠曹��刻銝膩霅圈�嚗��航���摰閮�鞈��寥���嗚�</p>
+<h3>�啣�MySQL雿輻��</h3>
+<p>���啣�銝�蝙�刻hassho嚗��臭誑敺隞�銝餅�����脖�TAFreeDB��</p>
 <pre class='bash'><code>
 mysql -u root -p
-mysql > CREATE user 'ghassho'@'%' IDENTIFIED BY '密碼';
-mysql > GRANT ALL ON TAFreeDB.* TO 'ghassho'@'%' IDENTIFIED BY '密�;
+mysql > CREATE user 'ghassho'@'%' IDENTIFIED BY '撖Ⅳ';
+mysql > GRANT ALL ON TAFreeDB.* TO 'ghassho'@'%' IDENTIFIED BY '撖�;
 </code></pre>
-<p>修改MySQL安全限制</p>
+<p>靽格MySQL摰�</p>
 <pre class='bash'><code>
 sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
 </code></pre>
-<p>請註解掉bind-address = 127.0.0.1</p>
-<p>重啟MySQL</p>
+<p>隢酉閫��bind-address = 127.0.0.1</p>
+<p>��MySQL</p>
 <pre class='bash'><code>
 sudo /etc/init.d/mysql restart
 </code></pre>
-<p>重啟Apache2</p>
+<p>��Apache2</p>
 <pre class='bash'><code>
 sudo /etc/init.d/apache2 restart
 </code></pre>
-<h3>啟動守護進程</h3>
-<p>強烈建議在Docker Container內啟動守護進程。</p>
+<h3>��摰風�脩�</h3>
+<p>撘瑞�撱箄降�求ocker Container�批���霅琿脩���</p>
 <pre><code class='bash'>
 git clone http://github.com/Tafree/Ghassho.git
 cd ./Ghassho
 sudo ./judger.sh start
 </code></pre>
 <br>
-<h2>安裝相關的程式語言套件</h2>
-<p>在Docker Container內或其他可信任的主機或是虛擬機器上安裝作業需要用到的程式語言套件。</p>
-<p>這完全根據你們的程式作業是要以哪種語言完成而定。</p>
-<h3>安裝Oracle JDK 9(可選)</h3>
+<h2>摰��賊���撘�閮憟辣</h2>
+<p>�求ocker Container�扳��嗡��臭縑隞餌�銝餅���璈銝�鋆�璆剝�閬�啁�蝔�隤�憟辣��</p>
+<p>���冽����蝔�雿平�航�隞亙蝔株�閮摰�����</p>
+<h3>摰�Oracle JDK 9(�舫)</h3>
 <pre class='bash'><code>
 sudo apt-get install python-software-properties
+sudo apt-get install software-properties-common
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java9-installer
 sudo java -version
 </code></pre>
-<p><a class='DOC_A' href='http://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get'>其他JDK</a></p>
+<p><a class='DOC_A' href='http://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get'>�嗡�JDK</a></p>
 <br>
-<h2>擴充你習慣的批改腳本支援</h2>
-<p>在Docker Container內或其他可信任的主機或是虛擬機器上安裝批改腳本需要用到的程式語言套件。</p>
-<p>這完全根據你所使用的批改腳本是以哪種語言撰寫而定。</p>
-<h3>安裝PHP及其函式庫(可選)</h3>
+<h2>�游�雿�����寞�單�舀</h2>
+<p>�求ocker Container�扳��嗡��臭縑隞餌�銝餅���璈銝�鋆�寡�祇�閬�啁�蝔�隤�憟辣��</p>
+<p>���冽���雿輻��寡�祆隞亙蝔株�閮�啣神����</p>
+<h3>摰�PHP��賢�摨�(�舫)</h3>
 <pre class='bash'><code>
 sudo apt-get install php7.0 
 </code></pre>
 <br>
-<h2>批改腳本必要執行的基本任務</h2>
-<p>這個部份在解釋一份批改腳本需要完成的任務，我們非常歡迎你們用其他語言撰寫批改腳本，然後在你們的機器上偷偷幫我們改作業XD。</p>
-<h3>認識TAFree和Ghassho的配合方式</h3>
-<h4>1. 當Ghassho的守護進程去執行從TAFree上傳的批改腳本時，預設讓它跟隨4個字串參數：<strong>某個學生的帳號</strong>，<strong>作業項目</strong>，<strong>第幾題</strong>，<strong>批改編號</strong>。</h4>
-<h4>2. 連接到MySQL</h4>
-<p>是為了得到2種字串參數：<strong>標準程式源碼</strong>和<strong>學生程式源碼</strong>，以下是你要知道的資料庫表格<strong>[作業項目]_[第幾題]</strong>的結構：</p>
+<h2>�寞�單敹��瑁���砌遙��</h2>
+<p>�隞賢閫��銝隞賣�寡�祇�閬���隞餃�嚗���撣豢迭餈���嗡�隤��啣神�寞�單嚗敺雿�璈銝�瑕鼠�雿平XD��</p>
+<h3>隤�TAFree�hassho���撘�</h3>
+<h4>1. �詖hassho��霅琿脩��餃銵�TAFree銝��寡�祆�嚗�閮剛�摰���4��銝脣��賂�<strong>�飛��撣唾�</strong>嚗�<strong>雿平�</strong>嚗�<strong>蝚砍嗾憿�</strong>嚗�<strong>�寞蝺刻�</strong>��</h4>
+<h4>2. ���衽ySQL</h4>
+<p>�舐鈭���2蝔桀�銝脣��賂�<strong>璅�蝔�皞Ⅳ</strong>��<strong>摮貊�蝔�皞Ⅳ</strong>嚗誑銝雿��仿����澈銵冽<strong>[雿平�]_[蝚砍嗾憿</strong>��瑽�</p>
 <table>
 <tr>
 <th class='TITLE_TD'>classname</th><th class='TITLE_TD'>original_source</th><th class='TITLE_TD'>b12345678</th><th class='TITLE_TD'>b22345678</th><th class='TITLE_TD'>...</th>
@@ -75,19 +76,19 @@ sudo apt-get install php7.0
 </tr>
 </table>
 <br>
-<p>是為了得到測試資料(如果題目需要的話)，以下是你要知道的資料庫表格<strong>[作業項目]_[第幾題]_testdata</strong>的結構：</p>
+<p>�舐鈭��唳葫閰西���(憒�憿�閬�閰�)嚗誑銝雿��仿����澈銵冽<strong>[雿平�]_[蝚砍嗾憿_testdata</strong>��瑽�</p>
 <table>
 <tr>
 <th class='TITLE_TD'>testdata</th><th class='TITLE_TD'>content</th>
 </tr>
 <tr>
-<td class='CONTENT_TD'>[測試資料檔名]</td><td class='CONTENT_TD'>[測試資料內容]</td>
+<td class='CONTENT_TD'>[皜祈岫鞈�瑼�]</td><td class='CONTENT_TD'>[皜祈岫鞈��批捆]</td>
 </tr>
-<td class='CONTENT_TD'>[測試資料檔名]</td><td class='CONTENT_TD'>[測試資料內容]</td>
+<td class='CONTENT_TD'>[皜祈岫鞈�瑼�]</td><td class='CONTENT_TD'>[皜祈岫鞈��批捆]</td>
 </tr>
 </table>
 <br>
-<p>是為了更新1個字串參數：<strong>批改狀態</strong>，以下是你要知道的資料庫表格<strong>[作業項目]</strong>的結構：</p>
+<p>�舐鈭��1��銝脣��賂�<strong>�寞���</strong>嚗誑銝雿��仿����澈銵冽<strong>[雿平�]</strong>��瑽�</p>
 <table>
 <tr>
 <th class='TITLE_TD'>subitem</th><th class='TITLE_TD'>b12345678</th><th class='TITLE_TD'>b22345678</th><th class='TITLE_TD'>...</th>
@@ -99,7 +100,7 @@ sudo apt-get install php7.0
 </tr>
 </table>
 <br>
-<p>所有<strong>批改狀態</strong>：</p>
+<p>���<strong>�寞���</strong>嚗�</p>
 <table>
 <tr><td class='TITLE_TD'>AC</td><td class='CONTENT_TD'>Accept</td></tr>
 <tr><td class='TITLE_TD'>NA</td><td class='CONTENT_TD'>Not Accept</td></tr>
@@ -113,15 +114,15 @@ sudo apt-get install php7.0
 <tr><td class='TITLE_TD'>SE</td><td class='CONTENT_TD'>System Error</td></tr>
 </table>
 <br>
-<p>是為了更新3個字串參數：<strong>返回畫面</strong>，<strong>批改主機名稱(或IP)</strong>，<strong>批改狀態</strong>，以下是你要知道的資料庫表格<strong>process</strong>的結構：</p>
+<p>�舐鈭��3��銝脣��賂�<strong>餈��恍</strong>嚗�<strong>�寞銝餅��迂(�P)</strong>嚗�<strong>�寞���</strong>嚗誑銝雿��仿����澈銵冽<strong>process</strong>��瑽�</p>
 <table>
 <tr><th class='TITLE_TD'>id</th><th class='TITLE_TD'>view</th><th class='TITLE_TD'>judger</th><th class='TITLE_TD'>status</th></tr>
-<tr><td class='CONTENT_TD'>[批改編號]</td><td class='CONTENT_TD'>[純文字返回畫面]</td><td class='CONTENT_TD'>[批改主機名稱(或IP)]</td><td class='CONTENT_TD'>WA</td></tr>
-<tr><td class='CONTENT_TD'>[批改編號]</td><td class='CONTENT_TD'>[純文字返回畫面]</td><td class='CONTENT_TD'>[批改主機名稱(或IP)]</td><td class='CONTENT_TD'>AC</td></tr>
+<tr><td class='CONTENT_TD'>[�寞蝺刻�]</td><td class='CONTENT_TD'>[蝝�摮���兡</td><td class='CONTENT_TD'>[�寞銝餅��迂(�P)]</td><td class='CONTENT_TD'>WA</td></tr>
+<tr><td class='CONTENT_TD'>[�寞蝺刻�]</td><td class='CONTENT_TD'>[蝝�摮���兡</td><td class='CONTENT_TD'>[�寞銝餅��迂(�P)]</td><td class='CONTENT_TD'>AC</td></tr>
 <tr><td class='CONTENT_TD'>...</td><td class='CONTENT_TD'>...</td><td class='CONTENT_TD'>...</td><td class='CONTENT_TD'>...</td></tr>
 </table>
-<p>如果批改腳本發生執行錯誤，TAFree會自動返回含有本次批改編號的錯誤訊息給Student，因此把登記批改主機名稱(或IP)當作批改腳本的初期任務將有助於追蹤發生錯誤的機器。</p>
-<p>當批改腳本正確執行時，由於回傳內容完全由批改腳本自訂，因此TAFree也是一個能夠依據不同課程目的而由教職人員設計輔助內容的平台。</p>
+<p>憒��寞�單�潛��瑁��航炊嚗AFree�����甈⊥�寧楊���航炊閮蝯吁tudent嚗�甇斗��餉��寞銝餅��迂(�P)�嗡��寞�單���遙����潸蕭頩斤�隤斤�璈��</p>
+<p>�嗆�寡�祆迤蝣箏銵�嚗�澆��喳摰孵��函�寞�單�芾�嚗�甇三AFree銋銝�憭����玨蝔��鈭箏閮剛�頛�批捆�像�啜�</p>
 <br>
-<h3>參考範例</h3>
+<h3>��靘�</h3>
 <div id='JUDGE_EXAMPLE_DIV'></div>
