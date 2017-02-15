@@ -42,8 +42,8 @@ sudo ./judger.sh start
 <p>這完全根據你們的程式作業是要以哪種語言完成而定。</p>
 <h3>安裝Oracle JDK 9(可選)</h3>
 <pre class='bash'><code>
-sudo apt-get install python-software-properties
 sudo apt-get install software-properties-common
+sudo apt-get install python-software-properties
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java9-installer
