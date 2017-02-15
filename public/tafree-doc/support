@@ -14,7 +14,7 @@
 <pre class='bash'><code>
 mysql -u root -p
 mysql > CREATE user 'ghassho'@'%' IDENTIFIED BY '密碼';
-mysql > GRANT ALL ON TAFreeDB.* TO 'ghassho'@'%';
+mysql > GRANT ALL ON TAFreeDB.* TO 'ghassho'@'%' IDENTIFIED BY '密�;
 </code></pre>
 <p>修改MySQL安全限制</p>
 <pre class='bash'><code>
