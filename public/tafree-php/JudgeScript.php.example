@@ -294,7 +294,7 @@ class Must {
 			self::$status = 'CE';
 			
 			// Configure result that will response to client side
-			$error_msg = '<h1>Your source code has compiler error</h1>' . '<pre><code>' . $student_CE . '</code></pre>';
+			$error_msg = '<h1>Your source code has compile error</h1>' . '<pre><code>' . $student_CE . '</code></pre>';
 			self::$view = Viewer::config($error_msg);
 		
 			return false;
