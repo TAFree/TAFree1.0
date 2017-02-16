@@ -30,12 +30,47 @@ sudo /etc/init.d/mysql restart
 sudo /etc/init.d/apache2 restart
 </code></pre>
 <h3>啟動守護進程</h3>
-<p>強烈建議在Docker Container內啟動守護進程。</p>
+<h4>1. 一般情況 </h4>
 <pre><code class='bash'>
-git clone http://github.com/Tafree/Ghassho.git
+sudo git clone http://github.com/Tafree/Ghassho.git
 cd ./Ghassho
+sudo mv JudgeAdapter.php.example JudgeAdapter.php
+sudo vi JudgeAdapter.php
+interface IConnectInfo {
+    const HOST = '45.32.107.147';
+    const UNAME = 'ghassho';
+    const PW = '密碼';
+    const DBNAME = 'TAFreeDB';
+    public static function doConnect();
+}
 sudo ./judger.sh start
 </code></pre>
+<h4>2. 執行於Docker Container</h4>
+<p>你可以先看<a class='DOC_A' href='http://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04'>How to install and use Docker on Ubuntu 16.04</a>，再進入正題。</p>
+<p>從Docker Hub下載我們準備好的映像檔derailment/ghassho:latest(已經裝好PHP7.0和JDK9)，並且啟動容器</p>
+<pre><code class='bash'>
+sudo docker run -it derailment/ghassho:latest
+</code></pre>
+<p>請在互動模式下按照一般情況，修改連接資料庫的設定</p>
+<pre><code class='bash'>
+cd /home/Ghassho
+mv JudgeAdapter.php.example JudgeAdapter.php
+vi JudgeAdapter.php
+</code></pre>
+<p>退出後，我們建議你把已經設定過的這個容器重新製作為新的映像檔</p>
+<p>查看容器ID</p>
+<pre><code class='bash'>
+sudo docker ps -a
+</code></pre>
+<p>以這個容器的當下狀態製作新的映像檔</p>
+<pre><code class='bash'>
+sudo docker commit -m "提交的註解" -a "作者" [容器ID] [新的映像檔名]
+</code></pre>
+<p>之後就都以新的映像檔在背景執行新的容器</p>
+<pre><code class='bash'>
+ sudo docker run -d [新的映像檔名] /bin/bash -c "cd /home/Ghassho && ./judger.sh start && while true; do sleep 1; done"
+</pre></code>
+<p>多啟動幾個容器，理論上學生提交的等待時間就會比較短。</p>
 <br>
 <h2>安裝相關的程式語言套件</h2>
 <p>在Docker Container內或其他可信任的主機或是虛擬機器上安裝作業需要用到的程式語言套件。</p>
@@ -56,7 +91,7 @@ sudo java -version
 <p>這完全根據你所使用的批改腳本是以哪種語言撰寫而定。</p>
 <h3>安裝PHP及其函式庫(可選)</h3>
 <pre class='bash'><code>
-sudo apt-get install php7.0 
+sudo apt-get install php7.0 php7.0-mysql php7.0-mcrypt
 </code></pre>
 <br>
 <h2>批改腳本必要執行的基本任務</h2>
