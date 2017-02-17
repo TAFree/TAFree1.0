@@ -56,8 +56,8 @@ class StatusPoll {
 				sleep(1);
 			}
 			
-			// Judge process exceeding time is regarded as system error
-			$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'SE\' WHERE subitem=\'' . $this->subitem . '\'');
+			// Judge process exceeding time
+			$stmt = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'TLE\' WHERE subitem=\'' . $this->subitem . '\'');
 			$stmt->execute();
 				
 			// Output error message if judge process exceeded time on other machine
