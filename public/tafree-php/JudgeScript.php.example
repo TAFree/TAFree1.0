@@ -290,7 +290,7 @@ class Must {
 		$student_CE = self::compile($student_dir);
 		if (!empty($student_CE)) {
 			
-		        // Compiler error
+		        // Compile error
 			self::$status = 'CE';
 			
 			// Configure result that will response to client side
