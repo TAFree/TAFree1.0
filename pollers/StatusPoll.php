@@ -56,14 +56,14 @@ class StatusPoll {
 				sleep(1);
 			}
 			
-			// Judge process exceeding time
-			$stmt_item = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'TLE\' WHERE subitem=\'' . $this->subitem . '\'');
+			// System error when there is no any judge client catch this submission 
+			$stmt_item = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'SE\' WHERE subitem=\'' . $this->subitem . '\'');
 			$stmt_item->execute();
-			$stmt_proc = $this->hookup->prepare('UPDATE process SET status=\'TLE\' WHERE id=\'' . $this->id . '\'');
+			$stmt_proc = $this->hookup->prepare('UPDATE process SET status=\'SE\' WHERE id=\'' . $this->id . '\'');
 			$stmt_proc->execute();
 				
-			// Output error message if judge process exceeded time on other machine
-			$error_output = 'Why did your program (' . $this->id . ') execute over ' . $this->times . ' seconds?<br><p class=\'WARN_P\'>Please make sure that your program did not include infinite loop; otherwise, please inform administer !</p>'; 
+			// Output error message
+			$error_output = 'TAFree judger are too buzy. Please inform (donate) us :)'; 
 			echo '../views/Msg.php?view=' . $error_output;
 			
 			exit();
