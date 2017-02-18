@@ -56,6 +56,16 @@ class Custom {
 			$solution_output = $this->execute($solution_dir, $value);
 			$student_output = $this->execute($student_dir, $value);
 			
+			// Check time limit from student's source code
+			if ($student_output[0] === 'TLE') { 
+				// Configure result that will response to client side
+				$error_msg = '<h1>Failed: your program executed over time limit (1 sec).</h1>';
+				Must::$view = Viewer::config($error_msg);
+				// Time limit exceed
+				Must::$status = 'TLE';
+				return;
+			}
+			
 			// Check runtime error from student's source code
 			if (!empty($student_output[2])) { 
 				// Configure result that will response to client side
@@ -105,6 +115,10 @@ class Custom {
 	}
 	
 	private function execute ($dir, $testdata) {
+		
+		// Declare output and error array
+		$out_err = array();
+
 		// Configure descriptor array
 		$desc = array (
 				0 => array ('pipe', 'r'), // STDIN for process
@@ -130,15 +144,25 @@ class Custom {
 		// Close STDIN pipe
 		fclose($pipes[0]);
 		
-		// Wait seconds
-		//usleep(1000000);
-		
-		// Kill execution process
-		//posix_kill($pid, SIGTERM);
+		// Wait seconds for executing student's source code
+		if ($dir === $this->dir_name . '/student') {
+			usleep(1000000);
+			$exitcode = proc_get_status($process)['exitcode'];
+			if ($exitcode === -1) {
+				// Kill execution process
+				posix_kill($pid, SIGTERM);
+				$out_err[0] = 'TLE';
+				return $out_err;
+			}
+			else {
+				$out_err[0] = null;
+			}
+		}
+		else {
+			$out_err[0] = null;
+		}
 		
 		// Get output of STDOUT or STDERR pipe
-		$out_err = array();
-		$out_err[0] = null;
 		$out_err[1] = stream_get_contents($pipes[1]);
 		$out_err[2] = stream_get_contents($pipes[2]);
 	
