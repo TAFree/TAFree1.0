@@ -116,9 +116,10 @@ class RawDataEntry implements IStrategy {
 				while (!feof($file)) {
 					
 					$row = fgetcsv($file);
-					
+					if (empty($row[0])) {
+						continue;
+					}	
 					$this->stu_names[$i] = $row[0];
-					
 					if (Util::anFilter($row[1])) {
 						$this->stu_accs[$i] = $row[1];
 					}
