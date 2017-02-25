@@ -57,13 +57,13 @@ class StatusPoll {
 			}
 			
 			// System error when there is no any judge client catch this submission 
+			$stmt_proc = $this->hookup->prepare('UPDATE process SET status=\'SE\', judger=\'Vacancy\' WHERE id=\'' . $this->id . '\'');
+			$stmt_proc->execute();
 			$stmt_item = $this->hookup->prepare('UPDATE ' . $this->item . ' SET ' . $this->stu_account . '=\'SE\' WHERE subitem=\'' . $this->subitem . '\'');
 			$stmt_item->execute();
-			$stmt_proc = $this->hookup->prepare('UPDATE process SET status=\'SE\' WHERE id=\'' . $this->id . '\'');
-			$stmt_proc->execute();
 				
 			// Output error message
-			$error_output = 'TAFree judger are too buzy. Please inform (donate) us :)'; 
+			$error_output = 'TAFree judger are too buzy. <p class=\'WARN_P\'>Please retry :)</p>'; 
 			echo '../views/Msg.php?view=' . $error_output;
 			
 			exit();
