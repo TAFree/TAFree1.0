@@ -89,7 +89,7 @@ sudo java -version
 <h2>擴充你習慣的批改腳本支援</h2>
 <p>在Docker Container內或其他可信任的主機或是虛擬機器上安裝批改腳本需要用到的程式語言套件。</p>
 <p>這完全根據你所使用的批改腳本是以哪種語言撰寫而定。</p>
-<h3>安裝PHP及其函式庫(可選)</h3>
+<h3>安裝PHP及其延伸模組(可選)</h3>
 <pre class='bash'><code>
 sudo apt-get install php7.0 php7.0-mysql php7.0-mcrypt
 </code></pre>
