@@ -428,6 +428,10 @@
     text-align: center;
 }
 
+.PRESENT_TD {
+	border: 1px solid #3F464C;
+}
+
 #NEWEST_TABLE {
     margin: 50px auto;
     width: 90%;
@@ -539,6 +543,8 @@
 
 .PRESENT_TH {
 	height: 5vh;
+	background-color: #2186C4;
+	color: #FFF6E5;
 }
 
 .PUT_BUTTON_DIV {

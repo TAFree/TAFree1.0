@@ -57,7 +57,7 @@ class ProblemEntry implements IStrategy {
 		$testdata_contents = $_POST['testdata_content'];
 		// i = 0 is hidden row
 		for ($i = 1; $i < count($testdata_filenames); $i += 1) {
-			if (!empty($testdata_filenames[$i]) && !empty($testdata_contents[$i])) {
+			if (!empty($testdata_filenames[$i])) {
 				$this->testdata_filenames[$i - 1] = $testdata_filenames[$i];
 				$this->testdata_contents[$i - 1] = $testdata_contents[$i];
 			}

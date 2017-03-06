@@ -60,21 +60,21 @@ EOF;
 			
 				// Load student list
 				$this->contentProduct .= '<tr><td colspan=\'2\'><table class=\'PRESENT_TABLE\'>';
-				$this->contentProduct .= '<tr><th class=\'PRESENT_TH\'>Student Name</th><th class=\'PRESENT_TH\'>Student Account</th><th class=\'PRESENT_TD\'>Closeup Time</th><th class=\'PRESENT_TH\'>Present</th></tr>';
+				$this->contentProduct .= '<tr><th class=\'PRESENT_TH\'>Student Name</th><th class=\'PRESENT_TH\'>Student Account</th><th class=\'PRESENT_TH\'>Closeup Time</th><th class=\'PRESENT_TH\'>Present</th></tr>';
 				$stmt_students = $this->hookup->prepare('SELECT * FROM student');
 				$stmt_students->execute();
 				while ($row_stu = $stmt_students->fetch(\PDO::FETCH_ASSOC)) {
 					$this->contentProduct .= '<tr>';
-					$this->contentProduct .= '<td>' . $row_stu['student_name'] . '</td>';
-					$this->contentProduct .= '<td>' . $row_stu['student_account'] . '</td>'; 
+					$this->contentProduct .= '<td class=\'PRESENT_TD\'>' . $row_stu['student_name'] . '</td>';
+					$this->contentProduct .= '<td class=\'PRESENT_TD\'>' . $row_stu['student_account'] . '</td>'; 
 					$stmt_closeup = $this->hookup->prepare('SELECT * FROM closeup WHERE item=\'' . $row_item['item'] . '\'');
 					$stmt_closeup->execute();
 					$row_time = $stmt_closeup->fetch(\PDO::FETCH_ASSOC);
-					$this->contentProduct .= '<td>' . $row_time[$row_stu['student_account']] . '</td>';
+					$this->contentProduct .= '<td class=\'PRESENT_TD\'>' . $row_time[$row_stu['student_account']] . '</td>';
 					if ($row_time[$row_stu['student_account']] === null) {
-						$this->contentProduct .= '<td><input type=\'checkbox\' class=\'HERE_CHECKBOX\'><img src=\'../public/tafree-svg/unknown.svg\' height=\'15\' width=\'15\'></td>';
+						$this->contentProduct .= '<td class=\'PRESENT_TD\'><input type=\'checkbox\' class=\'HERE_CHECKBOX\'><img src=\'../public/tafree-svg/unknown.svg\' height=\'15\' width=\'15\'></td>';
 					}else{
-						$this->contentProduct .= '<td><input type=\'checkbox\' class=\'HERE_CHECKBOX\' checked=\'true\'><img src=\'../public/tafree-svg/right.svg\' height=\'15\' width=\'15\'></td>';
+						$this->contentProduct .= '<td class=\'PRESENT_TD\'><input type=\'checkbox\' class=\'HERE_CHECKBOX\' checked=\'true\'><img src=\'../public/tafree-svg/right.svg\' height=\'15\' width=\'15\'></td>';
 					}
 					$this->contentProduct .= '</tr>';
 				}
