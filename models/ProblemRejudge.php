@@ -30,11 +30,15 @@ class ProblemRejudge implements IStrategy {
 		try {
 			
 			$this->hookup = UniversalConnect::doConnect();		
+			$stmt_stu = $this->hookup->prepare('SELECT student_account FROM student');
+			$stmt_stu->execute();
 			
-			$stmt = $this->hookup->prepare('UPDATE process SET judger=NULL WHERE item=:item AND subitem=:subitem');
-			$stmt->bindParam(':item', $this->item);
-			$stmt->bindParam(':subitem', $this->subitem);
-			$stmt->execute();
+			while ($row = $stmt_stu->fetch(\PDO::FETCH_ASSOC)) {			
+				$stmt = $this->hookup->prepare('UPDATE process SET judger=NULL WHERE item=:item AND subitem=:subitem AND student_account=\'' . $row['student_account'] . '\' ORDER BY id DESC LIMIT 1');
+				$stmt->bindParam(':item', $this->item);
+				$stmt->bindParam(':subitem', $this->subitem);
+				$stmt->execute();
+			}
 	
 			$this->hookup = null;
 
