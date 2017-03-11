@@ -170,6 +170,28 @@ $router->match('POST', 'Expand.php', function() {
 	}
 });
 
+$router->match('GET', 'Fac_plagiarism.php', function() {
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		SessionManager::setParameter('key_to_plagiarism', true);
+		new Viewer('Fac_plagiarism');
+	} 
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
+$router->match('GET', 'Plagiarism.php', function() {
+	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_plagiarism')) {
+		SessionManager::deleteParameter('key_to_plagiarism');
+		new controllers\Plagiarism();
+	}
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
 $router->match('GET', 'Fac_rejudge.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		SessionManager::setParameter('key_to_rejudge', true);
