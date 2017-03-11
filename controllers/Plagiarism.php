@@ -13,7 +13,7 @@ class Plagiarism {
 	public function __construct() {
 			
 		$trigger = new DBOperator();
-		$trigger->plagiarism();
+		$trigger->detect();
 	}
 
 }

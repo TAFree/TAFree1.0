@@ -96,8 +96,8 @@ class DBOperator {
 		$context->algorithm();
 	}
 	
-	public function plagiarism() {
-		$context = new Context(new models\SourcePlagiarism());
+	public function detect() {
+		$context = new Context(new models\PlagiarismDetector());
 		$context->algorithm();
 	}
 

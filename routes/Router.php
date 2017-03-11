@@ -22,8 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  *
- * Modified work copyright (c) 2016 Wu, Yu-Tzu <abby8050@gmail.com>
- *
  */
 
 namespace TAFree\routes;
