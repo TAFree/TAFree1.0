@@ -216,6 +216,19 @@
     text-align: center;
 }
 
+.CLICKABLE_LONG {
+    display: block;
+    background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+    color: #000000;
+    text-decoration: none;
+    width: 200px;
+    padding: 2px 1px;
+    border-radius: 5%;
+    border : 1px solid #3F464C;
+    margin: 0 auto;
+    text-align: center;
+}
+
 .CLICKABLE_LEFT {
     display: inline-block;
     background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);

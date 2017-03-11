@@ -46,7 +46,7 @@ EOF;
 					$stmt_item->execute();
 					$this->contentProduct .= '<td class=\'CONTENT_TD\'>';
 					while($row_item = $stmt_item->fetch(\PDO::FETCH_ASSOC)) {
-						$this->contentProduct .= '<a class=\'CLICKABLE\' href=\'../controllers/Plagiarism.php?item=' . $row_prob['item'] . '&subitem=' . $i . '&classname=' . $row_item['classname'] . '\'>' . $row_item['classname'] . '</a>';
+						$this->contentProduct .= '<a class=\'CLICKABLE_LONG\' href=\'../controllers/Plagiarism.php?item=' . $row_prob['item'] . '&subitem=' . $i . '&classname=' . $row_item['classname'] . '\'>' . $row_item['classname'] . '</a>';
 					}
 					$this->contentProduct .= '</td>';
 				}
