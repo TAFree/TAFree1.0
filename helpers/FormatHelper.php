@@ -57,6 +57,7 @@ EOF;
 			$this->topper .= '<a href=\'../views/Stu_record.php\' class=\'NAV_A\'>Record</a>';
 			$this->topper .= '<a href=\'../views/Stu_mail.php\' id=\'MAIL_A\' class=\'NAV_A\'>Mail<img class=\'NAV_IMG\' id=\'FLAG_IMG\' src=\'../public/tafree-svg/flag.svg\'></a>';
 			$this->topper .= '<a href=\'../views/Stu_score.php\' class=\'NAV_A\'>Score</a>';
+			$this->topper .= '<a href=\'../views/Stu_profile.php\' class=\'NAV_A\'>Profile</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
 			if (!empty($this->item)) {
 					$this->topper .= '<a href=\'../views/Stu_problem.php?item=' . $this->item . '&subitem=' . $this->subitem . '\' class=\'NAV_PROB_A\'>' . $this->item . '_' . $this->subitem . '</a>';
@@ -72,6 +73,7 @@ EOF;
 			$this->topper .= '<a href=\'../views/Fac_dashboard.php\' class=\'NAV_A\'>DashBoard</a>';
 			$this->topper .= '<a href=\'../views/Fac_rejudge.php\' class=\'NAV_A\'>Rejudge</a>';
 			$this->topper .= '<a href=\'../views/Fac_plagiarism.php\' class=\'NAV_A\'>Plagiarism</a>';
+			$this->topper .= '<a href=\'../views/Fac_profile.php\' class=\'NAV_A\'>Profile</a>';
 			$this->topper .= '<a href=\'../views/Login.php\' class=\'NAV_A\'>Logout</a>';
 			if (!empty($this->item)) {
 					$this->topper .= '<a href=\'../views/Fac_assign.php?item=' . $this->item . '&subitem=' . $this->subitem . '\' class=\'NAV_PROB_A\'>' . $this->item . '_' . $this->subitem . '</a>';

@@ -101,6 +101,11 @@ class DBOperator {
 		$context->algorithm();
 	}
 
+	public function changePassword($guest) {
+		$context = new Context(new models\PasswordUpdater($guest));
+		$context->algorithm();
+	}
+
 }
 
 ?>

@@ -192,6 +192,28 @@ $router->match('GET', 'Plagiarism.php', function() {
 	}
 });
 
+$router->match('GET', 'Fac_profile.php', function() {
+	if (SessionManager::getParameter('guest') === 'faculty') {
+		SessionManager::setParameter('key_to_profile', true);
+		new Viewer('Fac_profile');
+	} 
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
+$router->match('POST', 'FacultyProfile.php', function() {
+	if (SessionManager::getParameter('guest') === 'faculty' && SessionManager::getParameter('key_to_profile')) {
+		SessionManager::deleteParameter('key_to_profile');
+		new controllers\FacultyProfile();
+	}
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
 $router->match('GET', 'Fac_rejudge.php', function() {
 	if (SessionManager::getParameter('guest') === 'faculty') {
 		SessionManager::setParameter('key_to_rejudge', true);
@@ -453,6 +475,28 @@ $router->match('GET', 'Stu_mail.php', function() {
 		SessionManager::setParameter('key_to_apply', true);
 		new Viewer('Stu_mail');
 	} 
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
+$router->match('GET', 'Stu_profile.php', function() {
+	if (SessionManager::getParameter('guest') === 'student') {
+		SessionManager::setParameter('key_to_profile', true);
+		new Viewer('Stu_profile');
+	} 
+	else {
+		new Viewer('Sneaker');
+		exit();
+	}
+});
+
+$router->match('POST', 'StudentProfile.php', function() {
+	if (SessionManager::getParameter('guest') === 'student' && SessionManager::getParameter('key_to_profile')) {
+		SessionManager::deleteParameter('key_to_profile');
+		new controllers\StudentProfile();
+	}
 	else {
 		new Viewer('Sneaker');
 		exit();
