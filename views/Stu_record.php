@@ -59,10 +59,6 @@ EOF;
 					$this->contentProduct .= '</tr>';
 				
 				}
-
-				
-				for ($i = 1; $i <= $row_prob['number']; $i += 1){			
-				}
 					
 				$this->contentProduct .= '</table>';
 			}

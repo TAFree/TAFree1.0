@@ -35,7 +35,7 @@ class SourceWatch implements Product {
 			$stmt->execute();
 			while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
 				$this->contentProduct .= '<h1>' . $row['classname'] . '</h1>';
-				$this->contentProduct .= '<pre><code>' . $row[$this->stu_account] . '</code></pre><br>';
+				$this->contentProduct .= '<pre><code>' . htmlspecialchars($row[$this->stu_account]) . '</code></pre><br>';
 			}
 	
 			$this->hookup = null;
